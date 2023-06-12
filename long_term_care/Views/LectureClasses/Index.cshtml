@@ -1,0 +1,425 @@
+﻿@model IEnumerable<long_term_care.Models.LectureClass>
+
+@{
+    ViewData["Title"] = "Index";
+    var data = Model.OrderBy(x => x.Weeknum);
+}
+
+
+
+<body>
+    <div class="container">
+        <div class="title">
+            <h1>課程活動表</h1>
+        </div>
+        <div class="classbody">
+            <div class="time">
+                <div class="hour">
+                    <p></p>
+                </div>
+                <div class="hour">
+                    <p>7:30 - 8:30</p>
+                </div>
+                <div class="hour">
+                    <p>8:30 - 9:00</p>
+                </div>
+                <div class="hour">
+                    <p>9:00 - 9:30</p>
+                </div>
+                <div class="hour">
+                    <p>9:30 - 12:00</p>
+                </div>
+                <div class="hour">
+                    <p>12:00 - 12:10</p>
+                </div>
+                <div class="hour">
+                    <p>12:10 - 13:00</p>
+                </div>
+                <div class="hour">
+                    <p>13:00 - 16:00</p>
+                </div>
+                <div class="hour">
+                    <p>16:10 - </p>
+                </div>
+            </div>
+            <div class="weekend">
+                <div class="week">
+                    <div class="day">
+                        <p>星期一</p>
+                    </div>
+                    <div class="day">
+                        <p>星期二</p>
+                    </div>
+                    <div class="day">
+                        <p>星期三</p>
+                    </div>
+                    <div class="day">
+                        <p>星期四</p>
+                    </div>
+                    <div class="day">
+                        <p>星期五</p>
+                    </div>
+                </div>
+                <div class="morning">
+                    <div class="subject">
+                        <p>早安 (看報紙、聽音樂、吃早餐)</p>
+                    </div>
+                    <div class="subject">
+                        <p>自由時間:量血壓、菜園、讀報、散步、下棋</p>
+                    </div>
+                    <div class="subject">
+                        <p>做運動:健康操操/ 運動操 / 太極/</p>
+                    </div>
+                </div>
+
+                <div class="classA">
+                    @foreach (var item in data)
+                    {
+                        <div class="subjectA">
+                            <p>@Html.DisplayFor(modelItem => item.SchA)</p>
+                        </div>
+                    }
+                </div>
+                <div class="classB">
+                    @foreach (var item in data)
+                    {
+                        <div class="subjectB">
+                            <p>@Html.DisplayFor(modelItem => item.SchB)</p>
+                        </div>
+                    }
+                </div>
+                <div class="noon">
+                    <div class="subject">
+                        <p>餐前準備 (洗手準備用餐、午間新聞)</p>
+                    </div>
+                    <div class="subject">
+                        <p>午餐</p>
+                    </div>
+                </div>
+                <div class="classC">
+                    @foreach (var item in data)
+                    {
+                        <div class="subjectC">
+                            <p>@Html.DisplayFor(modelItem => item.SchC)</p>
+                        </div>
+                    }
+                </div>
+                <div class="classD">
+                    @foreach (var item in data)
+                    {
+                        <div class="subjectD">
+                            <p>@Html.DisplayFor(modelItem => item.SchD)</p>
+                        </div>
+                    }
+                </div>
+                <div class="afternoon">
+                    <div class="subject">
+                        <p>準備回家</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="fix">
+            <div class="fixcontent">
+                <div class="chooseweek">
+                    <p>
+                        選擇星期:
+                        <select id="week">
+                            <option value="星期一">星期一</option>
+                            <option value="星期二">星期二</option>
+                            <option value="星期三">星期三</option>
+                            <option value="星期四">星期四</option>
+                            <option value="星期五">星期五</option>
+                        </select>
+                    </p>
+                </div>
+                <div class="choosclass">
+                    <p>
+                        選擇課號:
+                        <select id="time" ">
+                            <option value="SchA">A</option>
+                            <option value="SchB">B</option>
+                            <option value="SchC">C</option>
+                            <option value="SchD">D</option>
+                        </select>
+                    </p>
+                </div>
+                <div class="content">
+                    <p>修改內容:<input type="text" id="subject"></p>
+                </div>
+            </div>
+            <div class="send">
+                <button type="button" class="btn btn-primary" id="change">修改</button>
+                <button type="button" class="btn btn-primary">返回</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+            crossorigin="anonymous"></script>
+    <script>
+        var changebtn = document.getElementById("change");
+        changebtn.addEventListener("click",function(){
+            var week = document.getElementById("week").value;
+            var time = document.getElementById("time").value;
+            var subject = document.getElementById("subject").value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/LectureClasses/Index", true);
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+            // 將selectedValue轉換為JSON格式
+            var data = {
+                Week: week,
+                Time: time,
+                Subject: subject
+            }
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                    // 請求成功，執行相應的處理邏輯
+                    var response = JSON.parse(xhr.responseText);
+                    location.reload();
+                }
+            };
+            xhr.send(JSON.stringify(data));
+        })
+
+    </script>
+</body>
+<style>
+    .container {
+        background-color: #CBE9EA;
+        display: flex;
+        flex-wrap: wrap;
+        margin: auto;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .title {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .classbody {
+        width: 100%;
+        background-color: #F1FFFF;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        border-radius: 20px;
+    }
+
+    .time {
+        width: 20%;
+    }
+
+    .weekend {
+        width: 80%;
+    }
+
+    .week {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .day {
+        width: 15%;
+        height: 50px;
+        margin: 2%;
+        background-color: #F9D4D4;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .hour {
+        width: 75%;
+        height: 50px;
+        background-color: #FFCBBB;
+        border-radius: 20px;
+        margin: 13.5%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .hour:nth-child(n+6) {
+            margin: 15.75%;
+        }
+
+        .hour:first-child {
+            background-color: #F1FFFF;
+        }
+
+        .hour:nth-child(5n) {
+            height: 150px;
+        }
+
+        .hour:nth-child(8n) {
+            height: 150px;
+        }
+
+    .morning {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .noon {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .afternoon {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .subject {
+        width: 100%;
+        height: 50px;
+        background-color: #FFF0EB;
+        border-radius: 20px;
+        margin: 2%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    p {
+        text-align: center;
+    }
+
+    .classA {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .classB {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        ;
+    }
+
+    .classC {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        ;
+    }
+
+    .classD {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        ;
+    }
+
+    .subjectA {
+        width: 15%;
+        height: 50px;
+        margin: 2%;
+        background-color: #FFF0EB;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .subjectB {
+        width: 15%;
+        height: 50px;
+        margin: 2%;
+        background-color: #FFF0EB;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .subjectC {
+        width: 15%;
+        height: 50px;
+        margin: 2%;
+        background-color: #FFF0EB;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .subjectD {
+        width: 15%;
+        height: 50px;
+        margin: 2%;
+        background-color: #FFF0EB;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .fix {
+        width: 100%;
+        height: 300px;
+        background-color: #9AC5C5;
+        display: flex;
+        flex-wrap: wrap;
+        border-radius: 20px;
+        justify-content: end;
+    }
+
+    .fixcontent {
+        width: 100%;
+        margin: 5%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        border-radius: 20px;
+    }
+
+        .fixcontent select {
+            width: 150px;
+            /* 調整寬度 */
+            height: 40px;
+            /* 調整高度 */
+            font-size: 16px;
+            /* 調整字體大小 */
+        }
+
+
+    .content text {
+        width: 150px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .send {
+        display: flex;
+    }
+
+        .send button {
+            width: 150px;
+            height: 40px;
+            font-size: 16px;
+            margin: 3%;
+        }
+</style>
+</html>
+

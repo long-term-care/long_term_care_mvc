@@ -1,0 +1,925 @@
+﻿@model IEnumerable<long_term_care.Models.CaseInfor>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<body>
+
+    <div id="fullscreen-image">
+        <h2 id="register">註冊</h2>
+        <h4 id="identity">請選擇身分</h4>
+        <div class="section">
+            <button id="volunteer">志工</button>
+            <button id="elder">長者</button>
+        </div>
+    </div>
+
+
+    <!-- messageBox -->
+    <!-- Volunteer -->
+    <div id="volunteerMsgBox" class="hidden">
+        <div class="container">
+            <div class="title">
+                <h3>註冊</h3>
+                <div class="knownAs">
+                    <p>照護人員</p>
+                </div>
+                <button class="closeMessageBox" id="closeVolunteer" type="submit">&#x2716;</button>
+            </div>
+            <hr>
+            <form class="volunteer">
+                <div class="row">
+                    <div class="col-4">
+                        <input type="text" placeholder="&nbsp;&nbsp;單位名稱" required id="memunitname">
+                    </div>
+                    <div class="col-4">
+                        <input type="text" placeholder="&nbsp;&nbsp;單位編號" required id="memunitid">
+                    </div>
+                    <div class="col-4">
+                        <input type="text" placeholder="&nbsp;&nbsp;員工證號碼" required id="memid">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <input type="text" placeholder="&nbsp;&nbsp;姓氏" required id="memlastname">
+                    </div>
+                    <div class="col-3">
+                        <input type="text" placeholder="&nbsp;&nbsp;名字" required id="memfirstname">
+                    </div>
+                    <div class="col-3">
+                        <select id="memgender" required>
+                            <option value="na">性別</option>
+                            <option value="男">男</option>
+                            <option value="女">女</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <select id="memeducationLevel" required>
+                            <option value="na">教育程度</option>
+                            <option value="不識字">不識字</option>
+                            <option value="自修">自修</option>
+                            <option value="國小">國小</option>
+                            <option value="國中">國中</option>
+                            <option value="高中職">高中職</option>
+                            <option value="專科">專科</option>
+                            <option value="大學">大學</option>
+                            <option value="研究所以上">研究所以上</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <h6>出生日期</h6>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <select class="yearSelect" required id="memyear"></select>
+                    </div>
+                    <div class="col-3">
+                        <select class="monthSelect" required id="memmonth">
+                            <option value="na">月份</option>
+                            <option value="1">一月</option>
+                            <option value="2">二月</option>
+                            <option value="3">三月</option>
+                            <option value="4">四月</option>
+                            <option value="5">五月</option>
+                            <option value="6">六月</option>
+                            <option value="7">七月</option>
+                            <option value="8">八月</option>>
+                            <option value="9">九月</option>
+                            <option value="10">十月</option>
+                            <option value="11">十一月</option>
+                            <option value="12">十二月</option>
+
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <select class="daySelect" required id="memday"></select>
+                    </div>
+                    <div class="col-3">
+                        <select id="memlistidentity" required>
+                            <option value="na">身份別</option>
+                            <option value="Low-income">低收入戶</option>
+                            <option value="near-poor">中低收入戶</option>
+                            <option value="normal">一般戶老人</option>
+                            <option value="solitary">獨居老人</option>
+                            <option value="handicapped">身心障礙者</option>
+                            <option value="others">其他</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <input type="text" placeholder="&nbsp;&nbsp;身分證" required id="memidcard">
+                    </div>
+                    <div class="col-4">
+                        <input type="tel" placeholder="&nbsp;&nbsp;電話" required id="memtel">
+                    </div>
+                    <div class="col-4">
+                        <input type="tel" placeholder="&nbsp;&nbsp;手機" required id="memphone">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <input type="text" placeholder="&nbsp;&nbsp;專長" required id="expertise">
+                    </div>
+                    <div class="col-4">
+                        <input type="password" placeholder="&nbsp;&nbsp;密碼" required id="mempassword">
+                    </div>
+                    <div class="col-4">
+                        <input type="password" placeholder="&nbsp;&nbsp;密碼確認" required id="mempasswordcheck">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <input type="text" placeholder="&nbsp;&nbsp;服務據點" required id="serviceaddress">
+                    </div>
+                    <div class="col-6">
+                        <input type="text" placeholder="&nbsp;&nbsp;地址" required id="memaddress">
+                    </div>
+                    <div class="col-2">
+                        <input type="text" placeholder="&nbsp;&nbsp;交通工具" required id="transportation">
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="boxL">
+                        <div class="grid-container">
+                            <div class="grid-item">
+                                <h6>證照</h6>
+                                <input type="text" class="boxes" required id="license">
+                            </div>
+                            <div class="grid-item">
+                                <h6>提供服務</h6>
+                                <input type="text" class="boxes" placeholder="&nbsp;&nbsp;簡短概述" required id="service">
+                            </div>
+                            <div class="grid-item">
+                                <h6>加入動機</h6>
+                                <input type="text" class="boxes" placeholder="&nbsp;&nbsp;簡短概述" required id="motivation">
+                            </div>
+                            <div class="grid-item">
+                                <h6>服務紀錄</h6>
+                                <input type="text" class="boxes" required id="record">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxR">
+                        <h6>經驗</h6>
+                        <input type="text" id="exp" required>
+                    </div>
+                </div>
+                <div class="vReadyToSubmit">
+                    <button class="closeMessageBox" type="submit" id="memberbtn">註冊</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Elder -->
+    <div id="elderMsgBox" class="hidden">
+        <div class="container">
+            <div class="title">
+                <h3>註冊</h3>
+                <div class="knownAs">
+                    <p>長者</p>
+                </div>
+                <button class="closeMessageBox" id="closeElder" type="submit">&#x2716;</button>
+            </div>
+            <hr>
+            <form class="elder">
+                <div class="row">
+                    <div class="col-3">
+                        <input type="text" id="unitname" placeholder="&nbsp;&nbsp;單位名稱" required>
+                    </div>
+                    <div class="col-3">
+                        <input type="text" placeholder="&nbsp;&nbsp;單位編號" required id="unitid">
+                    </div>
+                    <div class="col-3">
+                        <input type="text" placeholder="&nbsp;&nbsp;個案編號" required id="id">
+                    </div>
+                    <div class="col-3">
+                        <input type="text" placeholder="&nbsp;&nbsp;個案來源" required id="source">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <input type="text" placeholder="&nbsp;&nbsp;姓氏" required id="lastname">
+                    </div>
+                    <div class="col-3">
+                        <input type="text" placeholder="&nbsp;&nbsp;名字" required id="firstname">
+                    </div>
+                    <div class="col-3">
+                        <select id="gender" required>
+                            <option value="na">性別</option>
+                            <option value="男">男</option>
+                            <option value="女">女</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <select id="educationLevel" required>
+                            <option value="na">教育程度</option>
+                            <option value="不識字">不識字</option>
+                            <option value="自修">自修</option>
+                            <option value="國小">國小</option>
+                            <option value="國中">國中</option>
+                            <option value="高中職">高中職</option>
+                            <option value="專科">專科</option>
+                            <option value="大學">大學</option>
+                            <option value="研究所以上">研究所以上</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <h6>出生日期</h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <select class="yearSelect" required id="year"></select>
+                    </div>
+                    <div class="col-3">
+                        <select class="monthSelect" required id="month">
+                            <option value="na">月份</option>
+                            <option value="1">一月</option>
+                            <option value="2">二月</option>
+                            <option value="3">三月</option>
+                            <option value="4">四月</option>
+                            <option value="5">五月</option>
+                            <option value="6">六月</option>
+                            <option value="7">七月</option>
+                            <option value="8">八月</option>>
+                            <option value="9">九月</option>
+                            <option value="10">十月</option>
+                            <option value="11">十一月</option>
+                            <option value="12">十二月</option>
+
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <select class="daySelect" required id="day"></select>
+                    </div>
+                    <div class="col-1">
+                        <select id="language" required>
+                            <option value="na">語言</option>
+                            <option value="國語">國語</option>
+                            <option value="英語">英語</option>
+                            <option value="台語">台語</option>
+                            <option value="客語">客語</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <select id="culture" required>
+                            <option value="na">信仰</option>
+                            <option value="道教">道教</option>
+                            <option value="天主教">天主教</option>
+                            <option value="基督教">基督教</option>
+                            <option value="佛教">佛教</option>
+                            <option value="伊斯蘭教">伊斯蘭教</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <input type="text" placeholder="&nbsp;&nbsp;身分證" required id="idcard">
+                    </div>
+                    <div class="col-4">
+                        <input type="password" placeholder="&nbsp;&nbsp;密碼" required id="password">
+                    </div>
+                    <div class="col-4">
+                        <input type="password" placeholder="&nbsp;&nbsp;密碼確認" required id="passwordcheck">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <select id="marital-status" required>
+                            <option value="na">婚姻狀況</option>
+                            <option value="未婚">未婚</option>
+                            <option value="已婚">已婚</option>
+                            <option value="分居">分居</option>
+                            <option value="喪偶">喪偶</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <input type="text" placeholder="&nbsp;&nbsp;聯絡人" required id="family">
+                    </div>
+                    <div class="col-2">
+                        <select id="relationship" required>
+                            <option value="na">聯絡人關係</option>
+                            <option value="父親">父親</option>
+                            <option value="母親">母親</option>
+                            <option value="夫妻">夫妻</option>
+                            <option value="子女">子女</option>
+                            <option value="兄弟">兄弟</option>
+                            <option value="姐妹">姐妹</option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <input type="tel" placeholder="&nbsp;&nbsp;聯絡人電話" required id="familyphone">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <input type="tel" placeholder="&nbsp;&nbsp;長者居住地址" required id="address">
+                    </div>
+                    <div class="col-6">
+                        <input type="text" placeholder="&nbsp;&nbsp;聯絡人地址" required id="familyaddress">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <select id="family-status" required>
+                            <option value="na">家庭狀況</option>
+                            <option value="核心家庭">核心家庭</option>
+                            <option value="大家庭">大家庭</option>
+                            <option value="單親家庭">單親家庭</option>
+                            <option value="繼親">繼親</option>
+                            <option value="隔代教養">隔代教養</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <select id="listidentity" required>
+                            <option value="na">身份別</option>
+                            <option value="低收入戶">低收入戶</option>
+                            <option value="中低收入戶">中低收入戶</option>
+                            <option value="一般戶老人">一般戶老人</option>
+                            <option value="獨居老人">獨居老人</option>
+                            <option value="身心障礙者">身心障礙者</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <select id="listeconomy" required>
+                            <option value="na">經濟來源</option>
+                            <option value="無">無</option>
+                            <option value="子女奉養">子女奉養</option>
+                            <option value="政府補助">政府補助</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <input type="text" placeholder="&nbsp;&nbsp;工作" required id="work">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <select id="health" required>
+                            <option value="na">身體狀況</option>
+                            <option value="正常">正常</option>
+                            <option value="輕微系統疾病但無功能障礙">輕微系統疾病但無功能障礙</option>
+                            <option value="中等至嚴重程度的系統疾病且導致某些功能障礙">中等至嚴重程度的系統疾病且導致某些功能障礙</option>
+                            <option value="嚴重程度的系統疾病且無法自理">嚴重程度的系統疾病且無法自理</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <select id="factly" required>
+                            <option value="na">輔助器具</option>
+                            <option value="無">無 </option>
+                            <option value="助聽器 ">助聽器 </option>
+                            <option value="輪椅">輪椅</option>
+                            <option value="助行器">助行器</option>
+                            <option value="柺杖">柺杖</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <select id="activity-type" required>
+                            <option value="na">活動型態</option>
+                            <option value="完全自理">完全自理</option>
+                            <option value="部分自理">部分自理</option>
+                            <option value="完全無法自理">完全無法自理</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <select id="house-condition" required>
+                            <option value="na">屋況</option>
+                            <option value="自有住宅">自有住宅</option>
+                            <option value="租賃">租賃</option>
+                            <option value="借住">借住</option>
+                            <option value="臨時住屋">臨時住屋</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <h6>興趣與專長</h6>
+                        <input type="text" class="elderBoxes" placeholder="&nbsp;&nbsp;簡短概述三項" required id="interest">
+                    </div>
+                    <div class="col-4">
+                        <h6>主觀問題</h6>
+                        <input type="text" class="elderBoxes" placeholder="&nbsp;&nbsp;簡短概述" required id="question">
+                    </div>
+                    <div class="col-4">
+                        <h6>補充陳述</h6>
+                        <input type="text" class="elderBoxes" placeholder="&nbsp;&nbsp;簡短概述" required id="replenish">
+                    </div>
+                </div>
+                <div class="eReadyToSubmit">
+                    <button class="closeMessageBox" id="sendbtn">註冊</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        var sendbtn = document.getElementById("sendbtn")
+        sendbtn.addEventListener("click", function (event) {
+            event.preventDefault();
+            var unitname = document.getElementById("unitname").value;
+            var unitid = document.getElementById("unitid").value;
+            var id = document.getElementById("id").value;
+            var source = document.getElementById("source").value;
+            var lastname = document.getElementById("lastname").value;
+            var firstname = document.getElementById("firstname").value;
+            var gender = document.getElementById("gender").value;
+            var educationLevel = document.getElementById("educationLevel").value;
+            var year = document.getElementById("year").value;
+            var month = document.getElementById("month").value;
+            var day = document.getElementById("day").value;
+            var language = document.getElementById("language").value;
+            var culture = document.getElementById("culture").value;
+            var idcard = document.getElementById("idcard").value;
+            var password = document.getElementById("password").value;
+            var passwordcheck = document.getElementById("passwordcheck").value;
+            var marital_status = document.getElementById("marital-status").value;
+            var family = document.getElementById("family").value;
+            var relationship = document.getElementById("relationship").value;
+            var familyphone = document.getElementById("familyphone").value;
+            var address = document.getElementById("address").value;
+            var familyaddress = document.getElementById("familyaddress").value;
+            var family_status = document.getElementById("family-status").value;
+            var listidentity = document.getElementById("listidentity").value;
+            var listeconomy = document.getElementById("listeconomy").value;
+            var work = document.getElementById("work").value;
+            var health = document.getElementById("health").value;
+            var activity_type = document.getElementById("activity-type").value;
+            var house_condition = document.getElementById("house-condition").value;
+            var interest = document.getElementById("interest").value;
+            var question = document.getElementById("question").value;
+            var replenish = document.getElementById("replenish").value;
+            var factly = document.getElementById("factly").value;
+            var Name = lastname + firstname;
+            var RegTime = new Date();
+            var bd = year + "/" + month + "/" + day;
+
+            if (password == passwordcheck) {
+                console.log("Button clicked");
+
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/Main/Caseinfor", true);
+                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+                // 將selectedValue轉換為JSON格式
+                var data = {
+                    "type": 2,
+                    "CaseNo": id,
+                    "CaseUnitName": unitname,
+                    "CaseUnitNum": unitid,
+                    "CaseName": Name,
+                    "CaseIdcard": idcard,
+                    "CasePassword": password,
+                    "CaseGender": gender,
+                    "CaseRelig": culture,
+                    "CaseBd": bd,
+                    "CaseLang": language,
+                    "CaseSource": source,
+                    "CaseWork": work,
+                    "CaseProf": interest,
+                    "CaseEdu": educationLevel,
+                    "CaseAddr": address,
+                    "CaseHouse": house_condition,
+                    "CaseIdent": listidentity,
+                    "CaseFund": listeconomy,
+                    "CaseHealth": health,
+                    "CaseActv": activity_type,
+                    "CaseFactly": factly,
+                    "CaseMari": marital_status,
+                    "CaseCnta": family,
+                    "CaseCntTel": familyphone,
+                    "CaseCntRel": relationship,
+                    "CaseCntAdd": familyaddress,
+                    "CaseFami": family_status,
+                    "CaseQues": question,
+                    "CaseDesc": replenish,
+                    "CaseRegName": Name,
+                    "CaseRegTime": RegTime,
+                }
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                        // 請求成功，執行相應的處理邏輯
+                        var response = JSON.parse(xhr.responseText);
+                        alert("註冊成功");
+                        location.reload();
+                    }
+
+                };
+                xhr.send(JSON.stringify(data));
+            }
+            else {
+                alert("密碼不一致")
+            }
+
+        })
+    </script>
+    <script>
+        var memberbtn = document.getElementById("memberbtn")
+        memberbtn.addEventListener("click", function (event) {
+            event.preventDefault();
+            var unitname = document.getElementById("memunitname").value;
+            var unitid = document.getElementById("memunitid").value;
+            var id = document.getElementById("memid").value;
+            var lastname = document.getElementById("memlastname").value;
+            var firstname = document.getElementById("memfirstname").value;
+            var gender = document.getElementById("memgender").value;
+            var educationLevel = document.getElementById("memeducationLevel").value;
+            var year = document.getElementById("memyear").value;
+            var month = document.getElementById("memmonth").value;
+            var day = document.getElementById("memday").value;
+            var idcard = document.getElementById("memidcard").value;
+            var password = document.getElementById("mempassword").value;
+            var passwordcheck = document.getElementById("mempasswordcheck").value;
+            var address = document.getElementById("memaddress").value;
+            var tel = document.getElementById("memtel").value;
+            var phone = document.getElementById("memphone").value;
+            var listidentity = document.getElementById("memlistidentity").value;
+            var expertise = document.getElementById("expertise").value;
+            var serviceaddress = document.getElementById("serviceaddress").value;
+            var transportation = document.getElementById("transportation").value;
+            var license = document.getElementById("license").value;
+            var service = document.getElementById("service").value;
+            var motivation = document.getElementById("motivation").value;
+            var record = document.getElementById("record").value;
+            var exp = document.getElementById("exp").value;
+
+            var Name = lastname + firstname;
+            var bd = year + "/" + month + "/" + day;
+
+            if (password == passwordcheck) {
+                console.log("Button clicked");
+
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/Main/Caseinfor", true);
+                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+                // 將selectedValue轉換為JSON格式
+                var data = {
+                    "type": 1,
+                    "MemSid": id,
+                    "MemUnitName": unitname,
+                    "MemUnitNum": unitid,
+                    "MemName": Name,
+                    "MemUid": idcard,
+                    "MemPassword": password,
+                    "MemGender": gender,
+                    "MemBd": bd,
+                    "MemTphone": tel,
+                    "MemMphone": phone,
+                    "MemAddress": address,
+                    "MemSite": serviceaddress,
+                    "MemProf": expertise,
+                    "MemCert": license,
+                    "MemTrans": transportation,
+                    "MemExpr": exp,
+                    "MemMovt": motivation,
+                    "MemPserv": service,
+                    "MemIdent": listidentity,
+                    "MemSerRec": record,
+                    "MemEdu": educationLevel
+                }
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                        // 請求成功，執行相應的處理邏輯
+                        var response = JSON.parse(xhr.responseText);
+                        alert("註冊成功");
+                    }
+
+                };
+                xhr.send(JSON.stringify(data));
+            }
+
+        })
+    </script>
+    <script>
+        $(document).ready(function () {
+            closeMessageBox
+            var volunteerMsgBox = $('#volunteerMsgBox');
+            var elderMsgBox = $('#elderMsgBox');
+            var translucentOverlay = '<div class="translucent-overlay"></div>';
+            var messageBox = $('#messageBox');
+            var message_Box = $('.message-box');
+
+
+            $('#volunteer, #elder').on('click', function () {
+                var id = $(this).attr('id');
+                var otherId = (id === 'volunteer') ? 'elder' : 'volunteer';
+                $('#fullscreen-image').css('background-image', 'src("~/image/background.png")');
+                $('#register, #identity').addClass('hidden');
+                volunteerMsgBox.toggleClass('hidden', id !== 'volunteer').toggleClass('large', id === 'volunteer');
+                elderMsgBox.toggleClass('hidden', id !== 'elder').toggleClass('large', id === 'elder');
+                $(this).add('#' + otherId).hide();
+                $('body').append(translucentOverlay);
+            });
+            $('#close, #closeVolunteer, #closeElder').on('click', function () {
+                closeMessageBox();
+            });
+
+            function closeMessageBox() {
+                volunteerMsgBox.addClass('hidden');
+                elderMsgBox.addClass('hidden');
+                message_Box.fadeOut();
+                messageBox.fadeOut();
+                $('.translucent-overlay').remove();
+            }
+            $('.closeMessageBox').click(function (e) {
+                e.preventDefault();
+                var valid = true;
+                $('input[required]').each(function () {
+                    if ($(this).val() === '') {
+                        valid = false;
+                        return false;
+                    }
+                });
+                if ($('option').val() === 'na') {
+                    valid = false;
+                }
+                if (valid) {
+                    $(this).closest('.container').parent().addClass('hidden');
+                }
+            });
+
+
+            var currentYear = new Date().getFullYear();
+            var startYear = currentYear - 112;
+            var endYear = currentYear + 112;
+            var yearSelect = $('.yearSelect');
+            for (var year = startYear; year <= endYear; year++) {
+                yearSelect.append($('<option>', {
+                    value: year,
+                    text: year
+                }));
+            }
+
+            var daysInMonth = 31;
+            var daySelect = $('.daySelect');
+            for (var day = 1; day <= daysInMonth; day++) {
+                daySelect.append($('<option>', {
+                    value: day,
+                    text: day
+                }));
+            }
+
+            $('#renewPassword').click(function () {
+                $('body').append(translucentOverlay);
+                messageBox.fadeIn().addClass('large');
+            });
+        });
+
+
+    </script>
+</body>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+
+    /* EntryPage */
+    #fullscreen-image {
+        background-color: #CBE9EA;
+        background-size: cover;
+        background-position: center;
+        width: 100%;
+        height: 100%;
+        margin: auto;
+    }
+
+        #fullscreen-image > h2 {
+            text-align: start;
+            font-size: 50px;
+            font-weight: 300;
+            color: #fff;
+            padding: 30px 0 0 80px;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        #fullscreen-image > h4 {
+            text-align: start;
+            font-size: 28px;
+            font-weight: 100;
+            color: #afadad;
+            margin: 0;
+            padding: 5px 0 0 80px;
+        }
+
+    .section {
+        display: flex;
+        flex-flow: column wrap;
+        align-items: center;
+        height: 100%;
+    }
+
+    #fullscreen-image .section > button {
+        margin: 50px;
+    }
+
+    #volunteer, #elder {
+        transition: all 0.3s ease-in-out;
+    }
+
+    #volunteer, #elder {
+        font-size: 34px;
+        width: 280px;
+        height: 170px;
+        border-radius: 50px;
+        background-color: #f6c3d2;
+        box-shadow: 0 20px 30px -6px rgba(64, 153, 201, 0.5);
+        outline: none;
+        cursor: pointer;
+        border: none;
+        color: rgb(241, 240, 240);
+    }
+
+        #volunteer:hover, #elder:hover {
+            transform: translateY(3px);
+            box-shadow: none;
+        }
+
+        #volunteer:active, #elder:active {
+            opacity: 0.5;
+        }
+
+    .hidden {
+        display: none;
+    }
+
+    .translucent-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(169, 167, 167, 0.5);
+        z-index: 9999; /* Ensure the overlay appears on top of other elements */
+    }
+
+    #volunteerMsgBox, #elderMsgBox {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background-color: #fff;
+        z-index: 10000; /* Ensure the message box appears on top of the overlay */
+    }
+
+    /* RegisterPage */
+
+    /* volunteer */
+    .large {
+        width: 95%;
+        height: 95%;
+        border-radius: 10px;
+    }
+
+    .container {
+        position: relative;
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+    }
+
+    .title {
+        display: flex;
+        align-content: flex-end;
+    }
+
+    .knownAs {
+        width: 5.4%;
+        height: 44%;
+        border-radius: 10px;
+        background-color: rgb(68, 154, 224);
+        color: #FFFFFF;
+        margin: 10px 0 0 10px;
+        text-align: center;
+    }
+
+        .knownAs p {
+            font-size: 13px;
+            position: relative;
+            padding: 2px;
+        }
+
+    hr {
+        margin-top: 0em !important;
+        margin-bottom: 1em !important;
+        border-width: 1px;
+    }
+
+    #close, #closeVolunteer, #closeElder {
+        color: gray;
+        background-color: transparent;
+        border: none;
+        font-size: 25px;
+        position: absolute;
+        right: 0;
+    }
+
+    .row {
+        margin: 13.5px 0;
+    }
+
+    input, select {
+        position: relative;
+        height: 35px;
+        background: rgba(240, 236, 236, 0.68);
+        border: 1px solid #686868;
+        border-radius: 10px;
+    }
+
+        input:not(.boxes), select {
+            width: 100%;
+        }
+
+    .box {
+        display: flex;
+    }
+
+    .boxL {
+        float: left;
+        width: 100%;
+    }
+
+    .boxR {
+        float: right;
+    }
+
+        .boxR #exp {
+            width: 400px;
+            height: 85%;
+        }
+
+    .boxL .boxes {
+        width: 100%;
+    }
+
+    .grid-container {
+        width: 97%;
+        height: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .grid-item {
+        background-color: transparent;
+        padding: 0px;
+    }
+
+    .vReadyToSubmit, .eReadyToSubmit {
+        margin: auto;
+        text-align: center;
+    }
+
+        .vReadyToSubmit button {
+            margin: 20px;
+        }
+
+        .eReadyToSubmit button {
+            margin: 0;
+        }
+
+    .closeMessageBox:not(#closeVolunteer):not(#closeElder):not(#close) {
+        transition: all 0.3s ease-in-out;
+        font-size: 20px;
+        width: 170px;
+        height: 50px;
+        border-radius: 50px;
+        background-color: #4CAF50;
+        box-shadow: 0 20px 30px -6px rgba(64, 201, 89, 0.5);
+        outline: none;
+        cursor: pointer;
+        border: none;
+        color: white;
+    }
+
+    .closeMessageBox:hover:not(#closeVolunteer):not(#closeElder):not(#close) {
+        transform: translateY(3px);
+        box-shadow: none;
+    }
+
+    .closeMessageBox:active:not(#closeVolunteer):not(#closeElder):not(#close) {
+        opacity: 0.6;
+    }
+
+    input:focus, select:focus {
+        outline: none;
+    }
+
+</style>
+
+
