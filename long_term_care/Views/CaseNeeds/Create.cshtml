@@ -1,0 +1,265 @@
+﻿@model long_term_care.Models.CaseNeed
+
+
+@{
+    ViewData["Title"] = "Create";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/ElderCareEdit.css" asp-append-version="true" />
+</head>
+<body>
+<div class="container-fluid">
+    <div class="insideBox">
+        <h3>社區長者需求調查</h3>
+        <div class="row">
+            <div class="col-md-12">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                     <div class="form-group" style="float: right;">
+                        <!--CaseNeedId 是問卷編號 --->
+                        <span class="ord">
+                            <label asp-for="CaseNeedId" class="control-label">問卷編號<input id="orderNumberInput" asp-for="CaseNeedId" class="form-control" style="background-color: transparent; border: none; outline: none;" /></label>
+                            <span asp-validation-for="CaseNeedId" class="text-danger"></span>
+                        </span>
+                    </div>
+                    <div class="form-group ElderIDInput">
+                        <!--Must Same--->
+                        <label asp-for="CaseNo" class="control-label">個案編號: <input asp-for="CaseNo" class="form-control" type="text" /></label>
+                        <span asp-validation-for="CaseNo" class="text-danger"></span>
+                    </div>
+                    <div class="row align-items-start">
+                        <div class="form-group col">
+                            <label asp-for="CaseRead" class="control-label">識字:&nbsp;</label>
+                            <input type="radio" asp-for="CaseRead" value="是" id="caseReadYes" />
+                            <label for="CaseReadYes">是</label>
+                            <input type="radio" asp-for="CaseRead" value="否" id="caseReadNo" />
+                            <label for="caseReadNo">否</label>
+                            <span asp-validation-for="CaseRead" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col">
+                            <label asp-for="CaseFami" class="control-label">居住情形:&nbsp;</label>
+                            <input type="radio" asp-for="CaseFami" value="獨居" id="caseFamiYes" />
+                            <label for="caseFamiYes">獨居</label>
+                            <input type="radio" asp-for="CaseFami" value="與家人同住" id="caseFamiNo" />
+                            <label for="caseFamiNo">與家人同住</label>
+                            <span asp-validation-for="CaseFami" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row align-items-start">
+                        <h6 style="padding-top: 10px;">健康狀況</h6>
+                        <div class="col">
+                            <ul>
+                                <li class="form-group">
+                                    <label asp-for="CaseCons" class="control-label">意識清楚:&nbsp;</label>
+                                    <input type="radio" asp-for="CaseCons" value="是" id="caseConsYes" />
+                                    <label for="caseConsYes">是</label>
+                                    <input type="radio" asp-for="CaseCons" value="否" id="caseConsNo" />
+                                    <label for="caseConsNo">否</label>
+                                    <span asp-validation-for="CaseCons" class="text-danger"></span>
+                                </li>
+                                <li class="form-group">
+                                    <label asp-for="CaseSpeak" class="control-label">說話清楚: &nbsp;</label>
+                                    <input type="radio" asp-for="CaseSpeak" value="是" id="caseSpeakYes" />
+                                    <label for="caseSpeakYes">是</label>
+                                    <input type="radio" asp-for="CaseSpeak" value="否" id="caseSpeakNo" />
+                                    <label for="caseSpeakNo">否</label>
+                                    <span asp-validation-for="CaseSpeak" class="text-danger"></span>
+                                </li>
+                                <li class="form-group">
+                                    <label asp-for="CaseAct" class="control-label">協助行動:&nbsp;</label>
+                                    <input type="radio" asp-for="CaseAct" value="是" id="caseActYes" />
+                                    <label for="caseActYes">是</label>
+                                    <input type="radio" asp-for="CaseAct" value="否" id="caseActNo" />
+                                    <label for="caseActNo">否</label>
+                                    <span asp-validation-for="CaseAct" class="text-danger"></span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col">
+                            <ul>
+                                <li class="form-group">
+                                    <label asp-for="CaseSee" class="control-label"> 視力:&nbsp;</label>
+                                    <input type="radio" asp-for="CaseSee" value="清楚" id="SeeL1" />
+                                    <label for="SeeL1">清楚</label>
+                                    <input type="radio" asp-for="CaseSee" value="有點老花" id="SeeL2" />
+                                    <label for="SeeL2">有點老花</label>
+                                    <input type="radio" asp-for="CaseSee" value="很模糊" id="SeeL3" />
+                                    <label for="SeeL3">很模糊</label>
+                                    <span asp-validation-for="CaseSee" class="text-danger"></span>
+                                </li>
+                                <li class="form-group">
+                                    <label asp-for="CaseHear" class="control-label">聽力:&nbsp;</label>
+                                    <input type="radio" asp-for="CaseHear" value="清楚" id="caseHearL1" />
+                                    <label for="caseHearL1">清楚</label>
+                                    <input type="radio" asp-for="CaseHear" value="有點重聽" id="caseHearL2" />
+                                    <label for="caseHearL2">有點重聽</label>
+                                    <input type="radio" asp-for="CaseHear" value="重聽" id="caseHearL3" />
+                                    <label for="caseHearL3">重聽</label>
+                                    <span asp-validation-for="CaseHear" class="text-danger"></span>
+                                </li>
+                                <li class="form-group">
+                                    <label asp-for="CaseEat" class="control-label">進食: &nbsp;</label>
+                                    <input type="radio" asp-for="CaseEat" value="獨立" id="caseEatYes" />
+                                    <label for="caseEatYes">獨立</label>
+                                    <input type="radio" asp-for="CaseEat" value="需餵食" id="caseEatNo" />
+                                    <label for="caseEatNo">需餵食</label>
+                                    <span asp-validation-for="CaseEat" class="text-danger"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row align-items-start">
+                        <div class="form-group col">
+                            <label asp-for="CaseMed" class="control-label">服藥情形:&nbsp;</label>
+                            <input type="radio" asp-for="CaseMed" value="是" id="caseMedYes" />
+                            <label for="caseMedYes">是</label>
+                            <input type="radio" asp-for="CaseMed" value="否" id="caseMedNo" />
+                            <label for="caseMedNo">否</label>
+                            <span asp-validation-for="CaseMed" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row align-items-start">
+                        <div class="form-group col">
+                            <label asp-for="CaseCare" class="control-label">自我照顧:&nbsp;</label>
+                            <input type="radio" asp-for="CaseCare" value="沒問題" id="CareL1" />
+                            <label for="CareL1">沒問題</label>
+                            <input type="radio" asp-for="CaseCare" value="部分依賴" id="CareL2" />
+                            <label for="CareL2">部分依賴</label>
+                            <input type="radio" asp-for="CaseCare" value="完全依賴" id="CareL3" />
+                            <label for="CareL3">完全依賴</label>
+                            <span asp-validation-for="CaseCare" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <br />
+                    <hr>
+                    <br />
+                    <section>
+                        <div class="form-group question">
+                            <label asp-for="CaseView1" class="control-label">一、如果○○C單位巷弄長照站，您贊成嗎？</label>
+                            <input type="checkbox" asp-for="CaseView1" value="贊成" id="caseView1Yes" />
+                            <label for="caseCareL1">贊成</label>
+                            <input type="checkbox" value="不贊成" id="caseView1No" />
+                            <input asp-for="CaseView1" class="form-control" placeholder="不贊成原因" disabled/>
+                            <span asp-validation-for="CaseView1" class="text-danger"></span>
+                        </div>
+                            <div class="form-group question">
+                            <label asp-for="CaseView2" class="control-label">二、是否喜歡與其他老人一起聊天、活動？</label>
+                            <input type="checkbox" asp-for="CaseView2" value="是" id="CaseView2Yes" />
+                            <label for="CaseView2Yes">是</label>
+                            <input type="checkbox" asp-for="CaseView2" value="否" id="CaseView2No" />
+                            <label for="CaseView2No">否</label>
+                            <span asp-validation-for="CaseView2" class="text-danger"></span>
+                        </div>
+                        <div class="form-group question">
+                            <label asp-for="CaseView3" class="control-label">三、每天在家中生活情形？</label>
+                            <input type="checkbox" asp-for="CaseView3" value="忙碌" id="CaseView3B" />
+                            <label for="CaseView3B">忙碌</label>
+                            <input type="checkbox" asp-for="CaseView3" value="熱鬧" id="CaseView3P" />
+                            <label for="CaseView3P">熱鬧</label>
+                            <input type="checkbox" asp-for="CaseView3" value="無聊" id="CaseView3B" />
+                            <label for="CaseView3B">無聊</label>
+                            <input type="checkbox" asp-for="CaseView3" value="孤寂" id="CaseView3A" />
+                            <label for="CaseView3A">孤寂</label>
+                            <span asp-validation-for="CaseView3" class="text-danger"></span>
+                        </div>
+                        <div class="form-group question">
+                            <label asp-for="CaseView4" class="control-label">四、在家裡如何吃中餐？</label>
+                            <input type="checkbox" asp-for="CaseView4" value="家人預備" id="CaseView4Fam" />
+                            <label for="CaseView4Fam">家人預備</label>
+                            <input type="checkbox" asp-for="CaseView4" value="自己煮" id="CaseView4Self" />
+                            <label for="CaseView4Self">自己煮</label>
+                            <input type="checkbox" asp-for="CaseView4" value="外食" id="CaseView4Out" />
+                            <label for="CaseView4Out">外食</label>
+                            <input type="checkbox" id="CaseView4Other" />
+                            <input asp-for="CaseView4" class="form-control" type="text" placeholder="其它" disabled/>
+                            <span asp-validation-for="CaseView4" class="text-danger"></span>
+                        </div>
+                        <div class="form-group question">
+                            <label asp-for="CaseView5" class="control-label">五、您可以自行前往活動地點嗎？</label>
+                            <input type="checkbox" asp-for="CaseView5" value="可以" id="CaseView5Ok" />
+                            <label for="CaseView5Ok">可以</label>
+                            <input type="checkbox" asp-for="CaseView5" value="需家人親友載往" id="CaseView5Fam" />
+                            <label for="CaseView5Fam">需家人親友載往</label>
+                            <input type="checkbox" asp-for="CaseView5" value="需志工協助" id="CaseView5Vol" />
+                            <label for="CaseView5Vol">需志工協助</label>
+                            <span asp-validation-for="CaseView5" class="text-danger"></span>
+                        </div>
+                        <div class="form-group question">
+                            <label asp-for="CaseView6" class="control-label">六、您喜歡的活動：</label>
+                            <input type="checkbox" asp-for="CaseView6" value="開講" id="CaseView6A1" />
+                            <label for="CaseView6A1">開講</label>
+                            <input type="checkbox" asp-for="CaseView6" value="唱卡拉OK" id="CaseView6A2" />
+                            <label for="CaseView6A2">唱卡拉OK</label>
+                            <input type="checkbox" asp-for="CaseView6" value="唱歌" id="CaseView6A3" />
+                            <label for="CaseView6A3">唱歌</label>
+                            <input type="checkbox" asp-for="CaseView6" value="剪紙" id="CaseView6A4" />
+                            <label for="CaseView6A4">剪紙</label>
+                            <input type="checkbox" asp-for="CaseView6" value="拉弦仔" id="CaseView6A5" />
+                            <label for="CaseView6A5">拉弦仔</label>
+                            <input type="checkbox" asp-for="CaseView6" value="書法" id="CaseView6A6" />
+                            <label for="CaseView6A6">書法</label>
+                            <input type="checkbox" asp-for="CaseView6" value="團體遊戲、競賽" id="CaseView6A7" />
+                            <label for="CaseView6A7">團體遊戲、競賽</label>
+                            <input type="checkbox" asp-for="CaseView6" value="搥球" id="CaseView6A8" />
+                            <label for="CaseView6A8">搥球</label>
+                            <input type="checkbox" id="CaseView6AO" />
+                            <input asp-for="CaseView6" class="form-control" type="text" placeholder="其它" disabled />
+                            <span asp-validation-for="CaseView6" class="text-danger"></span>
+                        </div>
+                        <div class="form-group question">
+                            <label asp-for="CaseView7" class="control-label">七、您個人會的傳統技藝有：</label>
+                            <input asp-for="CaseView7" class="form-control" type="text" />
+                            <label asp-for="CaseView7" class="control-label">若有，您願意在C單位中將您會的傳統技藝分享出來嗎？</label>
+                            <input type="checkbox" asp-for="CaseView7" value="可以" id="CaseView7Yes" />
+                            <label for="CaseView7Yes">可以</label>
+                            <input type="checkbox" asp-for="CaseView7" value="不一定" id="CaseView7NS" />
+                            <label for="CaseView7NS">不一定</label>
+                            <input type="checkbox" asp-for="CaseView7" value="不會" id="CaseView7No" />
+                            <label for="CaseView7No">不會</label>
+                            <span asp-validation-for="CaseView7" class="text-danger"></span>
+                        </div>
+                        <div class="form-group question">
+                            <label asp-for="CaseView8" class="control-label">八、如果需繳交活動費、伙食費（每週2個上午含點心或午餐），您認為每個月多少錢可接受?</label>
+                            <input asp-for="CaseView8" class="form-control" type="text" />
+                            <span asp-validation-for="CaseView8" class="text-danger"></span>
+                        </div>
+                        <div class="form-group question">
+                            <label asp-for="CaseView9" class="control-label">九、您本人會來參加C單位巷弄長照站的活動嗎？</label>
+                            <input type="radio" asp-for="CaseView9" value="會" id="caseView9Yes" />
+                            <label for="caseView9Yes">會</label>
+                            <input type="radio" asp-for="CaseView9" value="不會" id="caseView9No" />
+                            <label for="caseView9No">不會</label>
+                            <span asp-validation-for="CaseView9" class="text-danger"></span>
+                        </div>
+                    </section>
+
+                    <div class="form-group wrap">
+                        <button class="button" type="submit" value="Create">儲存</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
