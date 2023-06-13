@@ -45,6 +45,8 @@
     });
 
     $('#orderNumberInput').val(generateOrderNumber());
+    $('#orderNumberInputCar').val(generateOrderNumber());
+
 
     $('.question input[type="checkbox"]').change(function () {
         $(this).siblings('input[type="checkbox"]').prop('checked', false);

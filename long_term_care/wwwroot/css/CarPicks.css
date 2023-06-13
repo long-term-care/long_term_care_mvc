@@ -11,18 +11,21 @@
     bottom: 0;
     left: 0;
 }
-
+div.ord {
+    color: dimgray;
+    width: 500px;
+    display: flex;
+}
 .insideBox {
     border-radius: 20px;
-    height: 300px;
     background-color: #F1FFFF;
     height: 100%;
 }
 
-    .insideBox h3 {
-        text-align: center;
-        padding-top: 20px;
-    }
+.insideBox h3 {
+    text-align: center;
+    padding-top: 20px;
+}
 
 .infoBox {
     margin: 20px 200px;
@@ -73,7 +76,7 @@ input:focus {
     align-content: center;
 }
 
-.tBody {
+.test {
     padding: 10px 0;
     text-align: center;
     justify-content: center;

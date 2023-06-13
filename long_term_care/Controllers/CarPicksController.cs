@@ -6,12 +6,26 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using long_term_care.Models;
+using System.ComponentModel.DataAnnotations;
+using System.Xml.Linq;
 
 namespace long_term_care.Controllers
 {
     public class CarPicksController : Controller
     {
         private readonly longtermcareContext _context;
+
+        public enum CarEnumType
+        {
+            [Display(Name = "小巴")]
+            SmallBus = 1,
+
+            [Display(Name = "客車")]
+            RegularCar = 2,
+
+            [Display(Name = "計程車")]
+            Taxi = 3
+        }
 
         public CarPicksController(longtermcareContext context)
         {
@@ -50,6 +64,7 @@ namespace long_term_care.Controllers
         {
             ViewData["CaseContId"] = new SelectList(_context.CaseDailyRegistrations, "CaseContId", "CaseContId");
             ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid");
+           
             return View();
         }
 
