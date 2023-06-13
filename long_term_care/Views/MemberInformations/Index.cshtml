@@ -1,0 +1,149 @@
+﻿@model IEnumerable<long_term_care.Models.MemberInformation>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MemUnitName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemUnitNum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemBd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemUid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemPassword)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemGender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemTphone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemMphone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemSite)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemProf)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemCert)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemTrans)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemExpr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemMovt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemPserv)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemIdent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemSerRec)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemEdu)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemUnitName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemUnitNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemBd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemUid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemPassword)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemGender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemTphone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemMphone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemSite)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemProf)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemCert)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemTrans)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemExpr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemMovt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemPserv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemIdent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemSerRec)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemEdu)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MemSid">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MemSid">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.MemSid">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
