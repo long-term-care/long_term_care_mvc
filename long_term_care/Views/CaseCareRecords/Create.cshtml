@@ -1,0 +1,203 @@
+﻿@model long_term_care.Models.CaseCareRecord
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>C 單位巷弄長照站關懷訪視紀錄表</h1>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-12">
+
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row align-items-start">
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-secondary">基本資料</button>
+
+                </div>
+            </div>
+            <br />
+            <div class="row align-items-start">
+                <div class="form-group col-md-4">
+
+                    <label asp-for="CaseQaid" class="control-label"></label>
+                    <input asp-for="CaseQaid" class="form-control" />
+
+                    <span asp-validation-for="CaseQaid" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+
+                    <label asp-for="CaseNo" class="control-label"></label>
+                    <select asp-for="CaseNo" class="form-control" asp-items="ViewBag.CaseNo"></select>
+
+
+                </div>
+                <div class="form-group col-md-4">
+
+                    <label asp-for="CaseTel" class="control-label"></label>
+                    <input asp-for="CaseTel" class="form-control" />
+
+                    <span asp-validation-for="CaseTel" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label asp-for="CaseHealth" class="control-label"></label>
+                    @Html.RadioButtonFor(model => model.CaseHealth, "有")有
+                    @Html.RadioButtonFor(model => model.CaseHealth, "無")無
+                </div>
+                <span asp-validation-for="CaseHealth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label asp-for="CaseHome" class="control-label"></label>
+                    @Html.RadioButtonFor(model => model.CaseHome, "平房")平房
+                    @Html.RadioButtonFor(model => model.CaseHome, "二樓以上透天住家")二樓以上透天住家
+                    @Html.RadioButtonFor(model => model.CaseHome, "公寓")公寓
+                </div>
+                <span asp-validation-for="CaseHome" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="row align-items-start">
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-secondary">關懷訪視</button>
+                </div>
+            </div>
+            <br />
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+
+                        <th scope="col">日期</th>
+                        <th scope="col">居家環境</th>
+                        <th scope="col">健康狀況</th>
+                        <th scope="col">就醫情形</th>
+                        <th scope="col">提供服務</th>
+                        <th scope="col">訪視者</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-light">
+                        <th scope="row">
+
+                            <div class="form-group">
+
+                                <input asp-for="CaseTime1" class="form-control" />
+                                <span asp-validation-for="CaseTime1" class="text-danger"></span>
+                            </div>
+                        </th>
+                        <td>
+
+                            <div class="form-group">
+                                @Html.DropDownList("CaseQ1", new SelectList(new[] {"整潔乾淨", "零亂", "骯髒", "其他"}))
+
+                            </div>
+                            <br />
+                            <div class="sm-2 row">
+                                <div class="form-group">
+
+                                    <input asp-for="CaseQ1Other" class="form-control" />
+                                    <span asp-validation-for="CaseQ1Other" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </td>
+
+                        <td>
+
+                            <div class="form-group">
+                                @Html.DropDownList("CaseQ2", new SelectList(new[] {"感冒症狀", "健康",  "其他"}))
+
+                            </div>
+                            <br />
+
+                            <div class="sm-2 row">
+                                <div class="form-group">
+                                    <input asp-for="CaseQ2Other" class="form-control" />
+                                    <span asp-validation-for="CaseQ2Other" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </td>
+
+                        <td>
+
+                            <div class="form-group">
+                                @Html.DropDownList("CaseQ3", new SelectList(new[] {"就診頻率", "診所", "就醫原因", "其他"}))
+
+                            </div>
+                            <br />
+
+                            <div class="sm-2 row">
+                                <div class="form-group">
+                                    <input asp-for="CaseQ3Other" class="form-control" />
+                                    <span asp-validation-for="CaseQ3Other" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </td>
+
+                        <td>
+
+                            <div class="form-group">
+                                @Html.DropDownList("CaseQ4", new SelectList(new[] {"陪同聊天", "量血壓", "整理居家環境", "其他"}))
+
+                            </div>
+                            <br />
+
+                            <div class="sm-2 row">
+                                <div class="form-group">
+                                    <input asp-for="CaseQ4Other" class="form-control" />
+                                    <span asp-validation-for="CaseQ4Other" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </td>
+
+                        <td>
+
+
+                            <div class="sm-2 row">
+                                <div class="form-group">
+                                    <select asp-for="MemSid" class="form-control" asp-items="ViewBag.MemSid"></select>
+                                </div>
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+            </table>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+@section topCSS {
+    <style type="text/css">
+        h1 {
+            font-size: 36px;
+            text-align: center;
+        }
+
+        .box {
+            padding: 10px;
+            margin: 10px;
+            border: black solid 2px;
+            border-radius: 20px;
+        }
+
+        body {
+            background-color: #CBE9EA;
+        }
+    </style>
+}

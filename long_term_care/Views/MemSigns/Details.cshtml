@@ -1,0 +1,42 @@
+﻿@model long_term_care.Models.MemSign
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>MemSign</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MemTelTime1)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MemTelTime1)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MemTelTime2)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MemTelTime2)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MemRecord)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MemRecord)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MemS)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MemS.MemSid)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.MemSignQaid">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

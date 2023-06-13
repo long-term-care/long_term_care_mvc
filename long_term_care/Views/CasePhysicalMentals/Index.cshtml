@@ -1,0 +1,125 @@
+﻿@model IEnumerable<long_term_care.Models.CasePhysicalMental>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseLive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseFre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseContent1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseContent2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseContent3)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseContent4)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseContent5)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseContent6)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseContent7)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseContent8)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseContent9)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseContent10)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseContent11)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseContent12)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseContent13)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseNoNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseLive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseFre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseContent1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseContent2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseContent3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseContent4)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseContent5)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseContent6)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseContent7)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseContent8)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseContent9)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseContent10)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseContent11)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseContent12)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseContent13)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseNoNavigation.CaseNo)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CaseQaid">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CaseQaid">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CaseQaid">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

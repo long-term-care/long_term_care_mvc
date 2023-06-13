@@ -1,0 +1,49 @@
+﻿@model long_term_care.Models.MemSign
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>MemSign</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MemSignQaid" />
+            <div class="form-group">
+                <label asp-for="MemSid" class="control-label"></label>
+                <select asp-for="MemSid" class="form-control" asp-items="ViewBag.MemSid"></select>
+                <span asp-validation-for="MemSid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemTelTime1" class="control-label"></label>
+                <input asp-for="MemTelTime1" class="form-control" />
+                <span asp-validation-for="MemTelTime1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemTelTime2" class="control-label"></label>
+                <input asp-for="MemTelTime2" class="form-control" />
+                <span asp-validation-for="MemTelTime2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemRecord" class="control-label"></label>
+                <input asp-for="MemRecord" class="form-control" />
+                <span asp-validation-for="MemRecord" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
