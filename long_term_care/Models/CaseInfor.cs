@@ -9,7 +9,8 @@ namespace long_term_care.Models
     {
         public CaseInfor()
         {
-            CaseActs = new HashSet<CaseAct>();
+            
+            CaseActContents = new HashSet<CaseActContent>();
             CaseCareRecords = new HashSet<CaseCareRecord>();
             CaseDailyRegistrations = new HashSet<CaseDailyRegistration>();
             CaseNeeds = new HashSet<CaseNeed>();
@@ -49,7 +50,8 @@ namespace long_term_care.Models
         public string CaseRegName { get; set; }
         public string CaseRegTime { get; set; }
 
-        public virtual ICollection<CaseAct> CaseActs { get; set; }
+        
+        public virtual ICollection<CaseActContent> CaseActContents { get; set; }
         public virtual ICollection<CaseCareRecord> CaseCareRecords { get; set; }
         public virtual ICollection<CaseDailyRegistration> CaseDailyRegistrations { get; set; }
         public virtual ICollection<CaseNeed> CaseNeeds { get; set; }
