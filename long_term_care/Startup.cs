@@ -1,6 +1,8 @@
 using long_term_care.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -28,7 +30,17 @@ namespace long_term_care
             services.AddControllersWithViews();
             services.AddDbContext<longtermcareContext>(options =>
          options.UseSqlServer(Configuration.GetConnectionString("longtermcareContext")));
+        services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+       .AddCookie(options =>
+       {
+           //預設登入驗證網址為Account/Login, 若想變更才需要設定LoginPath
+           options.LoginPath = new PathString("/Main/Login");
+           options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+           options.SlidingExpiration = true;
+           options.AccessDeniedPath = "/Main/Login";
+       });
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -48,7 +60,10 @@ namespace long_term_care
 
             app.UseRouting();
 
+            app.UseAuthentication(); //驗證
+
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {

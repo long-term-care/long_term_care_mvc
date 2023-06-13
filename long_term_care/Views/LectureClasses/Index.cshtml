@@ -180,10 +180,10 @@
                 if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                     // 請求成功，執行相應的處理邏輯
                     var response = JSON.parse(xhr.responseText);
-                    location.reload();
                 }
             };
             xhr.send(JSON.stringify(data));
+            location.reload();
         })
 
     </script>
