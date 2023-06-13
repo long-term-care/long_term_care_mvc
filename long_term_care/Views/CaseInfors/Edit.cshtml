@@ -1,0 +1,179 @@
+﻿@model long_term_care.Models.CaseInfor
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>CaseInfor</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CaseNo" />
+            <div class="form-group">
+                <label asp-for="CaseUnitName" class="control-label"></label>
+                <input asp-for="CaseUnitName" class="form-control" />
+                <span asp-validation-for="CaseUnitName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseUnitNum" class="control-label"></label>
+                <input asp-for="CaseUnitNum" class="form-control" />
+                <span asp-validation-for="CaseUnitNum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseName" class="control-label"></label>
+                <input asp-for="CaseName" class="form-control" />
+                <span asp-validation-for="CaseName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseIdcard" class="control-label"></label>
+                <input asp-for="CaseIdcard" class="form-control" />
+                <span asp-validation-for="CaseIdcard" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CasePassword" class="control-label"></label>
+                <input asp-for="CasePassword" class="form-control" />
+                <span asp-validation-for="CasePassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseGender" class="control-label"></label>
+                <input asp-for="CaseGender" class="form-control" />
+                <span asp-validation-for="CaseGender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseRelig" class="control-label"></label>
+                <input asp-for="CaseRelig" class="form-control" />
+                <span asp-validation-for="CaseRelig" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseBd" class="control-label"></label>
+                <input asp-for="CaseBd" class="form-control" />
+                <span asp-validation-for="CaseBd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseLang" class="control-label"></label>
+                <input asp-for="CaseLang" class="form-control" />
+                <span asp-validation-for="CaseLang" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseSource" class="control-label"></label>
+                <input asp-for="CaseSource" class="form-control" />
+                <span asp-validation-for="CaseSource" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseWork" class="control-label"></label>
+                <input asp-for="CaseWork" class="form-control" />
+                <span asp-validation-for="CaseWork" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseProf" class="control-label"></label>
+                <input asp-for="CaseProf" class="form-control" />
+                <span asp-validation-for="CaseProf" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseEdu" class="control-label"></label>
+                <input asp-for="CaseEdu" class="form-control" />
+                <span asp-validation-for="CaseEdu" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseAddr" class="control-label"></label>
+                <input asp-for="CaseAddr" class="form-control" />
+                <span asp-validation-for="CaseAddr" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseHouse" class="control-label"></label>
+                <input asp-for="CaseHouse" class="form-control" />
+                <span asp-validation-for="CaseHouse" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseIdent" class="control-label"></label>
+                <input asp-for="CaseIdent" class="form-control" />
+                <span asp-validation-for="CaseIdent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseFund" class="control-label"></label>
+                <input asp-for="CaseFund" class="form-control" />
+                <span asp-validation-for="CaseFund" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseHealth" class="control-label"></label>
+                <input asp-for="CaseHealth" class="form-control" />
+                <span asp-validation-for="CaseHealth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseActv" class="control-label"></label>
+                <input asp-for="CaseActv" class="form-control" />
+                <span asp-validation-for="CaseActv" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseFactly" class="control-label"></label>
+                <input asp-for="CaseFactly" class="form-control" />
+                <span asp-validation-for="CaseFactly" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseMari" class="control-label"></label>
+                <input asp-for="CaseMari" class="form-control" />
+                <span asp-validation-for="CaseMari" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseCnta" class="control-label"></label>
+                <input asp-for="CaseCnta" class="form-control" />
+                <span asp-validation-for="CaseCnta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseCntTel" class="control-label"></label>
+                <input asp-for="CaseCntTel" class="form-control" />
+                <span asp-validation-for="CaseCntTel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseCntRel" class="control-label"></label>
+                <input asp-for="CaseCntRel" class="form-control" />
+                <span asp-validation-for="CaseCntRel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseCntAdd" class="control-label"></label>
+                <input asp-for="CaseCntAdd" class="form-control" />
+                <span asp-validation-for="CaseCntAdd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseFami" class="control-label"></label>
+                <input asp-for="CaseFami" class="form-control" />
+                <span asp-validation-for="CaseFami" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseQues" class="control-label"></label>
+                <input asp-for="CaseQues" class="form-control" />
+                <span asp-validation-for="CaseQues" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseDesc" class="control-label"></label>
+                <input asp-for="CaseDesc" class="form-control" />
+                <span asp-validation-for="CaseDesc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseRegName" class="control-label"></label>
+                <input asp-for="CaseRegName" class="form-control" />
+                <span asp-validation-for="CaseRegName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseRegTime" class="control-label"></label>
+                <input asp-for="CaseRegTime" class="form-control" />
+                <span asp-validation-for="CaseRegTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

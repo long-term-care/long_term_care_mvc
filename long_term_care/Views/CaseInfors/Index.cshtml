@@ -1,0 +1,209 @@
+﻿@model IEnumerable<long_term_care.Models.CaseInfor>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseUnitName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseUnitNum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseIdcard)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CasePassword)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseGender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseRelig)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseBd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseLang)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseSource)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseWork)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseProf)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseEdu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseAddr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseHouse)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseIdent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseFund)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseHealth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseActv)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseFactly)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseMari)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseCnta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseCntTel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseCntRel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseCntAdd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseFami)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseQues)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseDesc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseRegName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseRegTime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseUnitName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseUnitNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseIdcard)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CasePassword)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseGender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseRelig)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseBd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseLang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseSource)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseWork)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseProf)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseEdu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseAddr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseHouse)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseIdent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseFund)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseHealth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseActv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseFactly)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseMari)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseCnta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseCntTel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseCntRel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseCntAdd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseFami)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseQues)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseDesc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseRegName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseRegTime)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CaseNo">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CaseNo">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CaseNo">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
