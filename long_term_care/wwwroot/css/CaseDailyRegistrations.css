@@ -1,0 +1,87 @@
+﻿body {
+    font-family: 'Hiragino Kaku Gothic Pro', 'WenQuanYi Zen Hei', '微軟正黑體', '蘋果儷中黑', Helvetica, Arial, sans-serif;
+}
+
+.container-fluid {
+    background-color: #CBE9EA;
+    padding: 45px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.insideBox {
+    border-radius: 20px;
+    background-color: #F1FFFF;
+    height: 100%;
+}
+
+    .insideBox h3 {
+        text-align: center;
+        padding-top: 20px;
+    }
+
+div.ElderIDInput {
+    margin: 20px;
+    text-align: center;
+}
+
+input[type="text"] {
+    border: 1px solid #A9A5A5;
+    border-radius: 8px;
+}
+
+hr {
+    margin: auto 110px;
+}
+
+.GiantBox .title .header {
+    text-align: center;
+    margin: 20px 100px;
+    justify-content: space-around;
+}
+
+.container .row {
+    justify-items: center;
+    align-items: center;
+}
+
+.container .tBody {
+    padding: 5px 0;
+    background-color: #F5F5F5;
+    box-shadow: 2px 3px #c3c2c2;
+    margin: 0 60px;
+}
+
+.col-1 .group input.transparent-input {
+    background-color: transparent !important;
+    border: none !important;
+    height: 70px;
+    width: 70px;
+    margin: 0 10px;
+}
+
+.col-2 .group input.transparent-input {
+    background-color: transparent !important;
+    border: none !important;
+    height: 70px;
+    width: 140px;
+    margin: 0 30px;
+}
+
+.container .row fieldset {
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.group {
+    text-align: center;
+}
+
+@media screen and (width < 768px) {
+    hr {
+        margin: auto 30px;
+    }
+}
