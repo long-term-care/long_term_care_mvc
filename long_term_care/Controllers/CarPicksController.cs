@@ -18,13 +18,13 @@ namespace long_term_care.Controllers
         public enum CarEnumType
         {
             [Display(Name = "小巴")]
-            SmallBus = 1,
+            小巴 = 1,
 
             [Display(Name = "客車")]
-            RegularCar = 2,
+            客車 = 2,
 
             [Display(Name = "計程車")]
-            Taxi = 3
+            計程車 = 3
         }
 
         public CarPicksController(longtermcareContext context)
@@ -73,7 +73,7 @@ namespace long_term_care.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CarId,MemSid,CarDate,CarType,CarNum,CarMonth,CarCaseAdr,CarL,CarKm,CarPrice,CaseContId")] CarPick carPick)
+        public async Task<IActionResult> Create([Bind("CarId,MemSid,CarSearchY,CarSearchM,CarType,CarNum,CarMonth,CarCaseAdr,CarL,CarKm,CarPrice,CaseContId")] CarPick carPick)
         {
             if (ModelState.IsValid)
             {
@@ -109,7 +109,7 @@ namespace long_term_care.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("CarId,MemSid,CarDate,CarType,CarNum,CarMonth,CarCaseAdr,CarL,CarKm,CarPrice,CaseContId")] CarPick carPick)
+        public async Task<IActionResult> Edit(string id, [Bind("CarId,MemSid,CarSearchY,CarSearchM,CarType,CarNum,CarMonth,CarCaseAdr,CarL,CarKm,CarPrice,CaseContId")] CarPick carPick)
         {
             if (id != carPick.CarId)
             {

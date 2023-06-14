@@ -1,146 +1,183 @@
 ﻿body {
-    font-family: 'Hiragino Kaku Gothic Pro', 'WenQuanYi Zen Hei', '微軟正黑體', '蘋果儷中黑', Helvetica, Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 .container-fluid {
-    background-color: #CBE9EA;
+    background-color: #F6F6F6;
     padding: 45px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
 }
-div.ord {
-    color: dimgray;
-    width: 500px;
-    display: flex;
-}
+
 .insideBox {
     border-radius: 20px;
-    background-color: #F1FFFF;
-    height: 100%;
+    background-color: #FFFFFF;
+    padding: 40px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.insideBox h3 {
-    text-align: center;
-    padding-top: 20px;
-}
+    .insideBox h3 {
+        text-align: center;
+        margin-top: 0;
+        color: #333333;
+    }
 
 .infoBox {
-    margin: 20px 200px;
+    margin: 40px 0;
 }
 
-.info {
-    padding: 20px 0;
-    align-content: center;
-    display: flex;
-    flex-flow: row wrap;
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333333;
 }
 
-.col-6, .col-12 {
-    display: flex;
-}
-
-.col-1, .col-2, div.col-5.hd, .container .row > div.col-1.cnt {
-    display: flex;
-    justify-content: center;
-}
-
-h4 {
-    font-size: 20px;
-}
-
-input:not(#address) {
-    border: 1px solid #A9A5A5;
-    height: 25px;
-    width: 100px;
+input[type="text"],
+input[type="date"],
+select {
+    width: 100%;
+    height: 40px;
+    padding: 8px;
+    border: none;
     border-radius: 8px;
+    font-size: 14px;
+    background-color: #F6F6F6;
+    transition: background-color 0.3s ease;
 }
 
-input[type="text"] {
-    border: 1px solid #A9A5A5;
-    height: 25px;
-    border-radius: 8px;
-}
-
-input:focus {
-    outline: none;
-}
+    input[type="text"]:focus,
+    input[type="date"]:focus,
+    select:focus {
+        outline: none;
+        background-color: #EAEAEA;
+    }
 
 .header {
-    height: 30px;
-    margin-top: 20px;
-    /* background-color: rgb(49, 162, 199); */
+    display: flex;
     justify-content: center;
-    align-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: #007AFF;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border-radius: 8px;
 }
 
 .test {
-    padding: 10px 0;
-    text-align: center;
+    display: flex;
     justify-content: center;
-    align-content: center;
-    background-color: transparent;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 .container .columns {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
     .container .columns .cnt {
         border-radius: 10px;
-        background-color: #fff;
+        background-color: #FFFFFF;
+        padding: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
-    .container .columns > div.col-2, .container .columns > div.col-5 {
+    .container .columns > div.col-2,
+    .container .columns > div.col-5 {
         margin-left: 5px;
-        padding: 3px;
-        background-color: #F0F0F0;
-        border: solid 1px #A9A5A5;
-        justify-content: center;
-        align-content: center;
+        padding: 10px;
+        background-color: #F6F6F6;
+        border: 1px solid #EAEAEA;
+        text-align: center;
     }
 
 .container .row > div:first-child {
     height: 42px;
-    background-color: #6B6464;
-}
-
-input.transparent-input {
-    margin: 5px 0;
-    text-align: center;
+    background-color: #333333;
+    display: flex;
     justify-content: center;
-    align-content: center;
-    background-color: transparent !important;
-    border: none !important;
-    width: 360px !important;
+    align-items: center;
+    color: #FFFFFF;
+    border-radius: 8px 8px 0 0;
 }
 
-#nums, #amount {
-    margin: 9px 0;
-    color: #FFFFFF;
+.input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
 }
+
+    .input-group .form-control {
+        flex: 1;
+        margin-right: 10px;
+        border: none;
+        border-radius: 8px;
+        padding: 8px;
+        font-size: 14px;
+        background-color: #F6F6F6;
+        transition: background-color 0.3s ease;
+    }
+
+        .input-group .form-control:focus {
+            outline: none;
+            background-color: #EAEAEA;
+        }
+
+    .input-group .input-group-text {
+        min-width: 100px;
+        text-align: center;
+        background-color: #F6F6F6;
+        border: none;
+        border-radius: 8px;
+        padding: 8px;
+        font-size: 14px;
+        color: #333333;
+    }
 
 .example {
-    margin: 0 0 10px 0;
-    justify-content: center;
-    align-content: center;
-    flex-wrap: wrap;
-    display: flex;
-    background-color: #FBD4DF;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #FFE6ED;
     border-radius: 20px;
-    padding: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.ex, .hd {
-    justify-content: center;
-    align-content: center;
-    flex-wrap: wrap;
-    display: flex;
-}
+    .example h6 {
+        margin: 0;
+        font-size: 12px;
+        color: #333333;
+    }
 
 .container {
-    margin-top: 3px;
+    margin-top: 10px;
+}
+
+.infoBox .form-group.ord {
+    display: flex;
+    align-items: center;
+}
+
+    .infoBox .form-group.ord label {
+        margin-right: 10px;
+        white-space: nowrap;
+        font-weight: bold;
+        color: #333333;
+    }
+
+    .infoBox .form-group.ord input[type="text"],
+    .infoBox .form-group.ord select {
+        flex: 1;
+    }
+
+.infoBox .form-group .form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+    margin-right: 10px;
 }

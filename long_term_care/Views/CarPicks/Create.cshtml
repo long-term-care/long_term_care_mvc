@@ -1,6 +1,5 @@
 ﻿@using static long_term_care.Models.CarPick;
 @model long_term_care.Models.CarPick
-<!---DB lacks of Year column-->
 @{
     ViewData["Title"] = "Create";
 }
@@ -22,52 +21,55 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="row" style="justify-content: space-between;">
                         <div class="form-group col-3">
-                            <label asp-for="MemSid" class="control-label">志工編號</label>&nbsp;
-                            <input asp-for="MemSid" class="form-control" type="text" />
+                            <label asp-for="MemSid" class="control-label">志工編號&nbsp;<input asp-for="MemSid" class="form-control" type="text" /></label>
                             <span asp-validation-for="MemSid" class="text-danger"></span>
                             <!--<select asp-for="MemSid" class="form-control" asp-items="ViewBag.MemSid"></select>-->
                         </div>
-                        <div class="form-group ord col-7">
-                            <label asp-for="CarId" class="control-label">表單編號</label>
-                            <input id="orderNumberInputCar" asp-for="MemSid" class="form-control" style="background-color: transparent; border: none; outline: none;" />
+                        <div class="form-group ord col-7" style="position: absolute; top: 0; right: 0;">
+                            <label asp-for="CarId" class="control-label" style="margin-top:2%;">表單編號&nbsp;</label>
+                            <input id="orderNumberInputCar" asp-for="CarId" class="form-control" style="background-color: transparent; border: none; outline: none;" />
                             <span asp-validation-for="CarId" class="text-danger"></span>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-8 form-group">
-                            <label asp-for="CarCaseAdr" class="control-label">單位地址:</label>&nbsp;
-                            <input asp-for="CarCaseAdr" class="form-control" type="text" id="address" />
-                            <span asp-validation-for="CarCaseAdr" class="text-danger"></span>
-                        </div>
 
-
-                        <!--<div class="col-6 form-group">
-                            <h4>時間:&nbsp;</h4>
-                           
-                        </div>-->
                     </div>
                     <div class="row">
                         <div class="col-6 form-group">
-                            <label asp-for="CarType" class="control-label">車種:</label>&nbsp;
-                            <select asp-for="CarType" class="form-control">
-                                @foreach (var value in Enum.GetValues(typeof(CarEnumType)))
-                                {
-                                    <option value="@value.ToString()">@value.ToString()</option>
-                                }
-                            </select>
+                            <label asp-for="CarCaseAdr" class="control-label">單位地址&nbsp;<input asp-for="CarCaseAdr" class="form-control" type="text" id="address" style="width: 300px;"/></label>
+                            <span asp-validation-for="CarCaseAdr" class="text-danger"></span>
+                        </div>
+                        <div class="col-6 form-group">
+                            <label asp-for="CarSearchY" class="control-label">時間
+                            <select asp-for="CarSearchY" id="CarSearchY" class="form-control"></select>
+                                <select asp-for="CarSearchM" id="CarSearchM" class="form-control"></select>
+                            </label>
+                            <span asp-validation-for="CarSearchY" id="validationError" class="text-danger"></span>
+                            <span asp-validation-for="CarSearchM" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 form-group">
+                            <label asp-for="CarType" class="control-label">車種
+                                <select asp-for="CarType" class="form-control">
+                                    @foreach (var value in Enum.GetValues(typeof(CarEnumType)))
+                                    {
+                                        <option value="@value.ToString()">@value.ToString()</option>
+                                    }
+                                </select>
+                            </label>
                             <span asp-validation-for="CarType" class="text-danger"></span>
                         </div>
                         <div class="col-6 form-group">
-                            <label asp-for="CarNum" class="control-label">車號:</label>&nbsp;
-                            <input asp-for="CarNum" class="form-control" type="text" />
+                            <label asp-for="CarNum" class="control-label">車號&nbsp;<input asp-for="CarNum" class="form-control" type="text" /></label>
                             <span asp-validation-for="CarNum" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12 form-group">
-                            <label asp-for="CarPrice" class="control-label">共計:</label>&nbsp;
-                            <input asp-for="CarPrice" class="form-control" type="text" />&nbsp;
-                            <span asp-validation-for="CarPrice" class="text-danger">元</span>
+                            <label asp-for="CarPrice" class="control-label">
+                                共計&nbsp;
+                                <input asp-for="CarPrice" class="form-control" type="text" placeholder="&nbsp;元" />
+                            </label>
+                            <span asp-validation-for="CarPrice" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="row header hd">
@@ -75,23 +77,22 @@
                         <div class="col-2 hd">日期</div>
                         <div class="col-5 hd">住家</div>
                     </div>
-                    <!-- Example row-->
-                    <div class="row test">
-                        <div class="example">
-                            <div class="col-1 ex">
-                                <h6>範例</h6>
-                            </div>
-                            <div class="col-2 ex">
-                                <h6>1/1</h6>
-                            </div>
-                            <div class="col-5 ex" style="font-size: 9px;">
-                                <h6>
-                                    起點:<br />
-                                    陳大雄家
-                                    (地址：新北市○區○ 路○巷○弄○號○樓)
-                                </h6>
-                            </div>
+
+                    <div class="example">
+                        <div class="col-1 ex">
+                            <h6>範例</h6>
                         </div>
+                        <div class="col-2 ex">
+                            <h6>1/1</h6>
+                        </div>
+                        <div class="col-5 ex" style="font-size: 9px;">
+                            <h6>
+                                起點:<br />
+                                陳大雄家
+                                (地址：新北市○區○ 路○巷○弄○號○樓)
+                            </h6>
+                        </div>
+                    </div>
                         <!-- Each data rows-->
                         <div class="container">
                             <div class="row columns">
@@ -99,11 +100,11 @@
                                     <div id="nums">1</div>
                                 </div>
                                 <div class="col-2 form-group">
-                                    <input asp-for="CarDate" class="form-control" type="date" class="transparent-input" style="width: 130px;" />
-                                    <span asp-validation-for="CarDate" class="text-danger"></span>
+                                    <input asp-for="CarMonth" class="form-control" type="text" class="transparent-input" style="width: 130px;" />
+                                    <span asp-validation-for="CarMonth" class="text-danger"></span>
                                 </div>
                                 <div class="col-5 form-group">
-                                    <input asp-for="CarCaseAdr" class="form-control" class="transparent-input" />
+                                <input asp-for="CarCaseAdr" class="form-control" type="text" class="transparent-input"  style="width: 430px;" />
                                     <span asp-validation-for="CarCaseAdr" class="text-danger"></span>
                                 </div>
                             </div>
@@ -129,7 +130,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <input type="submit" value="Create" class="btn btn-primary" />
+                            <input type="submit" value="儲存" class="btn btn-primary" id="submitBtn" />
                         </div>
                     </form>
                 </div>
@@ -139,7 +140,53 @@
     <div>
         <a asp-action="Index">Back to List</a>
     </div>
+    <script>
+        var currentYear = new Date().getFullYear();
+        for (var i = currentYear; i >= (currentYear-150); i--) {
+            var option = document.createElement('option');
+            option.value = i;
+            option.text = i;
+            document.getElementById('CarSearchY').appendChild(option);
+        }
+        for (var j = 1; j <= 12; j++) {
+            var option = document.createElement('option');
+            option.value = j;
+            option.text = j;
+            document.getElementById('CarSearchM').appendChild(option);
+        }
+        $('#submitButton').click(function () {
+            // Retrieve selected year and month values
+            var selectedYear = $('#CarSearchY').val();
+            var selectedMonth = $('#CarSearchM').val();
 
+            // Validate the selected values (if needed)
+            if (selectedYear === '' || selectedMonth === '') {
+                $('#validationError').text('Please select both year and month.');
+                return;
+            }
+
+            // Clear any previous validation error message
+            $('#validationError').text('');
+
+            // Send the selected values to the server using AJAX
+            $.ajax({
+                url: '/CarPicks/Create',
+                method: 'POST',
+                data: {
+                    year: selectedYear,
+                    month: selectedMonth
+                },
+                success: function (response) {
+                    // Handle the success response from the server
+                    console.log('Data successfully submitted to the server.');
+                },
+                error: function (xhr, status, error) {
+                    // Handle any error that occurred during the AJAX request
+                    console.log('Error:', error);
+                }
+            });
+        });
+    </script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

@@ -10,18 +10,19 @@ namespace long_term_care.Models
     {
         public string CarId { get; set; }
         public string MemSid { get; set; }
-        public DateTime CarDate { get; set; }
+        public int CarSearchY { get; set; }
+        public int CarSearchM { get; set; }
         public string CarType { get; set; }
         public enum CarEnumType
         {
             [Display(Name = "小巴")]
-            SmallBus = 1,
+            小巴 = 1,
 
             [Display(Name = "客車")]
-            Coach = 2,
+            客車 = 2,
 
             [Display(Name = "計程車")]
-            Taxi = 3
+            計程車 = 3
         }
         public string CarNum { get; set; }
         public DateTime CarMonth { get; set; }

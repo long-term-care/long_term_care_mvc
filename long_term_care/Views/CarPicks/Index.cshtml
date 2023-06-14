@@ -13,7 +13,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CarDate)
+                @Html.DisplayNameFor(model => model.CarSearchY)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CarSearchM)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CarType)
@@ -49,7 +52,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.CarDate)
+                @Html.DisplayFor(modelItem => item.CarSearchY)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarSearchM)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CarType)
