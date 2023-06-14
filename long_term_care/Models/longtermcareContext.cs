@@ -60,9 +60,13 @@ namespace long_term_care.Models
                     .HasMaxLength(100)
                     .HasColumnName("Car_CaseAdr");
 
-                entity.Property(e => e.CarDate)
-                    .HasColumnType("date")
-                    .HasColumnName("Car_Date");
+                entity.Property(e => e.CarSearchY)
+                    .HasColumnType("tinyInt")
+                    .HasColumnName("Car_Search_Y");
+
+                entity.Property(e => e.CarSearchM)
+                    .HasColumnType("tinyInt")
+                    .HasColumnName("Car_Search_M");
 
                 entity.Property(e => e.CarKm).HasColumnName("Car_Km");
 
