@@ -1,6 +1,7 @@
-﻿
+﻿@model IEnumerable<long_term_care.Models.CaseAct>
 @{
     ViewData["Title"] = "Index";
+    
 }
 
 <style>
@@ -138,18 +139,25 @@
                 </div>
                 <div class="tool"></div>
             </div>
-            <div class="content">
-                <div class="id">
-                    <p>T001</p>
-                </div>
-                <div class="name">
-                    <p>快樂太極拳</p>
-                </div>
-                <div class="tool">
-                    <button type="button" class="btn btn-secondary">查詢</button>
-                    <button type="button" class="btn btn-secondary">編輯</button>
-                </div>
-            </div>
+            <form action="">
+                @foreach(var item in Model)
+                {
+                    <div class="content">
+                        <div class="id">
+                            <p>@item.ActId</p>
+                        </div>
+                        <div class="name">
+                            <p>@item.ActCourse</p>
+                        </div>
+                        <div class="tool">
+                            <a asp-action="Check" asp-route-id="@item.ActId">
+                                <button type="button" class="btn btn-secondary">查詢</button>
+                            </a>
+                            <button type="button" class="btn btn-secondary">編輯</button>
+                        </div>
+                    </div>
+                }
+            </form>          
         </div>
         <div class="back">
             <button type="button" class="btn btn-dark">回首頁</button>

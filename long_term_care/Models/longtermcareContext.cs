@@ -273,23 +273,9 @@ namespace long_term_care.Models
                     .HasMaxLength(8)
                     .HasColumnName("Case_ContID");
 
-                entity.Property(e => e.CaseCont)
-                    .IsRequired()
-                    .HasMaxLength(10)
-                    .HasColumnName("Case_Cont");
-
-                entity.Property(e => e.CaseDailyTime1)
-                    .HasColumnType("datetime")
+                entity.Property(e => e.Casedate)
+                    .HasColumnType("date")
                     .HasColumnName("Case_dailyTime1");
-
-                entity.Property(e => e.CaseDailyTime2)
-                    .HasColumnType("datetime")
-                    .HasColumnName("Case_dailyTime2");
-
-                entity.Property(e => e.CaseIssue)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .HasColumnName("Case_Issue");
 
                 entity.Property(e => e.CaseNo)
                     .IsRequired()
@@ -301,35 +287,27 @@ namespace long_term_care.Models
                     .HasMaxLength(10)
                     .HasColumnName("Case_Pick");
 
-                entity.Property(e => e.CasePluse).HasColumnName("Case_Pluse");
+                entity.Property(e => e.CasePluse)
+                .IsRequired()
+                .HasMaxLength(8)
+                .HasColumnName("Case_Pluse");
+                entity.Property(e => e.CaseBlood)
+                .IsRequired()
+                .HasMaxLength(8)
+                .HasColumnName("Case_Blood");
 
-                entity.Property(e => e.CaseRegTime)
-                    .HasColumnType("datetime")
-                    .HasColumnName("Case_RegTime");
+                entity.Property(e => e.CaseTemp)
+                .IsRequired()
+                .HasMaxLength(8)
+                .HasColumnName("Case_Temp");
 
-                entity.Property(e => e.CaseRem)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .HasColumnName("Case_Rem");
-
-                entity.Property(e => e.CaseTemp).HasColumnName("Case_Temp");
-
-                entity.Property(e => e.MemSid)
-                    .IsRequired()
-                    .HasMaxLength(8)
-                    .HasColumnName("Mem_SID");
+                
 
                 entity.HasOne(d => d.CaseNoNavigation)
                     .WithMany(p => p.CaseDailyRegistrations)
                     .HasForeignKey(d => d.CaseNo)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__case_dail__Case___32E0915F");
-
-                entity.HasOne(d => d.MemS)
-                    .WithMany(p => p.CaseDailyRegistrations)
-                    .HasForeignKey(d => d.MemSid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__case_dail__Mem_S__33D4B598");
+                    .HasConstraintName("FK__case_dail__Case___32E0915F");                
             });
 
             modelBuilder.Entity<CaseInfor>(entity =>
