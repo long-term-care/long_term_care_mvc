@@ -1,0 +1,302 @@
+﻿@*@model IEnumerable<long_term_care.Models.CaseCareRecord>*@
+@using long_term_care.ViewModels;
+@model IEnumerable<CareSearchResultViewModel>
+
+@{
+    ViewData["Title"] = "SearchResult";
+}
+
+<h1>SearchResult</h1>
+
+@{
+    bool isFirstIteration = true;
+    string caseName = null;
+    string caseBd = null;
+    string caseGender = null;
+    string caseNo = null;
+    string caseHealth = null;
+    string caseIdent = null;
+    string caseLang  = null;
+    string caseMari  = null;
+    string caseFami  = null;
+    string caseAddr = null;
+    string caseCnta  = null;
+    string caseCntTel  = null;
+    string caseCntRel  = null;
+    string caseHome   = null;
+    string casePhn   = null;
+}
+
+@foreach (var item in Model)
+{
+    if (isFirstIteration)
+    {
+        <div class="col-md-2">
+            <button type="button" class="btn btn-secondary">基本資料</button>
+        </div>
+        <br />
+        caseName = item.CaseName;      
+        caseBd = item.CaseBd;
+        caseGender = item.CaseGender;
+        caseNo = item.CaseNo;
+        caseHealth = item.CaseHealth;
+        caseIdent = item.CaseIdent;
+        caseLang = item.CaseLang;
+        caseMari = item.CaseMari;
+        caseFami = item.CaseFami;
+        caseAddr = item.CaseAddr;
+        caseCnta = item.CaseCnta;
+        caseCntTel = item.CaseCntTel;
+        caseCntRel = item.CaseCntRel;
+        caseHome = item.CaseHome;
+        casePhn = item.CasePhn;
+        isFirstIteration = false;
+        <div class="row align-items-start box">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseName)
+            </div>
+            <div class="col-md-2 ">
+                @caseName
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseBd)
+            </div>
+                <div class="col-md-2">
+                @caseBd
+                </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseGender)
+            </div>
+            <div class="col-md-2">
+                @caseGender
+            </div>
+        </div>
+        <br />
+        <div class="row align-items-start box">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseNo)
+            </div>
+            <div class="col-md-2 ">
+                @caseNo
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseHealth)
+            </div>
+            <div class="col-md-2">
+                @caseHealth
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CasePhn)
+            </div>
+            <div class="col-md-2">
+                @casePhn
+            </div>
+        </div>
+        <br />
+        
+        <div class="row align-items-start box">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseLang)
+            </div>
+            <div class="col-md-2 ">
+                @caseLang
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseMari)
+            </div>
+            <div class="col-md-2">
+                @caseMari
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseFami)
+            </div>
+            <div class="col-md-2">
+                @caseFami
+            </div>
+            
+        </div>
+        <br />
+        <div class="row align-items-start box">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseAddr)
+            </div>
+            <div class="col-md-10">
+                @caseAddr
+            </div>
+        </div>
+        <br />
+        <div class="row align-items-start box">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseCnta)
+            </div>
+            <div class="col-md-2 ">
+                @caseCnta
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseCntTel)
+            </div>
+            <div class="col-md-2">
+                @caseCntTel
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseCntRel)
+            </div>
+            <div class="col-md-2">
+                @caseCntRel
+            </div>
+
+        </div>
+        <br />
+        <div class="row align-items-start box">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseHome)
+            </div>
+            <div class="col-md-2 ">
+                @caseHome
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseIdent)
+            </div>
+            <div class="col-md-2">
+                @caseIdent
+            </div>
+        </div>
+        <br />
+        <div class="col-md-2">
+            <button type="button" class="btn btn-secondary">關懷訪視</button>
+        </div>
+        <br />
+
+    }
+
+    
+}
+<table class="table table-bordered">
+    <thead>
+        <tr>
+
+            <th scope="col">日期</th>
+            <th scope="col">居家環境</th>
+            <th scope="col">健康狀況</th>
+            <th scope="col">就醫情形</th>
+            <th scope="col">提供服務</th>
+            <th scope="col">訪視者</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="table-light">
+                <th scope="row">
+
+                    <div class="form-group">
+
+                        @Html.DisplayFor(modelItem => item.CaseTime1)
+                    </div>
+                </th>
+                <td>
+
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CaseQ1)
+
+                    </div>
+                    <br />
+                    <div class="sm-2 row">
+                        <div class="form-group">
+                            @Html.DisplayFor(modelItem => item.CaseQ1Other)
+                        </div>
+                    </div>
+
+                </td>
+                <td>
+
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CaseQ2)
+
+                    </div>
+                    <br />
+                    <div class="sm-2 row">
+                        <div class="form-group">
+                            @Html.DisplayFor(modelItem => item.CaseQ2Other)
+                        </div>
+                    </div>
+
+                </td>
+                <td>
+
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CaseQ3)
+
+                    </div>
+                    <br />
+                    <div class="sm-2 row">
+                        <div class="form-group">
+                            @Html.DisplayFor(modelItem => item.CaseQ3Other)
+                        </div>
+                    </div>
+
+                </td>
+                <td>
+
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CaseQ4)
+
+                    </div>
+                    <br />
+                    <div class="sm-2 row">
+                        <div class="form-group">
+                            @Html.DisplayFor(modelItem => item.CaseQ4Other)
+                        </div>
+                    </div>
+
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.MemSid)
+                    </div>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CaseQaid">Edit</a> |
+
+                    <a asp-action="Delete" asp-route-id="@item.CaseQaid">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+@section topCSS {
+    <style type="text/css">
+        h1 {
+            font-size: 36px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 20px;
+            background: #D9D9D9;
+            padding: 15px;
+            border-radius: 20px;
+        }
+
+        .box div:nth-child(odd) {
+            background-color: lightblue;
+            padding : 5px;
+            text-align : center;
+        }
+
+        .box div:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 5px;
+            text-align: center;
+        }
+
+        body {
+            background-color: #CBE9EA;
+        }
+    </style>
+}

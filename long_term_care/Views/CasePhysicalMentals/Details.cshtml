@@ -4,111 +4,98 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
 
+
+
+@*@using (Html.BeginForm())
+{
+    @Html.Label("CaseNo")
+         @Html.TextBox("CaseNo")
+    <input class="btn btn-outline-success" type="submit" value="查詢" />
+    
+}
 <div>
-    <h4>CasePhysicalMental</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseLive)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseLive)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseFre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseFre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseContent1)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseContent1)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseContent2)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseContent2)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseContent3)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseContent3)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseContent4)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseContent4)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseContent5)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseContent5)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseContent6)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseContent6)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseContent7)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseContent7)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseContent8)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseContent8)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseContent9)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseContent9)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseContent10)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseContent10)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseContent11)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseContent11)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseContent12)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseContent12)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseContent13)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseContent13)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseNoNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseNoNavigation.CaseNo)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.CaseQaid">Edit</a> |
+
     <a asp-action="Index">Back to List</a>
 </div>
+*@
+@using (Html.BeginForm("Details", "CasePhysicalMentals", FormMethod.Post))
+{
+    <div class="container-fluid">
+        <div class="insideBox">
+            <h3>C 單位巷弄長照站長者身心狀況評估問卷</h3>
+            <h5><span>請輸入個案案號</span></h5>
+            <div class="content">
+                @Html.TextBox("CaseNo", null, new { placeholder = "個案案號" })
+                <button type="submit">查詢</button>
+            </div>
+        </div>
+        <div>
+            <a asp-action="Index">返回</a>
+        </div>
+    </div>
+}
+@section topCSS {
+    <style type="text/css">
+        body {
+            font-family: 'Hiragino Kaku Gothic Pro', 'WenQuanYi Zen Hei', '微軟正黑體', '蘋果儷中黑', Helvetica, Arial, sans-serif;
+        }
+
+        .container-fluid {
+            background-color: #CBE9EA;
+            padding: 45px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        .insideBox {
+            border-radius: 20px;
+            background-color: #F1FFFF;
+            height: 100%;
+        }
+
+            .insideBox h3 {
+                font-size: 18px;
+                padding: 10px 30px;
+            }
+
+            .insideBox h5 {
+                font-size: 15px;
+                padding-left: 30px;
+            }
+
+        span {
+            color: #A9A5A5;
+        }
+
+        .content {
+            margin-top: 10%;
+            padding: 3%;
+            text-align: center;
+        }
+
+        input {
+            border: 1px solid #A9A5A5;
+            border-radius: 8px;
+        }
+
+            input:focus {
+                outline: none;
+            }
+
+        button {
+            border-radius: 8px;
+            background-color: #5C9DF7;
+            color: #FFFFFF;
+            border: transparent;
+        }
+
+            button:hover {
+                background-color: #7caef5;
+            }
+
+    </style>
+}
