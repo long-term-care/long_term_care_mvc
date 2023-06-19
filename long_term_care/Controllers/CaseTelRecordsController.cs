@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using long_term_care.Models;
+using long_term_care.ViewModels;
 
 namespace long_term_care.Controllers
 {
@@ -26,28 +27,75 @@ namespace long_term_care.Controllers
         }
 
         // GET: CaseTelRecords/Details/5
-        public async Task<IActionResult> Details(string id)
+        public IActionResult Details()
         {
-            if (id == null)
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Details(DateTime CaseYM, string CaseNo)
+        {
+            if (string.IsNullOrEmpty(CaseNo))
+            {
+                return Content("必須填入個案案號 !");
+            }
+            if (CaseYM == DateTime.MinValue)
+            {
+                return Content("必须填入年月!");
+            }
+            var no1 = from ctr in _context.CaseTelRecords
+                      join ci in _context.CaseInfors on ctr.CaseNo equals ci.CaseNo
+                      where ci.CaseNo == CaseNo && ctr.CaseRegTime.Month == CaseYM.Month && ctr.CaseRegTime.Year == CaseYM.Year
+
+                      select new TelSearchResultViewModel
+                      {
+                          CaseTelQaid = ctr.CaseTelQaid,
+                          CaseNo = ctr.CaseNo,
+                          CaseName = ci.CaseName,
+                          CaseGender = ci.CaseGender,
+                          CaseRegTime = ctr.CaseRegTime,
+                          CaseSick = ctr.CaseSick,
+                          CaseDay = ctr.CaseDay,
+                          CaseTelTime1 = ctr.CaseTelTime1,
+                          CaseTelTime2 = ctr.CaseTelTime2,
+                          CaseAns = ctr.CaseAns,
+                          CaseExp = ctr.CaseExp,
+                          CaseHea = ctr.CaseHea,
+                          CaseLive = ctr.CaseLive,
+                          CaseFam = ctr.CaseFam,
+                          CaseMental = ctr.CaseMental,
+                          CaseCom = ctr.CaseCom,
+                          MemSid = ctr.MemSid,
+                      };
+            var no2 = await no1.ToListAsync();
+            if (no2 == null)
             {
                 return NotFound();
             }
 
-            var caseTelRecord = await _context.CaseTelRecords
-                .Include(c => c.CaseNoNavigation)
-                .Include(c => c.MemS)
-                .FirstOrDefaultAsync(m => m.CaseTelQaid == id);
-            if (caseTelRecord == null)
-            {
-                return NotFound();
-            }
-
-            return View(caseTelRecord);
+            return View("SearchResult", no2);
         }
 
         // GET: CaseTelRecords/Create
         public IActionResult Create()
         {
+            string nextFormNumber = "";
+
+
+            var lastForm = _context.CaseTelRecords.OrderByDescending(f => f.CaseTelQaid).FirstOrDefault();
+            if (lastForm != null)
+            {
+                int lastFormNumber = int.Parse(lastForm.CaseTelQaid);
+                int nextFormNumberInt = lastFormNumber + 1;
+                nextFormNumber = nextFormNumberInt.ToString("0000");
+            }
+            else
+            {
+                nextFormNumber = "0001";
+            }
+
+
+            ViewData["CaseTelQaid"] = nextFormNumber;
             ViewData["CaseNo"] = new SelectList(_context.CaseInfors, "CaseNo", "CaseNo");
             ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid");
             return View();

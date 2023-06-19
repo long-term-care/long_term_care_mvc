@@ -15,7 +15,7 @@ namespace long_term_care.Models
         public string CaseContId { get; set; }
         public string CaseNo { get; set; }
         public DateTime Casedate { get; set; }
-        public int CaseTemp { get; set; }
+        public string CaseTemp { get; set; }
         public int CasePluse { get; set; }
         public string CaseBlood { get; set; }
         public string CasePick { get; set; }

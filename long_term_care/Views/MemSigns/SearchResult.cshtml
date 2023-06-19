@@ -1,0 +1,104 @@
+﻿@*@model IEnumerable<long_term_care.Models.MemSign>*@
+@using long_term_care.ViewModels;
+@model IEnumerable<MemSignSearchResultViewModel>
+
+@{
+    ViewData["Title"] = "SearchResult";
+}
+
+
+@{
+    bool isFirstIteration = true;   
+    DateTime? memYM = null;
+    string memName = null;
+    
+}
+
+@foreach (var item in Model)
+{
+    if (isFirstIteration)
+    {
+        
+        <br />
+        memYM = item.MemYM;
+        memName = item.MemName;
+        string formattedDate = memYM?.ToString("yyyy/MM");
+        isFirstIteration = false;
+
+        <h2>@formattedDate (志工) / (臨時人力)出勤紀錄表</h2>
+        <div>服務員（志工）/(臨時人力)姓名： @memName</div>
+        
+    }
+
+
+}
+<table class="table table-bordered">
+    <thead>
+        <tr>
+
+            <th scope="col">月/日</th>
+            <th scope="col">簽到時間</th>
+            <th scope="col">簽退時間</th>
+            <th scope="col">工作日誌</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="table-light">
+                <th scope="row">
+
+                    <div class="form-group">
+
+                        @Html.DisplayFor(modelItem => item.MemDate)
+                    </div>
+                </th>
+                <td>
+
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.MemTelTime1)
+
+                    </div>
+                    
+
+                </td>
+                <td>
+
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.MemTelTime2)
+
+                    </div>
+                    
+                </td>
+                <td>
+
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.MemRecord)
+
+                    </div>
+                    
+
+                </td>
+                
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section topCSS {
+    <style type="text/css">
+        
+
+        h2 {
+            font-size: 30px;
+            text-align: center;
+        }
+
+        
+
+        body {
+            background-color: #CBE9EA;
+        }
+    </style>
+}

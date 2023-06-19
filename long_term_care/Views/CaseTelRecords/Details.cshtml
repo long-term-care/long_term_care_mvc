@@ -6,97 +6,106 @@
 
 <h1>Details</h1>
 
+@*@using (Html.BeginForm())
+{
+    <div>
+        <label for="yearMonth">年月：</label>
+        <input type="month" name="CaseYM" id="CaseYM">
+
+    </div>
+    <div>
+        <label for="number">個案案號：</label>
+        @Html.TextBox("CaseNo", null, new { id = "CaseNo" })
+    </div>
+
+    
+    <input class="btn btn-outline-success" type="submit" value="查詢" />
+
+
+}
 <div>
-    <h4>CaseTelRecord</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseRegTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseRegTime)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseSick)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseSick)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseDay)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseDay)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseTelTime1)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseTelTime1)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseTelTime2)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseTelTime2)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseAns)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseAns)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseExp)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseExp)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseHea)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseHea)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseLive)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseLive)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseFam)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseFam)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseMental)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseMental)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseCom)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseCom)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseNoNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseNoNavigation.CaseNo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MemS)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MemS.MemSid)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.CaseTelQaid">Edit</a> |
     <a asp-action="Index">Back to List</a>
-</div>
+</div>*@
+
+@using (Html.BeginForm("Details", "CaseTelRecords", FormMethod.Post))
+{
+    <div class="container-fluid">
+        <div class="insideBox">
+            <h3>C 單位巷弄長照站電話問安</h3>
+            <h5><span>請輸入年月.個案案號</span></h5>
+            <div class="content">
+                <input type="month" name="CaseYM" id="CaseYM" placeholder="年月">
+                @Html.TextBox("CaseNo", null, new { placeholder = "個案案號" })
+
+                <button type="submit">查詢</button>
+            </div>
+        </div>
+        <div>
+            <a asp-action="Index">返回</a>
+        </div>
+    </div>
+}
+@section topCSS {
+    <style type="text/css">
+        body {
+            font-family: 'Hiragino Kaku Gothic Pro', 'WenQuanYi Zen Hei', '微軟正黑體', '蘋果儷中黑', Helvetica, Arial, sans-serif;
+        }
+
+        .container-fluid {
+            background-color: #CBE9EA;
+            padding: 45px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        .insideBox {
+            border-radius: 20px;
+            background-color: #F1FFFF;
+            height: 100%;
+        }
+
+            .insideBox h3 {
+                font-size: 18px;
+                padding: 10px 30px;
+            }
+
+            .insideBox h5 {
+                font-size: 15px;
+                padding-left: 30px;
+            }
+
+        span {
+            color: #A9A5A5;
+        }
+
+        .content {
+            margin-top: 10%;
+            padding: 3%;
+            text-align: center;
+        }
+
+        input {
+            border: 1px solid #A9A5A5;
+            border-radius: 8px;
+        }
+
+            input:focus {
+                outline: none;
+            }
+
+        button {
+            border-radius: 8px;
+            background-color: #5C9DF7;
+            color: #FFFFFF;
+            border: transparent;
+        }
+
+            button:hover {
+                background-color: #7caef5;
+            }
+
+    </style>
+}

@@ -1,0 +1,195 @@
+﻿@using long_term_care.ViewModels;
+@model NeedSearchResultViewModal
+
+<div class="container">
+    <h1>社區長者需求調查</h1>
+
+    <div class="clearfix">
+        <div class="left">
+            <button type="button" class="btn btn-secondary">基本資料</button>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(modelItem => modelItem.CaseRead)
+                @Html.DisplayFor(model => model.CaseRead)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(modelItem => modelItem.CaseFami)
+                @Html.DisplayFor(model => model.CaseFami)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(modelItem => modelItem.CaseCons)
+                @Html.DisplayFor(model => model.CaseCons)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(modelItem => modelItem.CaseSpeak)
+                @Html.DisplayFor(model => model.CaseSpeak)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(modelItem => modelItem.CaseAct)
+                @Html.DisplayFor(model => model.CaseAct)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(modelItem => modelItem.CaseMed)
+                @Html.DisplayFor(model => model.CaseMed)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(modelItem => modelItem.CaseSee)
+                @Html.DisplayFor(model => model.CaseSee)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(modelItem => modelItem.CaseHear)
+                @Html.DisplayFor(model => model.CaseHear)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(modelItem => modelItem.CaseEat)
+                @Html.DisplayFor(model => model.CaseEat)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(modelItem => modelItem.CaseCare)
+                @Html.DisplayFor(model => model.CaseCare)
+            </div>
+        </div>
+
+        <div class="right">
+            <button type="button" class="btn btn-secondary">問卷內容</button>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(model => model.CaseView1)
+                @Html.DisplayFor(modelItem => modelItem.CaseView1)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(model => model.CaseView2)
+                @Html.DisplayFor(modelItem => modelItem.CaseView2)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(model => model.CaseView3)
+                @Html.DisplayFor(modelItem => modelItem.CaseView3)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(model => model.CaseView4)
+                @Html.DisplayFor(modelItem => modelItem.CaseView4)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(model => model.CaseView5)
+                @Html.DisplayFor(modelItem => modelItem.CaseView5)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(model => model.CaseView6)
+                @Html.DisplayFor(modelItem => modelItem.CaseView6)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(model => model.CaseView7)
+                @Html.DisplayFor(modelItem => modelItem.CaseView7)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(model => model.CaseView8)
+                @Html.DisplayFor(modelItem => modelItem.CaseView8)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(model => model.CaseView9)
+                @Html.DisplayFor(modelItem => modelItem.CaseView9)
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Details">返回</a>
+    </div>
+</div>
+
+@section topCSS {
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F8F8F8;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .btn {
+            background-color: #333;
+            color: #FFF;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #555;
+        }
+        .custom-div {
+            background-color: #FFF;
+            border: 1px solid #DDD;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .left {
+            float: left;
+            width: 50%;
+            padding-right: 10px;
+        }
+        .right {
+            float: right;
+            width: 50%;
+            padding-left: 10px;
+        }
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #555;
+        }
+    </style>
+}
+
+
+@*@Html.DisplayFor(modelItem => item.CaseNoNavigation.CaseNo)
+</td>
+<td>
+<a asp-action="Edit" asp-route-id="@item.CaseNeedId">Edit</a> |
+<a asp-action="Details" asp-route-id="@item.CaseNeedId">Details</a> |
+<a asp-action="Delete" asp-route-id="@item.CaseNeedId">Delete</a>
+</td>*@

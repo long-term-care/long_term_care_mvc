@@ -6,16 +6,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using long_term_care.Models;
+using long_term_care.ViewModels;
 
 namespace long_term_care.Controllers
 {
     public class CasePhysicalMentalsController : Controller
     {
         private readonly longtermcareContext _context;
+        
 
         public CasePhysicalMentalsController(longtermcareContext context)
         {
             _context = context;
+            
         }
 
         // GET: CasePhysicalMentals
@@ -26,27 +29,82 @@ namespace long_term_care.Controllers
         }
 
         // GET: CasePhysicalMentals/Details/5
-        public async Task<IActionResult> Details(string id)
+        public IActionResult Details()
         {
-            if (id == null)
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Details(string CaseNo)
+        {
+            if (string.IsNullOrEmpty(CaseNo))
+            {
+                return Content("必須提供身分證號碼!");
+            } 
+            //var no1 = await _context.CasePhysicalMentals.Include(c => c.CaseNoNavigation)
+            //    .Where(m => m.CaseNo == CaseNo).ToListAsync();
+
+            
+            var no = from cpm in _context.CasePhysicalMentals
+                     join ci in _context.CaseInfors on cpm.CaseNo equals ci.CaseNo
+                     where ci.CaseNo == CaseNo
+                     orderby cpm.CaseQaid
+                     select new PhysicalSearchResultViewModel
+                     {
+                         CaseName = ci.CaseName,
+                         CaseOld = ci.CaseBd,
+                         CaseGender = ci.CaseGender,
+                         CaseMari = ci.CaseMari,
+                         CaseEdu = ci.CaseEdu,
+                         CaseLive = cpm.CaseLive,
+                         CaseFre = cpm.CaseFre,
+                         CaseContent1 = cpm.CaseContent1,
+                         CaseContent2 = cpm.CaseContent2,
+                         CaseContent3 = cpm.CaseContent3,
+                         CaseContent4 = cpm.CaseContent4,
+                         CaseContent5 = cpm.CaseContent5,
+                         CaseContent6 = cpm.CaseContent6,
+                         CaseContent7 = cpm.CaseContent7,
+                         CaseContent8 = cpm.CaseContent8,
+                         CaseContent9 = cpm.CaseContent9,
+                         CaseContent10 = cpm.CaseContent10,
+                         CaseContent11 = cpm.CaseContent11,
+                         CaseContent12 = cpm.CaseContent12,
+                         CaseContent13 = cpm.CaseContent13,
+                         CaseQaid = cpm.CaseQaid,
+                     };
+            var no2 = await no.LastOrDefaultAsync();
+
+            if (no2 == null)
             {
                 return NotFound();
             }
-
-            var casePhysicalMental = await _context.CasePhysicalMentals
-                .Include(c => c.CaseNoNavigation)
-                .FirstOrDefaultAsync(m => m.CaseQaid == id);
-            if (casePhysicalMental == null)
-            {
-                return NotFound();
-            }
-
-            return View(casePhysicalMental);
+            
+            return View("SearchResult", no2);
+            
         }
 
         // GET: CasePhysicalMentals/Create
         public IActionResult Create()
         {
+            string nextFormNumber = "";
+
+
+            var lastForm = _context.CasePhysicalMentals.OrderByDescending(f => f.CaseQaid).FirstOrDefault();
+            if (lastForm != null)
+            {
+                int lastFormNumber = int.Parse(lastForm.CaseQaid);
+                int nextFormNumberInt = lastFormNumber + 1;
+                nextFormNumber = nextFormNumberInt.ToString("0000");
+            }
+            else
+            {
+                nextFormNumber = "0001";
+            }
+
+
+            ViewData["CaseQaid"] = nextFormNumber;
             ViewData["CaseNo"] = new SelectList(_context.CaseInfors, "CaseNo", "CaseNo");
             return View();
         }
