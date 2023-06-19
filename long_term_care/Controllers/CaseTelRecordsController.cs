@@ -79,6 +79,23 @@ namespace long_term_care.Controllers
         // GET: CaseTelRecords/Create
         public IActionResult Create()
         {
+            string nextFormNumber = "";
+
+
+            var lastForm = _context.CaseTelRecords.OrderByDescending(f => f.CaseTelQaid).FirstOrDefault();
+            if (lastForm != null)
+            {
+                int lastFormNumber = int.Parse(lastForm.CaseTelQaid);
+                int nextFormNumberInt = lastFormNumber + 1;
+                nextFormNumber = nextFormNumberInt.ToString("0000");
+            }
+            else
+            {
+                nextFormNumber = "0001";
+            }
+
+
+            ViewData["CaseTelQaid"] = nextFormNumber;
             ViewData["CaseNo"] = new SelectList(_context.CaseInfors, "CaseNo", "CaseNo");
             ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid");
             return View();

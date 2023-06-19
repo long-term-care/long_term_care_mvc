@@ -65,21 +65,27 @@ namespace long_term_care.Controllers
 
             return View("SearchResult", no2);
         }
-        private static int currentNumber = 15;
-
-        public static int GenerateFormNumber()
-        {
-            int formNumber = currentNumber;
-            currentNumber++;
-            return formNumber;
-        }
+        
         // GET: MemSigns/Create
         public IActionResult Create()
         {
-            var formNumber = GenerateFormNumber(); // 呼叫生成編號的方法
+            string nextFormNumber = "";
 
+            
+                var lastForm = _context.MemSigns.OrderByDescending(f => f.MemSignQaid).FirstOrDefault();
+                if (lastForm != null)
+                {
+                    int lastFormNumber = int.Parse(lastForm.MemSignQaid);
+                    int nextFormNumberInt = lastFormNumber + 1;
+                    nextFormNumber = nextFormNumberInt.ToString("0000");
+                }
+                else
+                {
+                    nextFormNumber = "0001";
+                }
+            
 
-            ViewBag.MemSignQaid = formNumber.ToString();
+            ViewData["MemSignQaid"] = nextFormNumber;
 
 
             ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid");
