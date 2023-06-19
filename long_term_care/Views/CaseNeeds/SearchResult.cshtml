@@ -1,98 +1,190 @@
 ﻿@using long_term_care.ViewModels;
 @model NeedSearchResultViewModal
 
-@{
-    ViewData["Title"] = "SearchResult";
-}
+<div class="container">
+    <h1>社區長者需求調查</h1>
 
-<h1>社區長者需求調查</h1>
-<div class="col-md-2">
-    <button type="button" class="btn btn-secondary">基本資料</button>
+    <div class="clearfix">
+        <div class="left">
+            <button type="button" class="btn btn-secondary">基本資料</button>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(modelItem => modelItem.CaseRead)
+                @Html.DisplayFor(model => model.CaseRead)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(modelItem => modelItem.CaseFami)
+                @Html.DisplayFor(model => model.CaseFami)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(modelItem => modelItem.CaseCons)
+                @Html.DisplayFor(model => model.CaseCons)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(modelItem => modelItem.CaseSpeak)
+                @Html.DisplayFor(model => model.CaseSpeak)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(modelItem => modelItem.CaseAct)
+                @Html.DisplayFor(model => model.CaseAct)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(modelItem => modelItem.CaseMed)
+                @Html.DisplayFor(model => model.CaseMed)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(modelItem => modelItem.CaseSee)
+                @Html.DisplayFor(model => model.CaseSee)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(modelItem => modelItem.CaseHear)
+                @Html.DisplayFor(model => model.CaseHear)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(modelItem => modelItem.CaseEat)
+                @Html.DisplayFor(model => model.CaseEat)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(modelItem => modelItem.CaseCare)
+                @Html.DisplayFor(model => model.CaseCare)
+            </div>
+        </div>
+
+        <div class="right">
+            <button type="button" class="btn btn-secondary">問卷內容</button>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(model => model.CaseView1)
+                @Html.DisplayFor(modelItem => modelItem.CaseView1)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(model => model.CaseView2)
+                @Html.DisplayFor(modelItem => modelItem.CaseView2)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(model => model.CaseView3)
+                @Html.DisplayFor(modelItem => modelItem.CaseView3)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(model => model.CaseView4)
+                @Html.DisplayFor(modelItem => modelItem.CaseView4)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(model => model.CaseView5)
+                @Html.DisplayFor(modelItem => modelItem.CaseView5)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(model => model.CaseView6)
+                @Html.DisplayFor(modelItem => modelItem.CaseView6)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(model => model.CaseView7)
+                @Html.DisplayFor(modelItem => modelItem.CaseView7)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(model => model.CaseView8)
+                @Html.DisplayFor(modelItem => modelItem.CaseView8)
+            </div>
+
+            <div class="custom-div">
+                @Html.DisplayNameFor(model => model.CaseView9)
+                @Html.DisplayFor(modelItem => modelItem.CaseView9)
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Details">返回</a>
+    </div>
 </div>
 
-        
-@Html.DisplayNameFor(modelItem => modelItem.CaseRead)
-<div class="custom-div"> @Html.DisplayFor(model => model.CaseRead)</div>
-@Html.DisplayNameFor(modelItem => modelItem.CaseFami)
-<div class="custom-div">@Html.DisplayFor(model => model.CaseFami)</div>
-@Html.DisplayNameFor(modelItem => modelItem.CaseCons)
-<div class="custom-div">@Html.DisplayFor(model => model.CaseCons)</div>
-@Html.DisplayNameFor(modelItem => modelItem.CaseSpeak)
-<div class="custom-div">@Html.DisplayFor(model => model.CaseSpeak)</div>
-@Html.DisplayNameFor(modelItem => modelItem.CaseAct)
-<div class="custom-div">@Html.DisplayFor(model => model.CaseAct)</div>
-@Html.DisplayNameFor(modelItem => modelItem.CaseMed)
-<div class="custom-div">@Html.DisplayFor(model => model.CaseMed)</div>
-@Html.DisplayNameFor(modelItem => modelItem.CaseSee)
-<div class="custom-div">@Html.DisplayFor(model => model.CaseSee)</div>
-@Html.DisplayNameFor(modelItem => modelItem.CaseHear)
-<div class="custom-div">@Html.DisplayFor(model => model.CaseHear)</div>
-@Html.DisplayNameFor(modelItem => modelItem.CaseEat)
-<div class="custom-div">@Html.DisplayFor(model => model.CaseEat)</div>
-@Html.DisplayNameFor(modelItem => modelItem.CaseCare)
-<div class="custom-div">@Html.DisplayFor(model => model.CaseCare)</div>
-<br/>
-<div class="col-md-2">
-    <button type="button" class="btn btn-secondary">問卷內容</button>
-</div>
-@Html.DisplayNameFor(model => model.CaseView1)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseView1)</div>
-<br />
-@Html.DisplayNameFor(model => model.CaseView2)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseView2)</div>
-<br />
-@Html.DisplayNameFor(model => model.CaseView3)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseView3)</div>
-<br />
-@Html.DisplayNameFor(model => model.CaseView4)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseView4)</div>
-<br />
-@Html.DisplayNameFor(model => model.CaseView5)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseView5)</div>
-<br />
-@Html.DisplayNameFor(model => model.CaseView6)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseView6)</div>
-<br />
-@Html.DisplayNameFor(model => model.CaseView7)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseView7)</div>
-<br />
-@Html.DisplayNameFor(model => model.CaseView8)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseView8)</div>
-<br />
-@Html.DisplayNameFor(model => model.CaseView9)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseView9)</div>
-<br />
-<div>
-    <a asp-action="Details">返回</a>
-</div>
 @section topCSS {
     <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F8F8F8;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
         h1 {
-            font-size: 36px;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
             text-align: center;
         }
-
-        h2 {
-            font-size: 20px;
-            background: #D9D9D9;
-            padding: 15px;
-            border-radius: 20px;
+        .btn {
+            background-color: #333;
+            color: #FFF;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
-
-
-        body {
-            background-color: #CBE9EA;
+        .btn:hover {
+            background-color: #555;
         }
-
         .custom-div {
-            background-color: rgba(255, 255, 255, 0.8);
-            display: inline-block;
-            padding: 4px;
-            border-radius: 10px;
+            background-color: #FFF;
+            border: 1px solid #DDD;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .left {
+            float: left;
+            width: 50%;
+            padding-right: 10px;
+        }
+        .right {
+            float: right;
+            width: 50%;
+            padding-left: 10px;
+        }
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #555;
         }
     </style>
 }
+
 
 @*@Html.DisplayFor(modelItem => item.CaseNoNavigation.CaseNo)
 </td>
