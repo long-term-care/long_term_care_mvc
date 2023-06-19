@@ -1,19 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
-#nullable disable
-
-namespace long_term_care.Models
+namespace long_term_care.ViewModels
 {
-    public partial class CasePhysicalMental
+    public class PhysicalSearchResultViewModel
     {
-        [Display(Name = "表單編號")]
-        public string CaseQaid { get; set; }
+        [Display(Name = "受訪者 : ")]
+        public string CaseName { get; set; }
 
-        [Display(Name = "個案案號")]
-        public string CaseNo { get; set; }
+        [Display(Name = "性別 : ")]
+        public string CaseGender { get; set; }
+
+        [Display(Name = "年齡 : ")]
+        public string CaseOld { get; set; }
+
+        [Display(Name = "婚姻 : ")]
+        public string CaseMari { get; set; }
+
+        [Display(Name = "教育程度 : ")]
+        public string CaseEdu { get; set; }
 
         [Display(Name = "以上居住情形:")]
         public string CaseLive { get; set; }
@@ -29,8 +34,6 @@ namespace long_term_care.Models
 
         [Display(Name = "三、您來C 單位巷弄長照站之後，經常參與的活動有哪些(可複選)?")]
         public string CaseContent3 { get; set; }
-        //public List<string> CaseContent3 { get; set; }
-
 
         [Display(Name = "四、您來C 單位巷弄長照站之後，是否學到新東西(可複選)?")]
         public string CaseContent4 { get; set; }
@@ -61,8 +64,8 @@ namespace long_term_care.Models
 
         [Display(Name = "十三、您參加C 單位巷弄長照站的活動之後，對您生活有什麼影響(改變)?")]
         public string CaseContent13 { get; set; }
+        public string CaseQaid { get; set; }
 
-        [Display(Name = "志工編號")]
-        public virtual CaseInfor CaseNoNavigation { get; set; }
+
     }
 }

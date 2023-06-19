@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using long_term_care.Models;
+using long_term_care.ViewModels;
 
 namespace long_term_care.Controllers
 {
@@ -26,28 +27,87 @@ namespace long_term_care.Controllers
         }
 
         // GET: CaseCareRecords/Details/5
-        public async Task<IActionResult> Details(string id)
+        
+        public IActionResult Details()
         {
-            if (id == null)
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Details(string CaseNo)
+        {
+            if (string.IsNullOrEmpty(CaseNo))
+            {
+                return Content("個案案號!");
+            }
+
+            //var no = await _context.CaseCareRecords.Include(c => c.CaseNoNavigation)
+            //                    .Where(m => m.CaseNo == CaseNo).ToListAsync();
+
+            var no1 = from ccr in _context.CaseCareRecords
+                      join ci in _context.CaseInfors on ccr.CaseNo equals ci.CaseNo
+                      where ccr.CaseNo == CaseNo
+                      select new CareSearchResultViewModel
+                     {
+                         CaseName = ci.CaseName,
+                         CaseBd = ci.CaseBd,
+                         CaseGender = ci.CaseGender,
+                         CaseNo = ci.CaseIdcard,
+                          CasePhn = ccr.CaseTel,
+                         CaseHealth = ccr.CaseHealth,
+                         CaseIdent = ci.CaseIdent,
+                         CaseLang = ci.CaseLang,
+                         CaseMari = ci.CaseMari,
+                         CaseFami = ci.CaseFami,
+                         CaseAddr = ci.CaseAddr,
+                         CaseCnta = ci.CaseCnta,
+                         CaseCntTel = ci.CaseCntTel,
+                         CaseCntRel = ci.CaseCntRel,
+
+                         CaseHome = ccr.CaseHome,
+                         CaseTime1 = ccr.CaseTime1,
+                         CaseQ1 = ccr.CaseQ1,
+                         CaseQ1Other = ccr.CaseQ1Other,
+                         CaseQ2 = ccr.CaseQ2,
+                         CaseQ2Other = ccr.CaseQ2Other,
+                         CaseQ3 = ccr.CaseQ3,
+                         CaseQ3Other = ccr.CaseQ3Other,
+                         CaseQ4 = ccr.CaseQ4,
+                         CaseQ4Other = ccr.CaseQ4Other,
+                         MemSid = ccr.MemSid,
+
+                         CaseQaid = ccr.CaseQaid,
+
+                     };
+            var no2 = await no1.ToListAsync();
+            if (no2 == null)
             {
                 return NotFound();
             }
 
-            var caseCareRecord = await _context.CaseCareRecords
-                .Include(c => c.CaseNoNavigation)
-                .Include(c => c.MemS)
-                .FirstOrDefaultAsync(m => m.CaseQaid == id);
-            if (caseCareRecord == null)
-            {
-                return NotFound();
-            }
-
-            return View(caseCareRecord);
+            return View("SearchResult", no2);
         }
 
         // GET: CaseCareRecords/Create
         public IActionResult Create()
         {
+            string nextFormNumber = "";
+
+
+            var lastForm = _context.CaseCareRecords.OrderByDescending(f => f.CaseQaid).FirstOrDefault();
+            if (lastForm != null)
+            {
+                int lastFormNumber = int.Parse(lastForm.CaseQaid);
+                int nextFormNumberInt = lastFormNumber + 1;
+                nextFormNumber = nextFormNumberInt.ToString("0000");
+            }
+            else
+            {
+                nextFormNumber = "0001";
+            }
+
+
+            ViewData["CaseQaid"] = nextFormNumber;
             ViewData["CaseNo"] = new SelectList(_context.CaseInfors, "CaseNo", "CaseNo");
             ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid");
             return View();

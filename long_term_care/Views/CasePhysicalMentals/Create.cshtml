@@ -29,7 +29,7 @@
             <div class="row align-items-start">
                 <div class="form-group col-md-4">
                     <label asp-for="CaseQaid" class="control-label"></label>
-                    <input asp-for="CaseQaid" class="form-control" />
+                    <input asp-for="CaseQaid" class="form-control" type="text" value="@ViewBag.CaseQaid" readonly />
                     <span asp-validation-for="CaseQaid" class="text-danger"></span>
                 </div>
                 <div class="form-group col-md-4">

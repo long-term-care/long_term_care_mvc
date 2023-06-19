@@ -1,0 +1,199 @@
+﻿@*@model IEnumerable<long_term_care.Models.CaseTelRecord>*@
+@using long_term_care.ViewModels;
+@model IEnumerable<TelSearchResultViewModel>
+
+@{
+    ViewData["Title"] = "SearchResult";
+}
+
+@{
+    var reversedModel = Model.Reverse();
+}
+
+@{
+    bool isFirstIteration = true;
+    DateTime? caseRegTime = null;
+    string caseNo = null;
+    string caseName = null;
+    string caseGender = null;
+    string caseSick = null;
+
+}
+
+@foreach (var item in Model)
+{
+    if (isFirstIteration)
+    {
+
+        <br />
+        caseRegTime = item.CaseRegTime;
+        caseNo = item.CaseNo;
+        caseName = item.CaseName;
+        caseGender = item.CaseGender;
+        caseSick = item.CaseSick;
+        string formattedDate = caseRegTime?.ToString("yyyy/MM");
+
+        isFirstIteration = false;
+
+        <h2>@formattedDate 電話問安紀錄表</h2>
+
+        
+        <div class="row align-items-start box">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseNo)
+            </div>
+            <div class="col-md-2 ">
+                @caseNo
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseName)
+            </div>
+            <div class="col-md-2">
+                @caseName
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseGender)
+            </div>
+            <div class="col-md-2">
+                @caseGender
+            </div>
+        </div>
+        <br/>
+        <div class="row align-items-start box">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseSick)
+            </div>
+            <div class="col-md-10 ">
+                @caseSick
+            </div>
+            
+        </div>
+        <br />
+
+    }
+
+
+}
+<table class="table table-bordered">
+    <thead>
+        <tr>
+
+            <th scope="col">時間</th>
+            <th scope="col">接聽情形</th>
+            <th scope="col">口頭表達</th>
+            <th scope="col">健康情況</th>
+            <th scope="col">生活狀況</th>
+            <th scope="col">親友互動</th>
+            <th scope="col">精神狀況</th>
+            <th scope="col">總評</th>
+            <th scope="col">服務人員id</th>
+            <th scope="col"></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="table-light">
+                <th scope="row">
+
+                    <div class="form-group">
+
+                        @Html.DisplayFor(modelItem => item.CaseDay) 日
+                        @Html.DisplayFor(modelItem => item.CaseTelTime1) ~
+                        @Html.DisplayFor(modelItem => item.CaseTelTime2) 
+                    </div>
+                </th>
+                <td>
+
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CaseAns)
+
+                    </div>
+
+
+                </td>
+                <td>
+
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CaseExp)
+
+                    </div>
+
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CaseHea)
+
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CaseLive)
+
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CaseFam)
+
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CaseMental)
+
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CaseCom)
+
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.MemSid)
+
+                    </div>
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CaseTelQaid">Edit</a> |
+
+                    <a asp-action="Delete" asp-route-id="@item.CaseTelQaid">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section topCSS {
+    <style type="text/css">
+
+
+        h2 {
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .box div:nth-child(odd) {
+            background-color: lightblue;
+            padding: 5px;
+            text-align: center;
+        }
+
+        .box div:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 5px;
+            text-align: center;
+        }
+
+        body {
+            background-color: #CBE9EA;
+        }
+    </style>
+}
+@*<a asp-action="Edit" asp-route-id="@item.CaseTelQaid">Edit</a> |
+
+<a asp-action="Delete" asp-route-id="@item.CaseTelQaid">Delete</a>*@
