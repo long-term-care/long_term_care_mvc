@@ -16,8 +16,8 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group col-md-4">
                 <label asp-for="MemSignQaid" class="control-label"></label>
-                
-                <input asp-for="MemSignQaid" class="form-control" readonly value="@ViewBag.MemSignQaid" />
+                <input asp-for="MemSignQaid" class="form-control" type="text" value="@ViewBag.MemSignQaid" readonly />
+                @*<input asp-for="MemSignQaid" class="form-control" readonly value="@Model.MemSignQaid" />*@
                 <span asp-validation-for="MemSignQaid" class="text-danger"></span>
             </div>
 
@@ -32,7 +32,7 @@
             <div>
                 <div class="col-md-4">
                     @Html.LabelFor(m => m.MemTelTime1)
-                    @Html.TextBoxFor(m => m.MemTelTime1, new { @class = "form-control", type = "datetime" })
+                    @Html.TextBoxFor(m => m.MemTelTime1, new { @class = "form-control", type = "datetime", @readonly = "readonly" }  )
                     <button type="button" class="btn btn-outline-success" onclick="recordSignInTime()">點擊簽到</button>
                 </div>
             </div>
@@ -48,7 +48,7 @@
             <div>
                 <div class="col-md-4 g-3">
                     @Html.LabelFor(m => m.MemTelTime2)
-                    @Html.TextBoxFor(m => m.MemTelTime2, new { @class = "form-control", type = "datetime" })
+                    @Html.TextBoxFor(m => m.MemTelTime2, new { @class = "form-control", type = "datetime", @readonly = "readonly" })
                     <button type="button" class="btn btn-outline-success" onclick="recordSignOutTime()">點擊簽退</button>
                 </div>
             </div>

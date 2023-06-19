@@ -6,7 +6,9 @@
     ViewData["Title"] = "SearchResult";
 }
 
-
+@{
+    var reversedModel = Model.Reverse();
+}
 
 @{
     bool isFirstIteration = true;

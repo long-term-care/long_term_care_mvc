@@ -91,6 +91,23 @@ namespace long_term_care.Controllers
         // GET: CaseCareRecords/Create
         public IActionResult Create()
         {
+            string nextFormNumber = "";
+
+
+            var lastForm = _context.CaseCareRecords.OrderByDescending(f => f.CaseQaid).FirstOrDefault();
+            if (lastForm != null)
+            {
+                int lastFormNumber = int.Parse(lastForm.CaseQaid);
+                int nextFormNumberInt = lastFormNumber + 1;
+                nextFormNumber = nextFormNumberInt.ToString("0000");
+            }
+            else
+            {
+                nextFormNumber = "0001";
+            }
+
+
+            ViewData["CaseQaid"] = nextFormNumber;
             ViewData["CaseNo"] = new SelectList(_context.CaseInfors, "CaseNo", "CaseNo");
             ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid");
             return View();
