@@ -28,6 +28,8 @@ namespace long_term_care
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            
+
             services.AddDbContext<longtermcareContext>(options =>
          options.UseSqlServer(Configuration.GetConnectionString("longtermcareContext")));
         services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -59,6 +61,8 @@ namespace long_term_care
             app.UseStaticFiles();
 
             app.UseRouting();
+            
+
 
             app.UseAuthentication(); //≈Á√“
 

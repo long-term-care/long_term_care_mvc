@@ -1,4 +1,5 @@
-﻿@model long_term_care.Models.MemSign
+﻿@using long_term_care.Controllers;
+@model long_term_care.Models.MemSign
 
 @{
     ViewData["Title"] = "Create";
@@ -15,9 +16,14 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group col-md-4">
                 <label asp-for="MemSignQaid" class="control-label"></label>
-                <input asp-for="MemSignQaid" class="form-control" />
+                
+                <input asp-for="MemSignQaid" class="form-control" readonly value="@ViewBag.MemSignQaid" />
                 <span asp-validation-for="MemSignQaid" class="text-danger"></span>
             </div>
+
+            
+            
+
             <div class="form-group col-md-4">
                 <label asp-for="MemSid" class="control-label"></label>
                 <select asp-for="MemSid" class="form-control" asp-items="ViewBag.MemSid"></select>
@@ -69,6 +75,8 @@
             var signOutTimeField = document.getElementById("MemTelTime2");
             signOutTimeField.value = new Date().toLocaleString();
         }
+        
+        
     </script>
 }
 

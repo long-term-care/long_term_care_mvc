@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using long_term_care.Models;
+using long_term_care.ViewModels;
+using System.Runtime.ConstrainedExecution;
 
 namespace long_term_care.Controllers
 {
@@ -26,31 +28,64 @@ namespace long_term_care.Controllers
         }
 
         // GET: MemSigns/Details/5
-        public async Task<IActionResult> Details(string id)
+        public IActionResult Details()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var memSign = await _context.MemSigns
-                .Include(m => m.MemS)
-                .FirstOrDefaultAsync(m => m.MemSignQaid == id);
-            if (memSign == null)
-            {
-                return NotFound();
-            }
-
-            return View(memSign);
+            return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Details(string MemSid, DateTime MemTelTime1)
+        {
+            if (string.IsNullOrEmpty(MemSid))
+            {
+                return Content("必須填入志工id !");
+            }
+            if (MemTelTime1 == DateTime.MinValue)
+            {
+                return Content("必须填入年月!");
+            }
+            var no1 = from ms in _context.MemSigns
+                      join mi in _context.MemberInformations on ms.MemSid equals mi.MemSid
+                      where ms.MemSid == MemSid && ms.MemTelTime1.Month == MemTelTime1.Month && ms.MemTelTime1.Year == MemTelTime1.Year
 
+                      select new MemSignSearchResultViewModel
+                      {
+                          MemYM = ms.MemTelTime1,
+                          MemName = mi.MemName,
+                          MemDate = ms.MemTelTime1,
+                          MemTelTime1 = ms.MemTelTime1,
+                          MemTelTime2 = ms.MemTelTime2,
+                          MemRecord = ms.MemRecord,
+                      };
+            var no2 = await no1.ToListAsync();
+            if (no2 == null)
+            {
+                return NotFound();
+            }
+
+            return View("SearchResult", no2);
+        }
+        private static int currentNumber = 15;
+
+        public static int GenerateFormNumber()
+        {
+            int formNumber = currentNumber;
+            currentNumber++;
+            return formNumber;
+        }
         // GET: MemSigns/Create
         public IActionResult Create()
         {
+            var formNumber = GenerateFormNumber(); // 呼叫生成編號的方法
+
+
+            ViewBag.MemSignQaid = formNumber.ToString();
+
+
             ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid");
             return View();
         }
-
+        
         // POST: MemSigns/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -58,6 +93,8 @@ namespace long_term_care.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("MemSignQaid,MemSid,MemTelTime1,MemTelTime2,MemRecord")] MemSign memSign)
         {
+            
+
             if (ModelState.IsValid)
             {
                 _context.Add(memSign);

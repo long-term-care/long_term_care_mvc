@@ -12,7 +12,7 @@ namespace long_term_care.Models
         [Display(Name = "表單編號")]
         public string CaseQaid { get; set; }
 
-        [Display(Name = "身分證統一編號")]
+        [Display(Name = "個案案號")]
         public string CaseNo { get; set; }
 
         [Display(Name = "電話")]
@@ -48,7 +48,7 @@ namespace long_term_care.Models
         [Display(Name = "訪視者")]
         public string MemSid { get; set; }
 
-        [Display(Name = "個案編號")]
+        [Display(Name = "身分證統一編號")]
         public virtual CaseInfor CaseNoNavigation { get; set; }
         [Display(Name = "志工編號")]
         public virtual MemberInformation MemS { get; set; }

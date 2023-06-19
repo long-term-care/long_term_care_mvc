@@ -1,0 +1,109 @@
+﻿@using long_term_care.ViewModels;
+@*@model long_term_care.Models.CasePhysicalMental*@
+@*@model dynamic*@
+@model PhysicalSearchResultViewModel
+
+
+<!-- 访问其他属性 -->
+
+@{
+    ViewData["Title"] = "SearchResult";
+}
+
+<h1>C 單位巷弄長照站長者身心狀況評估問卷</h1>
+<h2>
+    阿公/阿嬷(或爺爺/奶奶)您好： 為了瞭解您參加C 單位巷弄長照站的情形，聽聽您的感想與建議，以做為我們未來規劃服務的參考，請您撥一點時間，幫助我們填寫問卷。您的資料，將僅作為評估關
+    懷站服務情形之參考，請放心填答。
+</h2>
+
+<div class="col-md-2">
+    <button type="button" class="btn btn-secondary">基本資料</button>
+</div>
+
+@Html.DisplayNameFor(model => model.CaseName)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseName)</div>
+<br />
+@*@Html.DisplayNameFor(model => model.CaseOld)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseOld)</div>
+<br />*@
+@Html.DisplayNameFor(model => model.CaseGender)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseGender)</div>
+<br />
+@Html.DisplayNameFor(model => model.CaseMari)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseMari)</div>
+<br />
+@Html.DisplayNameFor(model => model.CaseEdu)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseEdu)</div>
+<br />
+@Html.DisplayNameFor(model => model.CaseLive)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseLive)</div>
+<br />
+@Html.DisplayNameFor(model => model.CaseFre)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseFre)</div>
+<br />
+
+
+<div class="col-md-2">
+    <button type="button" class="btn btn-secondary">問卷內容</button>
+</div>
+
+@Html.DisplayNameFor(model => model.CaseContent1)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseContent1)</div><br/>
+@Html.DisplayNameFor(model => model.CaseContent2)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseContent2)</div><br/>
+@Html.DisplayNameFor(model => model.CaseContent3)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseContent3)</div><br/>
+@Html.DisplayNameFor(model => model.CaseContent4)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseContent4)</div><br/>
+@Html.DisplayNameFor(model => model.CaseContent5)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseContent5)</div><br/>
+@Html.DisplayNameFor(model => model.CaseContent6)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseContent6)</div><br/>
+@Html.DisplayNameFor(model => model.CaseContent7)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseContent7)</div><br/>
+@Html.DisplayNameFor(model => model.CaseContent8)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseContent8)</div><br/>
+@Html.DisplayNameFor(model => model.CaseContent9)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseContent9)</div><br/>
+@Html.DisplayNameFor(model => model.CaseContent10)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseContent10)</div><br/>
+@Html.DisplayNameFor(model => model.CaseContent11)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseContent11)</div><br/>
+@Html.DisplayNameFor(model => model.CaseContent12)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseContent12)</div><br/>
+@Html.DisplayNameFor(model => model.CaseContent13)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseContent13)</div><br/>
+
+
+@*<a asp-action="Edit" asp-route-id="@(modelItem => modelItem.CaseQaid)">Edit</a> |
+<a asp-action="Delete" asp-route-id="@modelItem.CaseQaid">Delete</a>*@
+<div>
+    <a asp-action="Details">返回</a>
+</div>
+@section topCSS {
+        <style type="text/css">
+            h1 {
+                font-size: 36px;
+                text-align: center;
+            }
+
+            h2 {
+                font-size: 20px;
+                background: #D9D9D9;
+                padding: 15px;
+                border-radius: 20px;
+            }
+
+
+
+            body {
+                background-color: #CBE9EA;
+            }
+                .custom-div{
+                        background-color: rgba(255, 255, 255, 0.8);
+                         display: inline-block;
+                         padding : 4px;
+                             border-radius: 10px;
+            }
+        </style>
+}
