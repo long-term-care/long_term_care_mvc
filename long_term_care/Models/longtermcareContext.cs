@@ -277,10 +277,6 @@ namespace long_term_care.Models
                     .HasMaxLength(8)
                     .HasColumnName("Case_ContID");
 
-                entity.Property(e => e.Casedate)
-                    .HasColumnType("date")
-                    .HasColumnName("Case_dailyTime1");
-
                 entity.Property(e => e.CaseNo)
                     .IsRequired()
                     .HasMaxLength(8)
@@ -305,7 +301,9 @@ namespace long_term_care.Models
                 .HasMaxLength(8)
                 .HasColumnName("Case_Temp");
 
-                
+                entity.Property(e => e.Casedate)
+                   .HasColumnType("datetime")
+                   .HasColumnName("Case_date");
 
                 entity.HasOne(d => d.CaseNoNavigation)
                     .WithMany(p => p.CaseDailyRegistrations)

@@ -1,0 +1,107 @@
+﻿@model long_term_care.Models.CaseDailyRegistration
+
+@{
+    ViewData["Title"] = "Create";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/CaseDailyRegistrations.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="insideBox">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <h3>(單位名稱)   C單位巷弄長照站-每日登記表</h3>
+                <div class="form-group" style="float: right;">
+                    <span class="ord">
+                        <label asp-for="CaseContId" class="control-label" style="position: absolute; top: 0; right: 0;">問卷編號<input id="orderNumberInput" asp-for="CaseContId" class="form-control" style="background-color: transparent; border: none; outline: none;" /></label>
+                        <span asp-validation-for="CaseContId" class="text-danger"></span>
+                    </span>
+                </div>
+                <div class="form-group ElderIDInput">
+                    <label asp-for="CaseNo" class="control-label">個案編號: <input asp-for="CaseNo" class="form-control" type="text" name="ElderId" id="ElderId" /></label>
+                    <span asp-validation-for="CaseNo" class="text-danger"></span>
+                </div>
+
+                <div class="GiantBox">
+                    <div class="title">
+                        <div class="row header">
+                            <div class="col-1">日期</div>
+                            <div class="col-3">體溫</div>
+                            <div class="col-3">脈搏</div>
+                            <div class="col-2">接送需求</div>
+                            <div class="col-3">血壓檢測值</div>
+                        </div>
+                    </div>
+
+                    <div class="container" id="dataContainer">
+                        <!-- Each data rows-->
+                        <div class="row tBody">
+                            <div class="form-group col-1">
+                                <div class="group">
+                                    <label asp-for="Casedate" class="control-label"> <input asp-for="Casedate" class="form-control transparent-input" type="datetime" /></label>
+                                    <span asp-validation-for="Casedate" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group col-3">
+                                <div class="group">
+                                    <label asp-for="CaseTemp" class="control-label"> <input asp-for="CaseTemp" class="form-control transparent-input" type="text"/></label>
+                                    <span asp-validation-for="CaseTemp" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group col-3">
+                                <div class="group">
+                                    <label asp-for="CasePluse" class="control-label"> <input asp-for="CasePluse" class="form-control transparent-input" type="text" /></label>
+                                    <span asp-validation-for="CasePluse" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group col-2">
+                                <fieldset>
+                                    <label asp-for="CasePick" class="control-label"><input type="radio" asp-for="CasePick" value="無" id="pickNon" class="transparent-input" />無</label>
+                                    <label asp-for="CasePick" class="control-label"><input type="radio" asp-for="CasePick" value="上午" id="PickMorn" class="transparent-input" />上午</label>
+                                    <label asp-for="CasePick" class="control-label"><input type="radio" asp-for="CasePick" value="下午" id="PickAft" class="transparent-input" />下午</label>
+                                    <span asp-validation-for="CasePick" class="text-danger"></span>
+                                </fieldset>
+                            </div>
+                            <div class="form-group col-3">
+                                <div class="group">
+                                    <fieldset>
+                                        <div class="group">
+                                            <label asp-for="CaseBlood" class="control-label"><input type="radio" asp-for="CaseBlood" value="正常" id="normal" class="transparent-input" />正常(120/80mmHg以下)</label>
+                                        </div>
+                                        <div class="group">
+                                            <label asp-for="CaseBlood" class="control-label"><input type="radio" asp-for="CaseBlood" value="高血壓前期" id="preHigh" class="transparent-input" />高血壓前期(120/80-135/85mmHg以下)</label>
+                                        </div>
+                                        <div class="group">
+                                            <label asp-for="CaseBlood" class="control-label"><input type="radio" asp-for="CaseBlood" value="高血壓危險群" id="crisis" class="transparent-input" />高血壓危險群(135/85mmHg以上)</label>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group wrap">
+                        <button class="button" type="submit" value="Create">儲存</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+</body>
+
+    
+
+
