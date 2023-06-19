@@ -3,136 +3,83 @@
 @{
     ViewData["Title"] = "Details";
 }
+@using (Html.BeginForm("Details", "CaseNeeds", FormMethod.Post))
+{
+    <div class="container-fluid">
+        <div class="insideBox">
+            <h3>社區長者需求調查</h3>
+            <h5><span>請輸入長者編號</span></h5>
+            <div class="content">
+                @Html.TextBox("CaseNo", null, new { placeholder = "長者案號" })
+                <button type="submit">查詢</button>
+            </div>
+        </div>
+        <div>
+            <a asp-action="Index">返回</a>
+        </div>
+    </div>
+}
+@section topCSS {
+    <style type="text/css">
+        body {
+            font-family: 'Hiragino Kaku Gothic Pro', 'WenQuanYi Zen Hei', '微軟正黑體', '蘋果儷中黑', Helvetica, Arial, sans-serif;
+        }
 
-<h1>Details</h1>
+        .container-fluid {
+            background-color: #CBE9EA;
+            padding: 45px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
 
-<div>
-    <h4>CaseNeed</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseRead)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseRead)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseFami)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseFami)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseCons)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseCons)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseSpeak)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseSpeak)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseAct)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseAct)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseMed)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseMed)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseSee)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseSee)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseHear)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseHear)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseEat)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseEat)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseCare)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseCare)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseView1)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseView1)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseView2)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseView2)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseView3)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseView3)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseView4)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseView4)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseView5)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseView5)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseView6)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseView6)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseView7)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseView7)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseView8)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseView8)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseView9)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseView9)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CaseNoNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CaseNoNavigation.CaseNo)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.CaseNeedId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+        .insideBox {
+            border-radius: 20px;
+            background-color: #F1FFFF;
+            height: 100%;
+        }
+
+            .insideBox h3 {
+                font-size: 18px;
+                padding: 10px 30px;
+            }
+
+            .insideBox h5 {
+                font-size: 15px;
+                padding-left: 30px;
+            }
+
+        span {
+            color: #A9A5A5;
+        }
+
+        .content {
+            margin-top: 10%;
+            padding: 3%;
+            text-align: center;
+        }
+
+        input {
+            border: 1px solid #A9A5A5;
+            border-radius: 8px;
+        }
+
+            input:focus {
+                outline: none;
+            }
+
+        button {
+            border-radius: 8px;
+            background-color: #5C9DF7;
+            color: #FFFFFF;
+            border: transparent;
+        }
+
+            button:hover {
+                background-color: #7caef5;
+            }
+
+    </style>
+}/div>

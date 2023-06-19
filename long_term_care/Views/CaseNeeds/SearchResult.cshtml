@@ -1,0 +1,103 @@
+﻿@using long_term_care.ViewModels;
+@model NeedSearchResultViewModal
+
+@{
+    ViewData["Title"] = "SearchResult";
+}
+
+<h1>社區長者需求調查</h1>
+<div class="col-md-2">
+    <button type="button" class="btn btn-secondary">基本資料</button>
+</div>
+
+        
+@Html.DisplayNameFor(modelItem => modelItem.CaseRead)
+<div class="custom-div"> @Html.DisplayFor(model => model.CaseRead)</div>
+@Html.DisplayNameFor(modelItem => modelItem.CaseFami)
+<div class="custom-div">@Html.DisplayFor(model => model.CaseFami)</div>
+@Html.DisplayNameFor(modelItem => modelItem.CaseCons)
+<div class="custom-div">@Html.DisplayFor(model => model.CaseCons)</div>
+@Html.DisplayNameFor(modelItem => modelItem.CaseSpeak)
+<div class="custom-div">@Html.DisplayFor(model => model.CaseSpeak)</div>
+@Html.DisplayNameFor(modelItem => modelItem.CaseAct)
+<div class="custom-div">@Html.DisplayFor(model => model.CaseAct)</div>
+@Html.DisplayNameFor(modelItem => modelItem.CaseMed)
+<div class="custom-div">@Html.DisplayFor(model => model.CaseMed)</div>
+@Html.DisplayNameFor(modelItem => modelItem.CaseSee)
+<div class="custom-div">@Html.DisplayFor(model => model.CaseSee)</div>
+@Html.DisplayNameFor(modelItem => modelItem.CaseHear)
+<div class="custom-div">@Html.DisplayFor(model => model.CaseHear)</div>
+@Html.DisplayNameFor(modelItem => modelItem.CaseEat)
+<div class="custom-div">@Html.DisplayFor(model => model.CaseEat)</div>
+@Html.DisplayNameFor(modelItem => modelItem.CaseCare)
+<div class="custom-div">@Html.DisplayFor(model => model.CaseCare)</div>
+<br/>
+<div class="col-md-2">
+    <button type="button" class="btn btn-secondary">問卷內容</button>
+</div>
+@Html.DisplayNameFor(model => model.CaseView1)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseView1)</div>
+<br />
+@Html.DisplayNameFor(model => model.CaseView2)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseView2)</div>
+<br />
+@Html.DisplayNameFor(model => model.CaseView3)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseView3)</div>
+<br />
+@Html.DisplayNameFor(model => model.CaseView4)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseView4)</div>
+<br />
+@Html.DisplayNameFor(model => model.CaseView5)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseView5)</div>
+<br />
+@Html.DisplayNameFor(model => model.CaseView6)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseView6)</div>
+<br />
+@Html.DisplayNameFor(model => model.CaseView7)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseView7)</div>
+<br />
+@Html.DisplayNameFor(model => model.CaseView8)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseView8)</div>
+<br />
+@Html.DisplayNameFor(model => model.CaseView9)
+<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseView9)</div>
+<br />
+<div>
+    <a asp-action="Details">返回</a>
+</div>
+@section topCSS {
+    <style type="text/css">
+        h1 {
+            font-size: 36px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 20px;
+            background: #D9D9D9;
+            padding: 15px;
+            border-radius: 20px;
+        }
+
+
+
+        body {
+            background-color: #CBE9EA;
+        }
+
+        .custom-div {
+            background-color: rgba(255, 255, 255, 0.8);
+            display: inline-block;
+            padding: 4px;
+            border-radius: 10px;
+        }
+    </style>
+}
+
+@*@Html.DisplayFor(modelItem => item.CaseNoNavigation.CaseNo)
+</td>
+<td>
+<a asp-action="Edit" asp-route-id="@item.CaseNeedId">Edit</a> |
+<a asp-action="Details" asp-route-id="@item.CaseNeedId">Details</a> |
+<a asp-action="Delete" asp-route-id="@item.CaseNeedId">Delete</a>
+</td>*@
