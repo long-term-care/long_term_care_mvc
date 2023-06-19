@@ -101,6 +101,7 @@ namespace long_term_care.Controllers
             }
             return View();
         }
+
         public IActionResult Login()
         {
 
