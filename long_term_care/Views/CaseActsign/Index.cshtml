@@ -121,7 +121,9 @@
         <div class="signbody">
             <div class="singbodytitle">
                 <div class="add">
-                    <button type="button" class="btn btn-warning">新增表單</button>
+                    <form method="get" action="/CaseActsign/Create">
+                        <button type="submit" class="btn btn-warning">新增表單</button>
+                    </form>         
                 </div>
                 <div class="search">
                     <input type="search" class="search" value="請輸入表單名稱...">
@@ -153,14 +155,19 @@
                             <a asp-action="Check" asp-route-id="@item.ActId">
                                 <button type="button" class="btn btn-secondary">查詢</button>
                             </a>
-                            <button type="button" class="btn btn-secondary">編輯</button>
+                            <a asp-action="CreateCaseNo" asp-route-id="@item.ActId">
+                                <button type="button" class="btn btn-secondary">編輯</button>
+                            </a>
                         </div>
                     </div>
                 }
             </form>          
         </div>
         <div class="back">
-            <button type="button" class="btn btn-dark">回首頁</button>
+            <form action="/Main/MemMainpage" method="get"> 
+                <button type="submit" class="btn btn-dark">回首頁</button>
+            </form>
+            
         </div>
     </div>
 

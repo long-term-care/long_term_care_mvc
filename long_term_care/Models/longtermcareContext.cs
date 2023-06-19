@@ -130,7 +130,7 @@ namespace long_term_care.Models
                     .HasColumnName("Act_Course");
 
                 entity.Property(e => e.ActDate)
-                    .HasColumnType("datetime")
+                    .HasColumnType("date")
                     .HasColumnName("Act_Date");
 
                 entity.Property(e => e.ActLec)

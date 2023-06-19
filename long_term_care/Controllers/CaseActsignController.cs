@@ -2,6 +2,7 @@
 using long_term_care.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,8 +20,6 @@ namespace long_term_care.Controllers
         {
             return View(await _context.CaseActs.ToListAsync());
         }
-
-
 
         public IActionResult CheckAsync(string id)
         {
@@ -51,15 +50,53 @@ namespace long_term_care.Controllers
             return View(data);
            
         }
-        public async Task<IActionResult> Create()
+        public Task<IActionResult> Create()
         {
-            return View();
+            return Task.FromResult<IActionResult>(View());
         }
+
         [HttpPost]
-        public async Task<IActionResult> Create(CaseActsignViewModel model)
+        public async Task<IActionResult> Create([FromBody] CaseActsignViewModel model)
         {
+            var id = _context.CaseActs.Count(x => x.ActId != null) + 1;
+            var actid = "Act" + id;
+            if (model.type == 1)
+            {
+                var Act = new CaseAct
+                {
+                    ActId = actid,
+                    ActCourse = model.ActCourse,
+                    ActDate = model.ActDate,
+                    ActLec = model.ActLec,
+                    ActLoc = model.ActLoc,
+                };
+                _context.CaseActs.Add(Act);
+                await _context.SaveChangesAsync();
+            }
+
             return View();
         }
 
+
+        public IActionResult CreateCaseNo(string id)
+        {
+            var data = _context.CaseActs.FirstOrDefault(x => x.ActId == id);
+
+            return View(data);
+        }
+        [HttpPost]
+        public IActionResult CreateCaseNo([FromBody] CaseActsignViewModel model)
+        {
+            var Actcase = new CaseActContent
+            {
+               ActId = model.ActId,
+               CaseNo = model.CaseNo,
+               ActSer = model.ActSer
+            };
+            _context.CaseActContents.Add(Actcase);
+            _context.SaveChangesAsync();
+
+            return View();
+        }
     }
 }
