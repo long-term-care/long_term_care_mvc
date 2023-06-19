@@ -4,6 +4,7 @@ namespace long_term_care.ViewModels
 {
     public class CaseActsignViewModel
     {
+        public int type {get;set;} 
         public string ActId { get; set; }
         public DateTime ActDate { get; set; }
         public string ActLec { get; set; }
