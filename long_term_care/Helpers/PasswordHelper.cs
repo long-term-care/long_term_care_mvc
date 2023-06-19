@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace long_term_care.Helpers
@@ -27,5 +28,7 @@ namespace long_term_care.Helpers
             string inputPasswordHash = ComputeSHA256Hash(inputPassword);
             return inputPasswordHash.Equals(hashedPassword);
         }
+
+       
     }
 }

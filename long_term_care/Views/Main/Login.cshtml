@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+<link href="~/css/login.css" rel="stylesheet" />
+<body>
+    <div class="container-fluid">
+        <nav class="global_nav">
+            <ul class="Menu">
+                <li>
+                <li class="bi bi-house-door-fill"></li>
+                <li>
+                    <h4>ICON HERE</h4>
+                </li>
+            </ul>
+        </nav>
+        <div class="content">
+            <div class="txt">
+                <div class="LogInBox">
+                    <div class="LogIn">
+                        <form method="POST" id="loginForm" action="/Main/Login">
+                            <input type="text" name="id" class="id" placeholder="&nbsp;&nbsp;員工證號碼" required id="id">
+                            <input type="password" name="password" placeholder="&nbsp;&nbsp;密碼" required id="password">
+                            <button type="submit" name="loginBtn" class="loginBtn" id="loginbtn">登入</button>
+                        </form>
+                        <div class="forget" id="renewPassword">忘記密碼？</div>
+                        <div class="line"></div>
+                        <form method="get" action="/Main/Caseinfor">
+                            <button type="submit" name="newAccount" class="newAccount">建立新帳號</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="img">
+                <img src="~/image/mainpagepic.png" />
+            </div>
+        </div>
+    </div>
+
+    <div id="messageBox" class="hidden">
+        <div class="container">
+            <div class="title">
+                <h3>忘記密碼？</h3>
+                <button class="closeMessageBox" id="close" type="submit">&#x2716;</button>
+            </div>
+            <div class="subtitle">
+                <div class="row">
+                    <div class="col-12">
+                        <p>請輸入你的員工證號碼和手機號碼以搜尋帳號。</p>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <form class="validContent">
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-6">
+                        <input type="text" name="userNumber" placeholder="&nbsp;&nbsp;員工證號碼" required>
+                    </div>
+                    <div class="col-4"></div>
+                </div>
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-6">
+                        <input type="tel" name="telephone" placeholder="&nbsp;&nbsp;手機號碼" required>
+                    </div>
+                    <div class="col-4"></div>
+                </div>
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-6">
+                        <input type="text" name="validCode" placeholder="&nbsp;&nbsp;驗證碼" required>
+                    </div>
+                    <div class="col-4" id="Code"><img src="https://picsum.photos/100/80"></div>
+                </div>
+
+
+                <div class="validReadyToSubmit">
+                    <button class="closeMessageBox">驗證</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+ 
+
