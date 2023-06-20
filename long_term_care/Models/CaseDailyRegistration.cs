@@ -7,10 +7,7 @@ namespace long_term_care.Models
 {
     public partial class CaseDailyRegistration
     {
-        public CaseDailyRegistration()
-        {
-            CarPicks = new HashSet<CarPick>();
-        }
+       
 
         public string CaseContId { get; set; }
         public string CaseNo { get; set; }
@@ -21,7 +18,6 @@ namespace long_term_care.Models
         public string CasePick { get; set; }
 
         public virtual CaseInfor CaseNoNavigation { get; set; }
-        public virtual MemberInformation MemS { get; set; }
-        public virtual ICollection<CarPick> CarPicks { get; set; }
+       
     }
 }
