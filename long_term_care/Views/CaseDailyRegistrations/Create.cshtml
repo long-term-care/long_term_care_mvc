@@ -20,7 +20,10 @@
                 <h3>(單位名稱)   C單位巷弄長照站-每日登記表</h3>
                 <div class="form-group" style="float: right;">
                     <span class="ord">
-                        <label asp-for="CaseContId" class="control-label" style="position: absolute; top: 0; right: 0;">問卷編號<input id="orderNumberInput" asp-for="CaseContId" class="form-control" style="background-color: transparent; border: none; outline: none;" /></label>
+                        <label asp-for="CaseContId" class="control-label" style="position: absolute; top: 0; right: 0;">
+                            問卷編號
+                            <input asp-for="CaseContId" class="form-control" type="text" style="background-color: transparent; border: none; outline: none;" value="@ViewBag.CaseContId" readonly />
+                        </label>
                         <span asp-validation-for="CaseContId" class="text-danger"></span>
                     </span>
                 </div>

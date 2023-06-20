@@ -41,8 +41,6 @@ namespace long_term_care.Controllers
                 return Content("個案案號!");
             }
 
-            //var no = await _context.CaseCareRecords.Include(c => c.CaseNoNavigation)
-            //                    .Where(m => m.CaseNo == CaseNo).ToListAsync();
 
             var no1 = from ci in _context.CaseNeeds
                       join ccr in _context.CaseInfors on ci.CaseNo equals ccr.CaseNo
