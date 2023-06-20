@@ -33,7 +33,7 @@ namespace long_term_care.Models
         public decimal CarPrice { get; set; }
         public string CaseContId { get; set; }
 
-        public virtual CaseDailyRegistration CaseCont { get; set; }
+ 
         public virtual MemberInformation MemS { get; set; }
     }
 }
