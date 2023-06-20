@@ -40,7 +40,7 @@ namespace long_term_care.Controllers
         {
             if (string.IsNullOrEmpty(CaseNo))
             {
-                return Content("必須提供身分證號碼!");
+                return Content("必須提供個案案號!");
             } 
             //var no1 = await _context.CasePhysicalMentals.Include(c => c.CaseNoNavigation)
             //    .Where(m => m.CaseNo == CaseNo).ToListAsync();
