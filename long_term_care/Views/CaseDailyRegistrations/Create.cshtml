@@ -18,14 +18,16 @@
             <form asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <h3>(單位名稱)   C單位巷弄長照站-每日登記表</h3>
-                <div class="form-group" style="float: right;">
-                    <span class="ord">
-                        <label asp-for="CaseContId" class="control-label" style="position: absolute; top: 0; right: 0;">
-                            問卷編號
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col" style="text-align:end; margin-top: 7px;">
+                            <label asp-for="CaseContId" class="control-label">問卷編號</label>
+                        </div>
+                        <div class="col" style="text-align:start;">
                             <input asp-for="CaseContId" class="form-control" type="text" style="background-color: transparent; border: none; outline: none;" value="@ViewBag.CaseContId" readonly />
-                        </label>
-                        <span asp-validation-for="CaseContId" class="text-danger"></span>
-                    </span>
+                            <span asp-validation-for="CaseContId" class="text-danger"></span>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group ElderIDInput">
                     <label asp-for="CaseNo" class="control-label">個案編號: <input asp-for="CaseNo" class="form-control" type="text" /></label>
@@ -35,9 +37,9 @@
                 <div class="GiantBox">
                     <div class="title">
                         <div class="row header">
-                            <div class="col-1">日期</div>
-                            <div class="col-3">體溫</div>
-                            <div class="col-3">脈搏</div>
+                            <div class="col-3">日期</div>
+                            <div class="col-2">體溫</div>
+                            <div class="col-2">脈搏</div>
                             <div class="col-2">接送需求</div>
                             <div class="col-3">血壓檢測值</div>
                         </div>
@@ -46,19 +48,19 @@
                     <div class="container" id="dataContainer">
                         <!-- Each data rows-->
                         <div class="row tBody">
-                            <div class="form-group col-1">
+                            <div class="form-group col-3">
                                 <div class="group">
-                                    <label asp-for="Casedate" class="control-label"> <input asp-for="Casedate" class="form-control transparent-input" type="datetime" /></label>
+                                    <label asp-for="Casedate" class="control-label"> <input asp-for="Casedate" class="form-control transparent-input" type="datetime" placeholder="YYYY/MM/DD"/></label>
                                     <span asp-validation-for="Casedate" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="form-group col-3">
+                            <div class="form-group col-2">
                                 <div class="group">
                                     <label asp-for="CaseTemp" class="control-label"> <input asp-for="CaseTemp" class="form-control transparent-input" type="text"/></label>
                                     <span asp-validation-for="CaseTemp" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="form-group col-3">
+                            <div class="form-group col-2">
                                 <div class="group">
                                     <label asp-for="CasePluse" class="control-label"> <input asp-for="CasePluse" class="form-control transparent-input" type="text" /></label>
                                     <span asp-validation-for="CasePluse" class="text-danger"></span>
@@ -94,10 +96,11 @@
                     </div>
                 </form>
             </div>
+        <div>
+            <a asp-action="Index">返回</a>
         </div>
-    <div>
-        <a asp-action="Index">Back to List</a>
     </div>
+    
     @section Scripts {
         @{
             await Html.RenderPartialAsync("_ValidationScriptsPartial");

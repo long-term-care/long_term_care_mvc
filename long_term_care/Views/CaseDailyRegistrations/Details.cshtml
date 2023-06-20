@@ -11,8 +11,12 @@
             <h3>C單位巷弄長照站-每日登記表</h3>
             <h5><span>請輸入長者編號</span></h5>
             <div class="content">
-                @Html.TextBox("CaseNo", null, new { placeholder = "長者案號" })
-                <button type="submit">查詢</button>
+                @Html.TextBox("caseNo", null, new { placeholder = "長者案號" })
+                <h5><span>請選擇搜尋月份</span></h5>
+                <div class="content">
+                    <input type="month" name="Casedate" id="Casedate" placeholder=" 年 月">
+                    <button type="submit">查詢</button>
+                </div>
             </div>
         </div>
         <div>
@@ -20,6 +24,8 @@
         </div>
     </div>
 }
+
+
 
 @section topCSS {
     <style type="text/css">
