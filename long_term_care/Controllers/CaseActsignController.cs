@@ -1,6 +1,7 @@
 ﻿using long_term_care.Models;
 using long_term_care.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -52,6 +53,7 @@ namespace long_term_care.Controllers
         }
         public Task<IActionResult> Create()
         {
+            ViewData["CaseNo"] = new SelectList(_context.CaseInfors, "CaseNo", "CaseNo");
             return Task.FromResult<IActionResult>(View());
         }
 

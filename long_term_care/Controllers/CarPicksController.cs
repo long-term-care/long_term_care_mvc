@@ -35,7 +35,7 @@ namespace long_term_care.Controllers
         // GET: CarPicks
         public async Task<IActionResult> Index()
         {
-            var longtermcareContext = _context.CarPicks.Include(c => c.CaseCont).Include(c => c.MemS);
+            var longtermcareContext = _context.CarPicks.Include(c => c.MemS);
             return View(await longtermcareContext.ToListAsync());
         }
 
@@ -48,7 +48,7 @@ namespace long_term_care.Controllers
             }
 
             var carPick = await _context.CarPicks
-                .Include(c => c.CaseCont)
+                
                 .Include(c => c.MemS)
                 .FirstOrDefaultAsync(m => m.CarId == id);
             if (carPick == null)
@@ -150,7 +150,6 @@ namespace long_term_care.Controllers
             }
 
             var carPick = await _context.CarPicks
-                .Include(c => c.CaseCont)
                 .Include(c => c.MemS)
                 .FirstOrDefaultAsync(m => m.CarId == id);
             if (carPick == null)
