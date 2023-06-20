@@ -9,6 +9,7 @@ using long_term_care.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 using long_term_care.ViewModels;
+using System.Runtime.ConstrainedExecution;
 
 namespace long_term_care.Controllers
 {
@@ -46,16 +47,15 @@ namespace long_term_care.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Details(string CaseNo)
+        public async Task<IActionResult> Details(string MemSid)
         {
-            if (string.IsNullOrEmpty(CaseNo))
+            if (string.IsNullOrEmpty(MemSid))
             {
-                return Content("個案案號!");
+                return Content("志工編號!");
             }
-
-           
             var no1 = from ci in _context.CarPicks
-                          // where ci.CaseNo == CaseNo
+                      join ccr in _context.MemberInformation on ci.MemSid equals ccr.MemSid
+                      where ccr.MemSid == MemSid
                       select new CarPickViewModel
                       {
                           MemSid = ci.MemSid,
