@@ -19,6 +19,7 @@ namespace long_term_care.Models
 
         public virtual DbSet<CarPick> CarPicks { get; set; }
         public virtual DbSet<CaseAct> CaseActs { get; set; }
+        public virtual DbSet<CaseActContent> CaseActContents { get; set; }
         public virtual DbSet<CaseCareRecord> CaseCareRecords { get; set; }
         public virtual DbSet<CaseDailyRegistration> CaseDailyRegistrations { get; set; }
         public virtual DbSet<CaseInfor> CaseInfors { get; set; }
@@ -34,7 +35,7 @@ namespace long_term_care.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Data Source=(localdb)\\mssqllocaldb;Database=long-term-care;");
             }
         }
@@ -59,9 +60,13 @@ namespace long_term_care.Models
                     .HasMaxLength(100)
                     .HasColumnName("Car_CaseAdr");
 
-                entity.Property(e => e.CarDate)
-                    .HasColumnType("date")
-                    .HasColumnName("Car_Date");
+                entity.Property(e => e.CarSearchY)
+                    .HasColumnType("tinyInt")
+                    .HasColumnName("Car_Search_Y");
+
+                entity.Property(e => e.CarSearchM)
+                    .HasColumnType("tinyInt")
+                    .HasColumnName("Car_Search_M");
 
                 entity.Property(e => e.CarKm).HasColumnName("Car_Km");
 
@@ -125,7 +130,7 @@ namespace long_term_care.Models
                     .HasColumnName("Act_Course");
 
                 entity.Property(e => e.ActDate)
-                    .HasColumnType("datetime")
+                    .HasColumnType("date")
                     .HasColumnName("Act_Date");
 
                 entity.Property(e => e.ActLec)
@@ -137,22 +142,39 @@ namespace long_term_care.Models
                     .IsRequired()
                     .HasMaxLength(20)
                     .HasColumnName("Act_Loc");
+            });
+
+            modelBuilder.Entity<CaseActContent>(entity =>
+            {
+                entity.HasKey(e => new { e.ActId, e.CaseNo })
+                    .HasName("PK__Case_Act__5862BDFE9B8D3FC1");
+
+                entity.ToTable("Case_Act_Content");
+
+                entity.Property(e => e.ActId)
+                    .HasMaxLength(8)
+                    .HasColumnName("Act_ID");
+
+                entity.Property(e => e.CaseNo)
+                    .HasMaxLength(8)
+                    .HasColumnName("Case_No");
 
                 entity.Property(e => e.ActSer)
                     .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("Act_Ser");
 
-                entity.Property(e => e.CaseNo)
-                    .IsRequired()
-                    .HasMaxLength(8)
-                    .HasColumnName("Case_No");
+                entity.HasOne(d => d.Act)
+                    .WithMany(p => p.CaseActContents)
+                    .HasForeignKey(d => d.ActId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Case_Act___Act_I__498EEC8D");
 
                 entity.HasOne(d => d.CaseNoNavigation)
-                    .WithMany(p => p.CaseActs)
+                    .WithMany(p => p.CaseActContents)
                     .HasForeignKey(d => d.CaseNo)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__case_act__Case_N__2C3393D0");
+                    .HasConstraintName("FK__Case_Act___Case___4A8310C6");
             });
 
             modelBuilder.Entity<CaseCareRecord>(entity =>
@@ -255,24 +277,6 @@ namespace long_term_care.Models
                     .HasMaxLength(8)
                     .HasColumnName("Case_ContID");
 
-                entity.Property(e => e.CaseCont)
-                    .IsRequired()
-                    .HasMaxLength(10)
-                    .HasColumnName("Case_Cont");
-
-                entity.Property(e => e.CaseDailyTime1)
-                    .HasColumnType("datetime")
-                    .HasColumnName("Case_dailyTime1");
-
-                entity.Property(e => e.CaseDailyTime2)
-                    .HasColumnType("datetime")
-                    .HasColumnName("Case_dailyTime2");
-
-                entity.Property(e => e.CaseIssue)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .HasColumnName("Case_Issue");
-
                 entity.Property(e => e.CaseNo)
                     .IsRequired()
                     .HasMaxLength(8)
@@ -283,35 +287,29 @@ namespace long_term_care.Models
                     .HasMaxLength(10)
                     .HasColumnName("Case_Pick");
 
-                entity.Property(e => e.CasePluse).HasColumnName("Case_Pluse");
+                entity.Property(e => e.CasePluse)
+                .IsRequired()
+                .HasMaxLength(8)
+                .HasColumnName("Case_Pluse");
+                entity.Property(e => e.CaseBlood)
+                .IsRequired()
+                .HasMaxLength(8)
+                .HasColumnName("Case_Blood");
 
-                entity.Property(e => e.CaseRegTime)
-                    .HasColumnType("datetime")
-                    .HasColumnName("Case_RegTime");
+                entity.Property(e => e.CaseTemp)
+                .IsRequired()
+                .HasMaxLength(8)
+                .HasColumnName("Case_Temp");
 
-                entity.Property(e => e.CaseRem)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .HasColumnName("Case_Rem");
-
-                entity.Property(e => e.CaseTemp).HasColumnName("Case_Temp");
-
-                entity.Property(e => e.MemSid)
-                    .IsRequired()
-                    .HasMaxLength(8)
-                    .HasColumnName("Mem_SID");
+                entity.Property(e => e.Casedate)
+                   .HasColumnType("datetime")
+                   .HasColumnName("Case_date");
 
                 entity.HasOne(d => d.CaseNoNavigation)
                     .WithMany(p => p.CaseDailyRegistrations)
                     .HasForeignKey(d => d.CaseNo)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__case_dail__Case___32E0915F");
-
-                entity.HasOne(d => d.MemS)
-                    .WithMany(p => p.CaseDailyRegistrations)
-                    .HasForeignKey(d => d.MemSid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__case_dail__Mem_S__33D4B598");
+                    .HasConstraintName("FK__case_dail__Case___32E0915F");                
             });
 
             modelBuilder.Entity<CaseInfor>(entity =>

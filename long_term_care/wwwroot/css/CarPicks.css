@@ -1,0 +1,183 @@
+﻿body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container-fluid {
+    background-color: #F6F6F6;
+    padding: 45px;
+}
+
+.insideBox {
+    border-radius: 20px;
+    background-color: #FFFFFF;
+    padding: 40px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+    .insideBox h3 {
+        text-align: center;
+        margin-top: 0;
+        color: #333333;
+    }
+
+.infoBox {
+    margin: 40px 0;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333333;
+}
+
+input[type="text"],
+input[type="date"],
+select {
+    width: 100%;
+    height: 40px;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #F6F6F6;
+    transition: background-color 0.3s ease;
+}
+
+    input[type="text"]:focus,
+    input[type="date"]:focus,
+    select:focus {
+        outline: none;
+        background-color: #EAEAEA;
+    }
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: #007AFF;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+
+.test {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.container .columns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .container .columns .cnt {
+        border-radius: 10px;
+        background-color: #FFFFFF;
+        padding: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .container .columns > div.col-2,
+    .container .columns > div.col-5 {
+        margin-left: 5px;
+        padding: 10px;
+        background-color: #F6F6F6;
+        border: 1px solid #EAEAEA;
+        text-align: center;
+    }
+
+.container .row > div:first-child {
+    height: 42px;
+    background-color: #333333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
+    border-radius: 8px 8px 0 0;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+    .input-group .form-control {
+        flex: 1;
+        margin-right: 10px;
+        border: none;
+        border-radius: 8px;
+        padding: 8px;
+        font-size: 14px;
+        background-color: #F6F6F6;
+        transition: background-color 0.3s ease;
+    }
+
+        .input-group .form-control:focus {
+            outline: none;
+            background-color: #EAEAEA;
+        }
+
+    .input-group .input-group-text {
+        min-width: 100px;
+        text-align: center;
+        background-color: #F6F6F6;
+        border: none;
+        border-radius: 8px;
+        padding: 8px;
+        font-size: 14px;
+        color: #333333;
+    }
+
+.example {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #FFE6ED;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .example h6 {
+        margin: 0;
+        font-size: 12px;
+        color: #333333;
+    }
+
+.container {
+    margin-top: 10px;
+}
+
+.infoBox .form-group.ord {
+    display: flex;
+    align-items: center;
+}
+
+    .infoBox .form-group.ord label {
+        margin-right: 10px;
+        white-space: nowrap;
+        font-weight: bold;
+        color: #333333;
+    }
+
+    .infoBox .form-group.ord input[type="text"],
+    .infoBox .form-group.ord select {
+        flex: 1;
+    }
+
+.infoBox .form-group .form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+    margin-right: 10px;
+}

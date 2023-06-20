@@ -1,0 +1,261 @@
+﻿@model IEnumerable<long_term_care.Models.CaseNeed>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="wrap">
+    <button class="Home" href="#">首頁</button>
+</div>
+<div class="wrap_Entry">
+    <button class="Edit" onclick="location.href='@Url.Action("Create", "CaseNeeds")'">填寫</button>
+
+    <br />
+
+    <button class="View" onclick="location.href='@Url.Action("Details", "CaseNeeds")'">查閱</button>
+
+</div>
+@section topCSS {
+    <style type="text/css">
+        body {
+            font-family: 'Hiragino Kaku Gothic Pro', 'WenQuanYi Zen Hei', '微軟正黑體', '蘋果儷中黑', Helvetica, Arial, sans-serif;
+            background-color: #222831;
+        }
+
+        .wrap {
+            margin: 30px;
+        }
+
+        .Home {
+            display: inline-flex;
+            align-items: center;
+            color: #FFFFFF;
+            background-color: transparent;
+            border: 1px solid #FFFFFF;
+            min-height: 25px;
+            padding: 0 20px;
+            font-size: 17px;
+            z-index: 1;
+            position: relative;
+            cursor: pointer;
+        }
+
+            .Home::before, .Home::after {
+                content: "";
+                background-color: #FFFFFF;
+                display: block;
+            }
+
+            .Home::before {
+                width: 25px;
+                height: 1px;
+                margin-right: 20px;
+            }
+
+            .Home:hover {
+                color: #222831;
+                text-decoration: none;
+            }
+
+                .Home:hover::before, .Home:hover {
+                    background-color: #222831;
+                }
+
+            .Home::after {
+                width: 0%;
+                height: 100%;
+                right: 0;
+                top: 0;
+                position: absolute;
+                z-index: -1;
+            }
+
+            .Home:hover::after {
+                width: 100%;
+            }
+
+            .Home:hover::before, .Home:hover, .Home::after {
+                transition: all 0.45s ease-out;
+            }
+
+        .wrap_Entry {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+            .wrap_Entry > button {
+                margin: 55px 70px;
+            }
+
+        .Edit, .View {
+            transition: all 0.3s ease-in-out;
+            font-size: 25px;
+            width: 180px;
+            height: 120px;
+            border-radius: 30px;
+            background-color: #F3B7AD;
+            box-shadow: 0 20px 30px -6px rgba(203, 233, 234, 0.4);
+            outline: none;
+            cursor: pointer;
+            border: none;
+            color: rgb(250, 250, 250);
+        }
+
+            .Edit:hover, .View:hover {
+                transform: translateY(3px);
+                box-shadow: 0 10px 20px -6px rgba(203, 233, 234, 0.6);
+                background-color: #FFB4A2;
+            }
+
+            .Edit:active, .View:active {
+                opacity: 0.7;
+            }
+
+    </style>
+}
+
+@*
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseRead)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseFami)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseCons)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseSpeak)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseAct)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseMed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseSee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseHear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseEat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseCare)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseView1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseView2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseView3)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseView4)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseView5)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseView6)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseView7)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseView8)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseView9)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseNoNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseRead)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseFami)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseCons)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseSpeak)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseAct)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseMed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseSee)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseHear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseEat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseCare)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseView1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseView2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseView3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseView4)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseView5)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseView6)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseView7)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseView8)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseView9)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseNoNavigation.CaseNo)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CaseNeedId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CaseNeedId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CaseNeedId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+*@
