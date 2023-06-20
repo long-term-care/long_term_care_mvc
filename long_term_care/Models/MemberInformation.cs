@@ -11,7 +11,7 @@ namespace long_term_care.Models
         {
             CarPicks = new HashSet<CarPick>();
             CaseCareRecords = new HashSet<CaseCareRecord>();
-            CaseDailyRegistrations = new HashSet<CaseDailyRegistration>();
+         
             CaseTelRecords = new HashSet<CaseTelRecord>();
             LectureTables = new HashSet<LectureTable>();
             MemSigns = new HashSet<MemSign>();
@@ -41,7 +41,6 @@ namespace long_term_care.Models
 
         public virtual ICollection<CarPick> CarPicks { get; set; }
         public virtual ICollection<CaseCareRecord> CaseCareRecords { get; set; }
-        public virtual ICollection<CaseDailyRegistration> CaseDailyRegistrations { get; set; }
         public virtual ICollection<CaseTelRecord> CaseTelRecords { get; set; }
         public virtual ICollection<LectureTable> LectureTables { get; set; }
         public virtual ICollection<MemSign> MemSigns { get; set; }

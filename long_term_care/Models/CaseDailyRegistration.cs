@@ -21,7 +21,6 @@ namespace long_term_care.Models
         public string CasePick { get; set; }
 
         public virtual CaseInfor CaseNoNavigation { get; set; }
-        public virtual MemberInformation MemS { get; set; }
         public virtual ICollection<CarPick> CarPicks { get; set; }
     }
 }
