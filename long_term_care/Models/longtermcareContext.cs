@@ -90,21 +90,14 @@ namespace long_term_care.Models
                     .HasMaxLength(30)
                     .HasColumnName("Car_Type");
 
-                entity.Property(e => e.CaseContId)
-                    .IsRequired()
-                    .HasMaxLength(8)
-                    .HasColumnName("Case_ContID");
+               
 
                 entity.Property(e => e.MemSid)
                     .IsRequired()
                     .HasMaxLength(8)
                     .HasColumnName("Mem_SID");
 
-                entity.HasOne(d => d.CaseCont)
-                    .WithMany(p => p.CarPicks)
-                    .HasForeignKey(d => d.CaseContId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__car_pick__Case_C__45F365D3");
+             
 
                 entity.HasOne(d => d.MemS)
                     .WithMany(p => p.CarPicks)

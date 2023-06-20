@@ -41,8 +41,6 @@ namespace long_term_care.Controllers
                 return Content("個案案號!");
             }
 
-            //var no = await _context.CaseCareRecords.Include(c => c.CaseNoNavigation)
-            //                    .Where(m => m.CaseNo == CaseNo).ToListAsync();
 
             var no1 = from ci in _context.CaseNeeds
                       join ccr in _context.CaseInfors on ci.CaseNo equals ccr.CaseNo
@@ -86,6 +84,23 @@ namespace long_term_care.Controllers
         // GET: CaseNeeds/Create
         public IActionResult Create()
         {
+
+            string nextFormNumber = "";
+
+
+            var lastForm = _context.CaseNeeds.OrderByDescending(f => f.CaseNeedId).FirstOrDefault();
+            if (lastForm != null)
+            {
+                int lastFormNumber = int.Parse(lastForm.CaseNeedId);
+                int nextFormNumberInt = lastFormNumber + 1;
+                nextFormNumber = nextFormNumberInt.ToString("0000");
+            }
+            else
+            {
+                nextFormNumber = "0001";
+            }
+            ViewData["CaseNeedId"] = nextFormNumber;
+
             ViewData["CaseNo"] = new SelectList(_context.CaseInfors, "CaseNo", "CaseNo");
             return View();
         }

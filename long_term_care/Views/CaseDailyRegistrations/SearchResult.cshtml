@@ -1,0 +1,318 @@
+﻿@*@model IEnumerable<long_term_care.Models.CaseDailyRegistration>*@
+@using long_term_care.ViewModels;
+@model IEnumerable<DailyResultViewModel>
+
+@{
+    ViewData["Title"] = "SearchResult";
+}
+
+<h1>SearchResult</h1>
+
+@{
+    bool isFirstIteration = true;
+    string caseName = null;
+    string caseBd = null;
+    string caseGender = null;
+    string caseNo = null;
+    string caseIdent = null;
+    string caseLang = null;
+    string caseMari = null;
+    string caseFami = null;
+    string caseAddr = null;
+    string caseCnta = null;
+    string caseCntTel = null;
+    string caseCntRel = null;
+}
+@{
+    var reversedModel = Model.Reverse();
+}
+@foreach (var item in reversedModel)
+{
+    if (isFirstIteration)
+    {
+        <div class="col-md-2">
+            <button type="button" class="btn btn-secondary">基本資料</button>
+        </div>
+        <br />
+        caseName = item.CaseName;
+        caseBd = item.CaseBd;
+        caseGender = item.CaseGender;
+        caseNo = item.CaseNo;
+        caseIdent = item.CaseIdent;
+        caseLang = item.CaseLang;
+        caseMari = item.CaseMari;
+        caseFami = item.CaseFami;
+        caseAddr = item.CaseAddr;
+        caseCnta = item.CaseCnta;
+        caseCntTel = item.CaseCntTel;
+        caseCntRel = item.CaseCntRel;
+        isFirstIteration = false;
+        <div class="row align-items-start box">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseName)
+            </div>
+            <div class="col-md-2 ">
+                @caseName
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseBd)
+            </div>
+            <div class="col-md-2">
+                @caseBd
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseGender)
+            </div>
+            <div class="col-md-2">
+                @caseGender
+            </div>
+        </div>
+        <br />
+        <div class="row align-items-start box">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseLang)
+            </div>
+            <div class="col-md-2 ">
+                @caseLang
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseMari)
+            </div>
+            <div class="col-md-2">
+                @caseMari
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseFami)
+            </div>
+            <div class="col-md-2">
+                @caseFami
+            </div>
+
+        </div>
+        <br />
+        <div class="row align-items-start box">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseAddr)
+            </div>
+            <div class="col-md-6">
+                @caseAddr
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseNo)
+            </div>
+            <div class="col-md-2 ">
+                @caseNo
+            </div>
+        </div>
+        <br />
+        <div class="row align-items-start box">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseCnta)
+            </div>
+            <div class="col-md-2 ">
+                @caseCnta
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseCntTel)
+            </div>
+            <div class="col-md-2">
+                @caseCntTel
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseCntRel)
+            </div>
+            <div class="col-md-2">
+                @caseCntRel
+            </div>
+        </div>
+        <br />
+    }
+
+
+}
+
+
+@section topCSS {
+    <style type="text/css">
+        h1 {
+            font-size: 36px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 20px;
+            background: #D9D9D9;
+            padding: 15px;
+            border-radius: 20px;
+        }
+
+        .box div:nth-child(odd) {
+            background-color: lightblue;
+            padding : 5px;
+            text-align : center;
+        }
+
+        .box div:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 5px;
+            text-align: center;
+        }
+
+        body {
+            background-color: #CBE9EA;
+        }
+    </style>
+}
+
+@*
+        <div class="row align-items-start box">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.Casedate)
+            </div>
+            <div class="col-md-2 ">
+                @Casedate
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseTemp)
+            </div>
+            <div class="col-md-2">
+                @CaseTemp
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CasePluse)
+            </div>
+            <div class="col-md-2">
+                @CasePluse
+            </div>
+        </div>
+        <br />
+        <div class="row align-items-start box">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseBlood)
+            </div>
+            <div class="col-md-2 ">
+                @CaseBlood
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CasePick)
+            </div>
+            <div class="col-md-2">
+                @CasePick
+            </div>
+        </div>
+        <br />
+
+    }
+
+}
+*@
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">日期</th>
+            <th scope="col">體溫</th>
+            <th scope="col">脈搏</th>
+            <th scope="col">血壓</th>
+            <th scope="col">交通接送</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="table-light">
+                <th scope="row">
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.Casedate)
+                    </div>
+                </th>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CaseTemp)
+                    </div>
+                    <br />
+                    <div class="sm-2 row">
+                        <div class="form-group">
+                            @Html.DisplayFor(modelItem => item.CasePluse)
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayNameFor(model => model.CaseBlood)
+                    </div>
+                    <br />
+                    <div class="sm-2 row">
+                        <div class="form-group">
+                            @Html.DisplayFor(modelItem => item.CasePick)
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CaseContId">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.CaseContId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+
+@*
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Casedate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseTemp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CasePluse)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseBlood)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CasePick)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseNoNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Casedate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseTemp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CasePluse)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseBlood)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CasePick)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseNoNavigation.CaseNo)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CaseContId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CaseContId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CaseContId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+*@
