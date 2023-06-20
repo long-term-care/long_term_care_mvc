@@ -28,7 +28,7 @@
                     </span>
                 </div>
                 <div class="form-group ElderIDInput">
-                    <label asp-for="CaseNo" class="control-label">個案編號: <input asp-for="CaseNo" class="form-control" type="text" name="ElderId" id="ElderId" /></label>
+                    <label asp-for="CaseNo" class="control-label">個案編號: <input asp-for="CaseNo" class="form-control" type="text" /></label>
                     <span asp-validation-for="CaseNo" class="text-danger"></span>
                 </div>
 
@@ -66,9 +66,9 @@
                             </div>
                             <div class="form-group col-2">
                                 <fieldset>
-                                    <label asp-for="CasePick" class="control-label"><input type="radio" asp-for="CasePick" value="無" id="pickNon" class="transparent-input" />無</label>
-                                    <label asp-for="CasePick" class="control-label"><input type="radio" asp-for="CasePick" value="上午" id="PickMorn" class="transparent-input" />上午</label>
-                                    <label asp-for="CasePick" class="control-label"><input type="radio" asp-for="CasePick" value="下午" id="PickAft" class="transparent-input" />下午</label>
+                                    <label asp-for="CasePick" class="control-label"><input type="radio" asp-for="CasePick" value="無" class="transparent-input" />無</label>
+                                    <label asp-for="CasePick" class="control-label"><input type="radio" asp-for="CasePick" value="上午" class="transparent-input" />上午</label>
+                                    <label asp-for="CasePick" class="control-label"><input type="radio" asp-for="CasePick" value="下午"  class="transparent-input" />下午</label>
                                     <span asp-validation-for="CasePick" class="text-danger"></span>
                                 </fieldset>
                             </div>
@@ -76,13 +76,13 @@
                                 <div class="group">
                                     <fieldset>
                                         <div class="group">
-                                            <label asp-for="CaseBlood" class="control-label"><input type="radio" asp-for="CaseBlood" value="正常" id="normal" class="transparent-input" />正常(120/80mmHg以下)</label>
+                                            <label asp-for="CaseBlood" class="control-label"><input type="radio" asp-for="CaseBlood" value="正常"  class="transparent-input" />正常(120/80mmHg以下)</label>
                                         </div>
                                         <div class="group">
-                                            <label asp-for="CaseBlood" class="control-label"><input type="radio" asp-for="CaseBlood" value="高血壓前期" id="preHigh" class="transparent-input" />高血壓前期(120/80-135/85mmHg以下)</label>
+                                            <label asp-for="CaseBlood" class="control-label"><input type="radio" asp-for="CaseBlood" value="高血壓前期" class="transparent-input" />高血壓前期(120/80-135/85mmHg以下)</label>
                                         </div>
                                         <div class="group">
-                                            <label asp-for="CaseBlood" class="control-label"><input type="radio" asp-for="CaseBlood" value="高血壓危險群" id="crisis" class="transparent-input" />高血壓危險群(135/85mmHg以上)</label>
+                                            <label asp-for="CaseBlood" class="control-label"><input type="radio" asp-for="CaseBlood" value="高血壓危險群" class="transparent-input" />高血壓危險群(135/85mmHg以上)</label>
                                         </div>
                                     </fieldset>
                                 </div>

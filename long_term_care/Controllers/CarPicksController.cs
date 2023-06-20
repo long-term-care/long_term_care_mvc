@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using long_term_care.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
+using long_term_care.ViewModels;
 
 namespace long_term_care.Controllers
 {
@@ -39,25 +40,45 @@ namespace long_term_care.Controllers
             return View(await longtermcareContext.ToListAsync());
         }
 
-        // GET: CarPicks/Details/5
-        public async Task<IActionResult> Details(string id)
+        public IActionResult Details()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var carPick = await _context.CarPicks
-                
-                .Include(c => c.MemS)
-                .FirstOrDefaultAsync(m => m.CarId == id);
-            if (carPick == null)
-            {
-                return NotFound();
-            }
-
-            return View(carPick);
+            return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Details(string CaseNo)
+        {
+            if (string.IsNullOrEmpty(CaseNo))
+            {
+                return Content("個案案號!");
+            }
+
+           
+            var no1 = from ci in _context.CarPicks
+                          // where ci.CaseNo == CaseNo
+                      select new CarPickViewModel
+                      {
+                          MemSid = ci.MemSid,
+                          CarSearchY = ci.CarSearchY,
+                          CarSearchM = ci.CarSearchM,
+                          CarType = ci.CarType,
+                          CarNum = ci.CarNum,
+                          CarCaseAdr = ci.CarCaseAdr,
+                          CarMonth = ci.CarMonth,
+                          CarL = ci.CarL,
+                          CarKm = ci.CarKm,
+                          CarPrice = ci.CarPrice,
+                        
+                      };
+            var no2 = await no1.ToListAsync();
+            if (no2 == null)
+            {
+                return NotFound();
+            }
+
+            return View("SearchResult", no2);
+        }
+
 
         // GET: CarPicks/Create
         public IActionResult Create()
