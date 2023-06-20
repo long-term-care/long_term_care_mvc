@@ -1,12 +1,14 @@
 ﻿@*@model IEnumerable<long_term_care.Models.CaseDailyRegistration>*@
 @using long_term_care.ViewModels;
 @model IEnumerable<DailyResultViewModel>
+@using System
+
 
 @{
     ViewData["Title"] = "SearchResult";
 }
 
-<h1>SearchResult</h1>
+<h1>Search Result</h1>
 
 @{
     bool isFirstIteration = true;
@@ -25,7 +27,14 @@
 }
 @{
     var reversedModel = Model.Reverse();
+    //var reversedModel = Model.Reverse().ToList();
+    var pageSize = 5;
+    var totalRows = reversedModel.Count;
+    int totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
 }
+
+
+
 @foreach (var item in reversedModel)
 {
     if (isFirstIteration)
@@ -47,11 +56,12 @@
         caseCntTel = item.CaseCntTel;
         caseCntRel = item.CaseCntRel;
         isFirstIteration = false;
+
         <div class="row align-items-start box">
             <div class="col-md-2">
                 @Html.DisplayNameFor(model => model.CaseName)
             </div>
-            <div class="col-md-2 ">
+            <div class="col-md-2">
                 @caseName
             </div>
             <div class="col-md-2">
@@ -72,7 +82,7 @@
             <div class="col-md-2">
                 @Html.DisplayNameFor(model => model.CaseLang)
             </div>
-            <div class="col-md-2 ">
+            <div class="col-md-2">
                 @caseLang
             </div>
             <div class="col-md-2">
@@ -87,7 +97,6 @@
             <div class="col-md-2">
                 @caseFami
             </div>
-
         </div>
         <br />
         <div class="row align-items-start box">
@@ -100,7 +109,7 @@
             <div class="col-md-2">
                 @Html.DisplayNameFor(model => model.CaseNo)
             </div>
-            <div class="col-md-2 ">
+            <div class="col-md-2">
                 @caseNo
             </div>
         </div>
@@ -109,7 +118,7 @@
             <div class="col-md-2">
                 @Html.DisplayNameFor(model => model.CaseCnta)
             </div>
-            <div class="col-md-2 ">
+            <div class="col-md-2">
                 @caseCnta
             </div>
             <div class="col-md-2">
@@ -127,85 +136,8 @@
         </div>
         <br />
     }
-
-
 }
 
-
-@section topCSS {
-    <style type="text/css">
-        h1 {
-            font-size: 36px;
-            text-align: center;
-        }
-
-        h2 {
-            font-size: 20px;
-            background: #D9D9D9;
-            padding: 15px;
-            border-radius: 20px;
-        }
-
-        .box div:nth-child(odd) {
-            background-color: lightblue;
-            padding : 5px;
-            text-align : center;
-        }
-
-        .box div:nth-child(even) {
-            background-color: rgba(255, 255, 255, 0.5);
-            padding: 5px;
-            text-align: center;
-        }
-
-        body {
-            background-color: #CBE9EA;
-        }
-    </style>
-}
-
-@*
-        <div class="row align-items-start box">
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.Casedate)
-            </div>
-            <div class="col-md-2 ">
-                @Casedate
-            </div>
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseTemp)
-            </div>
-            <div class="col-md-2">
-                @CaseTemp
-            </div>
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CasePluse)
-            </div>
-            <div class="col-md-2">
-                @CasePluse
-            </div>
-        </div>
-        <br />
-        <div class="row align-items-start box">
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseBlood)
-            </div>
-            <div class="col-md-2 ">
-                @CaseBlood
-            </div>
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CasePick)
-            </div>
-            <div class="col-md-2">
-                @CasePick
-            </div>
-        </div>
-        <br />
-
-    }
-
-}
-*@
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -214,37 +146,36 @@
             <th scope="col">脈搏</th>
             <th scope="col">血壓</th>
             <th scope="col">交通接送</th>
+            <th scope="col">操作</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="pagination-table-body">
         @foreach (var item in Model)
         {
             <tr class="table-light">
-                <th scope="row">
-                    <div class="form-group">
-                        @Html.DisplayFor(modelItem => item.Casedate)
-                    </div>
-                </th>
                 <td>
                     <div class="form-group">
-                        @Html.DisplayFor(modelItem => item.CaseTemp)
-                    </div>
-                    <br />
-                    <div class="sm-2 row">
-                        <div class="form-group">
-                            @Html.DisplayFor(modelItem => item.CasePluse)
-                        </div>
+                        @Html.DisplayFor(modelItem => item.Casedate)
                     </div>
                 </td>
                 <td>
                     <div class="form-group">
-                        @Html.DisplayNameFor(model => model.CaseBlood)
+                        @Html.DisplayFor(modelItem => item.CaseTemp)
                     </div>
-                    <br />
-                    <div class="sm-2 row">
-                        <div class="form-group">
-                            @Html.DisplayFor(modelItem => item.CasePick)
-                        </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CasePluse)
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CaseBlood)
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CasePick)
                     </div>
                 </td>
                 <td>
@@ -256,63 +187,141 @@
     </tbody>
 </table>
 
+<div class="pagination">
+    
+</div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var reversedModel = @Html.Raw(Json.Serialize(Model.Reverse()));
+        var pageSize = 5;
+        var currentPage = 1;
+        renderPage(currentPage);
 
+        function renderPage(page) {
+            var startIndex = (page - 1) * pageSize;
+            var endIndex = startIndex + pageSize;
+            var rows = reversedModel.slice(startIndex, endIndex);
 
+            var container = $('#pagination-container');
+            container.empty();
 
-@*
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Casedate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CaseTemp)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CasePluse)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CaseBlood)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CasePick)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CaseNoNavigation)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Casedate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CaseTemp)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CasePluse)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CaseBlood)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CasePick)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CaseNoNavigation.CaseNo)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.CaseContId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CaseContId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CaseContId">Delete</a>
-            </td>
-        </tr>
+            $.each(rows, function (index, item) {
+                var row = '<div class="row align-items-start box">';
+                row += '<div class="col-md-2">' + item.CaseName + '</div>';
+                row += '<div class="col-md-2">' + item.CaseBd + '</div>';
+                row += '<div class="col-md-2">' + item.CaseGender + '</div>';
+                row += '<div class="col-md-2">' + item.CaseIdent + '</div>';
+                row += '<div class="col-md-2">' + item.CaseLang + '</div>';
+                row += '<div class="col-md-2">' + item.CaseMari + '</div>';
+                row += '</div>';
+                container.append(row);
+            });
+
+            updatePagination(page);
+        }
+
+        function updatePagination(currentPage) {
+            var pagination = $('.pagination');
+            pagination.empty();
+
+            for (var i = 1; i <= totalPages; i++) {
+                var link = $('<a href="#" class="pagination-link">' + i + '</a>');
+                link.data('page', i);
+
+                if (i === currentPage) {
+                    link.addClass('active');
+                }
+
+                pagination.append(link);
+            }
+        }
+
+        $('.pagination').on('click', '.pagination-link', function (e) {
+            e.preventDefault();
+            currentPage = $(this).data('page');
+            renderPage(currentPage);
+        });
+    });
+</script>
+
+@section topCSS {
+    <style>
+        body {
+            font-family: "San Francisco", Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+        }
+        .box {
+            background: linear-gradient(to bottom, #f2f2f2, #e0e0e0);
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+            text-align: center;
+            margin: 0 20px;
+        }
+
+        .btn-secondary {
+            background-color: #f2f2f2;
+            color: #333;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 4px;
+            margin: 0 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        .pagination {
+            margin-top: 20px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+        }
+
+            .pagination a {
+                color: #333;
+                background-color: #f2f2f2;
+                border: none;
+                padding: 6px 12px;
+                margin-right: 4px;
+                text-decoration: none;
+                border-radius: 4px;
+                transition: background-color 0.3s;
+            }
+
+                .pagination a.active {
+                    background-color: #333;
+                    color: #fff;
+                }
+
+                .pagination a:hover {
+                    background-color: #ddd;
+                }
+    </style>
 }
-    </tbody>
-</table>
-*@
+
+
+

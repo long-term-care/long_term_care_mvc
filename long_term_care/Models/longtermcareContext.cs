@@ -61,7 +61,7 @@ namespace long_term_care.Models
                     .HasColumnName("Car_CaseAdr");
 
                 entity.Property(e => e.CarSearchY)
-                    .HasColumnType("tinyInt")
+                    .HasColumnType("int")
                     .HasColumnName("Car_Search_Y");
 
                 entity.Property(e => e.CarSearchM)

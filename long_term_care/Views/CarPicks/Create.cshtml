@@ -27,7 +27,7 @@
                         </div>
                         <div class="form-group ord col-7" style="position: absolute; top: 0; right: 0;">
                             <label asp-for="CarId" class="control-label" style="margin-top:2%;">表單編號&nbsp;</label>
-                            <input id="orderNumberInputCar" asp-for="CarId" class="form-control" style="background-color: transparent; border: none; outline: none;" />
+                            <input asp-for="CarId" class="form-control" style="background-color: transparent; border: none; outline: none;" />
                             <span asp-validation-for="CarId" class="text-danger"></span>
                         </div>
 
@@ -49,11 +49,10 @@
                     <div class="row">
                         <div class="col-6 form-group">
                             <label asp-for="CarType" class="control-label">車種
-                                <select asp-for="CarType" class="form-control">
-                                    @foreach (var value in Enum.GetValues(typeof(CarEnumType)))
-                                    {
-                                        <option value="@value.ToString()">@value.ToString()</option>
-                                    }
+                                <select asp-for="CarType" class="form-control" id="CarType" name="CarType">
+                                    <option value="小巴">小巴</option>
+                                    <option value="汽車">汽車</option>
+                                    <option value="計程車">計程車</option>
                                 </select>
                             </label>
                             <span asp-validation-for="CarType" class="text-danger"></span>

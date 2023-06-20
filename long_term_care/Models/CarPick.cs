@@ -31,7 +31,6 @@ namespace long_term_care.Models
         public double CarL { get; set; }
         public double CarKm { get; set; }
         public decimal CarPrice { get; set; }
-        public string CaseContId { get; set; }
 
  
         public virtual MemberInformation MemS { get; set; }

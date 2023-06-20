@@ -52,7 +52,7 @@ namespace long_term_care.ViewModels
         public string CaseTemp { get; set; }
         [Display(Name = "脈搏")]
 
-        public int CasePluse { get; set; }
+        public string CasePluse { get; set; }
         [Display(Name = "血壓")]
 
         public string CaseBlood { get; set; }

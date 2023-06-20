@@ -17,18 +17,6 @@ namespace long_term_care.Controllers
     {
         private readonly longtermcareContext _context;
 
-        public enum CarEnumType
-        {
-            [Display(Name = "小巴")]
-            小巴 = 1,
-
-            [Display(Name = "客車")]
-            客車 = 2,
-
-            [Display(Name = "計程車")]
-            計程車 = 3
-        }
-
         public CarPicksController(longtermcareContext context)
         {
             _context = context;
@@ -54,7 +42,7 @@ namespace long_term_care.Controllers
                 return Content("志工編號!");
             }
             var no1 = from ci in _context.CarPicks
-                      join ccr in _context.MemberInformation on ci.MemSid equals ccr.MemSid
+                      join ccr in _context.MemberInformations on ci.MemSid equals ccr.MemSid
                       where ccr.MemSid == MemSid
                       select new CarPickViewModel
                       {
@@ -83,7 +71,22 @@ namespace long_term_care.Controllers
         // GET: CarPicks/Create
         public IActionResult Create()
         {
-            ViewData["CaseContId"] = new SelectList(_context.CaseDailyRegistrations, "CaseContId", "CaseContId");
+            string nextFormNumber = "";
+
+
+            var lastForm = _context.CarPicks.OrderByDescending(f => f.CarId).FirstOrDefault();
+            if (lastForm != null)
+            {
+                int lastFormNumber = int.Parse(lastForm.CarId);
+                int nextFormNumberInt = lastFormNumber + 1;
+                nextFormNumber = nextFormNumberInt.ToString("0000");
+            }
+            else
+            {
+                nextFormNumber = "0001";
+            }
+            ViewData["CarId"] = nextFormNumber;
+
             ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid");
            
             return View();
@@ -102,7 +105,6 @@ namespace long_term_care.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CaseContId"] = new SelectList(_context.CaseDailyRegistrations, "CaseContId", "CaseContId", carPick.CaseContId);
             ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid", carPick.MemSid);
             return View(carPick);
         }
@@ -120,7 +122,6 @@ namespace long_term_care.Controllers
             {
                 return NotFound();
             }
-            ViewData["CaseContId"] = new SelectList(_context.CaseDailyRegistrations, "CaseContId", "CaseContId", carPick.CaseContId);
             ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid", carPick.MemSid);
             return View(carPick);
         }
@@ -157,7 +158,6 @@ namespace long_term_care.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CaseContId"] = new SelectList(_context.CaseDailyRegistrations, "CaseContId", "CaseContId", carPick.CaseContId);
             ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid", carPick.MemSid);
             return View(carPick);
         }
