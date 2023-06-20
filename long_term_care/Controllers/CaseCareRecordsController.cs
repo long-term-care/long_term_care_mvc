@@ -38,7 +38,7 @@ namespace long_term_care.Controllers
         {
             if (string.IsNullOrEmpty(CaseNo))
             {
-                return Content("個案案號!");
+                return Content("必須提供個案案號!");
             }
 
             //var no = await _context.CaseCareRecords.Include(c => c.CaseNoNavigation)
