@@ -135,6 +135,7 @@
             <th scope="col">車種</th>
             <th scope="col">車牌</th>
             <th scope="col">接送地址</th>
+            <th scope="col">單位地址</th>
             <th scope="col">操作</th>
         </tr>
     </thead>
@@ -144,12 +145,14 @@
             <tr class="table-light">
                 <td>
                     <div class="form-group">
-                        @Html.DisplayFor(modelItem => item.CarMonth)
+                        @item.CarMonth.ToString("MM/dd")
+                        @*
+                    @Html.DisplayFor(modelItem => item.CarMonth)*@
                     </div>
                 </td>
                 <td>
                     <div class="form-group">
-                        @Html.DisplayNameFor(model => model.CarType)
+                        @Html.DisplayFor(modelItem => item.CarType)
                     </div>
                 </td>
                 <td>
@@ -160,6 +163,11 @@
                 <td>
                     <div class="form-group">
                         @Html.DisplayFor(modelItem => item.CarCaseAdr)
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CarAgencyLoc)
                     </div>
                 </td>
                 <td>

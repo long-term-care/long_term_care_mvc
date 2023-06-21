@@ -39,15 +39,21 @@ namespace long_term_care.ViewModels
         public string CaseCntRel { get; set; }
 
         public string CarId { get; set; }
+
         [Display(Name = "個案編號")]
         public string CaseNo { get; set; }
+
         public string MemSid { get; set; }
 
+        
         public DateTime CarSearch { get; set; }
 
         public string CarType { get; set; }
 
         public string CarNum { get; set; }
+        public string CarAgencyLoc { get; set; }
+
+
 
         public DateTime CarMonth { get; set; }
 
@@ -57,5 +63,6 @@ namespace long_term_care.ViewModels
         public double CarKm { get; set; }
         public decimal CarPrice { get; set; }
         public string CaseContId { get; set; }
+
     }
 }

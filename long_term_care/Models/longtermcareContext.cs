@@ -62,7 +62,12 @@ namespace long_term_care.Models
                 entity.Property(e => e.CarCaseAdr)
                     .IsRequired()
                     .HasMaxLength(100)
-                    .HasColumnName("Car_CaseAdr");
+                    .HasColumnName("Car_CaseAdr");  
+                
+                entity.Property(e => e.CarAgencyLoc)
+                    .HasMaxLength(100)
+                    .HasColumnName("Car_AgencyLoc");
+
 
                 entity.Property(e => e.CarSearch)
                   .HasColumnType("datetime")

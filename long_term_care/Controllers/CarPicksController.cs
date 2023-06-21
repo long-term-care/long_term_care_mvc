@@ -72,6 +72,7 @@ namespace long_term_care.Controllers
                                       CarType = ci.CarType,
                                       CarNum = ci.CarNum,
                                       CarCaseAdr = ci.CarCaseAdr,
+                                      CarAgencyLoc = ci.CarAgencyLoc,
                                       CarMonth = ci.CarMonth,
                                       CarL = ci.CarL,
                                       CarKm = ci.CarKm,
@@ -109,7 +110,7 @@ namespace long_term_care.Controllers
             ViewData["CarId"] = nextFormNumber;
             ViewData["CarSearch"] = DateTime.Now.ToString("yyyy/MM");
             ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid");
-           
+
             return View();
         }
 
@@ -118,7 +119,7 @@ namespace long_term_care.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CarId,MemSid,CaseNo,CarSearch,CarType,CarNum,CarMonth,CarCaseAdr,CarL,CarKm,CarPrice,Z")] CarPick carPick)
+        public async Task<IActionResult> Create([Bind("CarId,MemSid,CaseNo,CarSearch,CarAgencyLoc,CarType,CarNum,CarMonth,CarCaseAdr,CarL,CarKm,CarPrice")] CarPick carPick)
         {
             if (ModelState.IsValid)
             {
@@ -152,7 +153,7 @@ namespace long_term_care.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("CarId,MemSid,CaseNo,CarSearch,CarType,CarNum,CarMonth,CarCaseAdr,CarL,CarKm,CarPrice")] CarPick carPick)
+        public async Task<IActionResult> Edit(string id, [Bind("CarId,MemSid,CaseNo,CarAgencyLoc,CarSearch,CarType,CarNum,CarMonth,CarCaseAdr,CarL,CarKm,CarPrice")] CarPick carPick)
         {
             if (id != carPick.CarId)
             {

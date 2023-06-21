@@ -19,35 +19,27 @@
             <div class="infoBox">
                 <form asp-action="Create">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group ord" style="position: absolute; top: 0; right: 0;">
+                        <label asp-for="CarId" class="control-label" style="margin-top:2%;">表單編號&nbsp;</label>
+                        <input asp-for="CarId" class="form-control" type="text" style="background-color: transparent; border: none; outline: none;" value="@ViewBag.CarId" readonly />
+                        <span asp-validation-for="CarId" class="text-danger"></span>
+                    </div>
                     <div class="row" style="justify-content: space-between;">
                         <div class="form-group col-3">
                             <label asp-for="MemSid" class="control-label">志工編號&nbsp;<input asp-for="MemSid" class="form-control" type="text" /></label>
                             <span asp-validation-for="MemSid" class="text-danger"></span>
                             <!--<select asp-for="MemSid" class="form-control" asp-items="ViewBag.MemSid"></select>-->
                         </div>
-                        <div class="form-group ord col-7" style="position: absolute; top: 0; right: 0;">
-                            <label asp-for="CarId" class="control-label" style="margin-top:2%;">表單編號&nbsp;</label>
-                            <input asp-for="CarId" class="form-control" type="text" style="background-color: transparent; border: none; outline: none;" value="@ViewBag.CarId" readonly />
-                            <span asp-validation-for="CarId" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col-6 form-group">
-                            <label asp-for="CarCaseAdr" class="control-label">單位地址&nbsp;<input asp-for="CarCaseAdr" class="form-control" type="text" id="address" style="width: 300px;"/></label>
-                            <span asp-validation-for="CarCaseAdr" class="text-danger"></span>
-                        </div>
-                        <div class="col-6 form-group">
-                            <label asp-for="CarSearch" class="control-label">時間&nbsp;<input asp-for="CarSearch" class="form-control transparent-input" type="text" placeholder="YYYY/MM" /></label>
-                            <span asp-validation-for="CarSearch" class="text-danger"></span>
+                            <label asp-for="CarAgencyLoc" class="control-label">單位地址&nbsp;<input asp-for="CarAgencyLoc" class="form-control" type="text" id="address" style="width: 300px;" /></label>
+                            <span asp-validation-for="CarAgencyLoc" class="text-danger"></span>
                         </div>
                     </div>
 
-
-                    
-
                     <div class="row">
                         <div class="col-6 form-group">
-                            <label asp-for="CarType" class="control-label">車種
+                            <label asp-for="CarType" class="control-label">
+                                車種
                                 <select asp-for="CarType" class="form-control" id="CarType" name="CarType">
                                     <option value="小巴">小巴</option>
                                     <option value="汽車">汽車</option>
@@ -61,7 +53,27 @@
                             <span asp-validation-for="CarNum" class="text-danger"></span>
                         </div>
                     </div>
-                   
+
+                    <div class="row">
+                        <div class="col-6 form-group">
+                            <label asp-for="CarSearch" class="control-label">時間&nbsp;<input asp-for="CarSearch" class="form-control transparent-input" type="text" placeholder="YYYY/MM" /></label>
+                            <span asp-validation-for="CarSearch" class="text-danger"></span>
+                        </div>
+                        <div class="col-2 form-group">
+                            <input asp-for="CarL" class="form-control transparent-input" placeholder="合計公升" />
+                            <span asp-validation-for="CarL" class="text-danger"></span>
+                        </div>
+                        <div class="col-2 form-group">
+                            <input asp-for="CarKm" class="form-control transparent-input" placeholder="合計公里" />
+                            <span asp-validation-for="CarKm" class="text-danger"></span>
+                        </div>
+                        <div class="col-2 form-group">
+                            <input asp-for="CarPrice" class="form-control transparent-input" placeholder="實支金額" />
+                            <span asp-validation-for="CarPrice" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <!-- Header -->
                     <div class="row header hd">
                         <div class="col-1 hd">項次</div>
                         <div class="col-2 hd">日期</div>
@@ -69,7 +81,8 @@
                         <div class="col-5 hd">住家</div>
                     </div>
 
-                    <div class="example">
+                    <!-- Example -->
+                    <div class="example row">
                         <div class="col-1 ex">
                             <h6>範例</h6>
                         </div>
@@ -80,100 +93,48 @@
                             <h6>個案編號</h6>
                         </div>
                         <div class="col-5 ex" style="font-size: 9px;">
-                            <h6>(地址：新北市○區○ 路○巷○弄○號○樓)</h6>
+                            <h6>新北市○區○ 路○巷○弄○號○樓</h6>
                         </div>
                     </div>
-                        <!-- Each data rows-->
-                        <div class="container">
-                            <div class="row columns">
-                                <div class="col-1 cnt">
-                                    <div id="nums"></div>
-                                </div>
-                                <div class="col-2 form-group">
-                                    <input asp-for="CarMonth" class="form-control" type="date" class="transparent-input" style="width: 130px;" />
-                                    <span asp-validation-for="CarMonth" class="text-danger"></span>
-                                </div>
-                                <div class="col-3 form-group">
-                                    <input asp-for="CaseNo" class="form-control" type="text" class="transparent-input" style="width: 130px;" />
-                                    <span asp-validation-for="CaseNo" class="text-danger"></span>
-                                </div>
-                                <div class="col-5 form-group">
-                                <input asp-for="CarCaseAdr" class="form-control" type="text" class="transparent-input"  style="width: 430px;" />
-                                    <span asp-validation-for="CarCaseAdr" class="text-danger"></span>
-                                </div>
+
+                    <!-- Each data row -->
+                    <div class="container">
+                        <div class="row columns">
+                            <div class="col-1 cnt circle">
+                                <div id="nums"></div>
+                            </div>
+                            <div class="col-2 form-group">
+                                <input asp-for="CarMonth" class="form-control transparent-input" type="date" style="width:90%;" />
+                                <span asp-validation-for="CarMonth" class="text-danger"></span>
+                            </div>
+                            <div class="col-3 form-group">
+                                <input asp-for="CaseNo" class="form-control transparent-input" type="text" style="width:90%;" />
+                                <span asp-validation-for="CaseNo" class="text-danger"></span>
+                            </div>
+                            <div class="col-6 form-group">
+                                <input asp-for="CarCaseAdr" class="form-control transparent-input" type="text" style="width:100%;" />
+                                <span asp-validation-for="CarCaseAdr" class="text-danger"></span>
                             </div>
                         </div>
-                        <!-- last row -->
-                        <div class="container">
-                            <div class="amount row columns">
-                                <div class="col-1">
-                                    <div id="amount">合計</div>
-                                </div>
-                                <div class="col-2 form-group">
-                                    <input asp-for="CarL" class="form-control" class="transparent-input" placeholder="公升" />
-                                    <span asp-validation-for="CarL" class="text-danger"></span>
-                                </div>
-                                <div class="col-2 form-group">
-                                    <input asp-for="CarKm" class="form-control" class="transparent-input" placeholder="公里" />
-                                    <span asp-validation-for="CarKm" class="text-danger"></span>
-                                </div>
-                                <div class="col-2 form-group">
-                                    <input asp-for="CarPrice" class="form-control" class="transparent-input" placeholder="實支金額" />
-                                    <span asp-validation-for="CarPrice" class="text-danger"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" value="儲存" class="btn btn-primary" id="submitBtn" />
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                    <div class="form-group wrap">
+                        <input type="submit" value="儲存" class="btn btn-primary" id="submitBtn" />
+                    </div>
+                </form>
             </div>
+        <div>
+            <a asp-action="Index">返回</a>
         </div>
     </div>
-    <div>
-        <a asp-action="Index">返回</a>
-    </div>
+    
     <script>
-            var rowNum = 1; 
-            var dataRows = [];
-
-            $('.container .row.columns').each(function () {
-                var rowData = {
-                    nums: rowNum,
-                    carMonth: $(this).find('input[name="CarMonth"]').val(),
-                    carCaseAdr: $(this).find('input[name="CarCaseAdr"]').val()
-                };
-
-                $(this).find('.nums').text(rowNum);
-                rowNum++;
-
-                dataRows.push(rowData);
-            });
-
-            $.ajax({
-                url: '/CarPicks/Create', 
-                method: 'POST',
-                data: { dataRows: dataRows },
-                success: function (response) {
-                    console.log('Data stored successfully');
-                },
-                error: function (xhr, status, error) {
-                    console.log('Error storing data: ' + error);
-                }
-            });
-
-        });
+          
     </script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 </body>
 </html>
-
-
-
-
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

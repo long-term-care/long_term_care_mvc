@@ -80,6 +80,9 @@
     cursor: pointer;
     border: none;
     color: #222831;
+    font-weight: 600;
+    letter-spacing: 5px;
+
 }
 
     .Edit:hover, .View:hover {
