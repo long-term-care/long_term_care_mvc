@@ -125,12 +125,16 @@
                         <button type="submit" class="btn btn-warning">新增表單</button>
                     </form>         
                 </div>
-                <div class="search">
-                    <input type="search" class="search" value="請輸入表單名稱...">
-                </div>
-                <div class="searchbtn">
-                    <button type="button" class="btn btn-secondary">查詢</button>
-                </div>
+                <form method="get" action="/CaseActsign/Index">
+                    <div class="singbodytitle">
+                        <div class="search">
+                            <input type="search" name="searchTerm" class="search" placeholder="請輸入表單名稱...">
+                        </div>
+                        <div class="searchbtn">
+                            <button type="submit" class="btn btn-secondary">查詢</button>
+                        </div>
+                    </div>                  
+                </form>
             </div>
             <div class="content">
                 <div class="id">

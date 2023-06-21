@@ -54,7 +54,7 @@ namespace long_term_care.Controllers
                 return Content("志工編號!");
             }
             var no1 = from ci in _context.CarPicks
-                      join ccr in _context.MemberInformation on ci.MemSid equals ccr.MemSid
+                      join ccr in _context.MemberInformations on ci.MemSid equals ccr.MemSid
                       where ccr.MemSid == MemSid
                       select new CarPickViewModel
                       {

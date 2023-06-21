@@ -11,97 +11,104 @@
     </div>
     <div class="global">
         <div class="container-fluid">
+            @using (Html.BeginForm("ButtonClick", "Main", FormMethod.Post))
+            {
+                <div class="row1">
+                    <div class="col-md-12">
+                        <div class="card head">
+                            <div class="card-body">
+                                <i class="fa-solid fa-user-nurse" style="color: #ffffff;"></i>
+                                <h5>志工及照護人員</h5>
+                            </div>
+                        </div>
+
+                        <button class="card" type="submit" name="buttonId" value="Button1">
+                            @*MemSigns / Index*@
+                            <div class="card-body">
+                                <i class="fa-solid fa-user-nurse" style="color: #3D81BF;"></i>
+                                <h5>出勤簽到</h5>
+                            </div>
+                        </button>
+                        <button class="card" type="submit" name="buttonId" value="Button2">
+                            <div class="card-body">
+                                <i class="fa-regular fa-comments" style="color: #3D81BF;"></i>
+                                <h5>講座設計</h5>
+                            </div>
+                        </button>
+                        <button class="card" type="submit" name="buttonId" value="Button3">
+                            <div class="card-body">
+                                <i class="fa-solid fa-calendar-days" style="color: #3D81BF;"></i>
+                                <h5>課表管理</h5>
+                            </div>
+                        </button>
+                        <button class="card" type="submit" name="buttonId" value="Button4">
+                            <div class="card-body">
+                                <i class="fa-solid fa-signature" style="color: #3D81BF;"></i>
+                                <h5>長者活動簽到記錄</h5>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            }
+            <!-- Blue area -->
+           
 
             <!-- Blue area -->
-            <div class="row1">
-                <div class="col-md-12">
-                    <div class="card head">
-                        <div class="card-body">
-                            <i class="fa-solid fa-user-nurse" style="color: #ffffff;"></i>
-                            <h5>志工及照護人員</h5>
+            @using (Html.BeginForm("ButtonClick", "Main", FormMethod.Post))
+            {
+                <div class="row2">
+                    <div class="col-md-12">
+                        <div class="card head">
+                            <div class="card-body">
+                                <i class="fa-regular fa-heart" style="color: #FFFFFF;"></i>
+                                <h5>服務系統</h5>
+                            </div>
                         </div>
+
+                        <button class="card" type="submit" name="buttonId" value="Button5">
+                            @* CasePhysicalMentals / Index*@
+                            <div class="card-body">
+                                <i class="fa-solid fa-heart-pulse" style="color: #D04667;"></i>
+                                <h5>身心評估問卷</h5>
+                            </div>
+                        </button>
+                        <button class="card" type="submit" name="buttonId" value="Button6">
+                            @*CaseTelRecords / Index*@
+                            <div class="card-body">
+                                <i class="fa-solid fa-phone" style="color: #D04667;"></i>
+                                <h5>電話問安</h5>
+                            </div>
+                        </button>
+                        <button class="card" type="submit" name="buttonId" value="Button7">
+                            @*CaseCareRecords / Index*@
+                            <div class="card-body">
+                                <i class="fa-regular fa-house-medical-circle-check" style="color: #D04667;"></i>
+                                <h5>關懷訪視</h5>
+                            </div>
+                        </button>
+                        <button class="card" type="submit" name="buttonId" value="Button8">
+                            <div class="card-body">
+                                <i class="fa-solid fa-bus" style="color: #D04667;"></i>
+                                <h5>交通接送</h5>
+                            </div>
+                        </button>
+                        <button class="card" type="submit" name="buttonId" value="Button9">
+                            <div class="card-body">
+                                <i class="fa-sharp fa-solid fa-clipboard-user" style="color: #D04667;"></i>
+                                <h5>每日登記</h5>
+                            </div>
+                        </button>
+                        <button class="card" type="submit" name="buttonId" value="Button10">
+                            <div class="card-body">
+                                <i class="fa-solid fa-person-cane" style="color: #D04667;"></i>
+                                <h5>長者需求調查</h5>
+                            </div>
+                        </button>
                     </div>
 
-                    <button class="card">
-                        @*MemSigns / Index*@
-                        <div class="card-body">
-                            <i class="fa-solid fa-user-nurse" style="color: #3D81BF;"></i>
-                            <h5>出勤簽到</h5>
-                        </div>
-                    </button>
-                    <button class="card">
-                        <div class="card-body">
-                            <i class="fa-regular fa-comments" style="color: #3D81BF;"></i>
-                            <h5>講座設計</h5>
-                        </div>
-                    </button>
-                    <button class="card">
-                        <div class="card-body">
-                            <i class="fa-solid fa-calendar-days" style="color: #3D81BF;"></i>
-                            <h5>課表管理</h5>
-                        </div>
-                    </button>
-                    <button class="card">
-                        <div class="card-body">
-                            <i class="fa-solid fa-signature" style="color: #3D81BF;"></i>
-                            <h5>長者活動簽到記錄</h5>
-                        </div>
-                    </button>
                 </div>
-            </div>
-
-            <!-- Blue area -->
-            <div class="row2">
-                <div class="col-md-12">
-                    <div class="card head">
-                        <div class="card-body">
-                            <i class="fa-regular fa-heart" style="color: #FFFFFF;"></i>
-                            <h5>服務系統</h5>
-                        </div>
-                    </div>
-
-                    <button class="card">
-                        @* CasePhysicalMentals / Index*@
-                        <div class="card-body">
-                            <i class="fa-solid fa-heart-pulse" style="color: #D04667;"></i>
-                            <h5>身心評估問卷</h5>
-                        </div>
-                    </button>
-                    <button class="card">
-                        @*CaseTelRecords / Index*@
-                        <div class="card-body">
-                            <i class="fa-solid fa-phone" style="color: #D04667;"></i>
-                            <h5>電話問安</h5>
-                        </div>
-                    </button>
-                    <button class="card">
-                        @*CaseCareRecords / Index*@
-                        <div class="card-body">
-                            <i class="fa-regular fa-house-medical-circle-check" style="color: #D04667;"></i>
-                            <h5>關懷訪視</h5>
-                        </div>
-                    </button>
-                    <button class="card">
-                        <div class="card-body">
-                            <i class="fa-solid fa-bus" style="color: #D04667;"></i>
-                            <h5>交通接送</h5>
-                        </div>
-                    </button>
-                    <button class="card">
-                        <div class="card-body">
-                            <i class="fa-sharp fa-solid fa-clipboard-user" style="color: #D04667;"></i>
-                            <h5>每日登記</h5>
-                        </div>
-                    </button>
-                    <button class="card">
-                        <div class="card-body">
-                            <i class="fa-solid fa-person-cane" style="color: #D04667;"></i>
-                            <h5>長者需求調查</h5>
-                        </div>
-                    </button>
-                </div>
-
-            </div>
+            }
+            
         </div>
 
         <div class="scheduleBox">

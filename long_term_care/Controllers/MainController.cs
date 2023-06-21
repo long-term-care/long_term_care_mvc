@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 namespace long_term_care.Controllers
 {
@@ -108,7 +109,7 @@ namespace long_term_care.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Login(string id ,string password)
+        public async Task<IActionResult> Login(string id, string password)
         {
 
             MemberInformation user = await _context.MemberInformations.FirstOrDefaultAsync(x => x.MemSid == id);
@@ -129,7 +130,7 @@ namespace long_term_care.Controllers
 
                     var authProperties = new AuthenticationProperties
                     {
-                       
+
                     };
 
                     await HttpContext.SignInAsync(
@@ -145,16 +146,16 @@ namespace long_term_care.Controllers
                     // 密码验证失败
                     ModelState.AddModelError(string.Empty, "密碼錯誤");
                 }
-                }
-                else
-                {
-                    // 用户不存在
-                    ModelState.AddModelError(string.Empty, "找不到該用戶");
-                }
+            }
+            else
+            {
+                // 用户不存在
+                ModelState.AddModelError(string.Empty, "找不到該用戶");
+            }
 
-                return View();
+            return View();
         }
-        
+
         [Authorize]
         public IActionResult MemMainpage()
         {
@@ -170,5 +171,36 @@ namespace long_term_care.Controllers
             return RedirectToAction("Login", "Main");
         }
 
+        [HttpPost]
+        public ActionResult ButtonClick(string buttonId)
+        {
+            switch (buttonId)
+            {
+                case "Button1":
+                    return RedirectToAction("Index", "MemSigns");
+                case "Button2":
+                    return RedirectToAction("Index", "LectureClasses");
+                case "Button3":
+                    return RedirectToAction("Index", "LectureClasses");
+                case "Button4":
+                    return RedirectToAction("Index", "CaseActsign");
+                case "Button5":
+                    return RedirectToAction("Index", "CaseDailyRegistrations");
+                case "Button6":
+                    return RedirectToAction("Index", "CaseTelRecords");
+                case "Button7":
+                    return RedirectToAction("Index", "CasePhysicalMentals");
+                case "Button8":
+                    return RedirectToAction("Index", "CasePicks");
+                case "Button9":
+                    return RedirectToAction("Index", "CaseCareRecords");
+                case "Button10":
+                    return RedirectToAction("Index", "CaseNeeds");
+                default:
+                    // 如果按鈕ID無效，返回控制器A的視圖或顯示錯誤信息
+                    return RedirectToAction("ActionName", "ControllerA");
+            }
+
+        }
     }
 }

@@ -1,6 +1,9 @@
-﻿@model long_term_care.Models.CaseAct
+﻿@using long_term_care.ViewModels;
+@model List<CaseActsignViewModel>
 @{
-    ViewData["Title"] = "CreateCaseNo";
+    ViewData["Title"] = "Check";
+    var data = Model.FirstOrDefault();
+
 }
 
 <style>
@@ -146,35 +149,44 @@
 
     <div class="container" id="container">
         <div class="title">
-            <input type="text" style= "display: none;" id="actid" value="@Html.DisplayFor(model => model.ActId)">
-            <h1>活動名稱: @Html.DisplayFor(model => model.ActCourse)</h1>       
+            <input type="text" style= "display: none;" id="actid" value="@data.ActId">
+            <h1>活動名稱: @data.ActCourse</h1>       
         </div>
         <div class="signbody">
-            
-                <div class="singbodytitle">
-                    <div class="day">
-                    <p>活動日期:@Html.DisplayFor(model => model.ActDate)</p>
-                    </div>
-                    <div class="teacher">
-                    <p>講師姓名:@Html.DisplayFor(model => model.ActLec)</p>
-                    </div>
-                    <div class="place">
-                    <p>活動地點:@Html.DisplayFor(model => model.ActLoc)</p>
-                    </div>
+
+            <div class="singbodytitle">
+                <div class="day">
+                    <h3>活動日期:</h3>
+                    <h4>@data.ActDate<h4>
                 </div>
-            
-            <div id="caseinfor">
+                <div class="teacher">
+                    <h2>講師姓名:</h2>
+                    <h3>@data.ActLec</h3>
+                </div>
+                <div class="place">
+                    <h2>活動地點:</h2>
+                    <h3>@data.ActLoc</h3>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="id">
+                    <p>學員編號</p>
+                </div>
+                <div class="tool">
+                    <p>服務項目</p>
+                </div>
+            </div>
                 <div class="content">
                     <div class="id">
-                        <p>學員編號</p>
-                    </div>
-                    <div class="tool">
-                        <p>服務項目</p>
-                    </div>
-                </div>
-                <div class="content">
-                    <div class="id">
-                        <input type="text" class="text" id="caseid">
+                        <label for="CaseNo"></label>
+                        <select id="CaseNo" name="CaseNo" class="form-control">
+                            <option value=""></option>
+                            @foreach (var item in ViewBag.CaseNoList)
+                            {
+                                <option value="@item.Value">@item.Text</option>
+                            }
+                        </select>
                     </div>
                     <div class="tool">
                         <input type="checkbox" name="option1" value="" id="tool1">健康促進<br>
@@ -185,14 +197,38 @@
                         <button type="button" class="btn btn-secondary" id="caseadd">新增</button>
                     </div>
                 </div>
-                <div id="caseNoadd">
-                </div>
-            </div>
 
-        </div>
+                <div id="caseNoadd">
+                @foreach (var item in Model)
+                {
+                    @if (item.CaseNo == "")
+                    {
+                        // 如果 CaseNo 为空，不显示任何内容
+                    }
+                    else
+                    {
+                        <div class="content">
+                            <div class="id">
+                                <p>@item.CaseNo</p>
+                            </div>
+                            <div class="tool">
+                                <p>@item.ActSer</p>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-secondary" onclick="deleteItem(this)" data-actid="@item.ActId" data-caseno="@item.CaseNo">刪除</button>
+                            </div>
+                        </div>
+                    }
+                
+
+                }
+                </div>
+         </div>
+
+     
         <div class="send">
-            <form>
-                <button type="submit" class="btn btn-dark">返回上一頁</button>
+        <form action="/CaseActsign/Index" method="get">
+                <button type="submit" class="btn btn-dark">儲存</button>
             </form>
         </div>
     </div>
@@ -205,7 +241,7 @@
         <script>
             var caseaddbtn = document.getElementById("caseadd");
             caseaddbtn.addEventListener("click", function () {
-                var caseid = document.getElementById("caseid").value;
+                var CaseNo = document.getElementById("CaseNo").value;
                 var actId = document.getElementById("actid").value;
                 var tool1Checkbox = document.getElementById("tool1");
                 var tool2Checkbox = document.getElementById("tool2");
@@ -240,72 +276,125 @@
                 var data = {
                     type: 2,
                     ActId: actId,
-                    CaseNo: caseid,
+                    CaseNo: CaseNo,
                     ActSer: toolText
                 }
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                        // 請求成功，執行相應的處理邏輯
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) { // 请求完成
+                    if (xhr.status === 200) { // 请求成功
                         var response = JSON.parse(xhr.responseText);
-
+                        // 执行成功后的操作，例如删除元素
+                       
+                    } else {
+                        // 处理请求失败的情况
+                        console.log('请求失败');
                     }
+                }
+            };
+            var newDiv = document.createElement("div");
+            newDiv.className = "content";
 
-                };
-                xhr.send(JSON.stringify(data));
+            var idDiv = document.createElement("div");
+            idDiv.className = "id";
+            var idP = document.createElement("p");
+            idP.textContent = CaseNo;
+            idDiv.appendChild(idP);
 
-                var newDiv = document.createElement("div");
-                newDiv.className = "content";
+            var toolDiv = document.createElement("div");
+            toolDiv.className = "tool";
+            var toolP = document.createElement("p");
+            toolP.textContent = toolText;
+            toolDiv.appendChild(toolP);
 
-                var idDiv = document.createElement("div");
-                idDiv.className = "id";
-                var idP = document.createElement("p");
-                idP.textContent = caseid;
-                idDiv.appendChild(idP);
+            var btnDiv = document.createElement("div");
+            btnDiv.className = "btn";
+            var deleteBtn = document.createElement("button");
+            deleteBtn.type = "button";
+            deleteBtn.className = "btn btn-secondary";
+            deleteBtn.textContent = "刪除";
+            btnDiv.appendChild(deleteBtn);
 
-                var toolDiv = document.createElement("div");
-                toolDiv.className = "tool";
-                var toolP = document.createElement("p");
-                toolP.textContent = toolText;
-                toolDiv.appendChild(toolP);
+            newDiv.appendChild(idDiv);
+            newDiv.appendChild(toolDiv);
+            newDiv.appendChild(btnDiv);
+            var container = document.getElementById("caseNoadd");
+            container.appendChild(newDiv);
 
-                var btnDiv = document.createElement("div");
-                btnDiv.className = "btn";
-                var deleteBtn = document.createElement("button");
-                deleteBtn.type = "button";
-                deleteBtn.className = "btn btn-secondary";
-                deleteBtn.textContent = "刪除";
-                btnDiv.appendChild(deleteBtn);
-
-                newDiv.appendChild(idDiv);
-                newDiv.appendChild(toolDiv);
-                newDiv.appendChild(btnDiv);
-                var container = document.getElementById("caseNoadd");
-                container.appendChild(newDiv);
+            xhr.send(JSON.stringify(data));
+            
+                
 
                 // 添加删除按钮的点击事件监听器
                 deleteBtn.addEventListener("click", function () {
+                var confirmDelete = confirm("确定要删除该记录吗？");
+                if(confirmDelete)
+                {
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", "/CaseActsign/DeleteCaseNo", true);
                     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
-                    // 將selectedValue轉換為JSON格式
+                    // 将selectedValue转换为JSON格式
                     var data = {
-                        CaseNo: caseid,
+                        ActId: actId,
+                        CaseNo: CaseNo
                     }
                     xhr.onreadystatechange = function () {
-                        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                            // 請求成功，執行相應的處理邏輯
-                            var response = JSON.parse(xhr.responseText);
+                        if (xhr.readyState === XMLHttpRequest.DONE) {
+                            if (xhr.status === 200) {
+                                // 请求成功，执行相应的处理逻辑
+                                var response = JSON.parse(xhr.responseText);
+                                // 从视图中删除对应的元素
 
+                            } else {
+                                // 请求失败，执行相应的错误处理逻辑
+                                console.log('请求失败');
+                            }
                         }
-
                     };
                     xhr.send(JSON.stringify(data));
                     container.removeChild(newDiv);
-                });
+                }
+                
+            });
             });
 
+        function deleteItem(button) {          
+            var div = button.closest(".content");
+            // 确认删除逻辑，可以使用 JavaScript 的确认框或其他方式
+            var confirmDelete = confirm("确定要删除该记录吗？");
             
+            if (confirmDelete) {
+                var actId = button.getAttribute("data-actid");
+                var caseNo = button.getAttribute("data-caseno");
+                // 发送异步请求到服务器删除数据
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/CaseActsign/DeleteCaseNo", true);
+                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+                var data = {
+                    ActId: actId,
+                    CaseNo: caseNo
+                };
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            // 请求成功，执行相应的处理逻辑
+                            var response = JSON.parse(xhr.responseText);
+                            // 从视图中删除对应的元素
+                            button.parentNode.parentNode.remove();
+                        } else {
+                            // 请求失败，执行相应的错误处理逻辑
+                            console.log('请求失败');
+                        }
+                    }
+                };
+
+                xhr.send(JSON.stringify(data));
+                div.parentNode.removeChild(div);
+            }
+        }
+
         </script>
 
 
