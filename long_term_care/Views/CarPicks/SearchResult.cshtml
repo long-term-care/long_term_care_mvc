@@ -1,11 +1,316 @@
-﻿@model IEnumerable<long_term_care.Models.CarPick>
+﻿@using long_term_care.ViewModels;
+@model IEnumerable<CarPickViewModel>
 
 @{
     ViewData["Title"] = "SearchResult";
 }
 
-<h1>SearchResult</h1>
+<h1>長者交通接送結果</h1>
 
+@{
+    bool isFirstIteration = true;
+    string caseName = null;
+    string caseBd = null;
+    string caseGender = null;
+    string caseNo = null;
+    string caseIdent = null;
+    string caseLang = null;
+    string caseMari = null;
+    string caseFami = null;
+    string caseAddr = null;
+    string caseCnta = null;
+    string caseCntTel = null;
+    string caseCntRel = null;
+}
+
+
+
+@foreach (var item in Model.Reverse())
+{
+    if (isFirstIteration)
+    {
+        <div class="col-md-2">
+            <button type="button" class="btn btn-secondary">基本資料</button>
+        </div>
+        <br />
+        caseName = item.CaseName;
+        caseBd = item.CaseBd;
+        caseGender = item.CaseGender;
+        caseNo = item.CaseNo;
+        caseIdent = item.CaseIdent;
+        caseLang = item.CaseLang;
+        caseMari = item.CaseMari;
+        caseFami = item.CaseFami;
+        caseAddr = item.CaseAddr;
+        caseCnta = item.CaseCnta;
+        caseCntTel = item.CaseCntTel;
+        caseCntRel = item.CaseCntRel;
+        isFirstIteration = false;
+
+        <div class="row align-items-start box">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseName)
+            </div>
+            <div class="col-md-2">
+                @caseName
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseBd)
+            </div>
+            <div class="col-md-2">
+                @caseBd
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseGender)
+            </div>
+            <div class="col-md-2">
+                @caseGender
+            </div>
+        </div>
+        <br />
+        <div class="row align-items-start box">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseLang)
+            </div>
+            <div class="col-md-2">
+                @caseLang
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseMari)
+            </div>
+            <div class="col-md-2">
+                @caseMari
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseFami)
+            </div>
+            <div class="col-md-2">
+                @caseFami
+            </div>
+        </div>
+        <br />
+        <div class="row align-items-start box">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseAddr)
+            </div>
+            <div class="col-md-6">
+                @caseAddr
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseNo)
+            </div>
+            <div class="col-md-2">
+                @caseNo
+            </div>
+        </div>
+        <br />
+        <div class="row align-items-start box">
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseCnta)
+            </div>
+            <div class="col-md-2">
+                @caseCnta
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseCntTel)
+            </div>
+            <div class="col-md-2">
+                @caseCntTel
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.CaseCntRel)
+            </div>
+            <div class="col-md-2">
+                @caseCntRel
+            </div>
+        </div>
+        <br />
+    }
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">日期</th>
+            <th scope="col">車種</th>
+            <th scope="col">車牌</th>
+            <th scope="col">接送地址</th>
+            <th scope="col">單位地址</th>
+            <th scope="col">操作</th>
+        </tr>
+    </thead>
+    <tbody id="pagination-table-body">
+        @foreach (var item in Model.Reverse())
+        {
+            <tr class="table-light">
+                <td>
+                    <div class="form-group">
+                        @item.CarMonth.ToString("MM/dd")
+                        @*
+                    @Html.DisplayFor(modelItem => item.CarMonth)*@
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CarType)
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CarNum)
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CarCaseAdr)
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CarAgencyLoc)
+                    </div>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CarId">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.CarId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="pagination"></div>
+<div>
+    <a asp-action="Details">返回</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var pageSize = 6; // Rows per page
+        var tableBody = $('#pagination-table-body');
+        var pagination = $('.pagination');
+
+        tableBody.find('tr').hide();
+        tableBody.find('tr').slice(0, pageSize).show();
+
+        var totalRows = tableBody.find('tr').length;
+        var totalPages = Math.ceil(totalRows / pageSize);
+
+        for (var i = 1; i <= totalPages; i++) {
+            var link = $('<a href="#" class="pagination-link">' + i + '</a>');
+            link.data('page', i);
+            if (i === 1) {
+                link.addClass('active');
+            }
+            pagination.append(link);
+        }
+
+        pagination.on('click', '.pagination-link', function (e) {
+            e.preventDefault();
+            var page = parseInt($(this).data('page'));
+            pagination.find('.pagination-link').removeClass('active');
+            $(this).addClass('active');
+
+            var startIndex = (page - 1) * pageSize;
+            var endIndex = startIndex + pageSize;
+
+            tableBody.find('tr').hide().slice(startIndex, endIndex).show();
+        });
+    });
+</script>
+
+@section topCSS {
+    <style>
+        body {
+            font-family: "San Francisco", Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .box {
+            background: linear-gradient(to bottom, #f2f2f2, #e0e0e0);
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+            text-align: center;
+            margin: 0 20px;
+        }
+
+        .btn-secondary {
+            background-color: #f2f2f2;
+            color: #333;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 4px;
+            margin: 0 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        .pagination {
+            margin-top: 20px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+        }
+
+            .pagination a {
+                color: #333;
+                background-color: #f2f2f2;
+                border: none;
+                padding: 6px 12px;
+                margin-right: 4px;
+                text-decoration: none;
+                border-radius: 4px;
+                transition: background-color 0.3s;
+            }
+
+                .pagination a.active {
+                    background-color: #333;
+                    color: #fff;
+                }
+
+                .pagination a:hover {
+                    background-color: #ddd;
+                }
+
+        a {
+            color: #5C9DF7;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+            a:hover {
+                color: #7caef5;
+            }
+    </style>
+}
+
+@*
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -13,10 +318,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CarSearchY)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CarSearchM)
+                @Html.DisplayNameFor(model => model.CarSearch)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CarType)
@@ -39,23 +341,13 @@
             <th>
                 @Html.DisplayNameFor(model => model.CarPrice)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CaseContId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MemS)
-            </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.CarSearchY)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CarSearchM)
+                @Html.DisplayFor(modelItem => item.CarSearch)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CarType)
@@ -79,12 +371,6 @@
                 @Html.DisplayFor(modelItem => item.CarPrice)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CaseContId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MemS.MemSid)
-            </td>
-            <td>
                 <a asp-action="Edit" asp-route-id="@item.CarId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.CarId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.CarId">Delete</a>
@@ -93,3 +379,7 @@
 }
     </tbody>
 </table>
+<div>
+    <a asp-action="Details">返回</a>
+</div>
+*@

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using long_term_care.Models;
 using long_term_care.ViewModels;
+using System.Runtime.ConstrainedExecution;
 
 namespace long_term_care.Controllers
 {
@@ -25,23 +26,28 @@ namespace long_term_care.Controllers
             var longtermcareContext = _context.CaseDailyRegistrations.Include(c => c.CaseNoNavigation);
             return View(await longtermcareContext.ToListAsync());
         }
-
+       
         public IActionResult Details()
         {
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Details(string CaseNo)
+        public async Task<IActionResult> Details(string CaseNo, DateTime Casedate)
         {
             if (string.IsNullOrEmpty(CaseNo))
             {
                 return Content("個案案號!");
             }
-
+            if (Casedate == DateTime.MinValue)
+            {
+                return Content("請填入搜索年月!");
+            }
             var no1 = from ccr in _context.CaseDailyRegistrations
                       join ci in _context.CaseInfors on ccr.CaseNo equals ci.CaseNo
-                      where ccr.CaseNo == CaseNo
+                      where ccr.CaseNo == CaseNo &&
+                            ccr.Casedate.Year == Casedate.Year &&
+                            ccr.Casedate.Month == Casedate.Month
                       select new DailyResultViewModel
                       {
                           CaseName = ci.CaseName,
@@ -55,7 +61,6 @@ namespace long_term_care.Controllers
                           CaseCnta = ci.CaseCnta,
                           CaseCntTel = ci.CaseCntTel,
                           CaseCntRel = ci.CaseCntRel,
-
                           CaseNo = ccr.CaseNo,
                           CaseContId = ccr.CaseContId,
                           Casedate = ccr.Casedate,
@@ -63,15 +68,14 @@ namespace long_term_care.Controllers
                           CaseTemp = ccr.CaseTemp,
                           CasePick = ccr.CasePick,
                           CaseBlood = ccr.CaseBlood,
-
                       };
             var no2 = await no1.ToListAsync();
             if (no2 == null)
             {
                 return NotFound();
             }
-
             return View("SearchResult", no2);
+
         }
 
         // GET: CaseDailyRegistrations/Create

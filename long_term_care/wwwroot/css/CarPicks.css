@@ -6,17 +6,36 @@
 }
 
 .container-fluid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background-color: #F6F6F6;
     padding: 45px;
 }
 
+.wrap {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.form-group {
+    padding: 0;
+    margin: 0;
+}
 .insideBox {
+    height: 100%;
     border-radius: 20px;
     background-color: #FFFFFF;
     padding: 40px;
     margin-bottom: 20px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
+
 
     .insideBox h3 {
         text-align: center;
@@ -66,12 +85,6 @@ select {
     border-radius: 8px;
 }
 
-.test {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-}
 
 .container .columns {
     display: flex;
@@ -81,61 +94,9 @@ select {
 
     .container .columns .cnt {
         border-radius: 10px;
-        background-color: #FFFFFF;
+        background-color: #333333;
         padding: 10px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .container .columns > div.col-2,
-    .container .columns > div.col-5 {
-        margin-left: 5px;
-        padding: 10px;
-        background-color: #F6F6F6;
-        border: 1px solid #EAEAEA;
-        text-align: center;
-    }
-
-.container .row > div:first-child {
-    height: 42px;
-    background-color: #333333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #FFFFFF;
-    border-radius: 8px 8px 0 0;
-}
-
-.input-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-    .input-group .form-control {
-        flex: 1;
-        margin-right: 10px;
-        border: none;
-        border-radius: 8px;
-        padding: 8px;
-        font-size: 14px;
-        background-color: #F6F6F6;
-        transition: background-color 0.3s ease;
-    }
-
-        .input-group .form-control:focus {
-            outline: none;
-            background-color: #EAEAEA;
-        }
-
-    .input-group .input-group-text {
-        min-width: 100px;
-        text-align: center;
-        background-color: #F6F6F6;
-        border: none;
-        border-radius: 8px;
-        padding: 8px;
-        font-size: 14px;
-        color: #333333;
     }
 
 .example {
@@ -147,7 +108,6 @@ select {
     align-items: center;
     justify-content: center;
 }
-
     .example h6 {
         margin: 0;
         font-size: 12px;
@@ -181,3 +141,24 @@ select {
     vertical-align: middle;
     margin-right: 10px;
 }
+.cnt.circle {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+a {
+    color: #5C9DF7;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+    a:hover {
+        color: #7caef5;
+    }
+

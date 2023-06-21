@@ -19,14 +19,9 @@
                 <span asp-validation-for="MemSid" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CarSearchY" class="control-label"></label>
-                <input asp-for="CarSearchY" class="form-control" />
-                <span asp-validation-for="CarSearchY" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CarSearchM" class="control-label"></label>
-                <input asp-for="CarSearchM" class="form-control" />
-                <span asp-validation-for="CarSearchM" class="text-danger"></span>
+                <label asp-for="CarSearch" class="control-label"></label>
+                <input asp-for="CarSearch" class="form-control" />
+                <span asp-validation-for="CarSearch" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CarType" class="control-label"></label>
@@ -49,6 +44,11 @@
                 <span asp-validation-for="CarCaseAdr" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="CarAgencyLoc" class="control-label"></label>
+                <input asp-for="CarAgencyLoc" class="form-control" />
+                <span asp-validation-for="CarAgencyLoc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="CarL" class="control-label"></label>
                 <input asp-for="CarL" class="form-control" />
                 <span asp-validation-for="CarL" class="text-danger"></span>
@@ -63,11 +63,7 @@
                 <input asp-for="CarPrice" class="form-control" />
                 <span asp-validation-for="CarPrice" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="CaseContId" class="control-label"></label>
-                <select asp-for="CaseContId" class="form-control" asp-items="ViewBag.CaseContId"></select>
-                <span asp-validation-for="CaseContId" class="text-danger"></span>
-            </div>
+            
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

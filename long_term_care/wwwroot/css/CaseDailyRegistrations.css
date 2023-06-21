@@ -76,8 +76,9 @@ hr {
     margin: 0px 0;
 }
 
-.col-1 .group input.transparent-input,
-.col-2 .group input.transparent-input {
+.col-3 .group input.transparent-input:not([type="radio"]),
+.col-2 .group input.transparent-input:not([type="radio"]) 
+{
     background-color: transparent;
     border: none;
     height: 70px;
@@ -86,6 +87,7 @@ hr {
     text-align: center;
     font-size: 16px;
 }
+
 
 .transparent-input {
     background-color: transparent;
@@ -154,7 +156,16 @@ div.backToList {
             background-color: #CCCCCC;
             color: #FFFFFF;
         }
+a {
+    color: #5C9DF7;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
 
+    a:hover {
+        color: #7caef5;
+    }
 
 @media screen and (max-width: 767px) {
     hr {

@@ -17,18 +17,6 @@ namespace long_term_care.Controllers
     {
         private readonly longtermcareContext _context;
 
-        public enum CarEnumType
-        {
-            [Display(Name = "小巴")]
-            小巴 = 1,
-
-            [Display(Name = "客車")]
-            客車 = 2,
-
-            [Display(Name = "計程車")]
-            計程車 = 3
-        }
-
         public CarPicksController(longtermcareContext context)
         {
             _context = context;
@@ -45,67 +33,115 @@ namespace long_term_care.Controllers
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Details(string MemSid)
+        public async Task<IActionResult> Details(string CaseNo, DateTime CarSearch)
         {
-            if (string.IsNullOrEmpty(MemSid))
+            if (string.IsNullOrEmpty(CaseNo))
             {
-                return Content("志工編號!");
+                return Content("請填入長者編號!");
             }
-            var no1 = from ci in _context.CarPicks
-                      join ccr in _context.MemberInformations on ci.MemSid equals ccr.MemSid
-                      where ccr.MemSid == MemSid
-                      select new CarPickViewModel
-                      {
-                          MemSid = ci.MemSid,
-                          CarSearchY = ci.CarSearchY,
-                          CarSearchM = ci.CarSearchM,
-                          CarType = ci.CarType,
-                          CarNum = ci.CarNum,
-                          CarCaseAdr = ci.CarCaseAdr,
-                          CarMonth = ci.CarMonth,
-                          CarL = ci.CarL,
-                          CarKm = ci.CarKm,
-                          CarPrice = ci.CarPrice,
-                        
-                      };
-            var no2 = await no1.ToListAsync();
-            if (no2 == null)
+            if (CarSearch == DateTime.MinValue)
+            {
+                return Content("請填入搜索年月!");
+            }
+
+            var carPicks = await (from ci in _context.CarPicks
+                                  join ccr in _context.CaseInfors on ci.CaseNo equals ccr.CaseNo
+                                  where ci.CaseNo == CaseNo &&
+                                        ci.CarSearch.Year == CarSearch.Year &&
+                                        ci.CarSearch.Month == CarSearch.Month
+                                  select new CarPickViewModel
+                                  {
+                                      CaseName = ccr.CaseName,
+                                      CaseBd = ccr.CaseBd,
+                                      CaseGender = ccr.CaseGender,
+                                      CaseIdent = ccr.CaseIdent,
+                                      CaseLang = ccr.CaseLang,
+                                      CaseMari = ccr.CaseMari,
+                                      CaseFami = ccr.CaseFami,
+                                      CaseAddr = ccr.CaseAddr,
+                                      CaseCnta = ccr.CaseCnta,
+                                      CaseCntTel = ccr.CaseCntTel,
+                                      CaseCntRel = ccr.CaseCntRel,
+                                      CaseNo = ccr.CaseNo,
+
+                                      MemSid = ci.MemSid,
+                                      CarSearch = ci.CarSearch,
+                                      CarType = ci.CarType,
+                                      CarNum = ci.CarNum,
+                                      CarCaseAdr = ci.CarCaseAdr,
+                                      CarAgencyLoc = ci.CarAgencyLoc,
+                                      CarMonth = ci.CarMonth,
+                                      CarL = ci.CarL,
+                                      CarKm = ci.CarKm,
+                                      CarPrice = ci.CarPrice,
+                                  }).ToListAsync();
+
+            if (carPicks.Count == 0)
             {
                 return NotFound();
             }
 
-            return View("SearchResult", no2);
+            return View("SearchResult", carPicks);
+
         }
+
 
 
         // GET: CarPicks/Create
         public IActionResult Create()
         {
-            ViewData["CaseContId"] = new SelectList(_context.CaseDailyRegistrations, "CaseContId", "CaseContId");
+            string nextFormNumber = "";
+
+            var lastForm = _context.CarPicks.OrderByDescending(f => f.CarId).FirstOrDefault();
+            if (lastForm != null)
+            {
+                int lastFormNumber = int.Parse(lastForm.CarId);
+                int nextFormNumberInt = lastFormNumber + 1;
+                nextFormNumber = nextFormNumberInt.ToString("0000");
+            }
+            else
+            {
+                nextFormNumber = "0001";
+            }
+
+            ViewData["CarId"] = nextFormNumber;
             ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid");
-           
+
             return View();
         }
 
         // POST: CarPicks/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CarId,MemSid,CarSearchY,CarSearchM,CarType,CarNum,CarMonth,CarCaseAdr,CarL,CarKm,CarPrice,CaseContId")] CarPick carPick)
+        public async Task<IActionResult> Create([Bind("CarId,MemSid,CaseNo,CarSearch,CarAgencyLoc,CarType,CarNum,CarMonth,CarCaseAdr,CarL,CarKm,CarPrice")] CarPick carPick)
         {
             if (ModelState.IsValid)
             {
+                // Check if CarSearch and CarMonth are not equal
+                if (carPick.CarSearch.Year != carPick.CarMonth.Year || carPick.CarSearch.Month != carPick.CarMonth.Month)
+                {
+                    ModelState.AddModelError("CarMonth", "The CarMonth must be equal to CarSearch.");
+
+                    ViewData["CarId"] = carPick.CarId;
+                    ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid", carPick.MemSid);
+
+                    return View(carPick);
+                }
+
                 _context.Add(carPick);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CaseContId"] = new SelectList(_context.CaseDailyRegistrations, "CaseContId", "CaseContId", carPick.CaseContId);
+
+            ViewData["CarId"] = carPick.CarId;
             ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid", carPick.MemSid);
+
             return View(carPick);
         }
+
 
         // GET: CarPicks/Edit/5
         public async Task<IActionResult> Edit(string id)
@@ -120,7 +156,6 @@ namespace long_term_care.Controllers
             {
                 return NotFound();
             }
-            ViewData["CaseContId"] = new SelectList(_context.CaseDailyRegistrations, "CaseContId", "CaseContId", carPick.CaseContId);
             ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid", carPick.MemSid);
             return View(carPick);
         }
@@ -130,7 +165,7 @@ namespace long_term_care.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("CarId,MemSid,CarSearchY,CarSearchM,CarType,CarNum,CarMonth,CarCaseAdr,CarL,CarKm,CarPrice,CaseContId")] CarPick carPick)
+        public async Task<IActionResult> Edit(string id, [Bind("CarId,MemSid,CaseNo,CarAgencyLoc,CarSearch,CarType,CarNum,CarMonth,CarCaseAdr,CarL,CarKm,CarPrice")] CarPick carPick)
         {
             if (id != carPick.CarId)
             {
@@ -157,7 +192,6 @@ namespace long_term_care.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CaseContId"] = new SelectList(_context.CaseDailyRegistrations, "CaseContId", "CaseContId", carPick.CaseContId);
             ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid", carPick.MemSid);
             return View(carPick);
         }
