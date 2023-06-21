@@ -95,7 +95,6 @@ namespace long_term_care.Controllers
         {
             string nextFormNumber = "";
 
-
             var lastForm = _context.CarPicks.OrderByDescending(f => f.CarId).FirstOrDefault();
             if (lastForm != null)
             {
@@ -107,29 +106,42 @@ namespace long_term_care.Controllers
             {
                 nextFormNumber = "0001";
             }
+
             ViewData["CarId"] = nextFormNumber;
-            ViewData["CarSearch"] = DateTime.Now.ToString("yyyy/MM");
             ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid");
 
             return View();
         }
 
         // POST: CarPicks/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CarId,MemSid,CaseNo,CarSearch,CarAgencyLoc,CarType,CarNum,CarMonth,CarCaseAdr,CarL,CarKm,CarPrice")] CarPick carPick)
         {
             if (ModelState.IsValid)
             {
+                // Check if CarSearch and CarMonth are not equal
+                if (carPick.CarSearch.Year != carPick.CarMonth.Year || carPick.CarSearch.Month != carPick.CarMonth.Month)
+                {
+                    ModelState.AddModelError("CarMonth", "The CarMonth must be equal to CarSearch.");
+
+                    ViewData["CarId"] = carPick.CarId;
+                    ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid", carPick.MemSid);
+
+                    return View(carPick);
+                }
+
                 _context.Add(carPick);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewData["CarId"] = carPick.CarId;
             ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid", carPick.MemSid);
+
             return View(carPick);
         }
+
 
         // GET: CarPicks/Edit/5
         public async Task<IActionResult> Edit(string id)
