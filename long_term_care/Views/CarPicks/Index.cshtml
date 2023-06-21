@@ -3,7 +3,20 @@
 @{
     ViewData["Title"] = "Index";
 }
+<link rel="stylesheet" href="~/css/OperationPage.css" asp-append-version="true" />
 
+<div class="wrap">
+    <button class="Home" href="#">首頁</button>
+</div>
+<div class="wrap_Entry">
+    <button class="Edit" onclick="location.href='@Url.Action("Create", "CarPicks")'">填寫</button>
+
+    <br />
+
+    <button class="View" onclick="location.href='@Url.Action("Details", "CarPicks")'">查閱</button>
+
+</div>
+@*
 <h1>Index</h1>
 
 <p>
@@ -95,3 +108,4 @@
 }
     </tbody>
 </table>
+*@

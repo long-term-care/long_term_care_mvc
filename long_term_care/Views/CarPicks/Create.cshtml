@@ -27,10 +27,9 @@
                         </div>
                         <div class="form-group ord col-7" style="position: absolute; top: 0; right: 0;">
                             <label asp-for="CarId" class="control-label" style="margin-top:2%;">表單編號&nbsp;</label>
-                            <input asp-for="CarId" class="form-control" style="background-color: transparent; border: none; outline: none;" />
+                            <input asp-for="CarId" class="form-control" type="text" style="background-color: transparent; border: none; outline: none;" value="@ViewBag.CarId" readonly />
                             <span asp-validation-for="CarId" class="text-danger"></span>
                         </div>
-
                     </div>
                     <div class="row">
                         <div class="col-6 form-group">
@@ -38,14 +37,14 @@
                             <span asp-validation-for="CarCaseAdr" class="text-danger"></span>
                         </div>
                         <div class="col-6 form-group">
-                            <label asp-for="CarSearchY" class="control-label">時間
-                            <select asp-for="CarSearchY" id="CarSearchY" class="form-control"></select>
-                                <select asp-for="CarSearchM" id="CarSearchM" class="form-control"></select>
-                            </label>
-                            <span asp-validation-for="CarSearchY" id="validationError" class="text-danger"></span>
-                            <span asp-validation-for="CarSearchM" class="text-danger"></span>
+                            <label asp-for="CarSearch" class="control-label">時間&nbsp;<input asp-for="CarSearch" class="form-control transparent-input" type="text" placeholder="YYYY/MM" /></label>
+                            <span asp-validation-for="CarSearch" class="text-danger"></span>
                         </div>
                     </div>
+
+
+                    
+
                     <div class="row">
                         <div class="col-6 form-group">
                             <label asp-for="CarType" class="control-label">車種
@@ -62,18 +61,11 @@
                             <span asp-validation-for="CarNum" class="text-danger"></span>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12 form-group">
-                            <label asp-for="CarPrice" class="control-label">
-                                共計&nbsp;
-                                <input asp-for="CarPrice" class="form-control" type="text" placeholder="&nbsp;元" />
-                            </label>
-                            <span asp-validation-for="CarPrice" class="text-danger"></span>
-                        </div>
-                    </div>
+                   
                     <div class="row header hd">
                         <div class="col-1 hd">項次</div>
                         <div class="col-2 hd">日期</div>
+                        <div class="col-3 hd">長者編號</div>
                         <div class="col-5 hd">住家</div>
                     </div>
 
@@ -84,23 +76,26 @@
                         <div class="col-2 ex">
                             <h6>1/1</h6>
                         </div>
+                        <div class="col-3 ex">
+                            <h6>個案編號</h6>
+                        </div>
                         <div class="col-5 ex" style="font-size: 9px;">
-                            <h6>
-                                起點:<br />
-                                陳大雄家
-                                (地址：新北市○區○ 路○巷○弄○號○樓)
-                            </h6>
+                            <h6>(地址：新北市○區○ 路○巷○弄○號○樓)</h6>
                         </div>
                     </div>
                         <!-- Each data rows-->
                         <div class="container">
                             <div class="row columns">
                                 <div class="col-1 cnt">
-                                    <div id="nums">1</div>
+                                    <div id="nums"></div>
                                 </div>
                                 <div class="col-2 form-group">
-                                    <input asp-for="CarMonth" class="form-control" type="text" class="transparent-input" style="width: 130px;" />
+                                    <input asp-for="CarMonth" class="form-control" type="date" class="transparent-input" style="width: 130px;" />
                                     <span asp-validation-for="CarMonth" class="text-danger"></span>
+                                </div>
+                                <div class="col-3 form-group">
+                                    <input asp-for="CaseNo" class="form-control" type="text" class="transparent-input" style="width: 130px;" />
+                                    <span asp-validation-for="CaseNo" class="text-danger"></span>
                                 </div>
                                 <div class="col-5 form-group">
                                 <input asp-for="CarCaseAdr" class="form-control" type="text" class="transparent-input"  style="width: 430px;" />
@@ -123,7 +118,8 @@
                                     <span asp-validation-for="CarKm" class="text-danger"></span>
                                 </div>
                                 <div class="col-2 form-group">
-                                    <input class="transparent-input" placeholder="實支金額" />
+                                    <input asp-for="CarPrice" class="form-control" class="transparent-input" placeholder="實支金額" />
+                                    <span asp-validation-for="CarPrice" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -136,53 +132,37 @@
         </div>
     </div>
     <div>
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Index">返回</a>
     </div>
     <script>
-        var currentYear = new Date().getFullYear();
-        for (var i = currentYear; i >= (currentYear-150); i--) {
-            var option = document.createElement('option');
-            option.value = i;
-            option.text = i;
-            document.getElementById('CarSearchY').appendChild(option);
-        }
-        for (var j = 1; j <= 12; j++) {
-            var option = document.createElement('option');
-            option.value = j;
-            option.text = j;
-            document.getElementById('CarSearchM').appendChild(option);
-        }
-        $('#submitButton').click(function () {
-            // Retrieve selected year and month values
-            var selectedYear = $('#CarSearchY').val();
-            var selectedMonth = $('#CarSearchM').val();
+            var rowNum = 1; 
+            var dataRows = [];
 
-            // Validate the selected values (if needed)
-            if (selectedYear === '' || selectedMonth === '') {
-                $('#validationError').text('Please select both year and month.');
-                return;
-            }
+            $('.container .row.columns').each(function () {
+                var rowData = {
+                    nums: rowNum,
+                    carMonth: $(this).find('input[name="CarMonth"]').val(),
+                    carCaseAdr: $(this).find('input[name="CarCaseAdr"]').val()
+                };
 
-            // Clear any previous validation error message
-            $('#validationError').text('');
+                $(this).find('.nums').text(rowNum);
+                rowNum++;
 
-            // Send the selected values to the server using AJAX
+                dataRows.push(rowData);
+            });
+
             $.ajax({
-                url: '/CarPicks/Create',
+                url: '/CarPicks/Create', 
                 method: 'POST',
-                data: {
-                    year: selectedYear,
-                    month: selectedMonth
-                },
+                data: { dataRows: dataRows },
                 success: function (response) {
-                    // Handle the success response from the server
-                    console.log('Data successfully submitted to the server.');
+                    console.log('Data stored successfully');
                 },
                 error: function (xhr, status, error) {
-                    // Handle any error that occurred during the AJAX request
-                    console.log('Error:', error);
+                    console.log('Error storing data: ' + error);
                 }
             });
+
         });
     </script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>

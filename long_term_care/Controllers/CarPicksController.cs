@@ -33,39 +33,60 @@ namespace long_term_care.Controllers
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Details(string MemSid)
+        public async Task<IActionResult> Details(string CaseNo, DateTime CarSearch)
         {
-            if (string.IsNullOrEmpty(MemSid))
+            if (string.IsNullOrEmpty(CaseNo))
             {
-                return Content("志工編號!");
+                return Content("請填入長者編號!");
             }
-            var no1 = from ci in _context.CarPicks
-                      join ccr in _context.MemberInformations on ci.MemSid equals ccr.MemSid
-                      where ccr.MemSid == MemSid
-                      select new CarPickViewModel
-                      {
-                          MemSid = ci.MemSid,
-                          CarSearchY = ci.CarSearchY,
-                          CarSearchM = ci.CarSearchM,
-                          CarType = ci.CarType,
-                          CarNum = ci.CarNum,
-                          CarCaseAdr = ci.CarCaseAdr,
-                          CarMonth = ci.CarMonth,
-                          CarL = ci.CarL,
-                          CarKm = ci.CarKm,
-                          CarPrice = ci.CarPrice,
-                        
-                      };
-            var no2 = await no1.ToListAsync();
-            if (no2 == null)
+            if (CarSearch == DateTime.MinValue)
+            {
+                return Content("請填入搜索年月!");
+            }
+
+            var carPicks = await (from ci in _context.CarPicks
+                                  join ccr in _context.CaseInfors on ci.CaseNo equals ccr.CaseNo
+                                  where ci.CaseNo == CaseNo &&
+                                        ci.CarSearch.Year == CarSearch.Year &&
+                                        ci.CarSearch.Month == CarSearch.Month
+                                  select new CarPickViewModel
+                                  {
+                                      CaseName = ccr.CaseName,
+                                      CaseBd = ccr.CaseBd,
+                                      CaseGender = ccr.CaseGender,
+                                      CaseIdent = ccr.CaseIdent,
+                                      CaseLang = ccr.CaseLang,
+                                      CaseMari = ccr.CaseMari,
+                                      CaseFami = ccr.CaseFami,
+                                      CaseAddr = ccr.CaseAddr,
+                                      CaseCnta = ccr.CaseCnta,
+                                      CaseCntTel = ccr.CaseCntTel,
+                                      CaseCntRel = ccr.CaseCntRel,
+                                      CaseNo = ccr.CaseNo,
+
+                                      MemSid = ci.MemSid,
+                                      CarSearch = ci.CarSearch,
+                                      CarType = ci.CarType,
+                                      CarNum = ci.CarNum,
+                                      CarCaseAdr = ci.CarCaseAdr,
+                                      CarMonth = ci.CarMonth,
+                                      CarL = ci.CarL,
+                                      CarKm = ci.CarKm,
+                                      CarPrice = ci.CarPrice,
+                                  }).ToListAsync();
+
+            if (carPicks.Count == 0)
             {
                 return NotFound();
             }
 
-            return View("SearchResult", no2);
+            return View("SearchResult", carPicks);
+
         }
+
 
 
         // GET: CarPicks/Create
@@ -86,7 +107,7 @@ namespace long_term_care.Controllers
                 nextFormNumber = "0001";
             }
             ViewData["CarId"] = nextFormNumber;
-
+            ViewData["CarSearch"] = DateTime.Now.ToString("yyyy/MM");
             ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid");
            
             return View();
@@ -97,7 +118,7 @@ namespace long_term_care.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CarId,MemSid,CarSearchY,CarSearchM,CarType,CarNum,CarMonth,CarCaseAdr,CarL,CarKm,CarPrice,CaseContId")] CarPick carPick)
+        public async Task<IActionResult> Create([Bind("CarId,MemSid,CaseNo,CarSearch,CarType,CarNum,CarMonth,CarCaseAdr,CarL,CarKm,CarPrice,Z")] CarPick carPick)
         {
             if (ModelState.IsValid)
             {
@@ -131,7 +152,7 @@ namespace long_term_care.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("CarId,MemSid,CarSearchY,CarSearchM,CarType,CarNum,CarMonth,CarCaseAdr,CarL,CarKm,CarPrice,CaseContId")] CarPick carPick)
+        public async Task<IActionResult> Edit(string id, [Bind("CarId,MemSid,CaseNo,CarSearch,CarType,CarNum,CarMonth,CarCaseAdr,CarL,CarKm,CarPrice")] CarPick carPick)
         {
             if (id != carPick.CarId)
             {
