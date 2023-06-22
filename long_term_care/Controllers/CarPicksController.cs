@@ -42,44 +42,25 @@ namespace long_term_care.Controllers
             {
                 return Content("請填入長者編號!");
             }
-            if (CarSearch == DateTime.MinValue)
-            {
-                return Content("請填入搜索年月!");
-            }
-
-            var carPicks = await (from ci in _context.CarPicks
-                                  join ccr in _context.CaseInfors on ci.CaseNo equals ccr.CaseNo
-                                  where ci.CaseNo == CaseNo &&
-                                        ci.CarSearch.Year == CarSearch.Year &&
-                                        ci.CarSearch.Month == CarSearch.Month
-                                  select new CarPickViewModel
-                                  {
-                                      CaseName = ccr.CaseName,
-                                      CaseBd = ccr.CaseBd,
-                                      CaseGender = ccr.CaseGender,
-                                      CaseIdent = ccr.CaseIdent,
-                                      CaseLang = ccr.CaseLang,
-                                      CaseMari = ccr.CaseMari,
-                                      CaseFami = ccr.CaseFami,
-                                      CaseAddr = ccr.CaseAddr,
-                                      CaseCnta = ccr.CaseCnta,
-                                      CaseCntTel = ccr.CaseCntTel,
-                                      CaseCntRel = ccr.CaseCntRel,
-                                      CaseNo = ccr.CaseNo,
-
-                                      MemSid = ci.MemSid,
-                                      CarSearch = ci.CarSearch,
-                                      CarType = ci.CarType,
-                                      CarNum = ci.CarNum,
-                                      CarCaseAdr = ci.CarCaseAdr,
-                                      CarAgencyLoc = ci.CarAgencyLoc,
-                                      CarMonth = ci.CarMonth,
-                                      CarL = ci.CarL,
-                                      CarKm = ci.CarKm,
-                                      CarPrice = ci.CarPrice,
-                                  }).ToListAsync();
-
-            if (carPicks.Count == 0)
+            var no1 = from ci in _context.CarPicks
+                      join ccr in _context.MemberInformation on ci.MemSid equals ccr.MemSid
+                      where ccr.MemSid == MemSid
+                      select new CarPickViewModel
+                      {
+                          MemSid = ci.MemSid,
+                          CarSearchY = ci.CarSearchY,
+                          CarSearchM = ci.CarSearchM,
+                          CarType = ci.CarType,
+                          CarNum = ci.CarNum,
+                          CarCaseAdr = ci.CarCaseAdr,
+                          CarMonth = ci.CarMonth,
+                          CarL = ci.CarL,
+                          CarKm = ci.CarKm,
+                          CarPrice = ci.CarPrice,
+                        
+                      };
+            var no2 = await no1.ToListAsync();
+            if (no2 == null)
             {
                 return NotFound();
             }
