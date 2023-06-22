@@ -53,7 +53,7 @@ namespace long_term_care.ViewModels
         public string CarNum { get; set; }
         public string CarAgencyLoc { get; set; }
 
-
+        
 
         public DateTime CarMonth { get; set; }
 
