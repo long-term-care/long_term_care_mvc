@@ -42,6 +42,7 @@ namespace long_term_care.Controllers
             {
                 return Content("請填入長者編號!");
             }
+
             var no1 = from ci in _context.CarPicks
                       join ccr in _context.MemberInformations on ci.MemSid equals ccr.MemSid
                       //where ccr.MemSid == MemSid
