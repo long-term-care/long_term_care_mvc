@@ -10,8 +10,10 @@ namespace long_term_care.ViewModels
         public string ActLec { get; set; }
         public string ActCourse { get; set; }
         public string ActLoc { get; set; }
-        public string CaseNo { get; set; }
-        public string CaseName { get; set; }
+        public string? CaseNo { get; set; }
+        public string? CaseName { get; set; }
         public string ActSer { get; set; }
+
     }
+
 }

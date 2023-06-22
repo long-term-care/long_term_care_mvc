@@ -2,7 +2,8 @@
 @model List<CaseActsignViewModel>
 @{
     ViewData["Title"] = "Check";
-    
+    var data = Model.FirstOrDefault();
+
 }
 
 
@@ -158,30 +159,24 @@
 <body>
     <div class="container">
         <div class="title">
-            @for(var i=0;i<1; i++)
-            {
-                <h1>活動名稱:@Model[i].ActCourse</h1>
-            }
-        </div>
-        
-        <div class="signbody">
-            @for(var i=0;i<1; i++)
-            {
+             <h1>活動名稱:@data.ActCourse</h1>           
+        </div> 
+        <div class="signbody">          
                 <div class="singbodytitle">
                     <div class="day">
                         <h3>活動日期:</h3>
-                        <h4>@Model[i].ActDate<h3>
+                        <h4>@data.ActDate<h3>
                     </div>
                     <div class="teacher">
                         <h2>講師姓名:</h2>
-                        <h3>@Model[i].ActLec</h3>
+                    <h3>@data.ActLec</h3>
                     </div>
                     <div class="place">
                         <h2>活動地點:</h2>
-                        <h3>@Model[i].ActLoc</h3>
+                    <h3>@data.ActLoc</h3>
                     </div>
                 </div>
-            }
+            
             <div class="content">
                 <div class="id">
                     <p>學員編號</p>
@@ -193,19 +188,29 @@
                     <p>服務項目</p>
                 </div>
             </div>
-            @foreach(var item in Model)
+            @foreach (var item in Model)
             {
-                <div class="content">
-                    <div class="id">
-                        <p>@item.CaseNo</p>
+                @if (item.CaseNo == "")
+                {
+                    // 如果 CaseNo 为空，不显示任何内容
+                }
+                else
+                {
+                    <div class="content">
+                        <div class="id">
+                            <p>@item.CaseNo</p>
+                        </div>
+                        <div class="name">
+                            <p>@item.CaseName</p>
+                        </div>
+                        <div class="tool">
+                            <p>@item.ActSer</p>
+                        </div>
+                       
                     </div>
-                    <div class="name">
-                        <p>@item.CaseName</p>
-                    </div>
-                    <div class="tool">
-                        <p>@item.ActSer</p>
-                    </div>
-                </div>
+                }
+
+
             }
             
             <div class="totol">
