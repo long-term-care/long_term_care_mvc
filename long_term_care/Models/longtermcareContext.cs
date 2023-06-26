@@ -289,6 +289,15 @@ namespace long_term_care.Models
                 .IsRequired()
                 .HasMaxLength(8)
                 .HasColumnName("Case_Pluse");
+
+                entity.Property(e => e.CaseSystolic)
+               .HasMaxLength(8)
+               .HasColumnName("Case_Systolic");
+
+                entity.Property(e => e.CaseDiastolic)
+               .HasMaxLength(8)
+               .HasColumnName("Case_Diastolic");
+
                 entity.Property(e => e.CaseBlood)
                 .IsRequired()
                 .HasMaxLength(8)

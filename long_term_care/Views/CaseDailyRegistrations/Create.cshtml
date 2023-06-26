@@ -41,7 +41,9 @@
                             <div class="col-2">體溫</div>
                             <div class="col-2">脈搏</div>
                             <div class="col-2">接送需求</div>
-                            <div class="col-3">血壓檢測值</div>
+                            <div class="col-1">收縮壓</div>
+                            <div class="col-1">舒張壓</div>
+                            <div class="col-1">血壓狀態</div>
                         </div>
                     </div>
 
@@ -50,13 +52,13 @@
                         <div class="row tBody">
                             <div class="form-group col-3">
                                 <div class="group">
-                                    <label asp-for="Casedate" class="control-label"> <input asp-for="Casedate" class="form-control transparent-input" type="datetime" placeholder="YYYY/MM/DD"/></label>
+                                    <label asp-for="Casedate" class="control-label"> <input asp-for="Casedate" class="form-control transparent-input" type="datetime" placeholder="YYYY/MM/DD" /></label>
                                     <span asp-validation-for="Casedate" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="form-group col-2">
                                 <div class="group">
-                                    <label asp-for="CaseTemp" class="control-label"> <input asp-for="CaseTemp" class="form-control transparent-input" type="text"/></label>
+                                    <label asp-for="CaseTemp" class="control-label"> <input asp-for="CaseTemp" class="form-control transparent-input" type="text" /></label>
                                     <span asp-validation-for="CaseTemp" class="text-danger"></span>
                                 </div>
                             </div>
@@ -70,44 +72,88 @@
                                 <fieldset>
                                     <label asp-for="CasePick" class="control-label"><input type="radio" asp-for="CasePick" value="無" class="transparent-input" />無</label>
                                     <label asp-for="CasePick" class="control-label"><input type="radio" asp-for="CasePick" value="上午" class="transparent-input" />上午</label>
-                                    <label asp-for="CasePick" class="control-label"><input type="radio" asp-for="CasePick" value="下午"  class="transparent-input" />下午</label>
+                                    <label asp-for="CasePick" class="control-label"><input type="radio" asp-for="CasePick" value="下午" class="transparent-input" />下午</label>
                                     <span asp-validation-for="CasePick" class="text-danger"></span>
                                 </fieldset>
                             </div>
-                            <div class="form-group col-3">
+                            <div class="form-group col-1">
                                 <div class="group">
-                                    <fieldset>
-                                        <div class="group">
-                                            <label asp-for="CaseBlood" class="control-label"><input type="radio" asp-for="CaseBlood" value="正常"  class="transparent-input" />正常(120/80mmHg以下)</label>
-                                        </div>
-                                        <div class="group">
-                                            <label asp-for="CaseBlood" class="control-label"><input type="radio" asp-for="CaseBlood" value="高血壓前期" class="transparent-input" />高血壓前期(120/80-135/85mmHg以下)</label>
-                                        </div>
-                                        <div class="group">
-                                            <label asp-for="CaseBlood" class="control-label"><input type="radio" asp-for="CaseBlood" value="高血壓危險群" class="transparent-input" />高血壓危險群(135/85mmHg以上)</label>
-                                        </div>
-                                    </fieldset>
+                                    <label asp-for="CaseSystolic" class="control-label">
+                                        <input asp-for="CaseSystolic" class="form-control transparent-input" type="number" data-case-systolic="@Model?.CaseSystolic" />
+                                    </label>
+                                    <span asp-validation-for="CaseSystolic" class="text-danger"></span>
                                 </div>
                             </div>
+                            <div class="form-group col-1">
+                                <div class="group">
+                                    <label asp-for="CaseDiastolic" class="control-label">
+                                        <input asp-for="CaseDiastolic" class="form-control transparent-input" type="number" data-case-diastolic="@Model?.CaseDiastolic" />
+                                    </label>
+                                    <span asp-validation-for="CaseDiastolic" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group col-1">
+                                <div class="group">
+                                    <label asp-for="CaseBlood" class="control-label">
+                                        <span asp-validation-for="CaseBlood" class="text-danger" id="caseBloodDisplay"></span>
+                                    </label>
+                                    <input type="hidden" asp-for="CaseBlood" id="caseBloodInput" />
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <div class="form-group wrap">
                         <button class="button" type="submit" value="Create">儲存</button>
                     </div>
-                </form>
-            </div>
+            </form>
+        </div>
         <div>
             <a asp-action="Index">返回</a>
         </div>
     </div>
-    
+
     @section Scripts {
         @{
             await Html.RenderPartialAsync("_ValidationScriptsPartial");
         }
     }
+    <script>
+        var caseSystolicInput = document.querySelector('input[name="CaseSystolic"]');
+        var caseDiastolicInput = document.querySelector('input[name="CaseDiastolic"]');
+        var caseBloodDisplay = document.getElementById("caseBloodDisplay");
+        var caseBloodInput = document.getElementById("caseBloodInput");
+
+        function updateBloodPressureStatus() {
+            var caseSystolic = parseInt(caseSystolicInput.value) || 0;
+            var caseDiastolic = parseInt(caseDiastolicInput.value) || 0;
+            var displayValue = "";
+
+            if (caseSystolic >= 180 || caseDiastolic >= 120) {
+                displayValue = "Hypertension Stage 3";
+            } else if (caseSystolic >= 140 && caseSystolic < 180 || caseDiastolic >= 90 && caseDiastolic < 120) {
+                displayValue = "Hypertension Stage 2";
+            } else if (caseSystolic >= 130 && caseSystolic < 140 || caseDiastolic >= 80 && caseDiastolic < 90) {
+                displayValue = "Hypertension Stage 1";
+            } else if (caseSystolic >= 120 && caseSystolic < 130 && caseDiastolic < 80) {
+                displayValue = "Little High";
+            } else if (caseSystolic < 120 && caseDiastolic < 80) {
+                displayValue = "Normal";
+            }
+
+            caseBloodDisplay.textContent = displayValue;
+            caseBloodInput.value = displayValue;
+        }
+
+        caseSystolicInput.addEventListener("input", updateBloodPressureStatus);
+        caseDiastolicInput.addEventListener("input", updateBloodPressureStatus);
+
+        // Initial calculation when the page loads
+        updateBloodPressureStatus();
+    </script>
+
+
 </body>
 
-    
 
 

@@ -135,7 +135,9 @@
             <th scope="col">日期</th>
             <th scope="col">體溫</th>
             <th scope="col">脈搏</th>
-            <th scope="col">血壓</th>
+            <th scope="col">舒張壓</th>
+            <th scope="col">收縮壓</th>
+            <th scope="col">血壓狀態</th>
             <th scope="col">交通接送</th>
             <th scope="col">操作</th>
         </tr>
@@ -157,6 +159,16 @@
                 <td>
                     <div class="form-group">
                         @Html.DisplayFor(modelItem => item.CasePluse)
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CaseSystolic)
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CaseDiastolic)
                     </div>
                 </td>
                 <td>
