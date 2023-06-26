@@ -12,6 +12,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+
 
 namespace long_term_care
 {
@@ -32,16 +35,24 @@ namespace long_term_care
 
             services.AddDbContext<longtermcareContext>(options =>
          options.UseSqlServer(Configuration.GetConnectionString("longtermcareContext")));
-        services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-       .AddCookie(options =>
-       {
+         services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+         .AddCookie(options =>
+         {
            //預設登入驗證網址為Account/Login, 若想變更才需要設定LoginPath
            options.LoginPath = new PathString("/Main/Login");
            options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
            options.SlidingExpiration = true;
            options.AccessDeniedPath = "/Main/Login";
-       });
+         });
+         services.AddSession(options =>
+          {
+                // 設定 Session 的超時時間等選項
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+          });
         }
+
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,6 +79,7 @@ namespace long_term_care
 
             app.UseAuthorization();
 
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

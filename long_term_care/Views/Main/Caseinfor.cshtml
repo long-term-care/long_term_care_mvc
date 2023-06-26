@@ -24,51 +24,51 @@
                 <div class="knownAs">
                     <p>照護人員</p>
                 </div>
-                <button class="closeMessageBox" id="closeVolunteer" type="submit">&#x2716;</button>
+                <div style="color:red; display:flex; align-items:center;">
+                    <h4>*為必填欄位</h4>
+                </div>
+                   <button class="closeMessageBox" id="closeVolunteer" name="close" type="submit">&#x2716;</button>             
             </div>
             <hr>
             <form class="volunteer">
                 <div class="row">
                     <div class="col-4">
-                        <input type="text" placeholder="&nbsp;&nbsp;單位名稱" required id="memunitname">
+                         <label for="memunitname">單位名稱<span class="required">*</span></label>
+                          <input type="text" placeholder="&nbsp;&nbsp;" required id="memunitname">                      
                     </div>
                     <div class="col-4">
-                        <input type="text" placeholder="&nbsp;&nbsp;單位編號" required id="memunitid">
+                        <label for="memunitid">單位編號<span class="required">*</span></label>
+                        <input type="text" placeholder="&nbsp;&nbsp;" required id="memunitid">
                     </div>
                     <div class="col-4">
-                        <input type="text" placeholder="&nbsp;&nbsp;員工證號碼" required id="memid">
+                        <label for="memid">員工證號碼<span class="required">*</span></label>
+                        <input type="text" placeholder="&nbsp;&nbsp;" required id="memid">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-3">
-                        <input type="text" placeholder="&nbsp;&nbsp;姓氏" required id="memlastname">
+                        <label for="memlastname">姓氏<span class="required">*</span></label>
+                        <input type="text" placeholder="&nbsp;&nbsp;" required id="memlastname">
                     </div>
                     <div class="col-3">
-                        <input type="text" placeholder="&nbsp;&nbsp;名字" required id="memfirstname">
+                        <label for="memfirstname">名字<span class="required">*</span></label>
+                        <input type="text" placeholder="&nbsp;&nbsp;" required id="memfirstname">
                     </div>
                     <div class="col-3">
+                        <label for="memgender">性別<span class="required">*</span></label>
                         <select id="memgender" required>
-                            <option value="na">性別</option>
+                            <option value="na"></option>
                             <option value="男">男</option>
                             <option value="女">女</option>
                         </select>
                     </div>
                     <div class="col-3">
-                        <select id="memeducationLevel" required>
-                            <option value="na">教育程度</option>
-                            <option value="不識字">不識字</option>
-                            <option value="自修">自修</option>
-                            <option value="國小">國小</option>
-                            <option value="國中">國中</option>
-                            <option value="高中職">高中職</option>
-                            <option value="專科">專科</option>
-                            <option value="大學">大學</option>
-                            <option value="研究所以上">研究所以上</option>
-                        </select>
+                        <label for="memidcard">身分證<span class="required">*</span></label>
+                        <input type="text" placeholder="&nbsp;&nbsp;" required id="memidcard">
                     </div>
                 </div>
                 <div class="col-12">
-                    <h6>出生日期</h6>
+                    <label for="memyear"style="margin-left:10px">出生日期<span class="required">*</span></label>
                 </div>
                 <div class="row">
                     <div class="col-3">
@@ -97,7 +97,7 @@
                     </div>
                     <div class="col-3">
                         <select id="memlistidentity" required>
-                            <option value="na">身份別</option>
+                            <option value="na"></option>
                             <option value="Low-income">低收入戶</option>
                             <option value="near-poor">中低收入戶</option>
                             <option value="normal">一般戶老人</option>
@@ -109,61 +109,80 @@
                 </div>
                 <div class="row">
                     <div class="col-4">
-                        <input type="text" placeholder="&nbsp;&nbsp;身分證" required id="memidcard">
+                        <label for="memeducationLevel">教育程度</label>
+                        <select id="memeducationLevel">
+                            <option value=""></option>
+                            <option value="不識字">不識字</option>
+                            <option value="自修">自修</option>
+                            <option value="國小">國小</option>
+                            <option value="國中">國中</option>
+                            <option value="高中職">高中職</option>
+                            <option value="專科">專科</option>
+                            <option value="大學">大學</option>
+                            <option value="研究所以上">研究所以上</option>
+                        </select>
                     </div>
                     <div class="col-4">
-                        <input type="tel" placeholder="&nbsp;&nbsp;電話" required id="memtel">
+                        <label for="memtel">電話</label>
+                        <input type="tel" placeholder="&nbsp;&nbsp;"id="memtel">
                     </div>
                     <div class="col-4">
-                        <input type="tel" placeholder="&nbsp;&nbsp;手機" required id="memphone">
+                        <label for="memphone">手機</label>
+                        <input type="tel" placeholder="&nbsp;&nbsp;"id="memphone">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-4">
-                        <input type="text" placeholder="&nbsp;&nbsp;專長" required id="expertise">
+                        <label for="expertise">專長</label>
+                        <input type="text" placeholder="&nbsp;&nbsp;"id="expertise">
                     </div>
                     <div class="col-4">
-                        <input type="password" placeholder="&nbsp;&nbsp;密碼" required id="mempassword">
+                        <label for="mempassword">密碼<span class="required">*</span></label>
+                        <input type="password" placeholder="&nbsp;&nbsp;" required id="mempassword">
                     </div>
                     <div class="col-4">
-                        <input type="password" placeholder="&nbsp;&nbsp;密碼確認" required id="mempasswordcheck">
+                        <label for="mempasswordcheck">密碼確認<span class="required">*</span></label>
+                        <input type="password" placeholder="&nbsp;&nbsp;" required id="mempasswordcheck">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-4">
-                        <input type="text" placeholder="&nbsp;&nbsp;服務據點" required id="serviceaddress">
+                        <label for="serviceaddress">服務據點</label>
+                        <input type="text" placeholder="&nbsp;&nbsp;服務據點"  id="serviceaddress">
                     </div>
                     <div class="col-6">
-                        <input type="text" placeholder="&nbsp;&nbsp;地址" required id="memaddress">
+                        <label for="memaddress">地址</label>
+                        <input type="text" placeholder="&nbsp;&nbsp;地址"  id="memaddress">
                     </div>
                     <div class="col-2">
-                        <input type="text" placeholder="&nbsp;&nbsp;交通工具" required id="transportation">
+                        <label for="transportation">交通工具</label>
+                        <input type="text" placeholder="&nbsp;&nbsp;交通工具"  id="transportation">
                     </div>
                 </div>
                 <div class="box">
                     <div class="boxL">
                         <div class="grid-container">
                             <div class="grid-item">
-                                <h6>證照</h6>
-                                <input type="text" class="boxes" required id="license">
+                                <label for="license">證照</label>
+                                <input type="text" class="boxes"  id="license">
                             </div>
                             <div class="grid-item">
-                                <h6>提供服務</h6>
-                                <input type="text" class="boxes" placeholder="&nbsp;&nbsp;簡短概述" required id="service">
+                                <label for="service">提供服務</label>
+                                <input type="text" class="boxes" placeholder="&nbsp;&nbsp;簡短概述"  id="service">
                             </div>
                             <div class="grid-item">
-                                <h6>加入動機</h6>
+                                <label for="motivation">加入動機</label>
                                 <input type="text" class="boxes" placeholder="&nbsp;&nbsp;簡短概述" required id="motivation">
                             </div>
                             <div class="grid-item">
-                                <h6>服務紀錄</h6>
+                                <label for="record">服務紀錄</label>
                                 <input type="text" class="boxes" required id="record">
                             </div>
                         </div>
                     </div>
                     <div class="boxR">
-                        <h6>經驗</h6>
-                        <input type="text" id="exp" required>
+                        <label for="exp">經驗</label>
+                        <input type="text" id="exp" >
                     </div>
                 </div>
                 <div class="vReadyToSubmit">
@@ -181,64 +200,64 @@
                 <div class="knownAs">
                     <p>長者</p>
                 </div>
-                <button class="closeMessageBox" id="closeElder" type="submit">&#x2716;</button>
+                <div style="color:red; display:flex; align-items:center;">
+                    <h4>*為必填欄位</h4>
+                </div>
+                <form method="get" action="/Main/Caseinfor">
+                    <button class="closeMessageBox" id="closeElder" type="submit">&#x2716;</button>
+                </form>            
             </div>
             <hr>
             <form class="elder">
                 <div class="row">
                     <div class="col-3">
-                        <input type="text" id="unitname" placeholder="&nbsp;&nbsp;單位名稱" required>
+                        <label for="unitname">單位名稱<span class="required">*</span></label>
+                        <input type="text" id="unitname" placeholder="&nbsp;&nbsp;" required>
                     </div>
                     <div class="col-3">
-                        <input type="text" placeholder="&nbsp;&nbsp;單位編號" required id="unitid">
+                        <label for="unitid">單位編號<span class="required">*</span></label>
+                        <input type="text" placeholder="&nbsp;&nbsp;" required id="unitid">
                     </div>
                     <div class="col-3">
-                        <input type="text" placeholder="&nbsp;&nbsp;個案編號" required id="id">
+                        <label for="id">個案編號<span class="required">*</span></label>
+                        <input type="text" placeholder="&nbsp;&nbsp;" required id="id">
                     </div>
                     <div class="col-3">
-                        <input type="text" placeholder="&nbsp;&nbsp;個案來源" required id="source">
+                        <label for="source">個案來源<span class="required">*</span></label>
+                        <input type="text" placeholder="&nbsp;&nbsp;" required id="source">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-3">
-                        <input type="text" placeholder="&nbsp;&nbsp;姓氏" required id="lastname">
+                        <label for="lastname">姓氏<span class="required">*</span></label>
+                        <input type="text" placeholder="&nbsp;&nbsp;" required id="lastname">
                     </div>
                     <div class="col-3">
-                        <input type="text" placeholder="&nbsp;&nbsp;名字" required id="firstname">
+                        <label for="firstname">名字<span class="required">*</span></label>
+                        <input type="text" placeholder="&nbsp;&nbsp;" required id="firstname">
                     </div>
                     <div class="col-3">
+                        <label for="gender">性別<span class="required">*</span></label>
                         <select id="gender" required>
-                            <option value="na">性別</option>
+                            <option value=""></option>
                             <option value="男">男</option>
                             <option value="女">女</option>
                         </select>
                     </div>
                     <div class="col-3">
-                        <select id="educationLevel" required>
-                            <option value="na">教育程度</option>
-                            <option value="不識字">不識字</option>
-                            <option value="自修">自修</option>
-                            <option value="國小">國小</option>
-                            <option value="國中">國中</option>
-                            <option value="高中職">高中職</option>
-                            <option value="專科">專科</option>
-                            <option value="大學">大學</option>
-                            <option value="研究所以上">研究所以上</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <h6>出生日期</h6>
+                        <label for="idcard">身分證<span class="required">*</span></label>
+                        <input type="text" placeholder="&nbsp;&nbsp;" required id="idcard">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-3">
+                        <label for="yearSelect" style="">出生日期<span class="required">*</span></label>
                         <select class="yearSelect" required id="year"></select>
                     </div>
                     <div class="col-3">
+                        <label for="yearSelect" style=""><span class="required"></span></label>
                         <select class="monthSelect" required id="month">
-                            <option value="na">月份</option>
+                            <option value="">月份</option>
                             <option value="1">一月</option>
                             <option value="2">二月</option>
                             <option value="3">三月</option>
@@ -255,11 +274,13 @@
                         </select>
                     </div>
                     <div class="col-3">
+                        <label for="yearSelect" style=""><span class="required"></span></label>
                         <select class="daySelect" required id="day"></select>
                     </div>
                     <div class="col-1">
-                        <select id="language" required>
-                            <option value="na">語言</option>
+                        <label for="language">語言</label>
+                        <select id="language">
+                            <option value=""></option>
                             <option value="國語">國語</option>
                             <option value="英語">英語</option>
                             <option value="台語">台語</option>
@@ -268,8 +289,9 @@
                         </select>
                     </div>
                     <div class="col-2">
-                        <select id="culture" required>
-                            <option value="na">信仰</option>
+                        <label for="culture">信仰</label>
+                        <select id="culture">
+                            <option value=""></option>
                             <option value="道教">道教</option>
                             <option value="天主教">天主教</option>
                             <option value="基督教">基督教</option>
@@ -281,19 +303,33 @@
                 </div>
                 <div class="row">
                     <div class="col-4">
-                        <input type="text" placeholder="&nbsp;&nbsp;身分證" required id="idcard">
+                        <label for="educationLevel">教育程度</label>
+                        <select id="educationLevel" >
+                            <option value=""></option>
+                            <option value="不識字">不識字</option>
+                            <option value="自修">自修</option>
+                            <option value="國小">國小</option>
+                            <option value="國中">國中</option>
+                            <option value="高中職">高中職</option>
+                            <option value="專科">專科</option>
+                            <option value="大學">大學</option>
+                            <option value="研究所以上">研究所以上</option>
+                        </select>
                     </div>
                     <div class="col-4">
-                        <input type="password" placeholder="&nbsp;&nbsp;密碼" required id="password">
+                        <label for="password">密碼<span class="required">*</span></label>
+                        <input type="password" placeholder="&nbsp;&nbsp;" required id="password">
                     </div>
                     <div class="col-4">
-                        <input type="password" placeholder="&nbsp;&nbsp;密碼確認" required id="passwordcheck">
+                        <label for="passwordcheck">密碼確認<span class="required">*</span></label>
+                        <input type="password" placeholder="&nbsp;&nbsp;" required id="passwordcheck">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-3">
-                        <select id="marital-status" required>
-                            <option value="na">婚姻狀況</option>
+                        <label for="marital-status">婚姻狀況</label>
+                        <select id="marital-status">
+                            <option value=""></option>
                             <option value="未婚">未婚</option>
                             <option value="已婚">已婚</option>
                             <option value="分居">分居</option>
@@ -301,11 +337,13 @@
                         </select>
                     </div>
                     <div class="col-3">
-                        <input type="text" placeholder="&nbsp;&nbsp;聯絡人" required id="family">
+                        <label for="family">聯絡人</label>
+                        <input type="text" placeholder="&nbsp;&nbsp;"  id="family">
                     </div>
                     <div class="col-2">
-                        <select id="relationship" required>
-                            <option value="na">聯絡人關係</option>
+                        <label for="relationship">聯絡人關係</label>
+                        <select id="relationship">
+                            <option value=""></option>
                             <option value="父親">父親</option>
                             <option value="母親">母親</option>
                             <option value="夫妻">夫妻</option>
@@ -315,21 +353,25 @@
                         </select>
                     </div>
                     <div class="col-4">
-                        <input type="tel" placeholder="&nbsp;&nbsp;聯絡人電話" required id="familyphone">
+                        <label for="familyphone">聯絡人電話</label>
+                        <input type="tel" placeholder="&nbsp;&nbsp;"id="familyphone">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-6">
-                        <input type="tel" placeholder="&nbsp;&nbsp;長者居住地址" required id="address">
+                        <label for="address">長者居住地址</label>
+                        <input type="tel" placeholder="&nbsp;&nbsp;" id="address">
                     </div>
                     <div class="col-6">
-                        <input type="text" placeholder="&nbsp;&nbsp;聯絡人地址" required id="familyaddress">
+                        <label for="familyaddress">聯絡人地址</label>
+                        <input type="text" placeholder="&nbsp;&nbsp;"id="familyaddress">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-3">
-                        <select id="family-status" required>
-                            <option value="na">家庭狀況</option>
+                        <label for="family-status">家庭狀況</label>
+                        <select id="family-status">
+                            <option value=""></option>
                             <option value="核心家庭">核心家庭</option>
                             <option value="大家庭">大家庭</option>
                             <option value="單親家庭">單親家庭</option>
@@ -339,8 +381,9 @@
                         </select>
                     </div>
                     <div class="col-3">
-                        <select id="listidentity" required>
-                            <option value="na">身份別</option>
+                        <label for="listidentity">身份別</label>
+                        <select id="listidentity">
+                            <option value=""></option>
                             <option value="低收入戶">低收入戶</option>
                             <option value="中低收入戶">中低收入戶</option>
                             <option value="一般戶老人">一般戶老人</option>
@@ -350,8 +393,9 @@
                         </select>
                     </div>
                     <div class="col-3">
-                        <select id="listeconomy" required>
-                            <option value="na">經濟來源</option>
+                        <label for="listeconomy">經濟來源</label>
+                        <select id="listeconomy">
+                            <option value=""></option>
                             <option value="無">無</option>
                             <option value="子女奉養">子女奉養</option>
                             <option value="政府補助">政府補助</option>
@@ -359,13 +403,15 @@
                         </select>
                     </div>
                     <div class="col-3">
-                        <input type="text" placeholder="&nbsp;&nbsp;工作" required id="work">
+                        <label for="work">工作</label>
+                        <input type="text" placeholder="&nbsp;&nbsp;"id="work">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-3">
-                        <select id="health" required>
-                            <option value="na">身體狀況</option>
+                        <label for="health">身體狀況</label>
+                        <select id="health">
+                            <option value=""></option>
                             <option value="正常">正常</option>
                             <option value="輕微系統疾病但無功能障礙">輕微系統疾病但無功能障礙</option>
                             <option value="中等至嚴重程度的系統疾病且導致某些功能障礙">中等至嚴重程度的系統疾病且導致某些功能障礙</option>
@@ -373,8 +419,9 @@
                         </select>
                     </div>
                     <div class="col-3">
-                        <select id="factly" required>
-                            <option value="na">輔助器具</option>
+                        <label for="factly">輔助器具</label>
+                        <select id="factly">
+                            <option value=""></option>
                             <option value="無">無 </option>
                             <option value="助聽器 ">助聽器 </option>
                             <option value="輪椅">輪椅</option>
@@ -384,16 +431,18 @@
                         </select>
                     </div>
                     <div class="col-3">
-                        <select id="activity-type" required>
-                            <option value="na">活動型態</option>
+                        <label for="activity-type">活動型態</label>
+                        <select id="activity-type">
+                            <option value=""></option>
                             <option value="完全自理">完全自理</option>
                             <option value="部分自理">部分自理</option>
                             <option value="完全無法自理">完全無法自理</option>
                         </select>
                     </div>
                     <div class="col-3">
-                        <select id="house-condition" required>
-                            <option value="na">屋況</option>
+                        <label for="house-condition">屋況</label>
+                        <select id="house-condition">
+                            <option value=""></option>
                             <option value="自有住宅">自有住宅</option>
                             <option value="租賃">租賃</option>
                             <option value="借住">借住</option>
@@ -403,16 +452,16 @@
                 </div>
                 <div class="row">
                     <div class="col-4">
-                        <h6>興趣與專長</h6>
-                        <input type="text" class="elderBoxes" placeholder="&nbsp;&nbsp;簡短概述三項" required id="interest">
+                        <label for="interest">興趣與專長</label>
+                        <input type="text" class="elderBoxes" placeholder="&nbsp;&nbsp;簡短概述三項"id="interest">
                     </div>
                     <div class="col-4">
-                        <h6>主觀問題</h6>
-                        <input type="text" class="elderBoxes" placeholder="&nbsp;&nbsp;簡短概述" required id="question">
+                        <label for="question">主觀問題</label>
+                        <input type="text" class="elderBoxes" placeholder="&nbsp;&nbsp;簡短概述" id="question">
                     </div>
                     <div class="col-4">
-                        <h6>補充陳述</h6>
-                        <input type="text" class="elderBoxes" placeholder="&nbsp;&nbsp;簡短概述" required id="replenish">
+                        <label for="replenish">補充陳述</label>
+                        <input type="text" class="elderBoxes" placeholder="&nbsp;&nbsp;簡短概述"id="replenish">
                     </div>
                 </div>
                 <div class="eReadyToSubmit">
@@ -423,6 +472,17 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        const memidcard = document.getElementById('memidcard');
+
+        function validateIDCard(event) {
+            
+        }
+
+        memberbtn.addEventListener('submit', validateIDCard);
+
+    </script>
+    <script>
+        //--------------長者註冊----------------
         var sendbtn = document.getElementById("sendbtn")
         sendbtn.addEventListener("click", function (event) {
             event.preventDefault();
@@ -463,9 +523,24 @@
             var RegTime = new Date();
             var bd = year + "/" + month + "/" + day;
 
-            if (password == passwordcheck) {
+            
                 
+                var idCardRegex = /^[A-Z]\d{9}$/;
+                if (unitname === "" || unitid === "" || id === "" || lastname === "" || firstname === "" || gender === "" || year === "" || month === "" || day === "" || idcard === "" || password === "" || passwordcheck === "") {
+                    // 有必填欄位為空，彈出警示框提示使用者
+                    alert("請填寫必填欄位");
+                    return; // 停止後續操作
+                }
+                if (!idCardRegex.test(idcard)) {
+                    alert("身分證格式不正確");
+                    return; // Stop further execution
+                }
 
+                // Validate password match
+                if (password !== passwordcheck) {
+                    alert("密碼與確認密碼不一致");
+                    return; // Stop further execution
+                }
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", "/Main/Caseinfor", true);
                 xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -516,14 +591,13 @@
 
                 };
                 xhr.send(JSON.stringify(data));
-            }
-            else {
-                alert("密碼不一致")
-            }
+            
+
 
         })
     </script>
     <script>
+        //--------------志工註冊----------------
         var memberbtn = document.getElementById("memberbtn")
         memberbtn.addEventListener("click", function (event) {
             event.preventDefault();
@@ -555,9 +629,24 @@
 
             var Name = lastname + firstname;
             var bd = year + "/" + month + "/" + day;
+            var idCardRegex = /^[A-Z]\d{9}$/;
+            if (unitname === "" || unitid === "" || id === "" || lastname === "" || firstname === "" || gender === "" || year === "" || month === "" || day === "" || idcard === "" || password === "" || passwordcheck === "") {
+                // 有必填欄位為空，彈出警示框提示使用者
+                alert("請填寫必填欄位");
+                return; // 停止後續操作
+            }
+            if (!idCardRegex.test(idcard)) {
+                alert("身分證格式不正確");
+                return; // Stop further execution
+            }
 
-            if (password == passwordcheck) {
-                console.log("Button clicked");
+            // Validate password match
+            if (password !== passwordcheck) {
+                alert("密碼與確認密碼不一致");
+                return; // Stop further execution
+            }
+           
+                
 
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", "/Main/Caseinfor", true);
@@ -598,57 +687,13 @@
 
                 };
                 xhr.send(JSON.stringify(data));
-            }
+            
 
         })
     </script>
     <script>
         $(document).ready(function () {
-            closeMessageBox
-            var volunteerMsgBox = $('#volunteerMsgBox');
-            var elderMsgBox = $('#elderMsgBox');
-            var translucentOverlay = '<div class="translucent-overlay"></div>';
-            var messageBox = $('#messageBox');
-            var message_Box = $('.message-box');
-
-
-            $('#volunteer, #elder').on('click', function () {
-                var id = $(this).attr('id');
-                var otherId = (id === 'volunteer') ? 'elder' : 'volunteer';
-                $('#fullscreen-image').css('background-image', 'src("~/image/background.png")');
-                $('#register, #identity').addClass('hidden');
-                volunteerMsgBox.toggleClass('hidden', id !== 'volunteer').toggleClass('large', id === 'volunteer');
-                elderMsgBox.toggleClass('hidden', id !== 'elder').toggleClass('large', id === 'elder');
-                $(this).add('#' + otherId).hide();
-                $('body').append(translucentOverlay);
-            });
-            $('#close, #closeVolunteer, #closeElder').on('click', function () {
-                closeMessageBox();
-            });
-
-            function closeMessageBox() {
-                volunteerMsgBox.addClass('hidden');
-                elderMsgBox.addClass('hidden');
-                message_Box.fadeOut();
-                messageBox.fadeOut();
-                $('.translucent-overlay').remove();
-            }
-            $('.closeMessageBox').click(function (e) {
-                e.preventDefault();
-                var valid = true;
-                $('input[required]').each(function () {
-                    if ($(this).val() === '') {
-                        valid = false;
-                        return false;
-                    }
-                });
-                if ($('option').val() === 'na') {
-                    valid = false;
-                }
-                if (valid) {
-                    $(this).closest('.container').parent().addClass('hidden');
-                }
-            });
+           
 
 
             var currentYear = new Date().getFullYear();
@@ -676,8 +721,15 @@
                 messageBox.fadeIn().addClass('large');
             });
         });
+        var closeVolunteer = document.getElementById("closeVolunteer");
+        closeVolunteer.addEventListener("click",function(){
+            location.reload();
+        })
 
-
+        var closeElder = document.getElementById("closeElder");
+        closeElder.addEventListener("click", function () {
+            location.reload();
+        })
     </script>
 </body>
 <style>
@@ -686,7 +738,9 @@
         padding: 0;
         height: 100%;
     }
-
+    .required {
+        color: red;
+    }
     /* EntryPage */
     #fullscreen-image {
         background-color: #CBE9EA;

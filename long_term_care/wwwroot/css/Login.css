@@ -61,7 +61,7 @@ ul.Menu > li {
 .LogInBox {
     position: absolute;
     width: 330.04px;
-    height: 410.44px;
+    height: 610.44px;
     left: 5%;
     top: 20%;
     background: #FFA5C0;
@@ -73,22 +73,50 @@ ul.Menu > li {
     margin: auto;
     text-align: center;
 }
-
-    .LogIn input {
-        position: relative;
-        width: 200px;
-        height: 50px;
-        top: 40px;
-        background: #FFFFFF;
-        border: 1px solid #857B7B;
-        border-radius: 10px;
-        margin: 10px 0;
-    }
+.error {
+    position: relative;
+    margin: auto;
+    text-align: center;
+    color: red;
+    background-color: white;
+    text-align: center;
+}
+.error ul{
+    display:flex;
+    justify-content:center;
+}
+.LogIn input {
+    position: relative;
+    width: 200px;
+    height: 50px;
+    top: 40px;
+    background: #FFFFFF;
+    border: 1px solid #857B7B;
+    border-radius: 10px;
+    margin: 10px 0;
+}
 
         .LogIn input:not(.id) {
             margin-bottom: 50px;
         }
+.check {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items:center;
+    justify-content: center;
+}
 
+.checktext input {
+   
+    width: 200px;
+    height: 50px;
+    top: 40px;
+    background: #FFFFFF;
+    border: 1px solid #857B7B;
+    border-radius: 10px;
+    margin: 10px 0;
+}
 .forget {
     color: #FFFFFF;
     position: relative;
@@ -271,7 +299,7 @@ input {
 
     .LogInBox {
         width: 463.2px;
-        height: 519.2px;
+        height: 619.2px;
         left: 168px;
         top: 178px;
     }
@@ -281,11 +309,16 @@ input {
         height: 60px;
         top: 40px;
         margin: 20px 0;
+        right: 0px;
     }
 
-        .LogIn input:not(.id) {
-            margin-bottom: 80px;
-        }
+    .check input {
+        width: 150px;
+        height: 40px;
+        top: 40px;
+        margin: 20px 0;
+    }
+        
 
     .forget {
         margin: 20px 0;

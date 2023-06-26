@@ -12,6 +12,12 @@ using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using System;
+using Microsoft.AspNetCore.Http;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using SkiaSharp;
 
 namespace long_term_care.Controllers
 {
@@ -102,17 +108,73 @@ namespace long_term_care.Controllers
             }
             return View();
         }
+        private string GenerateVerificationCode(int length = 6)
+        {
+            Random random = new Random();
+            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+        public ActionResult VerificationCodeImage()
+        {
+            string verificationCode = HttpContext.Session.GetString("VerificationCode") as string;
+            if (string.IsNullOrEmpty(verificationCode))
+            {
+                verificationCode = GenerateVerificationCode();
+                HttpContext.Session.SetString("VerificationCode", verificationCode);
+            }
+
+            using (SKBitmap bitmap = new SKBitmap(150, 60))
+            {
+                using (SKCanvas canvas = new SKCanvas(bitmap))
+                {
+                    // 設定背景顏色
+                    canvas.Clear(SKColors.White);
+
+                    // 設定字體和顏色
+                    using (SKPaint paint = new SKPaint())
+                    {
+                        paint.TextSize = 30;
+                        paint.Typeface = SKTypeface.FromFamilyName("Arial", SKFontStyle.Bold);
+                        paint.Color = SKColors.Black;
+
+                        // 繪製驗證碼文字
+                        SKRect textBounds = new SKRect();
+                        paint.MeasureText(verificationCode, ref textBounds);
+
+                        float x = (bitmap.Width - textBounds.Width) / 2;
+                        float y = (bitmap.Height - textBounds.Height) / 2 + textBounds.Height;
+
+                        canvas.DrawText(verificationCode, x, y, paint);
+                    }
+
+                    // 儲存圖片到記憶體串流
+                    using (SKData data = bitmap.Encode(SKEncodedImageFormat.Jpeg, 100))
+                    {
+                        // 將記憶體串流轉換為位元組陣列
+                        byte[] imageData = data.ToArray();
+
+                        // 返回圖片的檔案結果
+                        return File(imageData, "image/jpeg");
+                    }
+                }
+            }
+
+
+
+        }
 
         public IActionResult Login()
         {
-
+            string verificationCode = GenerateVerificationCode();
+            HttpContext.Session.SetString("VerificationCode", verificationCode);
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Login(string id, string password)
+        public async Task<IActionResult> Login(string id, string password, string verificationCode)
         {
-
             MemberInformation user = await _context.MemberInformations.FirstOrDefaultAsync(x => x.MemSid == id);
+            string serverVerificationCode = HttpContext.Session.GetString("VerificationCode");
 
             if (user != null)
             {
@@ -121,29 +183,34 @@ namespace long_term_care.Controllers
 
                 if (isPasswordValid)
                 {
-                    var claims = new List<Claim>
+                    if (string.Equals(verificationCode, serverVerificationCode, StringComparison.OrdinalIgnoreCase))
                     {
-                    new Claim(ClaimTypes.Name,id),
+                        var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, id),
                     //new Claim(ClaimTypes.Role, "Administrator") // 如果要有「群組、角色、權限」，可以加入這一段  
-                    };
-                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                };
+                        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                    var authProperties = new AuthenticationProperties
-                    {
+                        var authProperties = new AuthenticationProperties();
 
-                    };
-
-                    await HttpContext.SignInAsync(
-                        CookieAuthenticationDefaults.AuthenticationScheme,
-                        new ClaimsPrincipal(claimsIdentity),
-                        authProperties
+                        await HttpContext.SignInAsync(
+                            CookieAuthenticationDefaults.AuthenticationScheme,
+                            new ClaimsPrincipal(claimsIdentity),
+                            authProperties
                         );
 
-                    return LocalRedirect("~/Main/MemMainpage");
+                        return LocalRedirect("~/Main/MemMainpage");
+                    }
+                    else
+                    {
+                        // 驗證碼不正確
+                        ModelState.AddModelError(string.Empty, "驗證碼錯誤");
+                    }
                 }
                 else
                 {
-                    // 密码验证失败
+                    // 密碼不正確
                     ModelState.AddModelError(string.Empty, "密碼錯誤");
                 }
             }
@@ -155,6 +222,7 @@ namespace long_term_care.Controllers
 
             return View();
         }
+
 
         [Authorize]
         public IActionResult MemMainpage()

@@ -42,6 +42,27 @@ namespace long_term_care.Controllers
             {
                 return Content("請填入長者編號!");
             }
+
+            var no1 = from ci in _context.CarPicks
+                      join ccr in _context.MemberInformations on ci.MemSid equals ccr.MemSid
+                      //where ccr.MemSid == MemSid
+                      select new CarPickViewModel
+                      {
+                          MemSid = ci.MemSid,
+                          //CarSearchY = ci.CarSearchY,
+                          //CarSearchM = ci.CarSearchM,
+                          CarType = ci.CarType,
+                          CarNum = ci.CarNum,
+                          CarCaseAdr = ci.CarCaseAdr,
+                          CarMonth = ci.CarMonth,
+                          CarL = ci.CarL,
+                          CarKm = ci.CarKm,
+                          CarPrice = ci.CarPrice,
+                        
+                      };
+            var no2 = await no1.ToListAsync();
+            if (no2 == null)
+
             if (CarSearch == DateTime.MinValue)
             {
                 return Content("請填入搜索年月!");
@@ -80,11 +101,12 @@ namespace long_term_care.Controllers
                                   }).ToListAsync();
 
             if (carPicks.Count == 0)
+
             {
                 return NotFound();
             }
 
-            return View("SearchResult", carPicks);
+            return View("SearchResult"/*,*/ /*carPicks*/);
 
         }
 

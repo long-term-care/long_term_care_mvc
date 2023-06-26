@@ -1,7 +1,10 @@
-﻿@{
+﻿@model long_term_care.Models.MemberInformation
+@{
     ViewData["Title"] = "Login";
+
 }
 <link href="~/css/login.css" rel="stylesheet" />
+}
 <body>
     <div class="container-fluid">
         <nav class="global_nav">
@@ -15,11 +18,22 @@
         </nav>
         <div class="content">
             <div class="txt">
-                <div class="LogInBox">
+                <div class="LogInBox">                 
                     <div class="LogIn">
+                        
                         <form method="POST" id="loginForm" action="/Main/Login">
                             <input type="text" name="id" class="id" placeholder="&nbsp;&nbsp;員工證號碼" required id="id">
                             <input type="password" name="password" placeholder="&nbsp;&nbsp;密碼" required id="password">
+                            <div class="check"> 
+                                <input type="text" name="verificationCode" placeholder="驗證碼" required="" style="top: 10px;right: 10px;">
+                                <img src="@Url.Action("VerificationCodeImage", "Main")" id="verificationCodeImage" alt="Verification Code" onclick="refreshVerificationCode()" class="verification-code-image">
+                            </div>
+                            @if (!ViewData.ModelState.IsValid)
+                            {
+                                <div class="error">
+                                    @Html.ValidationSummary(false)
+                                </div>
+                            }
                             <button type="submit" name="loginBtn" class="loginBtn" id="loginbtn">登入</button>
                         </form>
                         <div class="forget" id="renewPassword">忘記密碼？</div>
