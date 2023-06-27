@@ -24,7 +24,10 @@ namespace long_term_care.Controllers
         }
         public IActionResult Create()
         {
-          
+            // 從資料庫取得內容，假設存放在 dbContent 變數中
+           
+
+            // 將內容傳遞給視圖
             return View();
         }
         [HttpPost]
