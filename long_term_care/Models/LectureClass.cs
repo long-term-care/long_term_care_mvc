@@ -12,6 +12,8 @@ namespace long_term_care.Models
         public string SchB { get; set; }
         public string SchC { get; set; }
         public string SchD { get; set; }
+        public string SchE { get; set; }
+
         public int? Weeknum { get; set; }
     }
 }

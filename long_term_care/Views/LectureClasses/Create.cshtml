@@ -1,0 +1,95 @@
+﻿@model long_term_care.Models.LectureClass
+
+@{
+    ViewData["Title"] = "Create";
+}
+<style>
+    .fix {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        font-size: 1.8em;
+    }
+
+    .fixcontent {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 60%;
+        height: 80%;
+        padding: 20px;
+        background-color: #CBE9EA;
+    }
+
+        .fixcontent p {
+            margin: 10px;
+            font-size: 1.2em;
+        }
+
+        .fixcontent select,
+        .fixcontent input[type="text"] {
+            font-size: 1.2em;
+        }
+
+    .send {
+        margin-top: 20px;
+    }
+
+        .send button {
+            margin-right: 10px;
+            padding: 12px 24px;
+            font-size: 1.4em;
+        }
+</style>
+
+
+
+<div class="fix">
+    <div class="fixcontent">
+        <div class="chooseweek">
+            <p>
+                選擇星期:
+                <select id="week">
+                    <option value="星期一">星期一</option>
+                    <option value="星期二">星期二</option>
+                    <option value="星期三">星期三</option>
+                    <option value="星期四">星期四</option>
+                    <option value="星期五">星期五</option>
+                </select>
+            </p>
+        </div>
+        <div class="choosclass">
+            <p>
+                選擇時段:
+                <select id="time">
+                    <option value="SchA">7:30-8:30</option>
+                    <option value="SchB">8:30 - 9:00</option>
+                    <option value="SchC">9:00 - 9:30</option>
+                    <option value="SchD">9:30 - 12:00</option>
+                    <option value="SchE">13:00 - 16:00</option>
+                </select>
+            </p>
+        </div>
+        <div class="content" style="display: none;" id="content">
+            <p>修改內容:<input type="text"></p>
+        </div>
+        <div class="send">
+            <button type="button" class="btn btn-primary" id="fix">修改</button>
+            <button type="button" class="btn btn-primary" id="back">返回</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("time").addEventListener("change", function () {
+        var contentDiv = document.getElementById("content");
+        if (this.value === "SchA" || this.value === "SchB" || this.value === "SchC" || this.value === "SchD" || this.value === "SchE") {
+            contentDiv.style.display = "block";
+        } else {
+            contentDiv.style.display = "none";
+        }
+    });
+</script>
+

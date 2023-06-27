@@ -2,6 +2,7 @@
 using long_term_care.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,40 +22,22 @@ namespace long_term_care.Controllers
             var lectureClasses = await _context.LectureClasses.ToListAsync();
             return View(lectureClasses);
         }
-        [HttpPost]
-        public IActionResult Index([FromBody] LectureClassViewModel model)
+        public IActionResult Create()
         {
-            var record = _context.LectureClasses.Where(l => l.SchWeek == model.Week);
-            if (record != null)
-            {
-                foreach (var item in record)
-                {
-                    if (model.Time == "SchA")
-                    {
-                        item.SchA = model.Subject;
-
-                    }
-                    if (model.Time == "SchB")
-                    {
-                        item.SchB = model.Subject;
-
-                    }
-                    if (model.Time == "SchC")
-                    {
-                        item.SchC = model.Subject;
-
-                    }
-                    if (model.Time == "SchD")
-                    {
-                        item.SchD = model.Subject;
-
-                    }
-
-                }
-                _context.SaveChanges();
-            }
+          
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create([FromBody] LectureClassViewModel model)
+        {
            
-            return View("Index");
+           
+            return View();
+        }
+        public async Task<IActionResult> Check()
+        {
+            var lectureClasses = await _context.LectureClasses.ToListAsync();
+            return View(lectureClasses);
         }
     }
 }

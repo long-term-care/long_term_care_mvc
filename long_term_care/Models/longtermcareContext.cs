@@ -801,7 +801,11 @@ namespace long_term_care.Models
                     .IsRequired()
                     .HasMaxLength(30)
                     .HasColumnName("Sch_D");
-
+                entity.Property(e => e.SchE)
+                   .IsRequired()
+                   .HasMaxLength(30)
+                   .HasColumnName("Sch_E");
+               
                 entity.Property(e => e.Weeknum).HasColumnName("weeknum");
             });
 

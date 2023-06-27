@@ -1,0 +1,107 @@
+﻿@model IEnumerable<long_term_care.Models.LectureClass>
+
+@{
+    ViewData["Title"] = "Index";
+    var data = Model.OrderBy(x => x.Weeknum);
+}
+
+
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    #table-container {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        height: 100%;
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: center;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    td:first-child {
+        width: 8%;
+    }
+</style>
+<body>
+    <div id="table-container">
+        <table>
+            <tr>
+                <th>時間</th>
+                <th>星期一</th>
+                <th>星期二</th>
+                <th>星期三</th>
+                <th>星期四</th>
+                <th>星期五</th>
+            </tr>
+            <tr>
+                <td>7:30 - 8:30</td>
+                @foreach (var item in data)
+                {
+                    <td>@item.SchA</td>
+                }
+            </tr>
+            <tr>
+                <td>8:30 - 9:00</td>
+                @foreach (var item in data)
+                {
+                    <td>@item.SchB</td>
+                }
+            </tr>
+            <tr>
+                <td>9:00 - 9:30</td>
+                @foreach (var item in data)
+                {
+                    <td>@item.SchC</td>
+                }
+            </tr>
+            <tr>
+                <td>9:30 - 12:00</td>
+                @foreach (var item in data)
+                {
+                    <td>@item.SchD</td>
+                }
+            </tr>
+            <tr>
+                <td>12:00 - 12:10</td>
+                <td colspan="5">餐前準備 (洗手準備用餐、午間新聞)</td>
+
+            </tr>
+            <tr>
+                <td>12:10 - 13:00</td>
+                <td colspan="5">午餐</td>
+
+            </tr>
+            <tr>
+                <td>13:00 - 16:00</td>
+                @foreach (var item in data)
+                {
+                    <td>@item.SchE</td>
+                }
+            </tr>
+            <tr>
+                <td>16:10 -</td>
+                <td colspan="5">準備回家</td>
+            </tr>
+            <!-- 依此類推，添加更多時間段和課程 -->
+        </table>
+    </div>
+</body>
+
