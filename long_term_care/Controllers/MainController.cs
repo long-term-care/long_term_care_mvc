@@ -247,7 +247,7 @@ namespace long_term_care.Controllers
                 case "Button1":
                     return RedirectToAction("Index", "MemSigns");
                 case "Button2":
-                    return RedirectToAction("Index", "LectureClasses");
+                    return RedirectToAction("Index", "LectureTables");
                 case "Button3":
                     return RedirectToAction("Index", "LectureClasses");
                 case "Button4":

@@ -53,11 +53,15 @@ namespace long_term_care.ViewModels
         [Display(Name = "脈搏")]
 
         public string CasePluse { get; set; }
-        [Display(Name = "血壓")]
+        [Display(Name = "血壓狀態")]
 
         public string CaseBlood { get; set; }
         [Display(Name = "交通接送")]
 
         public string CasePick { get; set; }
+        [Display(Name = "收縮壓")]
+        public string CaseSystolic { get; set; }
+        [Display(Name = "舒張壓")]
+        public string CaseDiastolic { get; set; }
     }
 }

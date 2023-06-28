@@ -14,6 +14,9 @@ namespace long_term_care.Models
         public string CasePluse { get; set; }
         public string CaseBlood { get; set; }
         public string CasePick { get; set; }
+        public string CaseSystolic { get; set; }
+        public string CaseDiastolic { get; set; }
+
 
 
         public virtual CaseInfor CaseNoNavigation { get; set; }

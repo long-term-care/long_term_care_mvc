@@ -33,8 +33,28 @@ namespace long_term_care.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] LectureClassViewModel model)
         {
-           
-           
+            var data = _context.LectureClasses.FirstOrDefault(x => x.SchWeek == model.Week);
+            if(model.Time == "SchA")
+            {
+                data.SchA = model.Subject;
+            }
+            if (model.Time == "SchB")
+            {
+                data.SchB = model.Subject;
+            }
+            if (model.Time == "SchC")
+            {
+                data.SchC = model.Subject;
+            }
+            if (model.Time == "SchD")
+            {
+                data.SchD = model.Subject;
+            }
+            if (model.Time == "SchE")
+            {
+                data.SchE = model.Subject;
+            }
+            _context.SaveChanges();
             return View();
         }
         public async Task<IActionResult> Check()

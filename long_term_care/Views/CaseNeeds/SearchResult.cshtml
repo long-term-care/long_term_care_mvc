@@ -1,195 +1,193 @@
 ﻿@using long_term_care.ViewModels;
 @model NeedSearchResultViewModal
 
+
+<style>
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .section-button {
+        margin-top: 20px;
+        margin-bottom: 10px;
+        display: flex; 
+        justify-content: flex-start;
+    }
+
+    .table-container {
+        display: table;
+        width: 100%;
+    }
+
+    .table-row {
+        display: table-row;
+    }
+
+    .table-cell {
+        display: table-cell;
+        padding: 5px;
+        vertical-align: top;
+    }
+
+    .question {
+        text-align: left;
+        font-weight: bold;
+    }
+
+    .answer {
+        margin-left: 10px;
+    }
+
+    .back-link {
+        margin-top: 20px;
+    }
+
+    a {
+        color: #5C9DF7;
+        text-decoration: none;
+        font-size: 16px;
+        transition: color 0.3s ease;
+    }
+
+        a:hover {
+            color: #7caef5;
+        }
+</style>
+
 <div class="container">
     <h1>社區長者需求調查</h1>
 
-    <div class="clearfix">
-        <div class="left">
-            <button type="button" class="btn btn-secondary">基本資料</button>
+    <div class="section-button">
+        <button type="button" class="btn btn-secondary">基本資料</button>
+    </div>
 
-            <div class="custom-div">
-                @Html.DisplayNameFor(modelItem => modelItem.CaseRead)
-                @Html.DisplayFor(model => model.CaseRead)
-            </div>
-
-            <div class="custom-div">
-                @Html.DisplayNameFor(modelItem => modelItem.CaseFami)
-                @Html.DisplayFor(model => model.CaseFami)
-            </div>
-
-            <div class="custom-div">
-                @Html.DisplayNameFor(modelItem => modelItem.CaseCons)
-                @Html.DisplayFor(model => model.CaseCons)
-            </div>
-
-            <div class="custom-div">
-                @Html.DisplayNameFor(modelItem => modelItem.CaseSpeak)
-                @Html.DisplayFor(model => model.CaseSpeak)
-            </div>
-
-            <div class="custom-div">
-                @Html.DisplayNameFor(modelItem => modelItem.CaseAct)
-                @Html.DisplayFor(model => model.CaseAct)
-            </div>
-
-            <div class="custom-div">
-                @Html.DisplayNameFor(modelItem => modelItem.CaseMed)
-                @Html.DisplayFor(model => model.CaseMed)
-            </div>
-
-            <div class="custom-div">
-                @Html.DisplayNameFor(modelItem => modelItem.CaseSee)
-                @Html.DisplayFor(model => model.CaseSee)
-            </div>
-
-            <div class="custom-div">
-                @Html.DisplayNameFor(modelItem => modelItem.CaseHear)
-                @Html.DisplayFor(model => model.CaseHear)
-            </div>
-
-            <div class="custom-div">
-                @Html.DisplayNameFor(modelItem => modelItem.CaseEat)
-                @Html.DisplayFor(model => model.CaseEat)
-            </div>
-
-            <div class="custom-div">
-                @Html.DisplayNameFor(modelItem => modelItem.CaseCare)
-                @Html.DisplayFor(model => model.CaseCare)
-            </div>
+    <div class="table-container">
+        <div class="table-row">
+            <div class="table-cell question">@Html.DisplayNameFor(modelItem => modelItem.CaseRead)</div>
+            <div class="table-cell answer">@Html.DisplayFor(model => model.CaseRead)</div>
         </div>
 
-        <div class="right">
-            <button type="button" class="btn btn-secondary">問卷內容</button>
+        <div class="table-row">
+            <div class="table-cell question">@Html.DisplayNameFor(modelItem => modelItem.CaseFami)</div>
+            <div class="table-cell answer">@Html.DisplayFor(model => model.CaseFami)</div>
+        </div>
 
-            <div class="custom-div">
-                @Html.DisplayNameFor(model => model.CaseView1)
-                @Html.DisplayFor(modelItem => modelItem.CaseView1)
-            </div>
+        <div class="table-row">
+            <div class="table-cell question">@Html.DisplayNameFor(modelItem => modelItem.CaseCons)</div>
+            <div class="table-cell answer">@Html.DisplayFor(model => model.CaseCons)</div>
+        </div>
 
-            <div class="custom-div">
-                @Html.DisplayNameFor(model => model.CaseView2)
-                @Html.DisplayFor(modelItem => modelItem.CaseView2)
-            </div>
+        <div class="table-row">
+            <div class="table-cell question">@Html.DisplayNameFor(modelItem => modelItem.CaseSpeak)</div>
+            <div class="table-cell answer">@Html.DisplayFor(model => model.CaseSpeak)</div>
+        </div>
 
-            <div class="custom-div">
-                @Html.DisplayNameFor(model => model.CaseView3)
-                @Html.DisplayFor(modelItem => modelItem.CaseView3)
-            </div>
+        <div class="table-row">
+            <div class="table-cell question">@Html.DisplayNameFor(modelItem => modelItem.CaseAct)</div>
+            <div class="table-cell answer">@Html.DisplayFor(model => model.CaseAct)</div>
+        </div>
 
-            <div class="custom-div">
-                @Html.DisplayNameFor(model => model.CaseView4)
-                @Html.DisplayFor(modelItem => modelItem.CaseView4)
-            </div>
+        <div class="table-row">
+            <div class="table-cell question">@Html.DisplayNameFor(modelItem => modelItem.CaseMed)</div>
+            <div class="table-cell answer">@Html.DisplayFor(model => model.CaseMed)</div>
+        </div>
 
-            <div class="custom-div">
-                @Html.DisplayNameFor(model => model.CaseView5)
-                @Html.DisplayFor(modelItem => modelItem.CaseView5)
-            </div>
+        <div class="table-row">
+            <div class="table-cell question">@Html.DisplayNameFor(modelItem => modelItem.CaseSee)</div>
+            <div class="table-cell answer">@Html.DisplayFor(model => model.CaseSee)</div>
+        </div>
 
-            <div class="custom-div">
-                @Html.DisplayNameFor(model => model.CaseView6)
-                @Html.DisplayFor(modelItem => modelItem.CaseView6)
-            </div>
+        <div class="table-row">
+            <div class="table-cell question">@Html.DisplayNameFor(modelItem => modelItem.CaseHear)</div>
+            <div class="table-cell answer">@Html.DisplayFor(model => model.CaseHear)</div>
+        </div>
 
-            <div class="custom-div">
-                @Html.DisplayNameFor(model => model.CaseView7)
-                @Html.DisplayFor(modelItem => modelItem.CaseView7)
-            </div>
+        <div class="table-row">
+            <div class="table-cell question">@Html.DisplayNameFor(modelItem => modelItem.CaseEat)</div>
+            <div class="table-cell answer">@Html.DisplayFor(model => model.CaseEat)</div>
+        </div>
 
-            <div class="custom-div">
-                @Html.DisplayNameFor(model => model.CaseView8)
-                @Html.DisplayFor(modelItem => modelItem.CaseView8)
-            </div>
-
-            <div class="custom-div">
-                @Html.DisplayNameFor(model => model.CaseView9)
-                @Html.DisplayFor(modelItem => modelItem.CaseView9)
-            </div>
+        <div class="table-row">
+            <div class="table-cell question">@Html.DisplayNameFor(modelItem => modelItem.CaseCare)</div>
+            <div class="table-cell answer">@Html.DisplayFor(model => model.CaseCare)</div>
         </div>
     </div>
 
-    <div>
+    <div class="section-button">
+        <button type="button" class="btn btn-secondary">問卷內容</button>
+    </div>
+
+    <div class="table-container">
+        <div class="table-row">
+            <div class="table-cell question">@Html.DisplayNameFor(model => model.CaseView1)</div>
+            <div class="table-cell answer">@Html.DisplayFor(modelItem => modelItem.CaseView1)</div>
+        </div>
+
+        <div class="table-row">
+            <div class="table-cell question">@Html.DisplayNameFor(model => model.CaseView2)</div>
+            <div class="table-cell answer">@Html.DisplayFor(modelItem => modelItem.CaseView2)</div>
+        </div>
+
+        <div class="table-row">
+            <div class="table-cell question">@Html.DisplayNameFor(model => model.CaseView3)</div>
+            <div class="table-cell answer">@Html.DisplayFor(modelItem => modelItem.CaseView3)</div>
+        </div>
+
+        <div class="table-row">
+            <div class="table-cell question">@Html.DisplayNameFor(model => model.CaseView4)</div>
+            <div class="table-cell answer">@Html.DisplayFor(modelItem => modelItem.CaseView4)</div>
+        </div>
+
+        <div class="table-row">
+            <div class="table-cell question">@Html.DisplayNameFor(model => model.CaseView5)</div>
+            <div class="table-cell answer">@Html.DisplayFor(modelItem => modelItem.CaseView5)</div>
+        </div>
+
+        <div class="table-row">
+            <div class="table-cell question">@Html.DisplayNameFor(model => model.CaseView6)</div>
+            <div class="table-cell answer">@Html.DisplayFor(modelItem => modelItem.CaseView6)</div>
+        </div>
+
+        <div class="table-row">
+            <div class="table-cell question">@Html.DisplayNameFor(model => model.CaseView7)</div>
+            <div class="table-cell answer">@Html.DisplayFor(modelItem => modelItem.CaseView7)</div>
+        </div>
+
+        <div class="table-row">
+            <div class="table-cell question">@Html.DisplayNameFor(model => model.CaseView8)</div>
+            <div class="table-cell answer">@Html.DisplayFor(modelItem => modelItem.CaseView8)</div>
+        </div>
+
+        <div class="table-row">
+            <div class="table-cell question">@Html.DisplayNameFor(model => model.CaseView9)</div>
+            <div class="table-cell answer">@Html.DisplayFor(modelItem => modelItem.CaseView9)</div>
+        </div>
+
+
+    </div>
+
+
+    <button type="button" id="printButton" class="btn btn-primary" onclick="generatePDF()">生成 PDF</button>
+
+    <div class="back-link">
         <a asp-action="Details">返回</a>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.js"></script>
+<script>
+    function generatePDF() {
+        var container = document.querySelector('.container');
 
-@section topCSS {
-    <style type="text/css">
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #F8F8F8;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        h1 {
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .btn {
-            background-color: #333;
-            color: #FFF;
-            border: none;
-            border-radius: 4px;
-            padding: 8px 16px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+        var options = {
+            filename: 'document.pdf',
+            jsPDF: { format: 'a4' },
+            html2canvas: { scale: 2 },
+            margin: 10
+        };
 
-        .btn:hover {
-            background-color: #555;
-        }
-        .custom-div {
-            background-color: #FFF;
-            border: 1px solid #DDD;
-            border-radius: 4px;
-            padding: 10px;
-            margin-bottom: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .left {
-            float: left;
-            width: 50%;
-            padding-right: 10px;
-        }
-        .right {
-            float: right;
-            width: 50%;
-            padding-left: 10px;
-        }
-        .clearfix::after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-        a {
-            color: #333;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
+        html2pdf().set(options).from(container).save();
+    }
+</script>
 
-        a:hover {
-            color: #555;
-        }
-    </style>
-}
-
-
-@*@Html.DisplayFor(modelItem => item.CaseNoNavigation.CaseNo)
-</td>
-<td>
-<a asp-action="Edit" asp-route-id="@item.CaseNeedId">Edit</a> |
-<a asp-action="Details" asp-route-id="@item.CaseNeedId">Details</a> |
-<a asp-action="Delete" asp-route-id="@item.CaseNeedId">Delete</a>
-</td>*@

@@ -39,6 +39,20 @@
     td:first-child {
         width: 8%;
     }
+
+        .send {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items:center;
+    }
+
+        .send button {
+            width: 300px;
+            height: 70px;
+            font-size: 16px;
+            margin: 3%;
+        }
 </style>
 <body>
     <div id="table-container">
@@ -103,5 +117,9 @@
             <!-- 依此類推，添加更多時間段和課程 -->
         </table>
     </div>
+    <div class="send">
+        <button type="button" class="btn btn-primary"onclick="location.href='@Url.Action("Index", "LectureClasses")'">返回</button>
+    </div>
+    
 </body>
 

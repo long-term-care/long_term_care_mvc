@@ -26,7 +26,7 @@ namespace long_term_care.Controllers
             var longtermcareContext = _context.CaseDailyRegistrations.Include(c => c.CaseNoNavigation);
             return View(await longtermcareContext.ToListAsync());
         }
-       
+
         public IActionResult Details()
         {
             return View();
@@ -68,6 +68,8 @@ namespace long_term_care.Controllers
                           CaseTemp = ccr.CaseTemp,
                           CasePick = ccr.CasePick,
                           CaseBlood = ccr.CaseBlood,
+                          CaseDiastolic = ccr.CaseDiastolic,
+                          CaseSystolic = ccr.CaseSystolic,
                       };
             var no2 = await no1.ToListAsync();
             if (no2 == null)
@@ -108,7 +110,7 @@ namespace long_term_care.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CaseContId,CaseNo,Casedate,CaseTemp,CasePluse,CaseBlood,CasePick")] CaseDailyRegistration caseDailyRegistration)
+        public async Task<IActionResult> Create([Bind("CaseContId,CaseNo,CaseDiastolic,CaseSystolic,Casedate,CaseTemp,CasePluse,CaseBlood,CasePick")] CaseDailyRegistration caseDailyRegistration)
         {
 
             if (ModelState.IsValid)
@@ -143,7 +145,7 @@ namespace long_term_care.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("CaseContId,CaseNo,Casedate,CaseTemp,CasePluse,CaseBlood,CasePick")] CaseDailyRegistration caseDailyRegistration)
+        public async Task<IActionResult> Edit(string id, [Bind("CaseContId,CaseDiastolic,CaseSystolic,CaseNo,Casedate,CaseTemp,CasePluse,CaseBlood,CasePick")] CaseDailyRegistration caseDailyRegistration)
         {
             if (id != caseDailyRegistration.CaseContId)
             {

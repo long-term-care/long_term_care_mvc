@@ -1,0 +1,117 @@
+﻿@model long_term_care.Models.LectureTable
+@{
+    ViewData["Title"] = "Check";
+}
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    h1 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #table-container {
+        height: 100vh;
+        display: flex;
+        flex-direction:column;
+        align-items: center;
+        justify-content: center;
+    }
+    .no{
+        width:50%;
+        display:flex;
+        flex-direction:row;
+        font-size: large;
+        font-weight: bold;
+    }
+    table {
+        border-collapse: collapse;
+        width: 50%;
+        height: 100%;
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+    }
+
+    .first-column{
+        font-size:large;
+        font-weight: bold;
+    }
+
+    td:first-child {
+        width: 15%;
+        
+    }
+
+    .send {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .send button {
+            width: 300px;
+            height: 70px;
+            font-size: 16px;
+            margin: 3%;
+        }
+</style>
+<body>
+    <h1>講座活動設計表</h1>
+    <hr />
+    <div id="table-container">
+        <div class="no">
+            <p>問卷編號:@Html.DisplayFor(Model =>Model.LecId)</p>
+            <p>設計人:@Html.DisplayFor(Model =>Model.MemSid)</p>
+         </div>       
+        <table>
+            <tr>
+                <td colspan="2"><h4 style="font-weight: bold;">主題:@Html.DisplayFor(Model =>Model.LecTheme)</h4></td>
+                
+            </tr>
+            <tr>
+                <td class ="first-column">活動類別</td>
+                <td>@Html.DisplayFor(Model =>Model.LecClass)</td>
+                
+            </tr>
+            <tr>
+                <td class="first-column">活動目的</td>
+                <td>@Html.DisplayFor(Model =>Model.LecAim)</td>
+            </tr>
+            <tr>
+                <td class="first-column">活動時間</td>
+                <td>@Html.DisplayFor(Model =>Model.LecDate)</td>
+            </tr>
+            <tr>
+                <td class="first-column">活動帶領</td>
+                <td>@Html.DisplayFor(Model =>Model.LecLeader)</td>
+
+            </tr>
+            <tr>
+                <td class="first-column">活動場地</td>
+                <td>@Html.DisplayFor(Model =>Model.LecPla)</td>
+
+            </tr>
+            <tr>
+                <td class="first-column">用物預備</td>
+                <td>@Html.DisplayFor(Model =>Model.LecTool)</td>
+            </tr>
+            <tr>
+                <td class="first-column">步驟</td>
+                <td>@Html.DisplayFor(Model =>Model.LecStep)</td>
+            </tr>
+            <!-- 依此類推，添加更多時間段和課程 -->
+        </table>
+    </div>
+    <div class="send">
+        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Index", "LectureTables")'">返回</button>
+    </div>
+
+</body>
+
