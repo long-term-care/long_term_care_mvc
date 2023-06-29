@@ -1,51 +1,20 @@
-﻿@model List<dynamic>
+﻿@model IEnumerable<long_term_care.Models.CaseInfor>
 
-@if (Model != null && Model.Count > 0)
-{
-    <ul>
-        @foreach (var item in Model)
-        {
-            <li>
-                <a href="#" class="searchResult" data-case-name="@item.CaseName" data-case-no="@item.CaseNo" data-case-idcard="@item.CaseIdcard">
-                    @item.CaseName - @item.CaseNo - @item.CaseIdcard
-                </a>
-            </li>
-        }
-    </ul>
-}
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<ul>
+    @foreach (var item in Model)
+    {
+        <li onclick="selectPerson('@item.CaseNo', '@item.CaseName', '@item.CaseIdcard')">
+            @item.CaseNo, @item.CaseName, @item.CaseIdcard
+        </li>
+    }
+</ul>
 
 <script>
-    $(document).ready(function () {
-        $('#searchForm').on('input', function () {
-            var caseName = $('#CaseName').val();
-            var caseNo = $('#CaseNo').val();
-            var caseIDcard = $('#CaseIDcard').val();
+    function selectPerson(caseNo, caseName, caseIdcard) {
+        $("#CaseNo").val(caseNo);
+        $("#CaseName").val(caseName);
+        $("#CaseIDcard").val(caseIdcard);
 
-            $.ajax({
-                url: '@Url.Action("GetMatchingCases", "CaseDailyRegistrationsController")',
-                type: 'GET',
-                data: { caseName: caseName, caseNo: caseNo, caseIDcard: caseIDcard },
-                success: function (data) {
-                    $('#searchResults').html(data);
-                },
-                error: function () {
-                    
-                }
-            });
-        });
-
-        $(document).on('click', '.searchResult', function () {
-            var caseName = $(this).data('case-name');
-            var caseNo = $(this).data('case-no');
-            var caseIDcard = $(this).data('case-idcard');
-
-            $('#CaseName').val(caseName);
-            $('#CaseNo').val(caseNo);
-            $('#CaseIDcard').val(caseIDcard);
-
-            return false;
-        });
-    });
+        $("#searchResults").html("");
+    }
 </script>

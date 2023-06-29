@@ -19,6 +19,30 @@ namespace long_term_care.Controllers
             _context = context;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Search(string caseNo, string caseName, string caseIDcard)
+        {
+            var query = _context.CaseInfors.AsQueryable();
+
+            if (!string.IsNullOrEmpty(caseNo))
+            {
+                query = query.Where(c => c.CaseNo.Contains(caseNo));
+            }
+
+            if (!string.IsNullOrEmpty(caseName))
+            {
+                query = query.Where(c => c.CaseName.Contains(caseName));
+            }
+
+            if (!string.IsNullOrEmpty(caseIDcard))
+            {
+                query = query.Where(c => c.CaseIdcard.Contains(caseIDcard));
+            }
+
+            var results = await query.ToListAsync();
+
+            return PartialView("_SearchResultsPartial", results);
+        }
         // GET: CaseNeeds
         public async Task<IActionResult> Index()
         {

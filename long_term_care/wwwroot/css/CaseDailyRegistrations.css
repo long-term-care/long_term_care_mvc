@@ -1,5 +1,6 @@
 ﻿body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
 }
 
 .container-fluid {
@@ -17,40 +18,25 @@
     background-color: #FFFFFF;
     height: 100%;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     padding: 20px;
-}
-
-    .insideBox h3 {
-        text-align: center;
-        padding-top: 20px;
-        color: #333333;
-        font-size: 20px;
-    }
-
-div.ElderIDInput {
-    margin: 20px auto;
     text-align: center;
 }
 
-input[type="text"] {
-    border: none;
-    border-bottom: 1px solid #CCCCCC;
-    border-radius: 0;
+    .insideBox h3 {
+        padding-top: 20px;
+        color: #333333;
+        font-size: 20px;
+        margin-bottom: 30px;
+    }
+
+input[type="text"], input[type="number"] {
+    border: 2px solid #CCCCCC;
+    border-radius: 4px;
     padding: 8px;
     outline: none;
     font-size: 14px;
     background-color: transparent;
-}
-
-hr {
-    margin: 20px auto;
-    border: none;
-    height: 1px;
-    background-color: #CCCCCC;
+    width: 100%;
 }
 
 .GiantBox {
@@ -76,34 +62,15 @@ hr {
     margin: 0px 0;
 }
 
-.col-3 .group input.transparent-input:not([type="radio"]),
-.col-2 .group input.transparent-input:not([type="radio"]) 
-{
-    background-color: transparent;
-    border: none;
-    height: 70px;
-    width: 100%;
-    margin: 0 10px;
-    text-align: center;
-    font-size: 16px;
-}
-
-
 .transparent-input {
     background-color: transparent;
     border: none;
 }
 
-.container .row fieldset {
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: center;
-    align-items: center;
-}
-
 .group {
     text-align: center;
 }
+
 .form-group.wrap {
     display: flex;
     justify-content: center;
@@ -135,40 +102,41 @@ hr {
             transform: scale(0.98);
         }
 
-
-div.backToList {
-    text-align: center;
-    margin-top: 20px;
-}
-
-    div.backToList a {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #EFEFEF;
-        color: #333333;
-        text-decoration: none;
-        border: 2px solid #CCCCCC;
-        border-radius: 5px;
-        transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-        div.backToList a:hover {
-            background-color: #CCCCCC;
-            color: #FFFFFF;
-        }
 a {
     color: #5C9DF7;
     text-decoration: none;
     font-size: 16px;
     transition: color 0.3s ease;
+    margin: 20px;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #EFEFEF;
+    border: 2px solid #CCCCCC;
+    border-radius: 5px;
 }
 
     a:hover {
-        color: #7caef5;
+        background-color: #CCCCCC;
+        color: #FFFFFF;
+    }
+#searchResults {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+    #searchResults ul {
+        list-style: none;
+        padding-left: 0;
     }
 
-@media screen and (max-width: 767px) {
-    hr {
-        margin: 20px auto;
+    #searchResults li {
+        padding: 8px;
+        border-bottom: 1px solid #ccc;
+        cursor: pointer;
     }
-}
+
+        #searchResults li:hover {
+            background-color: #f1f1f1;
+        }

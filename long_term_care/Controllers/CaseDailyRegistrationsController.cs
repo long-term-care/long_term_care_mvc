@@ -25,20 +25,29 @@ namespace long_term_care.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetMatchingCases(string caseName, string caseNo, string caseIDcard)
+        public async Task<IActionResult> Search(string caseNo, string caseName, string caseIDcard)
         {
-            var matchingCases = _context.CaseInfors
-                .Where(ci => ci.CaseName.Contains(caseName) &&
-                             ci.CaseNo.Contains(caseNo) &&
-                             ci.CaseIdcard.Contains(caseIDcard))
-                .Select(ci => new { ci.CaseName, ci.CaseNo, ci.CaseIdcard })
-                .ToList();
+            var query = _context.CaseInfors.AsQueryable();
 
-            return PartialView("_SearchResultsPartial", matchingCases);
+            if (!string.IsNullOrEmpty(caseNo))
+            {
+                query = query.Where(c => c.CaseNo.Contains(caseNo));
+            }
+
+            if (!string.IsNullOrEmpty(caseName))
+            {
+                query = query.Where(c => c.CaseName.Contains(caseName));
+            }
+
+            if (!string.IsNullOrEmpty(caseIDcard))
+            {
+                query = query.Where(c => c.CaseIdcard.Contains(caseIDcard));
+            }
+
+            var results = await query.ToListAsync();
+
+            return PartialView("_SearchResultsPartial", results);
         }
-
-
-
 
 
         // GET: CaseDailyRegistrations
@@ -72,7 +81,7 @@ namespace long_term_care.Controllers
                             ccr.Casedate.Month == Casedate.Month
                       select new DailyResultViewModel
                       {
-                          CaseName = ccr.CaseName,
+                          CaseName = ci.CaseName,
                           CaseBd = ci.CaseBd,
                           CaseGender = ci.CaseGender,
                           CaseIdent = ci.CaseIdent,

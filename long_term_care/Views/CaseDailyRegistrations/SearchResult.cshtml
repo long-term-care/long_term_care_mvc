@@ -1,6 +1,8 @@
 ﻿@*@model IEnumerable<long_term_care.Models.CaseDailyRegistration>*@
 @using long_term_care.ViewModels;
-@model IEnumerable<DailyResultViewModel>
+@*@model IEnumerable<DailyResultViewModel>*@
+@model IEnumerable<long_term_care.ViewModels.DailyResultViewModel>
+
 
 @{
     ViewData["Title"] = "SearchResult";
@@ -191,6 +193,24 @@
 </table>
 
 <div class="pagination"></div>
+
+<div class="col-md-2">
+    <button type="button" class="btn btn-secondary" onclick="exportData('pdf')">Export as PDF</button>
+</div>
+<div class="col-md-2">
+    <button type="button" class="btn btn-secondary" onclick="exportData('excel')">Export as Excel</button>
+</div>
+<div class="col-md-2">
+    <button type="button" class="btn btn-secondary" onclick="exportData('word')">Export as Word</button>
+</div>
+<div class="col-md-4">
+    <label for="fromDate">From:</label>
+    <input type="date" id="fromDate" />
+    <label for="toDate">To:</label>
+    <input type="date" id="toDate" />
+    <button type="button" class="btn btn-primary" onclick="getData()">Get Data</button>
+</div>
+
 @*
 <div class="col-md-2">
     <button type="button" class="btn btn-secondary" onclick="exportData('pdf')">Export as PDF</button>
@@ -202,20 +222,24 @@
     <button type="button" class="btn btn-secondary" onclick="exportData('word')">Export as Word</button>
 </div>
 *@
-<script>
-    function exportData(format) {
-        window.location.href = '/CaseDailyRegistrations/Export?format=' + format;
-    }
-</script>
 
 <div>
     <a asp-action="Details">返回</a>
 </div>
 
+<script>
+    function getData() {
+        var fromDate = $('#fromDate').val();
+        var toDate = $('#toDate').val();
+
+        window.location.href = '/CaseDailyRegistrations/Export?format=html&fromDate=' + fromDate + '&toDate=' + toDate;
+    }
+</script>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
-        var pageSize = 5; // Rows per page
+        var pageSize = 2; // Rows per page
         var tableBody = $('#pagination-table-body');
         var pagination = $('.pagination');
 
@@ -247,6 +271,12 @@
         });
     });
 </script>
+<script>
+    function exportToFile(format) {
+        window.location.href = '/CaseDailyRegistrationsController/ExportToFile?format=' + format + '&term=yourSpecificTerm';
+    }
+</script>
+
 
 @section topCSS {
     <style>
@@ -326,7 +356,7 @@
         a {
             color: #5C9DF7;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 16px
             transition: color 0.3s ease;
         }
 
