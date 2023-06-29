@@ -193,13 +193,12 @@ namespace long_term_care.Controllers
                         if (user.RoleId == "1")
                         {
                             claims.Add(new Claim(ClaimTypes.Role, "管理員"));
-                            claims.Add(new Claim(ClaimTypes.Role, "社工"));
-                            claims.Add(new Claim(ClaimTypes.Role, "志工"));
+                            
                         }
                         else if (user.RoleId == "2")
                         {
                             claims.Add(new Claim(ClaimTypes.Role, "社工"));
-                            claims.Add(new Claim(ClaimTypes.Role, "志工"));
+                            
                         }
                         else if (user.RoleId == "3")
                         {
@@ -267,7 +266,7 @@ namespace long_term_care.Controllers
             ViewData["name"] = name;
             return View();
         }
-        [Authorize(Policy = "管理員")]
+        [Authorize(Roles ="管理員")]
         public IActionResult Memprofile()
         {
             string userName = User.Identity.Name;
