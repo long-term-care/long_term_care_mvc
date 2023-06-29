@@ -56,6 +56,8 @@ namespace long_term_care.ViewModels
         [Display(Name = "血壓狀態")]
 
         public string CaseBlood { get; set; }
+        public string CaseIDcard { get; set; }
+
         [Display(Name = "交通接送")]
 
         public string CasePick { get; set; }

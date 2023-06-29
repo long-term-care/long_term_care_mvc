@@ -191,6 +191,23 @@
 </table>
 
 <div class="pagination"></div>
+@*
+<div class="col-md-2">
+    <button type="button" class="btn btn-secondary" onclick="exportData('pdf')">Export as PDF</button>
+</div>
+<div class="col-md-2">
+    <button type="button" class="btn btn-secondary" onclick="exportData('excel')">Export as Excel</button>
+</div>
+<div class="col-md-2">
+    <button type="button" class="btn btn-secondary" onclick="exportData('word')">Export as Word</button>
+</div>
+*@
+<script>
+    function exportData(format) {
+        window.location.href = '/CaseDailyRegistrations/Export?format=' + format;
+    }
+</script>
+
 <div>
     <a asp-action="Details">返回</a>
 </div>
