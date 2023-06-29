@@ -8,6 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using long_term_care.Models;
 using long_term_care.ViewModels;
 using System.Runtime.ConstrainedExecution;
+using System.IO;
+
+
+
 
 namespace long_term_care.Controllers
 {
@@ -20,12 +24,30 @@ namespace long_term_care.Controllers
             _context = context;
         }
 
+        [HttpGet]
+        public IActionResult GetMatchingCases(string caseName, string caseNo, string caseIDcard)
+        {
+            var matchingCases = _context.CaseInfors
+                .Where(ci => ci.CaseName.Contains(caseName) &&
+                             ci.CaseNo.Contains(caseNo) &&
+                             ci.CaseIdcard.Contains(caseIDcard))
+                .Select(ci => new { ci.CaseName, ci.CaseNo, ci.CaseIdcard })
+                .ToList();
+
+            return PartialView("_SearchResultsPartial", matchingCases);
+        }
+
+
+
+
+
         // GET: CaseDailyRegistrations
         public async Task<IActionResult> Index()
         {
             var longtermcareContext = _context.CaseDailyRegistrations.Include(c => c.CaseNoNavigation);
             return View(await longtermcareContext.ToListAsync());
         }
+
 
         public IActionResult Details()
         {
@@ -50,7 +72,7 @@ namespace long_term_care.Controllers
                             ccr.Casedate.Month == Casedate.Month
                       select new DailyResultViewModel
                       {
-                          CaseName = ci.CaseName,
+                          CaseName = ccr.CaseName,
                           CaseBd = ci.CaseBd,
                           CaseGender = ci.CaseGender,
                           CaseIdent = ci.CaseIdent,
@@ -110,7 +132,7 @@ namespace long_term_care.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CaseContId,CaseNo,CaseDiastolic,CaseSystolic,Casedate,CaseTemp,CasePluse,CaseBlood,CasePick")] CaseDailyRegistration caseDailyRegistration)
+        public async Task<IActionResult> Create([Bind("CaseContId,CaseNo,CaseName,CaseDiastolic,CaseSystolic,Casedate,CaseTemp,CasePluse,CaseBlood,CasePick")] CaseDailyRegistration caseDailyRegistration)
         {
 
             if (ModelState.IsValid)
@@ -145,7 +167,7 @@ namespace long_term_care.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("CaseContId,CaseDiastolic,CaseSystolic,CaseNo,Casedate,CaseTemp,CasePluse,CaseBlood,CasePick")] CaseDailyRegistration caseDailyRegistration)
+        public async Task<IActionResult> Edit(string id, [Bind("CaseContId,CaseName,CaseDiastolic,CaseSystolic,CaseNo,Casedate,CaseTemp,CasePluse,CaseBlood,CasePick")] CaseDailyRegistration caseDailyRegistration)
         {
             if (id != caseDailyRegistration.CaseContId)
             {
@@ -210,5 +232,7 @@ namespace long_term_care.Controllers
         {
             return _context.CaseDailyRegistrations.Any(e => e.CaseContId == id);
         }
+
+
     }
 }

@@ -9,6 +9,10 @@ namespace long_term_care.Models
     {
         public string CaseContId { get; set; }
         public string CaseNo { get; set; }
+        public string CaseName { get; set; }
+        public string CaseIDcard { get; set; }
+
+
         public DateTime Casedate { get; set; }
         public string CaseTemp { get; set; }
         public string CasePluse { get; set; }

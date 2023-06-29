@@ -29,10 +29,33 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label asp-for="CaseNo">個案編號：</label>
+                    <input id="caseNoInput" asp-for="CaseNo" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="CaseName">個案名字：</label>
+                    <input id="caseNameInput" asp-for="CaseName" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="CaseIDcard">個案ID：</label>
+                    <input id="caseIDcardInput" asp-for="CaseIDcard" class="form-control" />
+                </div>
+
+                <div id="searchResults"></div>
+
+
+
+                @*
                 <div class="form-group ElderIDInput">
                     <label asp-for="CaseNo" class="control-label">個案編號: <input asp-for="CaseNo" class="form-control" type="text" /></label>
                     <span asp-validation-for="CaseNo" class="text-danger"></span>
                 </div>
+                *@
+                
 
                 <div class="GiantBox">
                     <div class="title">
@@ -116,9 +139,56 @@
     @section Scripts {
         @{
             await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        }
+            }
     }
-    <script>
+        
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
+
+            <script>
+                $(document).ready(function () {
+                    // 綁定輸入框的輸入事件
+                    $('#caseNo, #caseName, #caseIDcard').on('input', function () {
+                        var caseNo = $('#caseNo').val();
+                        var caseName = $('#caseName').val();
+                        var caseIDcard = $('#caseIDcard').val();
+
+                        // 使用AJAX向後端發送請求
+                        $.ajax({
+                            url: '/CaseDailyRegistrations/GetMatchingCases',
+                            data: { caseNo: caseNo, caseName: caseName, caseIDcard: caseIDcard },
+                            type: 'GET',
+                            success: function (data) {
+                                // 清空搜索結果
+                                $('#searchResults').empty();
+
+                                // 將搜索結果添加到下方
+                                for (var i = 0; i < data.length; i++) {
+                                    var caseInfo = data[i];
+                                    var resultItem = '<div class="result-item" data-caseNo="' + caseInfo.caseNo + '" data-caseName="' + caseInfo.caseName + '" data-caseIDcard="' + caseInfo.caseIdcard + '">' +
+                                        '<span class="result-caseNo">' + caseInfo.caseNo + '</span>' +
+                                        '<span class="result-caseName">' + caseInfo.caseName + '</span>' +
+                                        '<span class="result-caseIDcard">' + caseInfo.caseIdcard + '</span>' +
+                                        '</div>';
+                                    $('#searchResults').append(resultItem);
+                                }
+                            }
+                        });
+                    });
+
+                    // 綁定搜索結果項目的點擊事件
+                    $(document).on('click', '.result-item', function () {
+                        var caseNo = $(this).data('caseNo');
+                        var caseName = $(this).data('caseName');
+                        var caseIDcard = $(this).data('caseIDcard');
+
+                        // 將選中的結果填充到輸入框
+                        $('#caseNo').val(caseNo);
+                        $('#caseName').val(caseName);
+                        $('#caseIDcard').val(caseIDcard);
+                    });
+                });
+          
         var caseSystolicInput = document.querySelector('input[name="CaseSystolic"]');
         var caseDiastolicInput = document.querySelector('input[name="CaseDiastolic"]');
         var caseBloodDisplay = document.getElementById("caseBloodDisplay");
@@ -152,7 +222,8 @@
         updateBloodPressureStatus();
     </script>
 
-
+        
+    
 </body>
 
 

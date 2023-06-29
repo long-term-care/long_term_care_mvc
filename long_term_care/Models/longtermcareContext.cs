@@ -276,9 +276,12 @@ namespace long_term_care.Models
                     .HasColumnName("Case_ContID");
 
                 entity.Property(e => e.CaseNo)
-                    .IsRequired()
                     .HasMaxLength(8)
                     .HasColumnName("Case_No");
+
+                entity.Property(e => e.CaseIDcard)
+                   .HasMaxLength(15)
+                   .HasColumnName("Case_IDcard");
 
                 entity.Property(e => e.CasePick)
                     .IsRequired()
@@ -307,6 +310,10 @@ namespace long_term_care.Models
                 .IsRequired()
                 .HasMaxLength(8)
                 .HasColumnName("Case_Temp");
+
+                entity.Property(e => e.CaseName)
+                   .HasMaxLength(8)
+                   .HasColumnName("Case_Name");
 
                 entity.Property(e => e.Casedate)
                    .HasColumnType("datetime")
