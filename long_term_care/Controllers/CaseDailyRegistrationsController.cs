@@ -23,9 +23,51 @@ namespace long_term_care.Controllers
         {
             _context = context;
         }
+     
 
-        [HttpGet]
-        public async Task<IActionResult> Search(string caseNo, string caseName, string caseIDcard)
+
+        // GET: CaseDailyRegistrations
+        public async Task<IActionResult> Index()
+        {
+            var longtermcareContext = _context.CaseDailyRegistrations.Include(c => c.CaseNoNavigation);
+            return View(await longtermcareContext.ToListAsync());
+        }
+
+        /*
+                [HttpGet]
+                public async Task<IActionResult> Search(string caseNo, string caseName, string caseIDcard)
+                {
+                    var query = _context.CaseInfors.AsQueryable();
+
+                    if (!string.IsNullOrEmpty(caseNo))
+                    {
+                        query = query.Where(c => c.CaseNo.Contains(caseNo));
+                    }
+
+                    if (!string.IsNullOrEmpty(caseName))
+                    {
+                        query = query.Where(c => c.CaseName.Contains(caseName));
+                    }
+
+                    if (!string.IsNullOrEmpty(caseIDcard))
+                    {
+                        query = query.Where(c => c.CaseIdcard.Contains(caseIDcard));
+                    }
+
+                    var results = await query.ToListAsync();
+
+                    return View(results); 
+                    //return PartialView("_SearchResultsPartial", results);
+
+                }*/
+
+        public IActionResult Search()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetSearchResults(string caseNo, string caseName, string caseIDcard)
         {
             var query = _context.CaseInfors.AsQueryable();
 
@@ -49,12 +91,14 @@ namespace long_term_care.Controllers
             return PartialView("_SearchResultsPartial", results);
         }
 
-
-        // GET: CaseDailyRegistrations
-        public async Task<IActionResult> Index()
+        [HttpPost]
+        public IActionResult StoreInTempData(string caseNo, string caseName, string caseIDcard)
         {
-            var longtermcareContext = _context.CaseDailyRegistrations.Include(c => c.CaseNoNavigation);
-            return View(await longtermcareContext.ToListAsync());
+            TempData["CaseNo"] = caseNo;
+            TempData["CaseName"] = caseName;
+            TempData["CaseIDCard"] = caseIDcard;
+
+            return Json(new { status = "success" });
         }
 
 
@@ -112,10 +156,27 @@ namespace long_term_care.Controllers
         }
 
         // GET: CaseDailyRegistrations/Create
+
         public IActionResult Create()
         {
-            string nextFormNumber = "";
+            var viewModel = new CaseDailyRegistration();
 
+            if (TempData["CaseNo"] != null)
+            {
+                viewModel.CaseNo = TempData["CaseNo"].ToString();
+            }
+
+            if (TempData["CaseName"] != null)
+            {
+                viewModel.CaseName = TempData["CaseName"].ToString();
+            }
+
+            if (TempData["CaseIDCard"] != null)
+            {
+                viewModel.CaseIDcard = TempData["CaseIDCard"].ToString();
+            }
+
+            string nextFormNumber = "";
 
             var lastForm = _context.CaseDailyRegistrations.OrderByDescending(f => f.CaseContId).FirstOrDefault();
             if (lastForm != null)
@@ -133,7 +194,7 @@ namespace long_term_care.Controllers
             ViewData["CaseContId"] = nextFormNumber;
 
             ViewData["CaseNo"] = new SelectList(_context.CaseInfors, "CaseNo", "CaseNo");
-            return View();
+            return View(viewModel);
         }
 
         // POST: CaseDailyRegistrations/Create

@@ -193,7 +193,7 @@
 </table>
 
 <div class="pagination"></div>
-
+@*
 <div class="col-md-2">
     <button type="button" class="btn btn-secondary" onclick="exportData('pdf')">Export as PDF</button>
 </div>
@@ -210,23 +210,13 @@
     <input type="date" id="toDate" />
     <button type="button" class="btn btn-primary" onclick="getData()">Get Data</button>
 </div>
-
-@*
-<div class="col-md-2">
-    <button type="button" class="btn btn-secondary" onclick="exportData('pdf')">Export as PDF</button>
-</div>
-<div class="col-md-2">
-    <button type="button" class="btn btn-secondary" onclick="exportData('excel')">Export as Excel</button>
-</div>
-<div class="col-md-2">
-    <button type="button" class="btn btn-secondary" onclick="exportData('word')">Export as Word</button>
-</div>
 *@
+
 
 <div>
     <a asp-action="Details">返回</a>
 </div>
-
+@*
 <script>
     function getData() {
         var fromDate = $('#fromDate').val();
@@ -235,7 +225,7 @@
         window.location.href = '/CaseDailyRegistrations/Export?format=html&fromDate=' + fromDate + '&toDate=' + toDate;
     }
 </script>
-
+*@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
