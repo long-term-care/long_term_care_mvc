@@ -1,14 +1,61 @@
 ﻿@model IEnumerable<long_term_care.Models.CaseInfor>
 @{
-Layout = null;
+    Layout = null;
 }
 
-
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>Search</title>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Search</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #f3f2ef;
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        label {
+            display: inline-block;
+            margin: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+        }
+
+        #searchResults {
+            margin-top: 20px;
+            padding: 10px;
+        }
+
+            #searchResults div {
+                margin: 10px;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                background-color: #f9f9f9;
+                cursor: pointer;
+                font-size: 16px;
+            }
+
+                #searchResults div:hover {
+                    background-color: #eee;
+                }
+    </style>
     </head>
     <body>
         <div>

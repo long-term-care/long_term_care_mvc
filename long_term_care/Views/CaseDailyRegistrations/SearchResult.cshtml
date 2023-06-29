@@ -193,43 +193,21 @@
 </table>
 
 <div class="pagination"></div>
-@*
-<div class="col-md-2">
-    <button type="button" class="btn btn-secondary" onclick="exportData('pdf')">Export as PDF</button>
+<div class="export-buttons">
+    <button type="button" class="btn btn-primary" onclick="exportData('excel')">Export to Excel</button>
+    <button type="button" class="btn btn-primary" onclick="exportData('doc')">Export to Doc</button>
+    <button type="button" class="btn btn-primary" onclick="exportData('pdf')">Export to PDF</button>
 </div>
-<div class="col-md-2">
-    <button type="button" class="btn btn-secondary" onclick="exportData('excel')">Export as Excel</button>
-</div>
-<div class="col-md-2">
-    <button type="button" class="btn btn-secondary" onclick="exportData('word')">Export as Word</button>
-</div>
-<div class="col-md-4">
-    <label for="fromDate">From:</label>
-    <input type="date" id="fromDate" />
-    <label for="toDate">To:</label>
-    <input type="date" id="toDate" />
-    <button type="button" class="btn btn-primary" onclick="getData()">Get Data</button>
-</div>
-*@
 
 
 <div>
     <a asp-action="Details">返回</a>
 </div>
-@*
-<script>
-    function getData() {
-        var fromDate = $('#fromDate').val();
-        var toDate = $('#toDate').val();
 
-        window.location.href = '/CaseDailyRegistrations/Export?format=html&fromDate=' + fromDate + '&toDate=' + toDate;
-    }
-</script>
-*@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
-        var pageSize = 2; // Rows per page
+        var pageSize = 5; // Rows per page
         var tableBody = $('#pagination-table-body');
         var pagination = $('.pagination');
 
@@ -262,8 +240,10 @@
     });
 </script>
 <script>
-    function exportToFile(format) {
-        window.location.href = '/CaseDailyRegistrationsController/ExportToFile?format=' + format + '&term=yourSpecificTerm';
+    function exportData(exportType) {
+        var startDate = prompt("Enter the start date in format YYYY/MM:");
+        var endDate = prompt("Enter the end date in format YYYY/MM:");
+        window.location.href = '/YourController/ExportData?exportType=' + exportType + '&startDate=' + startDate + '&endDate=' + endDate;
     }
 </script>
 

@@ -282,6 +282,7 @@ namespace long_term_care.Models
                     .HasColumnName("Case_No");
 
                 entity.Property(e => e.CaseIDcard)
+                   .IsRequired()
                    .HasMaxLength(15)
                    .HasColumnName("Case_IDcard");
 
@@ -296,10 +297,12 @@ namespace long_term_care.Models
                 .HasColumnName("Case_Pluse");
 
                 entity.Property(e => e.CaseSystolic)
+               .IsRequired()
                .HasMaxLength(8)
                .HasColumnName("Case_Systolic");
 
                 entity.Property(e => e.CaseDiastolic)
+               .IsRequired()
                .HasMaxLength(8)
                .HasColumnName("Case_Diastolic");
 
@@ -314,10 +317,12 @@ namespace long_term_care.Models
                 .HasColumnName("Case_Temp");
 
                 entity.Property(e => e.CaseName)
+                   .IsRequired()
                    .HasMaxLength(8)
                    .HasColumnName("Case_Name");
 
                 entity.Property(e => e.Casedate)
+                   .IsRequired()
                    .HasColumnType("datetime")
                    .HasColumnName("Case_date");
 

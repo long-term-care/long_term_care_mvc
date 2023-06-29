@@ -22,6 +22,11 @@
             <form asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <h3>(單位名稱)   C單位巷弄長照站-每日登記表</h3>
+                <div>
+                    <button type="button" id="smallFont" class="font-size-button">小</button>
+                    <button type="button" id="normalFont" class="font-size-button">中</button>
+                    <button type="button" id="largeFont" class="font-size-button">大</button>
+                </div>
                 <div class="form-group">
                     <div class="row">
                         <div class="col" style="text-align:end; margin-top: 7px;">
@@ -70,7 +75,7 @@
                         <div class="row tBody">
                             <div class="form-group col-3">
                                 <div class="group">
-                                    <label asp-for="Casedate" class="control-label"> <input asp-for="Casedate" class="form-control transparent-input" type="datetime" placeholder="YYYY/MM/DD" /></label>
+                                    <label asp-for="Casedate" class="control-label"> <input asp-for="Casedate" class="form-control transparent-input" type="date" placeholder="YYYY/MM/DD" id="Casedate" name="Casedate" /></label>
                                     <span asp-validation-for="Casedate" class="text-danger"></span>
                                 </div>
                             </div>
@@ -155,7 +160,7 @@
             if (caseSystolic === 0 && caseDiastolic === 0) {
             } else if (caseSystolic >= 180 || caseDiastolic >= 120) {
                 displayValue = "高血壓3級";
-            } else if ((caseSystolic > 140 && caseSystolic <= 180) || (caseDiastolic > 90 && caseDiastolic < 120)) {
+            } else if ((caseSystolic >= 140 && caseSystolic < 180) || (caseDiastolic >= 90 && caseDiastolic < 120)) {
                 displayValue = "高血壓2級";
             } else if ((caseSystolic >= 130 && caseSystolic < 140) || (caseDiastolic >= 80 && caseDiastolic < 90)) {
                 displayValue = "高血壓1級";
@@ -175,6 +180,30 @@
         caseDiastolicInput.addEventListener("input", updateBloodPressureStatus);
 
         updateBloodPressureStatus();
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#Casedate").change(function () {
+                var selectedDate = $(this).val();
+                $.get('/CaseDailyRegistrations/IsDateExist', { caseDate: selectedDate }, function (response) {
+                    if (response.exists) {
+                        alert("此日期資料已存在，請重新輸入!");
+                        $("#Casedate").val(''); 
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        document.getElementById('smallFont').addEventListener('click', function () {
+            document.body.style.fontSize = '12px';
+        });
+        document.getElementById('normalFont').addEventListener('click', function () {
+            document.body.style.fontSize = '16px';
+        });
+        document.getElementById('largeFont').addEventListener('click', function () {
+            document.body.style.fontSize = '20px';
+        });
     </script>
 
         
