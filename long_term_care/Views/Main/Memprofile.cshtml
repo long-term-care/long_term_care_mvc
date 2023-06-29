@@ -1,0 +1,137 @@
+﻿@model long_term_care.Models.MemberInformation
+
+@{
+    ViewData["Title"] = "Memprofile";
+}
+
+<h1> @Html.DisplayFor(model => model.MemName) 的個人資料</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MemUnitName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MemUnitName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MemUnitNum)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MemUnitNum)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MemName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MemName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MemBd)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MemBd)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MemUid)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MemUid)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MemGender)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MemGender)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MemTphone)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MemTphone)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MemMphone)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MemMphone)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MemAddress)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MemAddress)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MemSite)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MemSite)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MemProf)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MemProf)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MemCert)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MemCert)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MemTrans)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MemTrans)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MemExpr)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MemExpr)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MemMovt)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MemMovt)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MemPserv)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MemPserv)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MemIdent)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MemIdent)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MemSerRec)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MemSerRec)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MemEdu)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MemEdu)
+        </dd>
+    </dl>
+</div>
+<div class="btn">
+    <a asp-action="FixMemprofile" asp-route-id="@Model.MemSid"><input type="submit" value="修改" class="btn btn-primary" /></a> 
+    <a asp-action="MemMainpage"><input type="submit" value="回首頁" class="btn btn-primary" /></a>
+</div>
+<style>
+    .btn{
+        display:flex;
+        margin-right:10px;
+    }
+</style>

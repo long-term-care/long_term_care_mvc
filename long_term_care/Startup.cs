@@ -51,6 +51,17 @@ namespace long_term_care
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
           });
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("管理員", policy =>
+                    policy.RequireRole("管理員"));
+
+                options.AddPolicy("社工", policy =>
+                    policy.RequireRole("社工"));
+
+                options.AddPolicy("志工", policy =>
+                    policy.RequireRole("志工"));
+            });
         }
 
 

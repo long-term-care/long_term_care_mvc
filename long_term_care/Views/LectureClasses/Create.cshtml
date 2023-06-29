@@ -106,14 +106,14 @@
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                         // 請求成功，執行相應的處理邏輯
+                        alert("課表修改成功");
+                        window.location.href = "/LectureClasses/Check";
                         var response = JSON.parse(xhr.responseText);
                         
                     }
 
                 };
-                xhr.send(JSON.stringify(data));
-                alert("課表修改成功");
-                window.location.href = "/LectureClasses/Check";
+                xhr.send(JSON.stringify(data));               
             })
         </script>
 

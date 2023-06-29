@@ -1,5 +1,6 @@
 ﻿using long_term_care.Models;
 using long_term_care.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace long_term_care.Controllers
 {
+    [Authorize]
     public class CaseActsignController : Controller
     {
         private readonly longtermcareContext _context;
@@ -18,6 +20,7 @@ namespace long_term_care.Controllers
         {
             _context = context;
         }
+
         public IActionResult Index(string searchTerm)
         {
             var model = YourDataAccessMethod(searchTerm); // 获取所有表单数据的方法，根据您的实际情况修改
@@ -76,6 +79,21 @@ namespace long_term_care.Controllers
         }
         public IActionResult Create()
         {
+            string nextFormNumber = "";
+
+
+            var lastForm = _context.CaseActs.OrderByDescending(f => f.ActId).FirstOrDefault();
+            if (lastForm != null)
+            {
+                int lastFormNumber = int.Parse(lastForm.ActId);
+                int nextFormNumberInt = lastFormNumber + 1;
+                nextFormNumber = nextFormNumberInt.ToString("0000");
+            }
+            else
+            {
+                nextFormNumber = "0001";
+            }
+            ViewData["ActId"] = nextFormNumber;
             return View();
         }
 
@@ -83,13 +101,12 @@ namespace long_term_care.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CaseActsignViewModel model)
         {
-            var id = _context.CaseActs.Count(x => x.ActId != null) + 1;
-            var actid = "Act" + id;
+           
             if (model.type == 1)
             {
                 var Act = new CaseAct
                 {
-                    ActId = actid,
+                    ActId = model.ActId,
                     ActCourse = model.ActCourse,
                     ActDate = model.ActDate,
                     ActLec = model.ActLec,

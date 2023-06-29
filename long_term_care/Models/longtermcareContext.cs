@@ -31,6 +31,8 @@ namespace long_term_care.Models
         public virtual DbSet<MemSign> MemSigns { get; set; }
         public virtual DbSet<MemberInformation> MemberInformations { get; set; }
 
+        public virtual DbSet<Roleset> Rolesets { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -840,7 +842,7 @@ namespace long_term_care.Models
                     .HasColumnName("Lec_Class");
 
                 entity.Property(e => e.LecDate)
-                    .HasColumnType("date")
+                    .HasColumnType("datetime")
                     .HasColumnName("Lec_Date");
 
                 entity.Property(e => e.LecLeader)
@@ -1026,8 +1028,30 @@ namespace long_term_care.Models
                     .IsRequired()
                     .HasMaxLength(8)
                     .HasColumnName("Mem_UnitNum");
+                entity.Property(e => e.RoleId)
+                    .HasMaxLength(10)
+                    .IsFixedLength(true);
+                entity.HasOne(d => d.Role)
+                    .WithMany(p => p.MemberInformations)
+                    .HasForeignKey(d => d.RoleId)
+                    .HasConstraintName("FK__Member_In__RoleI__51EF2864");
             });
+            modelBuilder.Entity<Roleset>(entity =>
+            {
+                entity.ToTable("Roleset");
 
+                entity.Property(e => e.Id)
+                    .HasMaxLength(10)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Permissions)
+                    .HasMaxLength(30)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.RoleName)
+                    .HasMaxLength(30)
+                    .IsFixedLength(true);
+            });
             OnModelCreatingPartial(modelBuilder);
         }
 

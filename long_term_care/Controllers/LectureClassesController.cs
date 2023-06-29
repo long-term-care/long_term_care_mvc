@@ -1,5 +1,6 @@
 ﻿using long_term_care.Models;
 using long_term_care.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace long_term_care.Controllers
 {
+    [Authorize]
     public class LectureClassesController : Controller
     {
         private readonly longtermcareContext _context;

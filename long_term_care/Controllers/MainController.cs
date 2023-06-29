@@ -188,10 +188,27 @@ namespace long_term_care.Controllers
                         var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, id),
-                    //new Claim(ClaimTypes.Role, "Administrator") // 如果要有「群組、角色、權限」，可以加入這一段  
                 };
-                        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
+                        if (user.RoleId == "1")
+                        {
+                            claims.Add(new Claim(ClaimTypes.Role, "管理員"));
+                            claims.Add(new Claim(ClaimTypes.Role, "社工"));
+                            claims.Add(new Claim(ClaimTypes.Role, "志工"));
+                        }
+                        else if (user.RoleId == "2")
+                        {
+                            claims.Add(new Claim(ClaimTypes.Role, "社工"));
+                            claims.Add(new Claim(ClaimTypes.Role, "志工"));
+                        }
+                        else if (user.RoleId == "3")
+                        {
+                            claims.Add(new Claim(ClaimTypes.Role, "志工"));
+                        }
+
+                        claims = claims.Distinct().ToList();
+
+                        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                         var authProperties = new AuthenticationProperties();
 
                         await HttpContext.SignInAsync(
@@ -199,18 +216,34 @@ namespace long_term_care.Controllers
                             new ClaimsPrincipal(claimsIdentity),
                             authProperties
                         );
+                        bool isAdmin = User.IsInRole("管理員");
+                        bool isSocialWorker = User.IsInRole("社工");
+                        bool isVolunteer = User.IsInRole("志工");
+
+                        if (isAdmin)
+                        {
+                            // 用户具有管理员角色
+                        }
+                        else if (isSocialWorker)
+                        {
+                            // 用户具有社工角色
+                        }
+                        else if (isVolunteer)
+                        {
+                            // 用户具有志工角色
+                        }
 
                         return LocalRedirect("~/Main/MemMainpage");
                     }
                     else
                     {
-                        // 驗證碼不正確
+                        // 验证码不正确
                         ModelState.AddModelError(string.Empty, "驗證碼錯誤");
                     }
                 }
                 else
                 {
-                    // 密碼不正確
+                    // 密码不正确
                     ModelState.AddModelError(string.Empty, "密碼錯誤");
                 }
             }
@@ -224,12 +257,53 @@ namespace long_term_care.Controllers
         }
 
 
+
         [Authorize]
         public IActionResult MemMainpage()
         {
-
+            string userName = User.Identity.Name;
+            var MemName = _context.MemberInformations.FirstOrDefault(x => x.MemSid == userName);
+            var name = MemName.MemName;
+            ViewData["name"] = name;
             return View();
         }
+        [Authorize(Policy = "管理員")]
+        public IActionResult Memprofile()
+        {
+            string userName = User.Identity.Name;
+            var MemName = _context.MemberInformations.FirstOrDefault(x => x.MemSid == userName);
+            return View(MemName);
+        }
+        [Authorize]
+        public IActionResult FixMemprofile()
+        {
+            string userName = User.Identity.Name;
+            var MemName = _context.MemberInformations.FirstOrDefault(x => x.MemSid == userName);
+            return View(MemName);
+        }
+        [HttpPost]
+        public async Task<IActionResult> FixMemprofileAsync(string id,[Bind("MemSid,MemUnitName,MemUnitNum,MemName,MemBd,MemUid,MemPassword,MemGender,MemTphone,MemMphone,MemAddress,MemSite,MemProf,MemCert,MemTrans,MemExpr,MemMovt,MemPserv,MemIdent,MemSerRec,MemEdu")] MemberInformation memberInformation)
+        {
+            
+            memberInformation.MemTphone = memberInformation.MemTphone ?? "";
+            memberInformation.MemMphone = memberInformation.MemMphone ?? "";
+            memberInformation.MemAddress = memberInformation.MemAddress ?? "";
+            memberInformation.MemSite = memberInformation.MemSite ?? "";
+            memberInformation.MemProf = memberInformation.MemProf ?? "";
+            memberInformation.MemCert = memberInformation.MemCert ?? "";
+            memberInformation.MemTrans = memberInformation.MemTrans ?? "";
+            memberInformation.MemExpr = memberInformation.MemExpr ?? "";
+            memberInformation.MemMovt = memberInformation.MemMovt ?? "";
+            memberInformation.MemPserv = memberInformation.MemPserv ?? "";
+            memberInformation.MemIdent = memberInformation.MemIdent ?? "";
+            memberInformation.MemSerRec = memberInformation.MemSerRec ?? "";
+            memberInformation.MemEdu = memberInformation.MemEdu ?? "";
+
+            _context.Update(memberInformation);
+            await _context.SaveChangesAsync();
+            return View(memberInformation);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Logout()
         {

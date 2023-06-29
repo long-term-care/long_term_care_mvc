@@ -1,0 +1,129 @@
+﻿@model long_term_care.Models.MemberInformation
+
+@{
+    ViewData["Title"] = "FixMemprofile";
+}
+<style>
+    .form-group{
+        margin-bottom: 10px
+    }
+</style>
+<h1>@Html.DisplayFor(model => model.MemName) 的個人資料</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4" style="margin-bottom: 10px;">
+        <form asp-action="FixMemprofile">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MemSid" />
+            <div class="form-group">
+                <label asp-for="MemUnitName" class="control-label"></label>
+                <input asp-for="MemUnitName" class="form-control" />
+                <span asp-validation-for="MemUnitName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemUnitNum" class="control-label"></label>
+                <input asp-for="MemUnitNum" class="form-control" />
+                <span asp-validation-for="MemUnitNum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemName" class="control-label"></label>
+                <input asp-for="MemName" class="form-control" />
+                <span asp-validation-for="MemName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemBd" class="control-label"></label>
+                <input asp-for="MemBd" class="form-control" />
+                <span asp-validation-for="MemBd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemUid" class="control-label"></label>
+                <input asp-for="MemUid" class="form-control" />
+                <span asp-validation-for="MemUid" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="display:none;">
+                <label asp-for="MemPassword" class="control-label"></label>
+                <input asp-for="MemPassword" class="form-control" />
+                <span asp-validation-for="MemPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemGender" class="control-label"></label>
+                <input asp-for="MemGender" class="form-control" />
+                <span asp-validation-for="MemGender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemTphone" class="control-label"></label>
+                <input asp-for="MemTphone" class="form-control" />
+                <span asp-validation-for="MemTphone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemMphone" class="control-label"></label>
+                <input asp-for="MemMphone" class="form-control" />
+                <span asp-validation-for="MemMphone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemAddress" class="control-label"></label>
+                <input asp-for="MemAddress" class="form-control" />
+                <span asp-validation-for="MemAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemSite" class="control-label"></label>
+                <input asp-for="MemSite" class="form-control" />
+                <span asp-validation-for="MemSite" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemProf" class="control-label"></label>
+                <input asp-for="MemProf" class="form-control" />
+                <span asp-validation-for="MemProf" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemCert" class="control-label"></label>
+                <input asp-for="MemCert" class="form-control" />
+                <span asp-validation-for="MemCert" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemTrans" class="control-label"></label>
+                <input asp-for="MemTrans" class="form-control" />
+                <span asp-validation-for="MemTrans" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemExpr" class="control-label"></label>
+                <input asp-for="MemExpr" class="form-control" />
+                <span asp-validation-for="MemExpr" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemMovt" class="control-label"></label>
+                <input asp-for="MemMovt" class="form-control" />
+                <span asp-validation-for="MemMovt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemPserv" class="control-label"></label>
+                <input asp-for="MemPserv" class="form-control" />
+                <span asp-validation-for="MemPserv" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemIdent" class="control-label"></label>
+                <input asp-for="MemIdent" class="form-control" />
+                <span asp-validation-for="MemIdent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemSerRec" class="control-label"></label>
+                <input asp-for="MemSerRec" class="form-control" />
+                <span asp-validation-for="MemSerRec" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemEdu" class="control-label"></label>
+                <input asp-for="MemEdu" class="form-control" />
+                <span asp-validation-for="MemEdu" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="儲存" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Memprofile"><input type="submit" value="返回" class="btn btn-primary" /></a>
+</div>
+

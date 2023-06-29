@@ -1,6 +1,7 @@
 ﻿@model long_term_care.Models.LectureTable
 @{
     ViewData["Title"] = "Check";
+
 }
 <style>
     html, body {
@@ -110,7 +111,7 @@
         </table>
     </div>
     <div class="send">
-        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Index", "LectureTables")'">返回</button>
+        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Search", "LectureTables")'">返回</button>
     </div>
 
 </body>

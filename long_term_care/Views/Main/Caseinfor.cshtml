@@ -96,8 +96,9 @@
                         <select class="daySelect" required id="memday"></select>
                     </div>
                     <div class="col-3">
+                        <label for="memlistidentity">身分別</label>
                         <select id="memlistidentity" required>
-                            <option value="na"></option>
+                            <option value=""></option>
                             <option value="Low-income">低收入戶</option>
                             <option value="near-poor">中低收入戶</option>
                             <option value="normal">一般戶老人</option>
@@ -584,8 +585,10 @@
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                         // 請求成功，執行相應的處理邏輯
-                        var response = JSON.parse(xhr.responseText);
                         alert("註冊成功");
+                        window.location.href = "/Main/Login";
+                        var response = JSON.parse(xhr.responseText);
+                        
                        
                     }
 
@@ -681,8 +684,10 @@
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                         // 請求成功，執行相應的處理邏輯
-                        var response = JSON.parse(xhr.responseText);
                         alert("註冊成功");
+                        window.location.href = "/Main/Login";
+                        var response = JSON.parse(xhr.responseText);
+                        
                     }
 
                 };
