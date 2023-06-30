@@ -295,7 +295,7 @@ namespace long_term_care.Controllers
 
 
 
-
+        /*
 
         private IEnumerable<DailyResultViewModel> GetDataForDateRange(DateTime startDate, DateTime endDate)
         {
@@ -496,7 +496,7 @@ namespace long_term_care.Controllers
 
             return BadRequest("Invalid export type");
         }
-
+        */
 
 
     }

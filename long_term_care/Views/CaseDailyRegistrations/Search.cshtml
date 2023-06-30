@@ -55,6 +55,29 @@
                 #searchResults div:hover {
                     background-color: #eee;
                 }
+
+        #resultList {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .result-item {
+            display: block;
+            margin: 10px;
+            padding: 10px 20px;
+            border: 1px solid #8c8c8c;
+            border-radius: 5px;
+            background: linear-gradient(#f7f7f7, #e5e5e5);
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s ease-in-out;
+        }
+
+            .result-item:hover {
+                background: linear-gradient(#e5e5e5, #f7f7f7);
+            }
     </style>
     </head>
     <body>

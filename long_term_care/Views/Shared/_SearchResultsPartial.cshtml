@@ -1,15 +1,16 @@
 ﻿@model IEnumerable<long_term_care.Models.CaseInfor>
 
-<ul>
+<ul id="resultList">
     @foreach (var item in Model)
     {
-        <li onclick="selectPerson('@item.CaseNo', '@item.CaseName', '@item.CaseIdcard')">
-            @item.CaseNo, @item.CaseName, @item.CaseIdcard
+        <li class="result-item" onclick="selectPerson('@item.CaseNo', '@item.CaseName', '@item.CaseIdcard')">
+            @item.CaseNo |  @item.CaseName | @item.CaseIdcard
         </li>
     }
 </ul>
 
-@*
+
+
 <script>
     function selectPerson(caseNo, caseName, caseIdcard) {
         $("#CaseNo").val(caseNo);
@@ -18,4 +19,5 @@
 
         $("#searchResults").html("");
     }
-</script>*@
+</script>
+
