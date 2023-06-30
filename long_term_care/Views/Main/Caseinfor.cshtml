@@ -57,7 +57,7 @@
                     <div class="col-3">
                         <label for="memgender">性別<span class="required">*</span></label>
                         <select id="memgender" required>
-                            <option value="na"></option>
+                            <option value=""></option>
                             <option value="男">男</option>
                             <option value="女">女</option>
                         </select>
@@ -67,15 +67,14 @@
                         <input type="text" placeholder="&nbsp;&nbsp;" required id="memidcard">
                     </div>
                 </div>
-                <div class="col-12">
-                    <label for="memyear"style="margin-left:10px">出生日期<span class="required">*</span></label>
-                </div>
                 <div class="row">
                     <div class="col-3">
+                        <label for="memyear" style="margin-left:10px">出生日期<span class="required">*</span></label>
                         <select class="yearSelect" required id="memyear"></select>
                     </div>
                     <div class="col-3">
-                        <select class="monthSelect" required id="memmonth">
+                        <label for="monthselect"></label>
+                        <select class="monthselect" required id="memmonth">
                             <option value="na">月份</option>
                             <option value="1">一月</option>
                             <option value="2">二月</option>
@@ -93,6 +92,7 @@
                         </select>
                     </div>
                     <div class="col-3">
+                        <label for="daySelect"></label>
                         <select class="daySelect" required id="memday"></select>
                     </div>
                     <div class="col-3">
@@ -252,12 +252,12 @@
                 </div>
                 <div class="row">
                     <div class="col-3">
-                        <label for="yearSelect" style="">出生日期<span class="required">*</span></label>
+                        <label  style="">出生日期<span class="required">*</span></label>
                         <select class="yearSelect" required id="year"></select>
                     </div>
                     <div class="col-3">
                         <label for="yearSelect" style=""><span class="required"></span></label>
-                        <select class="monthSelect" required id="month">
+                        <select class="monthselect" required id="month">
                             <option value="">月份</option>
                             <option value="1">一月</option>
                             <option value="2">二月</option>
@@ -703,14 +703,14 @@
 
             var currentYear = new Date().getFullYear();
             var startYear = currentYear - 112;
-            var endYear = currentYear + 112;
             var yearSelect = $('.yearSelect');
-            for (var year = startYear; year <= endYear; year++) {
+            for (var year = currentYear; year <= startYear; year--) {
                 yearSelect.append($('<option>', {
                     value: year,
                     text: year
                 }));
             }
+
 
             var daysInMonth = 31;
             var daySelect = $('.daySelect');
