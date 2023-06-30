@@ -18,6 +18,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using SkiaSharp;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace long_term_care.Controllers
 {
@@ -186,9 +187,9 @@ namespace long_term_care.Controllers
                     if (string.Equals(verificationCode, serverVerificationCode, StringComparison.OrdinalIgnoreCase))
                     {
                         var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, id),
-                };
+                        {
+                          new Claim(ClaimTypes.Name,user.MemSid)
+                        };
 
                         if (user.RoleId == "1")
                         {
@@ -205,10 +206,13 @@ namespace long_term_care.Controllers
                             claims.Add(new Claim(ClaimTypes.Role, "志工"));
                         }
 
-                        claims = claims.Distinct().ToList();
+                        
 
                         var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                        var authProperties = new AuthenticationProperties();
+                        var authProperties = new AuthenticationProperties()
+                        {
+                            
+                        };
 
                         await HttpContext.SignInAsync(
                             CookieAuthenticationDefaults.AuthenticationScheme,
@@ -266,7 +270,7 @@ namespace long_term_care.Controllers
             ViewData["name"] = name;
             return View();
         }
-        [Authorize(Roles ="管理員")]
+        [Authorize(Roles = "管理員")]
         public IActionResult Memprofile()
         {
             string userName = User.Identity.Name;
@@ -311,7 +315,34 @@ namespace long_term_care.Controllers
             // 返回重定向到登录页面或其他页面的响应
             return RedirectToAction("Login", "Main");
         }
+        [Authorize(Roles = "管理員")]
 
+        public IActionResult Roleset()
+        {
+            var members = _context.MemberInformations.Where(x => x.RoleId != "1").ToList();
+
+            var ViewModel = new RolesetViewModel
+            {
+                Members = members
+            };
+            return View(ViewModel);
+        }
+        [HttpPost]
+        public IActionResult Roleset(string id,string roleid)
+        {
+            var member = _context.MemberInformations.FirstOrDefault(x=>x.MemSid == id);
+            member.RoleId = roleid;
+            _context.SaveChanges();
+
+            var members = _context.MemberInformations.Where(x => x.RoleId != "1").ToList();
+
+            var ViewModel = new RolesetViewModel
+            {
+                Members = members
+            };
+            TempData["SuccessMessage"] = "Success";
+            return View(ViewModel);
+        }
         [HttpPost]
         public ActionResult ButtonClick(string buttonId)
         {
@@ -341,7 +372,7 @@ namespace long_term_care.Controllers
                     // 如果按鈕ID無效，返回控制器A的視圖或顯示錯誤信息
                     return RedirectToAction("ActionName", "ControllerA");
             }
-
         }
+
     }
 }

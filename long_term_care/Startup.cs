@@ -1,4 +1,4 @@
-using long_term_care.Models;
+ï»¿using long_term_care.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -38,7 +38,7 @@ namespace long_term_care
          services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
          .AddCookie(options =>
          {
-           //¹w³]µn¤JÅçÃÒºô§}¬°Account/Login, ­Y·QÅÜ§ó¤~»Ý­n³]©wLoginPath
+           //é è¨­ç™»å…¥é©—è­‰ç¶²å€ç‚ºAccount/Login, è‹¥æƒ³è®Šæ›´æ‰éœ€è¦è¨­å®šLoginPath
            options.LoginPath = new PathString("/Main/Login");
            options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
            options.SlidingExpiration = true;
@@ -46,21 +46,21 @@ namespace long_term_care
          });
          services.AddSession(options =>
           {
-                // ³]©w Session ªº¶W®É®É¶¡µ¥¿ï¶µ
+                // è¨­å®š Session çš„è¶…æ™‚æ™‚é–“ç­‰é¸é …
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
           });
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("ºÞ²z­û", policy =>
-                    policy.RequireRole("ºÞ²z­û"));
+                options.AddPolicy("ç®¡ç†å“¡", policy =>
+                    policy.RequireRole("ç®¡ç†å“¡"));
 
-                options.AddPolicy("ªÀ¤u", policy =>
-                    policy.RequireRole("ªÀ¤u"));
+                options.AddPolicy("ç¤¾å·¥", policy =>
+                    policy.RequireRole("ç¤¾å·¥"));
 
-                options.AddPolicy("§Ó¤u", policy =>
-                    policy.RequireRole("§Ó¤u"));
+                options.AddPolicy("å¿—å·¥", policy =>
+                    policy.RequireRole("å¿—å·¥"));
             });
         }
 
@@ -86,7 +86,7 @@ namespace long_term_care
             
 
 
-            app.UseAuthentication(); //ÅçÃÒ
+            app.UseAuthentication(); //é©—è­‰
 
             app.UseAuthorization();
 

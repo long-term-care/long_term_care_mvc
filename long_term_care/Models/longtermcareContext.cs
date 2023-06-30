@@ -937,7 +937,6 @@ namespace long_term_care.Models
                     .HasColumnName("Mem_SID");
 
                 entity.Property(e => e.MemAddress)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .HasColumnName("Mem_Address");
 
@@ -947,17 +946,14 @@ namespace long_term_care.Models
                     .HasColumnName("Mem_BD");
 
                 entity.Property(e => e.MemCert)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("Mem_Cert");
 
                 entity.Property(e => e.MemEdu)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("Mem_Edu");
 
                 entity.Property(e => e.MemExpr)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("Mem_Expr");
 
@@ -967,17 +963,14 @@ namespace long_term_care.Models
                     .HasColumnName("Mem_Gender");
 
                 entity.Property(e => e.MemIdent)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("Mem_Ident");
 
                 entity.Property(e => e.MemMovt)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .HasColumnName("Mem_Movt");
 
                 entity.Property(e => e.MemMphone)
-                    .IsRequired()
                     .HasMaxLength(10)
                     .HasColumnName("Mem_MPhone");
 
@@ -992,32 +985,26 @@ namespace long_term_care.Models
                     .HasColumnName("Mem_Password");
 
                 entity.Property(e => e.MemProf)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("Mem_Prof");
 
                 entity.Property(e => e.MemPserv)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("Mem_PServ");
 
                 entity.Property(e => e.MemSerRec)
-                    .IsRequired()
                     .HasMaxLength(30)
                     .HasColumnName("Mem_SerRec");
 
                 entity.Property(e => e.MemSite)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .HasColumnName("Mem_Site");
 
                 entity.Property(e => e.MemTphone)
-                    .IsRequired()
                     .HasMaxLength(12)
                     .HasColumnName("Mem_Tphone");
 
                 entity.Property(e => e.MemTrans)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("Mem_Trans");
 
@@ -1036,7 +1023,7 @@ namespace long_term_care.Models
                     .HasMaxLength(8)
                     .HasColumnName("Mem_UnitNum");
                 entity.Property(e => e.RoleId)
-                    .HasMaxLength(10)
+                    .HasMaxLength(1)
                     .IsFixedLength(true);
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.MemberInformations)
@@ -1048,7 +1035,7 @@ namespace long_term_care.Models
                 entity.ToTable("Roleset");
 
                 entity.Property(e => e.Id)
-                    .HasMaxLength(10)
+                    .HasMaxLength(1)
                     .IsFixedLength(true);
 
                 entity.Property(e => e.Permissions)
