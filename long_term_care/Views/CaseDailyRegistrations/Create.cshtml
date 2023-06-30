@@ -41,22 +41,21 @@
                 @*<input type="text" id="CaseName" name="CaseName" value="@Model.CaseName" />
                 <input type="text" id="CaseNo" name="CaseNo" value="@Model.CaseNo" />
                 <input type="text" id="CaseIDcard" name="CaseIDcard" value="@Model.CaseIDcard" />*@
-
+                <div>
+                    <label asp-for="CaseNo">個案編號:</label>
+                    <input asp-for="CaseNo" readonly />
+                </div>
+                @*
                 <div>
                     <label asp-for="CaseName">個案姓名:</label>
                     <input asp-for="CaseName" readonly />
                 </div>
 
                 <div>
-                    <label asp-for="CaseNo">個案編號:</label>
-                    <input asp-for="CaseNo" readonly />
-                </div>
-
-                <div>
                     <label asp-for="CaseIDcard">個案身分證:</label>
                     <input asp-for="CaseIDcard" readonly />
                 </div>
-
+                *@
                 <div class="GiantBox">
                     <div class="title">
                         <div class="row header">

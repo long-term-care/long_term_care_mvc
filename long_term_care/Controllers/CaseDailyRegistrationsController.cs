@@ -83,8 +83,8 @@ namespace long_term_care.Controllers
         public IActionResult StoreInTempData(string caseNo, string caseName, string caseIDcard)
         {
             TempData["CaseNo"] = caseNo;
-            TempData["CaseName"] = caseName;
-            TempData["CaseIDCard"] = caseIDcard;
+            //TempData["CaseName"] = caseName;
+            //TempData["CaseIDCard"] = caseIDcard;
 
             return Json(new { status = "success" });
         }
@@ -126,7 +126,6 @@ namespace long_term_care.Controllers
                           CaseCntRel = ci.CaseCntRel,
                           CaseNo = ccr.CaseNo,
                           CaseContId = ccr.CaseContId,
-                          CaseIDcard = ccr.CaseIDcard,
                           Casedate = ccr.Casedate,
                           CasePluse = ccr.CasePluse,
                           CaseTemp = ccr.CaseTemp,
@@ -154,7 +153,7 @@ namespace long_term_care.Controllers
             {
                 viewModel.CaseNo = TempData["CaseNo"].ToString();
             }
-
+            /*
             if (TempData["CaseName"] != null)
             {
                 viewModel.CaseName = TempData["CaseName"].ToString();
@@ -164,7 +163,7 @@ namespace long_term_care.Controllers
             {
                 viewModel.CaseIDcard = TempData["CaseIDCard"].ToString();
             }
-
+            */
             string nextFormNumber = "";
 
             var lastForm = _context.CaseDailyRegistrations.OrderByDescending(f => f.CaseContId).FirstOrDefault();
@@ -191,7 +190,7 @@ namespace long_term_care.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CaseContId,CaseNo,CaseIDcard,CaseName,CaseDiastolic,CaseSystolic,Casedate,CaseTemp,CasePluse,CaseBlood,CasePick")] CaseDailyRegistration caseDailyRegistration)
+        public async Task<IActionResult> Create([Bind("CaseContId,CaseNo,CaseDiastolic,CaseSystolic,Casedate,CaseTemp,CasePluse,CaseBlood,CasePick")] CaseDailyRegistration caseDailyRegistration)
         {
 
             if (ModelState.IsValid)
@@ -226,7 +225,7 @@ namespace long_term_care.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("CaseContId,CaseIDcard,CaseName,CaseDiastolic,CaseSystolic,CaseNo,Casedate,CaseTemp,CasePluse,CaseBlood,CasePick")] CaseDailyRegistration caseDailyRegistration)
+        public async Task<IActionResult> Edit(string id, [Bind("CaseContId,CaseDiastolic,CaseSystolic,CaseNo,Casedate,CaseTemp,CasePluse,CaseBlood,CasePick")] CaseDailyRegistration caseDailyRegistration)
         {
             if (id != caseDailyRegistration.CaseContId)
             {
