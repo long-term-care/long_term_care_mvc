@@ -1,6 +1,8 @@
 ﻿@*@model IEnumerable<long_term_care.Models.CaseDailyRegistration>*@
 @using long_term_care.ViewModels;
-@model IEnumerable<DailyResultViewModel>
+@*@model IEnumerable<DailyResultViewModel>*@
+@model IEnumerable<long_term_care.ViewModels.DailyResultViewModel>
+
 
 @{
     ViewData["Title"] = "SearchResult";
@@ -191,22 +193,12 @@
 </table>
 
 <div class="pagination"></div>
-@*
-<div class="col-md-2">
-    <button type="button" class="btn btn-secondary" onclick="exportData('pdf')">Export as PDF</button>
+<div class="export-buttons">
+    <button type="button" class="btn btn-primary" onclick="exportData('excel')">Export to Excel</button>
+    <button type="button" class="btn btn-primary" onclick="exportData('doc')">Export to Doc</button>
+    <button type="button" class="btn btn-primary" onclick="exportData('pdf')">Export to PDF</button>
 </div>
-<div class="col-md-2">
-    <button type="button" class="btn btn-secondary" onclick="exportData('excel')">Export as Excel</button>
-</div>
-<div class="col-md-2">
-    <button type="button" class="btn btn-secondary" onclick="exportData('word')">Export as Word</button>
-</div>
-*@
-<script>
-    function exportData(format) {
-        window.location.href = '/CaseDailyRegistrations/Export?format=' + format;
-    }
-</script>
+
 
 <div>
     <a asp-action="Details">返回</a>
@@ -247,6 +239,14 @@
         });
     });
 </script>
+<script>
+    function exportData(exportType) {
+        var startDate = prompt("Enter the start date in format YYYY/MM:");
+        var endDate = prompt("Enter the end date in format YYYY/MM:");
+        window.location.href = '/YourController/ExportData?exportType=' + exportType + '&startDate=' + startDate + '&endDate=' + endDate;
+    }
+</script>
+
 
 @section topCSS {
     <style>
@@ -326,7 +326,7 @@
         a {
             color: #5C9DF7;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 16px
             transition: color 0.3s ease;
         }
 

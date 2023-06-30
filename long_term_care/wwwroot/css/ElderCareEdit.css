@@ -130,3 +130,24 @@ input:focus {
 .question, .col, .ElderIDInput, h6, p {
     font-size: 18px;
 }
+#searchResults {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+    #searchResults ul {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    #searchResults li {
+        padding: 8px;
+        border-bottom: 1px solid #ccc;
+        cursor: pointer;
+    }
+
+        #searchResults li:hover {
+            background-color: #f1f1f1;
+        }

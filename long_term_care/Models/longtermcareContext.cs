@@ -64,8 +64,8 @@ namespace long_term_care.Models
                 entity.Property(e => e.CarCaseAdr)
                     .IsRequired()
                     .HasMaxLength(100)
-                    .HasColumnName("Car_CaseAdr");  
-                
+                    .HasColumnName("Car_CaseAdr");
+
                 entity.Property(e => e.CarAgencyLoc)
                     .HasMaxLength(100)
                     .HasColumnName("Car_AgencyLoc");
@@ -97,14 +97,14 @@ namespace long_term_care.Models
                     .HasMaxLength(30)
                     .HasColumnName("Car_Type");
 
-               
+
 
                 entity.Property(e => e.MemSid)
                     .IsRequired()
                     .HasMaxLength(8)
                     .HasColumnName("Mem_SID");
 
-             
+
 
                 entity.HasOne(d => d.MemS)
                     .WithMany(p => p.CarPicks)
@@ -282,6 +282,7 @@ namespace long_term_care.Models
                     .HasColumnName("Case_No");
 
                 entity.Property(e => e.CaseIDcard)
+                   .IsRequired()
                    .HasMaxLength(15)
                    .HasColumnName("Case_IDcard");
 
@@ -296,10 +297,12 @@ namespace long_term_care.Models
                 .HasColumnName("Case_Pluse");
 
                 entity.Property(e => e.CaseSystolic)
+               .IsRequired()
                .HasMaxLength(8)
                .HasColumnName("Case_Systolic");
 
                 entity.Property(e => e.CaseDiastolic)
+               .IsRequired()
                .HasMaxLength(8)
                .HasColumnName("Case_Diastolic");
 
@@ -314,10 +317,12 @@ namespace long_term_care.Models
                 .HasColumnName("Case_Temp");
 
                 entity.Property(e => e.CaseName)
+                   .IsRequired()
                    .HasMaxLength(8)
                    .HasColumnName("Case_Name");
 
                 entity.Property(e => e.Casedate)
+                   .IsRequired()
                    .HasColumnType("datetime")
                    .HasColumnName("Case_date");
 
@@ -325,7 +330,7 @@ namespace long_term_care.Models
                     .WithMany(p => p.CaseDailyRegistrations)
                     .HasForeignKey(d => d.CaseNo)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__case_dail__Case___32E0915F");                
+                    .HasConstraintName("FK__case_dail__Case___32E0915F");
             });
 
             modelBuilder.Entity<CaseInfor>(entity =>
@@ -823,7 +828,7 @@ namespace long_term_care.Models
                    .IsRequired()
                    .HasMaxLength(30)
                    .HasColumnName("Sch_E");
-               
+
                 entity.Property(e => e.Weeknum).HasColumnName("weeknum");
             });
 

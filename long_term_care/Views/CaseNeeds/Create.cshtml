@@ -9,6 +9,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/ElderCareEdit.css" asp-append-version="true" />
@@ -31,9 +32,13 @@
                         </span>
                     </div>
                     <div class="form-group ElderIDInput">
-                        <!--Must Same--->
-                        <label asp-for="CaseNo" class="control-label">個案編號: <input asp-for="CaseNo" class="form-control" type="text" /></label>
-                        <span asp-validation-for="CaseNo" class="text-danger"></span>
+                            <label for="caseName">個案姓名:</label>
+                            <input type="text" id="CaseName" name="caseName" placeholder="請輸入姓名" />
+                            <label for="caseNo">個案編號:</label>
+                            <input type="text" id="CaseNo" name="caseNo" placeholder="請輸入編號" />
+                            <label for="caseIDcard">個案身分證:</label>
+                            <input type="text" id="CaseIDcard" name="caseIDcard" placeholder="請輸入身分證" />
+                            <div id="searchResults"></div>
                     </div>
                     <div class="row align-items-start">
                         <div class="form-group col">
@@ -217,6 +222,7 @@
                         <div class="form-group question">
                             <label asp-for="CaseView7" class="control-label">七、您個人會的傳統技藝有：</label>
                             <input asp-for="CaseView7" class="form-control" type="text" />
+                            @*
                             <label asp-for="CaseView7" class="control-label">若有，您願意在C單位中將您會的傳統技藝分享出來嗎？</label>
                             <input type="checkbox" asp-for="CaseView7" value="可以" id="CaseView7Yes" />
                             <label for="CaseView7Yes">可以</label>
@@ -225,6 +231,7 @@
                             <input type="checkbox" asp-for="CaseView7" value="不會" id="CaseView7No" />
                             <label for="CaseView7No">不會</label>
                             <span asp-validation-for="CaseView7" class="text-danger"></span>
+                                *@
                         </div>
                         <div class="form-group question">
                             <label asp-for="CaseView8" class="control-label">八、如果需繳交活動費、伙食費（每週2個上午含點心或午餐），您認為每個月多少錢可接受?</label>
@@ -240,20 +247,38 @@
                             <span asp-validation-for="CaseView9" class="text-danger"></span>
                         </div>
                     </section>
-
-                    
+                    <div class="form-group wrap">
+                        <button class="button" type="submit" value="Create">儲存</button>
+                    </div>
                 </form>
             </div>
-        </div>
-            <div class="form-group wrap">
-                <button class="button" type="submit" value="Create">儲存</button>
+            <div>
+                <a asp-action="Index">返回</a>
             </div>
+        </div>
     </div>
 </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
 
-<div>
-    <a asp-action="Index">返回</a>
-</div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script> 
+        $(document).ready(function () {
+            $("#CaseNo, #CaseName, #CaseIDcard").on("input", function () {
+                var caseNo = $("#CaseNo").val();
+                var caseName = $("#CaseName").val();
+                var caseIDcard = $("#CaseIDcard").val();
+
+                $.ajax({
+                    url: '/CaseNeeds/Search', 
+                    data: { caseNo: caseNo, caseName: caseName, caseIDcard: caseIDcard },
+                    type: 'GET',
+                    success: function (data) {
+                        $("#searchResults").html(data);
+                    }
+                });
+            });
+        });
+    </script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
