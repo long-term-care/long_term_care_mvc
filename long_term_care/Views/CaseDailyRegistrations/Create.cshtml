@@ -139,9 +139,9 @@
     @section Scripts {
         @{
             await Html.RenderPartialAsync("_ValidationScriptsPartial");
-            }
+        }
     }
-        
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -188,7 +188,7 @@
                 $.get('/CaseDailyRegistrations/IsDateExist', { caseDate: selectedDate }, function (response) {
                     if (response.exists) {
                         alert("此日期資料已存在，請重新輸入!");
-                        $("#Casedate").val(''); 
+                        $("#Casedate").val('');
                     }
                 });
             });
@@ -205,10 +205,6 @@
             document.body.style.fontSize = '20px';
         });
     </script>
-
-        
-    
 </body>
-
 
 
