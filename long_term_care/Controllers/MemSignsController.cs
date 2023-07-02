@@ -126,5 +126,45 @@ namespace long_term_care.Controllers
             }          
             return View();
         }
+
+
+        public IActionResult Details()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Details(string MemSid, DateTime MemTelTime1)
+        {
+            if (string.IsNullOrEmpty(MemSid))
+            {
+                return Content("必須填入志工id !");
+            }
+            if (MemTelTime1 == DateTime.MinValue)
+            {
+                return Content("必须填入年月!");
+            }
+            var no1 = from ms in _context.MemSigns
+                      join mi in _context.MemberInformations on ms.MemSid equals mi.MemSid
+                      where ms.MemSid == MemSid && ms.MemTelTime1.Month == MemTelTime1.Month && ms.MemTelTime1.Year == MemTelTime1.Year
+
+                      select new MemSignSearchResultViewModel
+                      {
+                          MemYM = ms.MemTelTime1,
+                          MemName = mi.MemName,
+                          MemDate = ms.MemTelTime1,
+                          MemTelTime1 = ms.MemTelTime1,
+                          MemTelTime2 = ms.MemTelTime2,
+                          MemRecord = ms.MemRecord,
+                      };
+            var no2 = await no1.ToListAsync();
+            if (no2 == null)
+            {
+                return NotFound();
+            }
+
+            return View("SearchResult", no2);
+        }
     }
+
 }
