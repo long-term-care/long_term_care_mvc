@@ -28,175 +28,103 @@ namespace long_term_care.Controllers
         }
 
         // GET: MemSigns/Details/5
-        public IActionResult Details()
+        public IActionResult Sign()
         {
-            return View();
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Details(string MemSid, DateTime MemTelTime1)
-        {
-            if (string.IsNullOrEmpty(MemSid))
-            {
-                return Content("必須填入志工id !");
-            }
-            if (MemTelTime1 == DateTime.MinValue)
-            {
-                return Content("必须填入年月!");
-            }
-            var no1 = from ms in _context.MemSigns
-                      join mi in _context.MemberInformations on ms.MemSid equals mi.MemSid
-                      where ms.MemSid == MemSid && ms.MemTelTime1.Month == MemTelTime1.Month && ms.MemTelTime1.Year == MemTelTime1.Year
+            string userName = User.Identity.Name;
+            var member = _context.MemberInformations.FirstOrDefault(x => x.MemSid == userName);
 
-                      select new MemSignSearchResultViewModel
-                      {
-                          MemYM = ms.MemTelTime1,
-                          MemName = mi.MemName,
-                          MemDate = ms.MemTelTime1,
-                          MemTelTime1 = ms.MemTelTime1,
-                          MemTelTime2 = ms.MemTelTime2,
-                          MemRecord = ms.MemRecord,
-                      };
-            var no2 = await no1.ToListAsync();
-            if (no2 == null)
-            {
-                return NotFound();
-            }
-
-            return View("SearchResult", no2);
-        }
-        
-        // GET: MemSigns/Create
-        public IActionResult Create()
-        {
             string nextFormNumber = "";
 
-            
-                var lastForm = _context.MemSigns.OrderByDescending(f => f.MemSignQaid).FirstOrDefault();
-                if (lastForm != null)
-                {
-                    int lastFormNumber = int.Parse(lastForm.MemSignQaid);
-                    int nextFormNumberInt = lastFormNumber + 1;
-                    nextFormNumber = nextFormNumberInt.ToString("0000");
-                }
-                else
-                {
-                    nextFormNumber = "0001";
-                }
-            
 
+            var lastForm = _context.MemSigns.OrderByDescending(f => f.MemSignQaid).FirstOrDefault();
+            if (lastForm != null)
+            {
+                int lastFormNumber = int.Parse(lastForm.MemSignQaid);
+                int nextFormNumberInt = lastFormNumber + 1;
+                nextFormNumber = nextFormNumberInt.ToString("0000");
+            }
+            else
+            {
+                nextFormNumber = "0001";
+            }
             ViewData["MemSignQaid"] = nextFormNumber;
+            return View(member);
+        }
+        [HttpPost]
+        public IActionResult Sign([FromBody] MemsignViewModel model)
+        {
+            string userName = User.Identity.Name;
+            var member = _context.MemberInformations.FirstOrDefault(x => x.MemSid == userName);
 
 
-            ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid");
+            var data = new MemSign()
+            {
+                MemSignQaid = model.MemSignQaid,
+                MemSid = member.MemSid,
+                MemTelTime1 = model.MemTelTime1,
+                MemTelTime2 = null,
+                MemSignDate = model.MemTelTime1
+            };
+
+            _context.MemSigns.Add(data);
+            _context.SaveChanges();
             return View();
         }
-        
-        // POST: MemSigns/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+
+        public IActionResult Signout()
+        {
+            string userName = User.Identity.Name;
+            var member = _context.MemberInformations.FirstOrDefault(x => x.MemSid == userName);
+           
+
+            string nextFormNumber = "";
+
+
+            var lastForm = _context.MemSigns.OrderByDescending(f => f.MemSignQaid).FirstOrDefault();
+            if (lastForm != null)
+            {
+                int lastFormNumber = int.Parse(lastForm.MemSignQaid);
+                int nextFormNumberInt = lastFormNumber + 1;
+                nextFormNumber = nextFormNumberInt.ToString("0000");
+            }
+            else
+            {
+                nextFormNumber = "0001";
+            }
+            ViewData["MemSignQaid"] = nextFormNumber;
+
+            return View(member);
+        }
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MemSignQaid,MemSid,MemTelTime1,MemTelTime2,MemRecord")] MemSign memSign)
+        public IActionResult Signout([FromBody] MemsignViewModel model)
         {
-            
+            string userName = User.Identity.Name;
+            var member = _context.MemberInformations.FirstOrDefault(x => x.MemSid == userName);
+            DateTime today = DateTime.Today;
+            var data = _context.MemSigns.Where(x=>x.MemSignDate == today).FirstOrDefault(x => x.MemSid == userName);
 
-            if (ModelState.IsValid)
+            if(data == null)
             {
-                _context.Add(memSign);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid", memSign.MemSid);
-            return View(memSign);
-        }
-
-        // GET: MemSigns/Edit/5
-        public async Task<IActionResult> Edit(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var memSign = await _context.MemSigns.FindAsync(id);
-            if (memSign == null)
-            {
-                return NotFound();
-            }
-            ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid", memSign.MemSid);
-            return View(memSign);
-        }
-
-        // POST: MemSigns/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("MemSignQaid,MemSid,MemTelTime1,MemTelTime2,MemRecord")] MemSign memSign)
-        {
-            if (id != memSign.MemSignQaid)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
+                var signdata = new MemSign
                 {
-                    _context.Update(memSign);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!MemSignExists(memSign.MemSignQaid))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                    MemSignQaid = model.MemSignQaid,
+                    MemSid = member.MemSid,
+                    MemTelTime1 = null,
+                    MemTelTime2 = model.MemTelTime2,
+                    MemRecord = model.MemRecord,
+                    MemSignDate = today,
+                };
+                _context.MemSigns.Add(signdata);
+                _context.SaveChanges();
             }
-            ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid", memSign.MemSid);
-            return View(memSign);
-        }
-
-        // GET: MemSigns/Delete/5
-        public async Task<IActionResult> Delete(string id)
-        {
-            if (id == null)
+            else
             {
-                return NotFound();
-            }
-
-            var memSign = await _context.MemSigns
-                .Include(m => m.MemS)
-                .FirstOrDefaultAsync(m => m.MemSignQaid == id);
-            if (memSign == null)
-            {
-                return NotFound();
-            }
-
-            return View(memSign);
-        }
-
-        // POST: MemSigns/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
-        {
-            var memSign = await _context.MemSigns.FindAsync(id);
-            _context.MemSigns.Remove(memSign);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool MemSignExists(string id)
-        {
-            return _context.MemSigns.Any(e => e.MemSignQaid == id);
+                data.MemTelTime2 = model.MemTelTime2;
+                data.MemRecord = model.MemRecord;
+                _context.SaveChanges();
+            }          
+            return View();
         }
     }
 }

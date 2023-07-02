@@ -906,7 +906,6 @@ namespace long_term_care.Models
                     .HasColumnName("Mem_SignQAID");
 
                 entity.Property(e => e.MemRecord)
-                    .IsRequired()
                     .HasMaxLength(300)
                     .HasColumnName("Mem_Record");
 
@@ -922,6 +921,10 @@ namespace long_term_care.Models
                 entity.Property(e => e.MemTelTime2)
                     .HasColumnType("datetime")
                     .HasColumnName("Mem_TelTime2");
+
+                entity.Property(e => e.MemSignDate)
+                   .HasColumnType("date")
+                   .HasColumnName("Mem_SignDate");
 
                 entity.HasOne(d => d.MemS)
                     .WithMany(p => p.MemSigns)

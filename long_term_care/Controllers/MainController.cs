@@ -285,7 +285,7 @@ namespace long_term_care.Controllers
             return View(MemName);
         }
         [HttpPost]
-        public async Task<IActionResult> FixMemprofileAsync(string id,[Bind("MemSid,MemUnitName,MemUnitNum,MemName,MemBd,MemUid,MemPassword,MemGender,MemTphone,MemMphone,MemAddress,MemSite,MemProf,MemCert,MemTrans,MemExpr,MemMovt,MemPserv,MemIdent,MemSerRec,MemEdu")] MemberInformation memberInformation)
+        public async Task<IActionResult> FixMemprofileAsync(string id,[Bind("MemSid,MemUnitName,MemUnitNum,MemName,MemBd,MemUid,MemPassword,MemGender,MemTphone,MemMphone,MemAddress,MemSite,MemProf,MemCert,MemTrans,MemExpr,MemMovt,MemPserv,MemIdent,MemSerRec,MemEdu,RoleId")] MemberInformation memberInformation)
         {
             
             memberInformation.MemTphone = memberInformation.MemTphone ?? "";
