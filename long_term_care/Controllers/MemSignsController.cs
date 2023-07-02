@@ -146,15 +146,15 @@ namespace long_term_care.Controllers
             }
             var no1 = from ms in _context.MemSigns
                       join mi in _context.MemberInformations on ms.MemSid equals mi.MemSid
-                      where ms.MemSid == MemSid && ms.MemTelTime1.Month == MemTelTime1.Month && ms.MemTelTime1.Year == MemTelTime1.Year
+                      where ms.MemSid == MemSid && ms.MemSignDate.Month == MemTelTime1.Month && ms.MemSignDate.Year == MemTelTime1.Year
 
                       select new MemSignSearchResultViewModel
                       {
-                          MemYM = ms.MemTelTime1,
+                          MemYM = (DateTime)ms.MemTelTime1,
                           MemName = mi.MemName,
-                          MemDate = ms.MemTelTime1,
-                          MemTelTime1 = ms.MemTelTime1,
-                          MemTelTime2 = ms.MemTelTime2,
+                          MemDate = (DateTime)ms.MemTelTime1,
+                          MemTelTime1 = (DateTime)ms.MemTelTime1,
+                          MemTelTime2 = (DateTime)ms.MemTelTime2,
                           MemRecord = ms.MemRecord,
                       };
             var no2 = await no1.ToListAsync();
