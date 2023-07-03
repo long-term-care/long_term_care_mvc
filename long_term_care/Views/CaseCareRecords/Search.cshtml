@@ -1,0 +1,230 @@
+﻿@model IEnumerable<long_term_care.Models.CaseInfor>
+@{
+    Layout = null;
+}
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Search</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #f3f2ef;
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        label {
+            display: inline-block;
+            margin: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+        }
+
+        #searchResults {
+            margin-top: 20px;
+            padding: 10px;
+        }
+
+            #searchResults div {
+                margin: 10px;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                background-color: #f9f9f9;
+                cursor: pointer;
+                font-size: 16px;
+            }
+
+                #searchResults div:hover {
+                    background-color: #eee;
+                }
+
+        #resultList {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .result-item {
+            display: block;
+            margin: 10px;
+            padding: 10px 20px;
+            border: 1px solid #8c8c8c;
+            border-radius: 5px;
+            background: linear-gradient(#f7f7f7, #e5e5e5);
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s ease-in-out;
+        }
+
+            .result-item:hover {
+                background: linear-gradient(#e5e5e5, #f7f7f7);
+            }
+    </style>
+</head>
+<body>
+    <div>
+        <label for="caseName">個案姓名:</label>
+        <input type="text" id="CaseName" name="caseName" placeholder="請輸入姓名" />
+
+        <label for="caseNo">個案編號:</label>
+        <input type="text" id="CaseNo" name="caseNo" placeholder="請輸入編號" />
+
+        <label for="caseIDcard">個案身分證:</label>
+        <input type="text" id="CaseIDcard" name="caseIDcard" placeholder="請輸入身分證" />
+    </div>
+
+    <div id="searchResults"></div>
+
+    <script>
+        $("input").on("input", function () {
+            var caseNo = $("#CaseNo").val();
+            var caseName = $("#CaseName").val();
+            var caseIDcard = $("#CaseIDcard").val();
+
+            $.post('/CaseCareRecords/GetSearchResults', { caseNo, caseName, caseIDcard }, function (data) {
+                $("#searchResults").html(data);
+            });
+        });
+
+        function selectPerson(caseNo, caseName, caseIDcard) {
+            $.post('/CaseCareRecords/StoreInTempData', { caseNo, caseName, caseIDcard }, function () {
+                window.location.href = '/CaseCareRecords/Create';
+            });
+        }
+    </script>
+</body>
+</html>
+@*
+@model IEnumerable<long_term_care.Models.CaseCareRecord>
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h1>Search</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseTel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseHealth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseHome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseTime1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseQ1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseQ1Other)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseQ2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseQ2Other)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseQ3)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseQ3Other)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseQ4)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseQ4Other)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseNoNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemS)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseTel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseHealth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseHome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseTime1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseQ1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseQ1Other)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseQ2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseQ2Other)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseQ3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseQ3Other)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseQ4)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseQ4Other)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseNoNavigation.CaseNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemS.MemSid)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CaseQaid">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CaseQaid">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CaseQaid">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+*@

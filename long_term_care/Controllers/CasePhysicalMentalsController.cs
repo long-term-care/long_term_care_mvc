@@ -28,6 +28,47 @@ namespace long_term_care.Controllers
             return View(await longtermcareContext.ToListAsync());
         }
 
+        public IActionResult Search()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetSearchResults(string caseNo, string caseName, string caseIDcard)
+        {
+            var query = _context.CaseInfors.AsQueryable();
+
+            if (!string.IsNullOrEmpty(caseNo))
+            {
+                query = query.Where(c => c.CaseNo.Contains(caseNo));
+            }
+
+            if (!string.IsNullOrEmpty(caseName))
+            {
+                query = query.Where(c => c.CaseName.Contains(caseName));
+            }
+
+            if (!string.IsNullOrEmpty(caseIDcard))
+            {
+                query = query.Where(c => c.CaseIdcard.Contains(caseIDcard));
+            }
+
+            var results = await query.ToListAsync();
+
+            return PartialView("_SearchResultsPartial", results);
+        }
+
+        [HttpPost]
+        public IActionResult StoreInTempData(string caseNo, string caseName, string caseIDcard)
+        {
+            TempData["CaseNo"] = caseNo;
+            //TempData["CaseName"] = caseName;
+            //TempData["CaseIDCard"] = caseIDcard;
+
+            return Json(new { status = "success" });
+        }
+
+
         // GET: CasePhysicalMentals/Details/5
         public IActionResult Details()
         {
@@ -42,9 +83,6 @@ namespace long_term_care.Controllers
             {
                 return Content("必須提供個案案號!");
             } 
-            //var no1 = await _context.CasePhysicalMentals.Include(c => c.CaseNoNavigation)
-            //    .Where(m => m.CaseNo == CaseNo).ToListAsync();
-
             
             var no = from cpm in _context.CasePhysicalMentals
                      join ci in _context.CaseInfors on cpm.CaseNo equals ci.CaseNo
@@ -88,6 +126,23 @@ namespace long_term_care.Controllers
         // GET: CasePhysicalMentals/Create
         public IActionResult Create()
         {
+            var viewModel = new CasePhysicalMental();
+
+            if (TempData["CaseNo"] != null)
+            {
+                viewModel.CaseNo = TempData["CaseNo"].ToString();
+            }
+            /*
+            if (TempData["CaseName"] != null)
+            {
+                viewModel.CaseName = TempData["CaseName"].ToString();
+            }
+
+            if (TempData["CaseIDCard"] != null)
+            {
+                viewModel.CaseIDcard = TempData["CaseIDCard"].ToString();
+            }
+            */
             string nextFormNumber = "";
 
 
@@ -106,7 +161,7 @@ namespace long_term_care.Controllers
 
             ViewData["CaseQaid"] = nextFormNumber;
             ViewData["CaseNo"] = new SelectList(_context.CaseInfors, "CaseNo", "CaseNo");
-            return View();
+            return View(viewModel);
         }
 
         // POST: CasePhysicalMentals/Create

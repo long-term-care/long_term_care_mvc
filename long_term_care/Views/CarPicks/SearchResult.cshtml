@@ -7,133 +7,13 @@
 
 <h1>長者交通接送結果</h1>
 
-@{
-    bool isFirstIteration = true;
-    string caseName = null;
-    string caseBd = null;
-    string caseGender = null;
-    string caseNo = null;
-    string caseIdent = null;
-    string caseLang = null;
-    string caseMari = null;
-    string caseFami = null;
-    string caseAddr = null;
-    string caseCnta = null;
-    string caseCntTel = null;
-    string caseCntRel = null;
-}
-
-
-
-@foreach (var item in Model.Reverse())
-{
-    if (isFirstIteration)
-    {
-        <div class="col-md-2">
-            <button type="button" class="btn btn-secondary">基本資料</button>
-        </div>
-        <br />
-        caseName = item.CaseName;
-        caseBd = item.CaseBd;
-        caseGender = item.CaseGender;
-        caseNo = item.CaseNo;
-        caseIdent = item.CaseIdent;
-        caseLang = item.CaseLang;
-        caseMari = item.CaseMari;
-        caseFami = item.CaseFami;
-        caseAddr = item.CaseAddr;
-        caseCnta = item.CaseCnta;
-        caseCntTel = item.CaseCntTel;
-        caseCntRel = item.CaseCntRel;
-        isFirstIteration = false;
-
-        <div class="row align-items-start box">
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseName)
-            </div>
-            <div class="col-md-2">
-                @caseName
-            </div>
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseBd)
-            </div>
-            <div class="col-md-2">
-                @caseBd
-            </div>
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseGender)
-            </div>
-            <div class="col-md-2">
-                @caseGender
-            </div>
-        </div>
-        <br />
-        <div class="row align-items-start box">
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseLang)
-            </div>
-            <div class="col-md-2">
-                @caseLang
-            </div>
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseMari)
-            </div>
-            <div class="col-md-2">
-                @caseMari
-            </div>
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseFami)
-            </div>
-            <div class="col-md-2">
-                @caseFami
-            </div>
-        </div>
-        <br />
-        <div class="row align-items-start box">
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseAddr)
-            </div>
-            <div class="col-md-6">
-                @caseAddr
-            </div>
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseNo)
-            </div>
-            <div class="col-md-2">
-                @caseNo
-            </div>
-        </div>
-        <br />
-        <div class="row align-items-start box">
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseCnta)
-            </div>
-            <div class="col-md-2">
-                @caseCnta
-            </div>
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseCntTel)
-            </div>
-            <div class="col-md-2">
-                @caseCntTel
-            </div>
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseCntRel)
-            </div>
-            <div class="col-md-2">
-                @caseCntRel
-            </div>
-        </div>
-        <br />
-    }
-}
-
 <table class="table table-bordered">
     <thead>
         <tr>
             <th scope="col">日期</th>
             <th scope="col">車種</th>
             <th scope="col">車牌</th>
+            <th scope="col">長者</th>
             <th scope="col">接送地址</th>
             <th scope="col">單位地址</th>
             <th scope="col">操作</th>
@@ -158,6 +38,11 @@
                 <td>
                     <div class="form-group">
                         @Html.DisplayFor(modelItem => item.CarNum)
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CaseNo)
                     </div>
                 </td>
                 <td>

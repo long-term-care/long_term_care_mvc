@@ -100,7 +100,7 @@ namespace long_term_care.Controllers
         {
             if (string.IsNullOrEmpty(CaseNo))
             {
-                return Content("個案案號!");
+                return Content("必須填入個案案號 !");
             }
             if (Casedate == DateTime.MinValue)
             {

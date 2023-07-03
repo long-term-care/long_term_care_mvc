@@ -38,21 +38,17 @@
 
                     <div class="row">
                         <div class="col-6 form-group">
-                            <label asp-for="CarType" class="control-label">
-                                車種
-                                <select asp-for="CarType" class="form-control" id="CarType" name="CarType">
-                                    <option value="小巴">小巴</option>
-                                    <option value="汽車">汽車</option>
-                                    <option value="計程車">計程車</option>
-                                </select>
-                            </label>
+                            <label asp-for="CarType" class="control-label">車種</label>
+                            <select asp-for="CarType" class="form-control" asp-items="ViewBag.CarTypes"></select>
                             <span asp-validation-for="CarType" class="text-danger"></span>
                         </div>
                         <div class="col-6 form-group">
-                            <label asp-for="CarNum" class="control-label">車號&nbsp;<input asp-for="CarNum" class="form-control" type="text" /></label>
+                            <label asp-for="CarNum" class="control-label">車號</label>
+                            <select asp-for="CarNum" class="form-control" asp-items="ViewBag.CarNums"></select>
                             <span asp-validation-for="CarNum" class="text-danger"></span>
                         </div>
                     </div>
+
 
                     <div class="row">
                         <div class="col-6 form-group">

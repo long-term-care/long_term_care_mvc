@@ -31,68 +31,54 @@ namespace long_term_care.Controllers
 
         public IActionResult Details()
         {
+            ViewBag.CarTypes = new SelectList(_context.Vehicles, "CarType", "CarType");
+            ViewBag.CarNums = new SelectList(_context.Vehicles, "CarNum", "CarNum");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Details(string CaseNo, DateTime CarSearch)
+        public async Task<IActionResult> Details(string CarType, string CarNum, DateTime CarSearch)
         {
-            if (string.IsNullOrEmpty(CaseNo))
-            {
-                return Content("請填入長者編號!");
-            }
             if (CarSearch == DateTime.MinValue)
             {
                 return Content("請填入搜索年月!");
             }
 
             var carPicks = await (from ci in _context.CarPicks
-                                  join ccr in _context.CaseInfors on ci.CaseNo equals ccr.CaseNo
-                                  where ci.CaseNo == CaseNo &&
+                                  where ci.CarType == CarType &&
+                                        ci.CarNum == CarNum &&
                                         ci.CarSearch.Year == CarSearch.Year &&
                                         ci.CarSearch.Month == CarSearch.Month
                                   select new CarPickViewModel
                                   {
-                                      CaseName = ccr.CaseName,
-                                      CaseBd = ccr.CaseBd,
-                                      CaseGender = ccr.CaseGender,
-                                      CaseIdent = ccr.CaseIdent,
-                                      CaseLang = ccr.CaseLang,
-                                      CaseMari = ccr.CaseMari,
-                                      CaseFami = ccr.CaseFami,
-                                      CaseAddr = ccr.CaseAddr,
-                                      CaseCnta = ccr.CaseCnta,
-                                      CaseCntTel = ccr.CaseCntTel,
-                                      CaseCntRel = ccr.CaseCntRel,
-                                      CaseNo = ccr.CaseNo,
-
-                                      MemSid = ci.MemSid,
+                                      CaseNo = ci.CaseNo,
                                       CarSearch = ci.CarSearch,
                                       CarType = ci.CarType,
                                       CarNum = ci.CarNum,
                                       CarCaseAdr = ci.CarCaseAdr,
                                       CarAgencyLoc = ci.CarAgencyLoc,
-                                      CarMonth = ci.CarMonth,
-                                      CarL = ci.CarL,
-                                      CarKm = ci.CarKm,
-                                      CarPrice = ci.CarPrice,
+                                      CarMonth = ci.CarMonth
                                   }).ToListAsync();
 
-            if (carPicks.Count == 0)
+            if (!carPicks.Any())
             {
-                return NotFound();
+                return Content("查無此資料...");
             }
 
-            return View("SearchResult", carPicks);
-
+            return View("SearchResult", carPicks); 
         }
 
 
 
-        // GET: CarPicks/Create
-        public IActionResult Create()
+            // GET: CarPicks/Create
+            public IActionResult Create()
         {
+            var carTypes = _context.Vehicles.Select(v => new SelectListItem { Value = v.CarType, Text = v.CarType }).ToList();
+            var carNums = _context.Vehicles.Select(v => new SelectListItem { Value = v.CarNum, Text = v.CarNum }).ToList();
+
+            ViewBag.CarTypes = carTypes;
+            ViewBag.CarNums = carNums;
             string nextFormNumber = "";
 
             var lastForm = _context.CarPicks.OrderByDescending(f => f.CarId).FirstOrDefault();
@@ -110,8 +96,11 @@ namespace long_term_care.Controllers
             ViewData["CarId"] = nextFormNumber;
             ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid");
 
+
             return View();
         }
+
+
 
         // POST: CarPicks/Create
         [HttpPost]

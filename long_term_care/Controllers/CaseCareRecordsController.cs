@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using long_term_care.Models;
 using long_term_care.ViewModels;
 
+
 namespace long_term_care.Controllers
 {
     public class CaseCareRecordsController : Controller
@@ -26,8 +27,48 @@ namespace long_term_care.Controllers
             return View(await longtermcareContext.ToListAsync());
         }
 
+        public IActionResult Search()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetSearchResults(string caseNo, string caseName, string caseIDcard)
+        {
+            var query = _context.CaseInfors.AsQueryable();
+
+            if (!string.IsNullOrEmpty(caseNo))
+            {
+                query = query.Where(c => c.CaseNo.Contains(caseNo));
+            }
+
+            if (!string.IsNullOrEmpty(caseName))
+            {
+                query = query.Where(c => c.CaseName.Contains(caseName));
+            }
+
+            if (!string.IsNullOrEmpty(caseIDcard))
+            {
+                query = query.Where(c => c.CaseIdcard.Contains(caseIDcard));
+            }
+
+            var results = await query.ToListAsync();
+
+            return PartialView("_SearchResultsPartial", results);
+        }
+
+        [HttpPost]
+        public IActionResult StoreInTempData(string caseNo)
+        {
+            TempData["CaseNo"] = caseNo;
+            //TempData["CaseName"] = caseName;
+            //TempData["CaseIDCard"] = caseIDcard;
+
+            return Json(new { status = "success" });
+        }
+
         // GET: CaseCareRecords/Details/5
-        
+
         public IActionResult Details()
         {
             return View();
@@ -41,8 +82,6 @@ namespace long_term_care.Controllers
                 return Content("必須提供個案案號!");
             }
 
-            //var no = await _context.CaseCareRecords.Include(c => c.CaseNoNavigation)
-            //                    .Where(m => m.CaseNo == CaseNo).ToListAsync();
 
             var no1 = from ccr in _context.CaseCareRecords
                       join ci in _context.CaseInfors on ccr.CaseNo equals ci.CaseNo
@@ -91,6 +130,25 @@ namespace long_term_care.Controllers
         // GET: CaseCareRecords/Create
         public IActionResult Create()
         {
+
+            var viewModel = new CaseCareRecord();
+
+            if (TempData["CaseNo"] != null)
+            {
+                viewModel.CaseNo = TempData["CaseNo"].ToString();
+            }
+            /*
+            if (TempData["CaseName"] != null)
+            {
+                viewModel.CaseName = TempData["CaseName"].ToString();
+            }
+
+            if (TempData["CaseIDCard"] != null)
+            {
+                viewModel.CaseIDcard = TempData["CaseIDCard"].ToString();
+            }
+            */
+
             string nextFormNumber = "";
 
 
@@ -108,9 +166,9 @@ namespace long_term_care.Controllers
 
 
             ViewData["CaseQaid"] = nextFormNumber;
-            ViewData["CaseNo"] = new SelectList(_context.CaseInfors, "CaseNo", "CaseNo");
+            //ViewData["CaseNo"] = new SelectList(_context.CaseInfors, "CaseNo", "CaseNo");
             ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid");
-            return View();
+            return View(viewModel); 
         }
 
         // POST: CaseCareRecords/Create
