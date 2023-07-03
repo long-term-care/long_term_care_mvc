@@ -11,6 +11,7 @@
   <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.102.0" />
     <PackageReference Include="DocX" Version="2.4.0" />
+    <PackageReference Include="IronPdf" Version="2023.6.10" />
     <PackageReference Include="iTextSharp" Version="5.5.13.3" />
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>

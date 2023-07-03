@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using long_term_care.Models;
 using long_term_care.ViewModels;
 using System.Runtime.ConstrainedExecution;
+using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace long_term_care.Controllers
 {
@@ -56,19 +58,28 @@ namespace long_term_care.Controllers
             string userName = User.Identity.Name;
             var member = _context.MemberInformations.FirstOrDefault(x => x.MemSid == userName);
 
-
-            var data = new MemSign()
+            var today = _context.MemSigns.Where(x=>x.MemSid==userName).FirstOrDefault(x=>x.MemSignDate == model.MemTelTime1);
+            if(today != null)
             {
-                MemSignQaid = model.MemSignQaid,
-                MemSid = member.MemSid,
-                MemTelTime1 = model.MemTelTime1,
-                MemTelTime2 = null,
-                MemSignDate = model.MemTelTime1
-            };
+                string message = "今天已簽到過了!";
+                return Content(message);
 
-            _context.MemSigns.Add(data);
-            _context.SaveChanges();
-            return View();
+            }
+            else
+            {
+                var data = new MemSign()
+                {
+                    MemSignQaid = model.MemSignQaid,
+                    MemSid = member.MemSid,
+                    MemTelTime1 = model.MemTelTime1,
+                    MemTelTime2 = null,
+                    MemSignDate = model.MemTelTime1
+                };
+                _context.MemSigns.Add(data);
+                _context.SaveChanges();
+                return View();
+            }
+            
         }
 
 
@@ -76,7 +87,7 @@ namespace long_term_care.Controllers
         {
             string userName = User.Identity.Name;
             var member = _context.MemberInformations.FirstOrDefault(x => x.MemSid == userName);
-           
+
 
             string nextFormNumber = "";
 
@@ -102,9 +113,9 @@ namespace long_term_care.Controllers
             string userName = User.Identity.Name;
             var member = _context.MemberInformations.FirstOrDefault(x => x.MemSid == userName);
             DateTime today = DateTime.Today;
-            var data = _context.MemSigns.Where(x=>x.MemSignDate == today).FirstOrDefault(x => x.MemSid == userName);
+            var data = _context.MemSigns.Where(x => x.MemSignDate == today).FirstOrDefault(x => x.MemSid == userName);
 
-            if(data == null)
+            if (data == null)
             {
                 var signdata = new MemSign
                 {
@@ -123,48 +134,99 @@ namespace long_term_care.Controllers
                 data.MemTelTime2 = model.MemTelTime2;
                 data.MemRecord = model.MemRecord;
                 _context.SaveChanges();
-            }          
+            }
             return View();
         }
 
 
         public IActionResult Details()
         {
-            return View();
+            string userName = User.Identity.Name;
+            var member = _context.MemberInformations.FirstOrDefault(x => x.MemSid == userName);
+            return View(member);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Details(string MemSid, DateTime MemTelTime1)
+        public IActionResult Details(string Name, DateTime MemTelTime1)
         {
-            if (string.IsNullOrEmpty(MemSid))
-            {
-                return Content("必須填入志工id !");
-            }
             if (MemTelTime1 == DateTime.MinValue)
             {
                 return Content("必须填入年月!");
             }
-            var no1 = from ms in _context.MemSigns
-                      join mi in _context.MemberInformations on ms.MemSid equals mi.MemSid
-                      where ms.MemSid == MemSid && ms.MemSignDate.Month == MemTelTime1.Month && ms.MemSignDate.Year == MemTelTime1.Year
 
-                      select new MemSignSearchResultViewModel
-                      {
-                          MemYM = (DateTime)ms.MemTelTime1,
-                          MemName = mi.MemName,
-                          MemDate = (DateTime)ms.MemTelTime1,
-                          MemTelTime1 = (DateTime)ms.MemTelTime1,
-                          MemTelTime2 = (DateTime)ms.MemTelTime2,
-                          MemRecord = ms.MemRecord,
-                      };
-            var no2 = await no1.ToListAsync();
-            if (no2 == null)
-            {
-                return NotFound();
-            }
+         var no1 = _context.MemSigns
+        .Include(t1 => t1.MemS)
+        .Where(x => x.MemSid == Name && x.MemSignDate.Month == MemTelTime1.Month && x.MemSignDate.Year == MemTelTime1.Year)
+        .Select(x => new MemSignSearchResultViewModel
+        {
+            MemYM = x.MemTelTime1.HasValue ? x.MemTelTime1.Value : DateTime.Today,
+            MemSignQaid = x.MemSignQaid,
+            MemSid = x.MemSid,
+            MemName = x.MemS.MemName,
+            MemDate = x.MemSignDate,
+            MemTelTime1 = x.MemTelTime1.HasValue ? x.MemTelTime1.Value : DateTime.Today,
+            MemTelTime2 = x.MemTelTime2.HasValue ? x.MemTelTime2.Value : DateTime.Today,
+            MemRecord = x.MemRecord ?? string.Empty
+        }).ToList();
+            return View("SearchResult", no1);
+        }
 
-            return View("SearchResult", no2);
+        [HttpPost]
+        public IActionResult Checksign(string Qid, DateTime time, string Name, DateTime CheckDate)
+        {
+            var data = _context.MemSigns.FirstOrDefault(x => x.MemSignQaid == Qid);
+
+            DateTime currentDate = data.MemSignDate.Date;
+
+            // 建立新的日期時間物件，將日期部分設置為指定的日期，時間部分保持不變
+            DateTime newDate = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day, time.Hour, time.Minute, time.Second);
+            data.MemTelTime1 = newDate;
+            _context.SaveChanges();
+
+
+         var no1 = _context.MemSigns
+        .Include(t1 => t1.MemS)
+        .Where(x => x.MemSid == Name && x.MemSignDate.Month == CheckDate.Month && x.MemSignDate.Year == CheckDate.Year)
+        .Select(x => new MemSignSearchResultViewModel
+        {
+            MemYM = x.MemTelTime1.HasValue ? x.MemTelTime1.Value : DateTime.Today,
+            MemSignQaid = x.MemSignQaid,
+            MemSid = x.MemSid,
+            MemName = x.MemS.MemName,
+            MemDate = x.MemSignDate,
+            MemTelTime1 = x.MemTelTime1.HasValue ? x.MemTelTime1.Value : DateTime.Today,
+            MemTelTime2 = x.MemTelTime2.HasValue ? x.MemTelTime2.Value : DateTime.Today,
+            MemRecord = x.MemRecord ?? string.Empty
+        }).ToList();
+            return View("SearchResult", no1);
+        }
+        [HttpPost]
+        public IActionResult Checksignout(string Qid, DateTime time, string Name, DateTime CheckDate)
+        {
+            var data = _context.MemSigns.FirstOrDefault(x => x.MemSignQaid == Qid);
+
+            DateTime currentDate = data.MemSignDate.Date;
+
+            // 建立新的日期時間物件，將日期部分設置為指定的日期，時間部分保持不變
+            DateTime newDate = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day, time.Hour, time.Minute, time.Second);
+            data.MemTelTime2 = newDate;
+            _context.SaveChanges();
+
+         var no1 = _context.MemSigns
+       .Include(t1 => t1.MemS)
+       .Where(x => x.MemSid == Name && x.MemSignDate.Month == CheckDate.Month && x.MemSignDate.Year == CheckDate.Year)
+       .Select(x => new MemSignSearchResultViewModel
+       {
+           MemYM = x.MemTelTime1.HasValue ? x.MemTelTime1.Value : DateTime.Today,
+           MemSignQaid = x.MemSignQaid,
+           MemSid = x.MemSid,
+           MemName = x.MemS.MemName,
+           MemDate = x.MemSignDate,
+           MemTelTime1 = x.MemTelTime1.HasValue ? x.MemTelTime1.Value : DateTime.Today,
+           MemTelTime2 = x.MemTelTime2.HasValue ? x.MemTelTime2.Value : DateTime.Today,
+           MemRecord = x.MemRecord ?? string.Empty
+       }).ToList();
+            return View("SearchResult", no1);
         }
     }
-
 }

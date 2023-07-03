@@ -3,6 +3,7 @@ using long_term_care.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -62,6 +63,10 @@ namespace long_term_care.Controllers
         public async Task<IActionResult> Check()
         {
             var lectureClasses = await _context.LectureClasses.ToListAsync();
+
+            DateTime today = DateTime.Today;
+            var act =  _context.LectureTables.Where(x=>x.LecDate == today);
+            
             return View(lectureClasses);
         }
     }

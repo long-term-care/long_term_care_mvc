@@ -282,6 +282,34 @@
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) { // 请求完成
                     if (xhr.status === 200) { // 请求成功
+                        var newDiv = document.createElement("div");
+                        newDiv.className = "content";
+
+                        var idDiv = document.createElement("div");
+                        idDiv.className = "id";
+                        var idP = document.createElement("p");
+                        idP.textContent = CaseNo;
+                        idDiv.appendChild(idP);
+
+                        var toolDiv = document.createElement("div");
+                        toolDiv.className = "tool";
+                        var toolP = document.createElement("p");
+                        toolP.textContent = toolText;
+                        toolDiv.appendChild(toolP);
+
+                        var btnDiv = document.createElement("div");
+                        btnDiv.className = "btn";
+                        var deleteBtn = document.createElement("button");
+                        deleteBtn.type = "button";
+                        deleteBtn.className = "btn btn-secondary";
+                        deleteBtn.textContent = "刪除";
+                        btnDiv.appendChild(deleteBtn);
+
+                        newDiv.appendChild(idDiv);
+                        newDiv.appendChild(toolDiv);
+                        newDiv.appendChild(btnDiv);
+                        var container = document.getElementById("caseNoadd");
+                        container.appendChild(newDiv);
                         var response = JSON.parse(xhr.responseText);
                         // 执行成功后的操作，例如删除元素
                        
@@ -291,34 +319,7 @@
                     }
                 }
             };
-            var newDiv = document.createElement("div");
-            newDiv.className = "content";
-
-            var idDiv = document.createElement("div");
-            idDiv.className = "id";
-            var idP = document.createElement("p");
-            idP.textContent = CaseNo;
-            idDiv.appendChild(idP);
-
-            var toolDiv = document.createElement("div");
-            toolDiv.className = "tool";
-            var toolP = document.createElement("p");
-            toolP.textContent = toolText;
-            toolDiv.appendChild(toolP);
-
-            var btnDiv = document.createElement("div");
-            btnDiv.className = "btn";
-            var deleteBtn = document.createElement("button");
-            deleteBtn.type = "button";
-            deleteBtn.className = "btn btn-secondary";
-            deleteBtn.textContent = "刪除";
-            btnDiv.appendChild(deleteBtn);
-
-            newDiv.appendChild(idDiv);
-            newDiv.appendChild(toolDiv);
-            newDiv.appendChild(btnDiv);
-            var container = document.getElementById("caseNoadd");
-            container.appendChild(newDiv);
+           
 
             xhr.send(JSON.stringify(data));
             

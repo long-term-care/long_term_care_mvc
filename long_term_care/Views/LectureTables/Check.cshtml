@@ -1,4 +1,5 @@
-﻿@model long_term_care.Models.LectureTable
+﻿
+@model long_term_care.Models.LectureTable
 @{
     ViewData["Title"] = "Check";
 
@@ -71,7 +72,7 @@
             <p>問卷編號:@Html.DisplayFor(Model =>Model.LecId)</p>
             <p>設計人:@Html.DisplayFor(Model =>Model.MemSid)</p>
          </div>       
-        <table>
+        <table id="pdf">
             <tr>
                 <td colspan="2"><h4 style="font-weight: bold;">主題:@Html.DisplayFor(Model =>Model.LecTheme)</h4></td>
                 
@@ -111,8 +112,7 @@
         </table>
     </div>
     <div class="send">
-        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Search", "LectureTables")'">返回</button>
+        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Search", "LectureTables")'">返回</button
     </div>
 
 </body>
-
