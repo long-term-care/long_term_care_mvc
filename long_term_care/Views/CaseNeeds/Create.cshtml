@@ -31,14 +31,9 @@
                             <span asp-validation-for="CaseNeedId" class="text-danger"></span>
                         </span>
                     </div>
-                    <div class="form-group ElderIDInput">
-                            <label for="caseName">個案姓名:</label>
-                            <input type="text" id="CaseName" name="caseName" placeholder="請輸入姓名" />
-                            <label for="caseNo">個案編號:</label>
-                            <input type="text" id="CaseNo" name="caseNo" placeholder="請輸入編號" />
-                            <label for="caseIDcard">個案身分證:</label>
-                            <input type="text" id="CaseIDcard" name="caseIDcard" placeholder="請輸入身分證" />
-                            <div id="searchResults"></div>
+                     <div class="form-group ElderIDInput">
+                            <label asp-for="CaseNo">個案編號:</label>
+                            <input asp-for="CaseNo" readonly />
                     </div>
                     <div class="row align-items-start">
                         <div class="form-group col">

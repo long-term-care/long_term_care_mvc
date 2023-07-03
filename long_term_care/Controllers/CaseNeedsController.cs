@@ -19,8 +19,19 @@ namespace long_term_care.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Search(string caseNo, string caseName, string caseIDcard)
+        // GET: CaseNeeds
+        public async Task<IActionResult> Index()
+        {
+            var longtermcareContext = _context.CaseNeeds.Include(c => c.CaseNoNavigation);
+            return View(await longtermcareContext.ToListAsync());
+        }
+        public IActionResult Search()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetSearchResults(string caseNo, string caseName, string caseIDcard)
         {
             var query = _context.CaseInfors.AsQueryable();
 
@@ -43,13 +54,16 @@ namespace long_term_care.Controllers
 
             return PartialView("_SearchResultsPartial", results);
         }
-        // GET: CaseNeeds
-        public async Task<IActionResult> Index()
-        {
-            var longtermcareContext = _context.CaseNeeds.Include(c => c.CaseNoNavigation);
-            return View(await longtermcareContext.ToListAsync());
-        }
 
+        [HttpPost]
+        public IActionResult StoreInTempData(string caseNo, string caseName, string caseIDcard)
+        {
+            TempData["CaseNo"] = caseNo;
+            //TempData["CaseName"] = caseName;
+            //TempData["CaseIDCard"] = caseIDcard;
+
+            return Json(new { status = "success" });
+        }
         // GET: CaseNeeds/Details/5
         public IActionResult Details()
         {
@@ -108,6 +122,23 @@ namespace long_term_care.Controllers
         // GET: CaseNeeds/Create
         public IActionResult Create()
         {
+            var viewModel = new CaseNeed();
+
+            if (TempData["CaseNo"] != null)
+            {
+                viewModel.CaseNo = TempData["CaseNo"].ToString();
+            }
+            /*
+            if (TempData["CaseName"] != null)
+            {
+                viewModel.CaseName = TempData["CaseName"].ToString();
+            }
+
+            if (TempData["CaseIDCard"] != null)
+            {
+                viewModel.CaseIDcard = TempData["CaseIDCard"].ToString();
+            }
+            */
 
             string nextFormNumber = "";
 
@@ -126,7 +157,7 @@ namespace long_term_care.Controllers
             ViewData["CaseNeedId"] = nextFormNumber;
 
             ViewData["CaseNo"] = new SelectList(_context.CaseInfors, "CaseNo", "CaseNo");
-            return View();
+            return View(viewModel);
         }
 
         // POST: CaseNeeds/Create

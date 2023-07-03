@@ -25,6 +25,45 @@ namespace long_term_care.Controllers
             var longtermcareContext = _context.CaseTelRecords.Include(c => c.CaseNoNavigation).Include(c => c.MemS);
             return View(await longtermcareContext.ToListAsync());
         }
+        public IActionResult Search()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetSearchResults(string caseNo, string caseName, string caseIDcard)
+        {
+            var query = _context.CaseInfors.AsQueryable();
+
+            if (!string.IsNullOrEmpty(caseNo))
+            {
+                query = query.Where(c => c.CaseNo.Contains(caseNo));
+            }
+
+            if (!string.IsNullOrEmpty(caseName))
+            {
+                query = query.Where(c => c.CaseName.Contains(caseName));
+            }
+
+            if (!string.IsNullOrEmpty(caseIDcard))
+            {
+                query = query.Where(c => c.CaseIdcard.Contains(caseIDcard));
+            }
+
+            var results = await query.ToListAsync();
+
+            return PartialView("_SearchResultsPartial", results);
+        }
+
+        [HttpPost]
+        public IActionResult StoreInTempData(string caseNo, string caseName, string caseIDcard)
+        {
+            TempData["CaseNo"] = caseNo;
+            //TempData["CaseName"] = caseName;
+            //TempData["CaseIDCard"] = caseIDcard;
+
+            return Json(new { status = "success" });
+        }
 
         // GET: CaseTelRecords/Details/5
         public IActionResult Details()
@@ -41,7 +80,7 @@ namespace long_term_care.Controllers
             }
             if (CaseYM == DateTime.MinValue)
             {
-                return Content("必须填入年月!");
+                return Content("請填入搜索年月!");
             }
             var no1 = from ctr in _context.CaseTelRecords
                       join ci in _context.CaseInfors on ctr.CaseNo equals ci.CaseNo
@@ -79,6 +118,23 @@ namespace long_term_care.Controllers
         // GET: CaseTelRecords/Create
         public IActionResult Create()
         {
+            var viewModel = new CaseTelRecord();
+
+            if (TempData["CaseNo"] != null)
+            {
+                viewModel.CaseNo = TempData["CaseNo"].ToString();
+            }
+            /*
+            if (TempData["CaseName"] != null)
+            {
+                viewModel.CaseName = TempData["CaseName"].ToString();
+            }
+
+            if (TempData["CaseIDCard"] != null)
+            {
+                viewModel.CaseIDcard = TempData["CaseIDCard"].ToString();
+            }
+            */
             string nextFormNumber = "";
 
 
@@ -98,7 +154,7 @@ namespace long_term_care.Controllers
             ViewData["CaseTelQaid"] = nextFormNumber;
             ViewData["CaseNo"] = new SelectList(_context.CaseInfors, "CaseNo", "CaseNo");
             ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid");
-            return View();
+            return View(viewModel);
         }
 
         // POST: CaseTelRecords/Create

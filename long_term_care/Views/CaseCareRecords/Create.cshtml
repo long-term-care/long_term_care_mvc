@@ -29,11 +29,14 @@
 
                     <span asp-validation-for="CaseQaid" class="text-danger"></span>
                 </div>
-                <div class="form-group col-md-4">
 
+                <div class="form-group col-md-4">
+                     <label asp-for="CaseNo">個案編號:</label>
+                    <input asp-for="CaseNo" readonly />
+                    @*
                     <label asp-for="CaseNo" class="control-label"></label>
                     <select asp-for="CaseNo" class="form-control" asp-items="ViewBag.CaseNo"></select>
-
+                    *@
 
                 </div>
                 <div class="form-group col-md-4">
