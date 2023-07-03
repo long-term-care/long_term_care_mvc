@@ -1,17 +1,16 @@
-﻿@*@model IEnumerable<long_term_care.Models.MemSign>*@
+﻿@using Microsoft.AspNetCore.Html;
 @using long_term_care.ViewModels;
 @model IEnumerable<MemSignSearchResultViewModel>
 
 @{
     ViewData["Title"] = "SearchResult";
-}
+    bool isAdmin = User.IsInRole("管理員");
+    var date = DateTime.Today;
 
-
-@{
-    bool isFirstIteration = true;   
+    bool isFirstIteration = true;
     DateTime? memYM = null;
     string memName = null;
-    
+   
 }
 
 @foreach (var item in Model)
@@ -26,7 +25,7 @@
         isFirstIteration = false;
 
         <h2>@formattedDate (志工) / (臨時人力)出勤紀錄表</h2>
-        <div>服務員（志工）/(臨時人力)姓名： @memName</div>
+        <div>姓名： @memName</div>
         
     }
 
@@ -54,38 +53,89 @@
                         @Html.DisplayFor(modelItem => item.MemDate)
                     </div>
                 </th>
-                <td>
-
-                    <div class="form-group">
-                        @Html.DisplayFor(modelItem => item.MemTelTime1)
-
-                    </div>
-                    
+                <td>     
+                    @if (isAdmin)
+                    {
+                        @if (item.MemTelTime1.ToString() == date.ToString())
+                        {
+                            <form action="/Memsigns/Checksign" method="post">
+                                <div class="form-group">
+                                    <input type="text" style="display:none;" name="Name" value="@item.MemSid">
+                                    <input type="date" style="display:none;" name="CheckDate" value="@item.MemDate.ToString("yyyy-MM-dd")">
+                                    <input type="text" style="display:none;"name="Qid" value="@item.MemSignQaid">
+                                    <input type="time" id="sign" name="time">
+                                    <button id="singbtn" type="submit">補簽</button>
+                                </div>
+                            </form>                           
+                        }
+                        else
+                        {
+                            <div class="form-group">
+                                @item.MemTelTime1
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        @if (item.MemTelTime1.ToString() == date.ToString())
+                        {
+                            <h1 style="color:red;">未簽到</h1>
+                        }
+                        else
+                        {
+                            <div class="form-group">
+                                @item.MemTelTime1
+                            </div>
+                        }
+                        
+                    }
 
                 </td>
                 <td>
-
-                    <div class="form-group">
-                        @Html.DisplayFor(modelItem => item.MemTelTime2)
-
-                    </div>
-                    
+                    @if (isAdmin)
+                    {
+                        @if (item.MemTelTime2.ToString() == date.ToString())
+                        {
+                            <form action="/Memsigns/Checksignout" method="post">
+                                <div class="form-group">
+                                    <input type="text" style="display:none;" name="Name" value="@item.MemSid">
+                                    <input type="date" style="display:none;" name="CheckDate" value="@item.MemDate.ToString("yyyy-MM-dd")">
+                                    <input type="text" style="display:none;" name="Qid" value="@item.MemSignQaid">
+                                    <input type="time" id="sign" name="time">
+                                    <button id="singbtn" type="submit">補簽</button>
+                                </div>
+                            </form>
+                        }
+                        else
+                        {
+                            <div class="form-group">
+                                @item.MemTelTime2
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        @if (item.MemTelTime2.ToString() == date.ToString())
+                        {
+                            <h1 style="color:red;">未簽退</h1>
+                        }
+                        else
+                        {
+                            <div class="form-group">
+                                @item.MemTelTime2
+                            </div>
+                        }
+                    }         
                 </td>
                 <td>
-
                     <div class="form-group">
-                        @Html.DisplayFor(modelItem => item.MemRecord)
-
-                    </div>
-                    
-
+                        @item.MemRecord
+                    </div>                   
                 </td>
-                
             </tr>
         }
     </tbody>
 </table>
-
 @section topCSS {
     <style type="text/css">
         

@@ -13,8 +13,8 @@ namespace long_term_care.ViewModels
         [DisplayFormat(DataFormatString = "{0:yyyy/MM}", ApplyFormatInEditMode = true)]
         [Display(Name = "年月")]
         public DateTime MemYM { get; set; }
-        
 
+        public string MemSid { get; set; }
         [Display(Name = "服務員姓名 : ")]
         public string MemName { get; set; }
 

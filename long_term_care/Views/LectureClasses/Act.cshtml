@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<long_term_care.Models.LectureClass>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Act";
     var data = Model.OrderBy(x => x.Weeknum);
 }
 
@@ -39,11 +39,11 @@
         width: 8%;
     }
 
-        .send {
+    .send {
         width: 100%;
         display: flex;
         justify-content: center;
-        align-items:center;
+        align-items: center;
     }
 
         .send button {
@@ -117,8 +117,8 @@
         </table>
     </div>
     <div class="send">
-        <button type="button" class="btn btn-primary"onclick="location.href='@Url.Action("Index", "LectureClasses")'">返回</button>
+        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Index", "LectureClasses")'">返回</button>
     </div>
-    
+
 </body>
 
