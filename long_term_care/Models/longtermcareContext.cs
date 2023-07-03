@@ -32,6 +32,7 @@ namespace long_term_care.Models
         public virtual DbSet<MemberInformation> MemberInformations { get; set; }
 
         public virtual DbSet<Roleset> Rolesets { get; set; }
+        public DbSet<Vehicle> Vehicles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -1043,6 +1044,21 @@ namespace long_term_care.Models
                 entity.Property(e => e.RoleName)
                     .HasMaxLength(30)
                     .IsFixedLength(true);
+            });
+
+            modelBuilder.Entity<Vehicle>(entity =>
+            {
+                entity.ToTable("Vehicle");
+
+                entity.Property(e => e.CarType)
+                    .IsRequired()
+                    .HasMaxLength(30)
+                    .HasColumnName("Car_Type");
+
+                entity.Property(e => e.CarNum)
+                    .IsRequired()
+                    .HasMaxLength(30)
+                    .HasColumnName("Car_Num");
             });
             OnModelCreatingPartial(modelBuilder);
         }

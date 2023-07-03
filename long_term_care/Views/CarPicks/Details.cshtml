@@ -3,20 +3,22 @@
 @{
     ViewData["Title"] = "Details";
 }
-
+@*Modify:To Search Date, CarNum, CArType*@
 @using (Html.BeginForm("Details", "CarPicks", FormMethod.Post))
 {
     <div class="container">
         <div class="insideBox">
             <h3>交通接送清冊資料查詢</h3>
-            <h5><span>請輸入長者編號</span></h5>
+            <h5><span>請輸入車種</span></h5>
+            @Html.DropDownList("CarType", ViewBag.CarTypes as SelectList, "Select Car Type")
+
+            <h5><span>請輸入車牌</span></h5>
+            @Html.DropDownList("CarNum", ViewBag.CarNums as SelectList, "Select Car Number")
+
+            <h5><span>請選擇搜尋月份</span></h5>
             <div class="content">
-                @Html.TextBox("CaseNo", null, new { placeholder = "長者編號" })
-                <h5><span>請選擇搜尋月份</span></h5>
-                <div class="content">
-                    <input type="month" name="CarSearch" id="CarSearch" placeholder=" 年 月">
-                    <button type="submit">查詢</button>
-                </div>
+                <input type="month" name="CarSearch" id="CarSearch" placeholder=" 年 月">
+                <button type="submit">查詢</button>
             </div>
         </div>
         <div>
@@ -24,6 +26,7 @@
         </div>
     </div>
 }
+
 
 
 
