@@ -72,17 +72,17 @@ namespace long_term_care.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Details(string CaseNo)
+        public async Task<IActionResult> Details(string CaseCardID)
         {
-            if (string.IsNullOrEmpty(CaseNo))
+            if (string.IsNullOrEmpty(CaseCardID))
             {
-                return Content("個案案號!");
+                return Content("請提供個案案號...");
             }
 
 
             var no1 = from ci in _context.CaseNeeds
                       join ccr in _context.CaseInfors on ci.CaseNo equals ccr.CaseNo
-                      where ccr.CaseNo == CaseNo
+                      where ccr.CaseIdcard == CaseCardID
                       orderby ci.CaseNeedId
                       select new NeedSearchResultViewModal
                       {

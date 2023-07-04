@@ -72,11 +72,11 @@ namespace long_term_care.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Details(DateTime CaseYM, string CaseNo)
+        public async Task<IActionResult> Details(DateTime CaseYM, string CaseCardID)
         {
-            if (string.IsNullOrEmpty(CaseNo))
+            if (string.IsNullOrEmpty(CaseCardID))
             {
-                return Content("必須填入個案案號 !");
+                return Content("請填入個案案號 ...");
             }
             if (CaseYM == DateTime.MinValue)
             {
@@ -84,7 +84,7 @@ namespace long_term_care.Controllers
             }
             var no1 = from ctr in _context.CaseTelRecords
                       join ci in _context.CaseInfors on ctr.CaseNo equals ci.CaseNo
-                      where ci.CaseNo == CaseNo && ctr.CaseRegTime.Month == CaseYM.Month && ctr.CaseRegTime.Year == CaseYM.Year
+                      where ci.CaseIdcard == CaseCardID && ctr.CaseRegTime.Month == CaseYM.Month && ctr.CaseRegTime.Year == CaseYM.Year
 
                       select new TelSearchResultViewModel
                       {

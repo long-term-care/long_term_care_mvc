@@ -94,11 +94,11 @@ namespace long_term_care.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Details(string CaseNo, DateTime Casedate)
+        public async Task<IActionResult> Details(string CaseCardID, DateTime Casedate)
         {
-            if (string.IsNullOrEmpty(CaseNo))
+            if (string.IsNullOrEmpty(CaseCardID))
             {
-                return Content("必須填入個案案號 !");
+                return Content("請填入個案身分證");
             }
             if (Casedate == DateTime.MinValue)
             {
@@ -106,7 +106,7 @@ namespace long_term_care.Controllers
             }
             var no1 = from ccr in _context.CaseDailyRegistrations
                       join ci in _context.CaseInfors on ccr.CaseNo equals ci.CaseNo
-                      where ccr.CaseNo == CaseNo &&
+                      where ci.CaseIdcard == CaseCardID &&
                             ccr.Casedate.Year == Casedate.Year &&
                             ccr.Casedate.Month == Casedate.Month
                       select new DailyResultViewModel
@@ -122,7 +122,7 @@ namespace long_term_care.Controllers
                           CaseCnta = ci.CaseCnta,
                           CaseCntTel = ci.CaseCntTel,
                           CaseCntRel = ci.CaseCntRel,
-                          CaseNo = ccr.CaseNo,
+                          CaseNo = ci.CaseNo,
                           CaseContId = ccr.CaseContId,
                           Casedate = ccr.Casedate,
                           CasePluse = ccr.CasePluse,

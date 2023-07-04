@@ -269,6 +269,21 @@
     </tbody>
 </table>
 
+<form method="post" action="/CaseCareRecords/ExportLatestCaseCareRecord">
+    <div class="form-group">
+        <label for="CaseNo">Case Number:</label>
+        <input type="text" class="form-control" id="CaseNo" name="CaseNo" required>
+    </div>
+    @*<input type="hidden" name="exportType" value="excel">*@
+    <label for="exportType">輸出格式:</label>
+    <select id="exportType" name="exportType">
+        <option value="excel">Excel</option>
+        <option value="doc">Word</option>
+        <option value="pdf">PDF</option>
+    </select>
+    <button type="submit" class="btn btn-primary">Export</button>
+</form>
+
 <div>
     <a asp-action="Details">返回</a>
 </div>

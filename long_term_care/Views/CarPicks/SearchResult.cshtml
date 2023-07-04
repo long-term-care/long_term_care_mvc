@@ -16,6 +16,9 @@
             <th scope="col">長者</th>
             <th scope="col">接送地址</th>
             <th scope="col">單位地址</th>
+            <th scope="col">耗油(L)</th>
+            <th scope="col">距離(Km)</th>
+            <th scope="col">花費金額</th>
             <th scope="col">操作</th>
         </tr>
     </thead>
@@ -56,15 +59,29 @@
                     </div>
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.CarId">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@item.CarId">Delete</a>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CarL)
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CarKm)
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CarPrice)
+                    </div>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CarId">編輯</a> |
+                    <a asp-action="Delete" asp-route-id="@item.CarId">刪除</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-<div class="pagination"></div>
 <div>
     <a asp-action="Details">返回</a>
 </div>

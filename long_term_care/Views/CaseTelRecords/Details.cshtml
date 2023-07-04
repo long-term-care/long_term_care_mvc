@@ -6,36 +6,15 @@
 
 <h1>Details</h1>
 
-@*@using (Html.BeginForm())
-{
-    <div>
-        <label for="yearMonth">年月：</label>
-        <input type="month" name="CaseYM" id="CaseYM">
-
-    </div>
-    <div>
-        <label for="number">個案案號：</label>
-        @Html.TextBox("CaseNo", null, new { id = "CaseNo" })
-    </div>
-
-    
-    <input class="btn btn-outline-success" type="submit" value="查詢" />
-
-
-}
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>*@
-
 @using (Html.BeginForm("Details", "CaseTelRecords", FormMethod.Post))
 {
     <div class="container-fluid">
         <div class="insideBox">
             <h3>C 單位巷弄長照站電話問安</h3>
-            <h5><span>請輸入年月.個案案號</span></h5>
+            <h5><span>請輸入年月.個案身分證</span></h5>
             <div class="content">
                 <input type="month" name="CaseYM" id="CaseYM" placeholder="年月">
-                @Html.TextBox("CaseNo", null, new { placeholder = "個案案號" })
+                @Html.TextBox("CaseCardID", null, new { placeholder = "個案身分證" })
 
                 <button type="submit">查詢</button>
             </div>
