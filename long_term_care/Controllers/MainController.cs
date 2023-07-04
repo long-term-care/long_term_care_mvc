@@ -357,15 +357,15 @@ namespace long_term_care.Controllers
                 case "Button4":
                     return RedirectToAction("Index", "CaseActsign");
                 case "Button5":
-                    return RedirectToAction("Index", "CaseDailyRegistrations");
+                    return RedirectToAction("Index", "CasePhysicalMentals");
                 case "Button6":
                     return RedirectToAction("Index", "CaseTelRecords");
                 case "Button7":
-                    return RedirectToAction("Index", "CasePhysicalMentals");
-                case "Button8":
-                    return RedirectToAction("Index", "CasePicks");
-                case "Button9":
                     return RedirectToAction("Index", "CaseCareRecords");
+                case "Button8":
+                    return RedirectToAction("Index", "CarPicks");
+                case "Button9":
+                    return RedirectToAction("Index", "CaseDailyRegistrations");
                 case "Button10":
                     return RedirectToAction("Index", "CaseNeeds");
                 default:
