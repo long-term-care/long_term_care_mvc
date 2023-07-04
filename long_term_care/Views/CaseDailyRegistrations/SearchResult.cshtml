@@ -193,11 +193,25 @@
 </table>
 
 <div class="pagination"></div>
-<div class="export-buttons">
-    <button type="button" class="btn btn-primary" onclick="exportData('excel')">Export to Excel</button>
-    <button type="button" class="btn btn-primary" onclick="exportData('doc')">Export to Doc</button>
-    <button type="button" class="btn btn-primary" onclick="exportData('pdf')">Export to PDF</button>
-</div>
+
+<form asp-action="ExportData" asp-controller="CaseDailyRegistrations" method="post">
+    <label for="startDate">輸出起日:</label>
+    <input type="date" id="startDate" name="startDate" required>
+
+    <label for="endDate">輸出迄日:</label>
+    <input type="date" id="endDate" name="endDate" required>
+
+    <label for="exportType">輸出格式:</label>
+    <select id="exportType" name="exportType">
+        <option value="excel">Excel</option>
+        <option value="doc">Word</option>
+        <option value="pdf">PDF</option>
+    </select>
+
+    <button type="submit">Export</button>
+</form>
+
+
 
 
 <div>
@@ -238,13 +252,6 @@
             tableBody.find('tr').hide().slice(startIndex, endIndex).show();
         });
     });
-</script>
-<script>
-    function exportData(exportType) {
-        var startDate = prompt("Enter the start date in format YYYY/MM:");
-        var endDate = prompt("Enter the end date in format YYYY/MM:");
-        window.location.href = '/YourController/ExportData?exportType=' + exportType + '&startDate=' + startDate + '&endDate=' + endDate;
-    }
 </script>
 
 

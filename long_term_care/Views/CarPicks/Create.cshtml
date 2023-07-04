@@ -83,7 +83,7 @@
                             <h6>範例</h6>
                         </div>
                         <div class="col-2 ex">
-                            <h6>1/1</h6>
+                            <h6>2023/01/01</h6>
                         </div>
                         <div class="col-3 ex">
                             <h6>個案編號</h6>
@@ -130,6 +130,24 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                document.querySelector('input[name="CarMonth"]').addEventListener('change', function () {
+                    const carMonthInput = this;
+                    const carMonthDate = new Date(carMonthInput.value);
+                    const carSearchInput = document.querySelector('input[name="CarSearch"]');
+                    const carSearchValue = carSearchInput.value;
+
+                    const [carSearchYear, carSearchMonth] = carSearchValue.split('/').map(Number);
+
+                    if (carMonthDate.getFullYear() !== carSearchYear || (carMonthDate.getMonth() + 1) !== carSearchMonth) {
+                        alert('月份不相符');
+                        carMonthInput.value = ''; 
+                    }
+                });
+            });
+
+    </script>
 </body>
 </html>
 @section Scripts {

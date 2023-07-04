@@ -13,14 +13,12 @@ using System.IO;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using OpenXmlWordprocessing = DocumentFormat.OpenXml.Wordprocessing;
-using iTextSharpWordprocessing = iTextSharp.text;
-using NPOIWordprocessing = NPOI.SS.UserModel;
 using Table = DocumentFormat.OpenXml.Wordprocessing.Table;
+using Text = DocumentFormat.OpenXml.Wordprocessing.Text;
+
+
 
 namespace long_term_care.Controllers
 {
@@ -294,68 +292,83 @@ namespace long_term_care.Controllers
 
 
 
-        /*
+
 
         private IEnumerable<DailyResultViewModel> GetDataForDateRange(DateTime startDate, DateTime endDate)
         {
-            
-            var dbContext = new longtermcareContext();
-            var data = dbContext.CaseDailyRegistrations
-                .Where(x => x.Casedate >= startDate && x.Casedate <= endDate)
-                .Select(x => new DailyResultViewModel
-                {
-                    Casedate = x.Casedate,
-                    CaseName = x.CaseName,
-                    CaseTemp = x.CaseTemp,
-                    CasePluse = x.CasePluse,
-                    CaseBlood = x.CaseBlood,
-                    CasePick = x.CasePick,
-                    CaseSystolic = x.CaseSystolic,
-                    CaseDiastolic = x.CaseDiastolic,
-                    CaseContId = x.CaseContId,
-                    CaseNo = x.CaseNo,
-                    CaseIDcard = x.CaseIDcard,
+            using (var dbContext = new longtermcareContext())
+            {
+                var data = dbContext.CaseDailyRegistrations
+                    .Where(x => x.Casedate >= startDate && x.Casedate <= endDate)
+                    .Include(c => c.CaseNoNavigation)
+                    .Join(dbContext.CaseInfors,
+                        ccr => ccr.CaseNo,
+                        ci => ci.CaseNo,
+                        (ccr, ci) => new DailyResultViewModel
+                        {
+                            Casedate = ccr.Casedate,
+                            CaseTemp = ccr.CaseTemp,
+                            CasePluse = ccr.CasePluse,
+                            CaseBlood = ccr.CaseBlood,
+                            CasePick = ccr.CasePick,
+                            CaseSystolic = ccr.CaseSystolic,
+                            CaseDiastolic = ccr.CaseDiastolic,
+                            CaseContId = ccr.CaseContId,
+                            CaseNo = ccr.CaseNo,
+                            CaseName = ci.CaseName,
+                            CaseBd = ci.CaseBd,
+                            CaseGender = ci.CaseGender,
+                            CaseIdent = ci.CaseIdent,
+                            CaseLang = ci.CaseLang,
+                            CaseMari = ci.CaseMari,
+                            CaseFami = ci.CaseFami,
+                            CaseAddr = ci.CaseAddr,
+                            CaseCnta = ci.CaseCnta,
+                            CaseCntTel = ci.CaseCntTel,
+                            CaseCntRel = ci.CaseCntRel
+                        })
+                    .ToList();
 
-                   
-                    CaseBd = "...", 
-                    CaseGender = "...",
-                    CaseIdent = "...",
-                    CaseLang = "...",
-                    CaseMari = "...",
-                    CaseFami = "...",
-                    CaseAddr = "...",
-                    CaseCnta = "...",
-                    CaseCntTel = "...",
-                    CaseCntRel = "..."
-                }).ToList();
-
-            return data;
+                return data;
+            }
         }
-
-
 
 
         [HttpPost]
         public IActionResult ExportData(string exportType, DateTime startDate, DateTime endDate)
         {
-            // Retrieve data from the database
-            var data = GetDataForDateRange(startDate, endDate); // It should return IEnumerable<DailyResultViewModel>
+            var data = GetDataForDateRange(startDate, endDate);
 
             if (exportType == "excel")
             {
-                // Implement Excel export logic here using NPOI
                 var workbook = new XSSFWorkbook();
                 var sheet = workbook.CreateSheet("Sheet1");
 
-                // Create header for personal information
                 var headerRow = sheet.CreateRow(0);
-                headerRow.CreateCell(0).SetCellValue("CaseName");
-                headerRow.CreateCell(1).SetCellValue("CaseBd");
-                headerRow.CreateCell(2).SetCellValue("CaseGender");
-                // ... Other personal information headers
+                headerRow.CreateCell(0).SetCellValue("姓名");
+                headerRow.CreateCell(1).SetCellValue("出生");
+                headerRow.CreateCell(2).SetCellValue("性別");
+                headerRow.CreateCell(3).SetCellValue("身分別");
+                headerRow.CreateCell(4).SetCellValue("語言");
+                headerRow.CreateCell(5).SetCellValue("婚姻");
+                headerRow.CreateCell(6).SetCellValue("家庭");
+                headerRow.CreateCell(7).SetCellValue("聯絡人");
+                headerRow.CreateCell(8).SetCellValue("關係");
+                headerRow.CreateCell(9).SetCellValue("聯絡人電話");
 
-                // Create header for daily registrations
-                var dailyHeaderRow = sheet.CreateRow(1);
+                var personalInfoRow = sheet.CreateRow(1);
+                personalInfoRow.CreateCell(0).SetCellValue(data.First().CaseName);
+                personalInfoRow.CreateCell(1).SetCellValue(data.First().CaseBd);
+                personalInfoRow.CreateCell(2).SetCellValue(data.First().CaseGender);
+                personalInfoRow.CreateCell(3).SetCellValue(data.First().CaseIdent);
+                personalInfoRow.CreateCell(4).SetCellValue(data.First().CaseLang);
+                personalInfoRow.CreateCell(5).SetCellValue(data.First().CaseMari);
+                personalInfoRow.CreateCell(6).SetCellValue(data.First().CaseFami);
+                personalInfoRow.CreateCell(7).SetCellValue(data.First().CaseCnta);
+                personalInfoRow.CreateCell(8).SetCellValue(data.First().CaseCntRel);
+                personalInfoRow.CreateCell(9).SetCellValue(data.First().CaseCntTel);
+
+                var dailyHeaderRow = sheet.CreateRow(2);
                 dailyHeaderRow.CreateCell(0).SetCellValue("日期");
                 dailyHeaderRow.CreateCell(1).SetCellValue("體溫");
                 dailyHeaderRow.CreateCell(2).SetCellValue("脈搏");
@@ -364,14 +377,6 @@ namespace long_term_care.Controllers
                 dailyHeaderRow.CreateCell(5).SetCellValue("血壓狀態");
                 dailyHeaderRow.CreateCell(6).SetCellValue("交通接送");
 
-                // Fill personal information
-                var personalInfoRow = sheet.CreateRow(2);
-                personalInfoRow.CreateCell(0).SetCellValue(data.First().CaseName);
-                personalInfoRow.CreateCell(1).SetCellValue(data.First().CaseBd);
-                personalInfoRow.CreateCell(2).SetCellValue(data.First().CaseGender);
-                // ... Other personal information values
-
-                // Fill daily registrations
                 int rowIndex = 3;
                 foreach (var item in data.Reverse())
                 {
@@ -385,75 +390,95 @@ namespace long_term_care.Controllers
                     row.CreateCell(6).SetCellValue(item.CasePick);
                 }
 
-                // Save and return file
                 using (var memoryStream = new MemoryStream())
                 {
                     workbook.Write(memoryStream);
                     return File(memoryStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "data.xlsx");
                 }
             }
-
             else if (exportType == "doc")
             {
-                using (MemoryStream mem = new MemoryStream())
+                MemoryStream mem = new MemoryStream();
+
+                using (WordprocessingDocument wordDocument = WordprocessingDocument.Create(mem, WordprocessingDocumentType.Document, true))
                 {
-                    using (WordprocessingDocument wordDocument = WordprocessingDocument.Create(mem, WordprocessingDocumentType.Document, true))
+                    MainDocumentPart mainPart = wordDocument.AddMainDocumentPart();
+                    mainPart.Document = new Document();
+                    Body body = mainPart.Document.AppendChild(new Body());
+
+                    Table table = new Table();
+
+                    TableRow nameRow = new TableRow();
+                    nameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("姓名")))));
+                    nameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("出生")))));
+                    nameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("性別")))));
+                    nameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("身分別")))));
+                    nameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("語言")))));
+                    nameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("婚姻")))));
+                    nameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("家庭")))));
+                    nameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("聯絡人")))));
+                    nameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("關係")))));
+                    nameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("聯絡人電話")))));
+
+                    table.Append(nameRow);
+
+                    TableRow dataNameRow = new TableRow();
+                    dataNameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(data.First().CaseName)))));
+                    dataNameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(data.First().CaseBd)))));
+                    dataNameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(data.First().CaseGender)))));
+                    dataNameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(data.First().CaseIdent)))));
+                    dataNameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(data.First().CaseLang)))));
+                    dataNameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(data.First().CaseMari)))));
+                    dataNameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(data.First().CaseFami)))));
+                    dataNameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(data.First().CaseCnta)))));
+                    dataNameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(data.First().CaseCntRel)))));
+                    dataNameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(data.First().CaseCntTel)))));
+                    table.Append(dataNameRow);
+
+                    TableRow headerRow = new TableRow();
+                    headerRow.Append(
+                        new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("日期")))),
+                        new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("體溫")))),
+                        new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("脈搏")))),
+                        new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("舒張壓")))),
+                        new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("收縮壓")))),
+                        new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("血壓狀態")))),
+                        new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("交通接送"))))
+                    );
+                    table.Append(headerRow);
+
+                    foreach (var item in data.Reverse())
                     {
-                        MainDocumentPart mainPart = wordDocument.AddMainDocumentPart();
-                        mainPart.Document = new OpenXmlWordprocessing.Document();
-                        Body body = mainPart.Document.AppendChild(new Body());
-
-                        Table table = new Table();
-                        TableRow headerRow = new TableRow();
-                        table.Append(headerRow);
-
-                        // Add header row cells
-                        headerRow.Append(
-                            new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("姓名")))),
-                            new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("日期")))),
-                            new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("體溫")))),
-                            new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("脈搏")))),
-                            new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("血壓狀態")))),
-                            new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("交通接送")))),
-                            new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("舒張壓")))),
-                            new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("收縮壓"))))
+                        TableRow dataRow = new TableRow();
+                        dataRow.Append(
+                            new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(item.Casedate.ToString("yyyy/MM/dd"))))),
+                            new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(item.CaseTemp)))),
+                            new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(item.CasePluse)))),
+                            new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(item.CaseSystolic)))),
+                            new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(item.CaseDiastolic)))),
+                            new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(item.CaseBlood)))),
+                            new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(item.CasePick))))
                         );
-
-                        // Add data rows
-                        foreach (var item in data)
-                        {
-                            TableRow dataRow = new TableRow();
-                            dataRow.Append(
-                                new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(item.CaseName)))),
-                                new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(item.Casedate.ToString("yyyy/MM/dd"))))),
-                                new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(item.CaseTemp)))),
-                                new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(item.CasePluse)))),
-                                new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(item.CaseBlood)))),
-                                new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(item.CasePick)))),
-                                new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(item.CaseSystolic)))),
-                                new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(item.CaseDiastolic))))
-                            );
-                            table.Append(dataRow);
-                        }
-
-                        body.Append(table);
+                        table.Append(dataRow);
                     }
 
-                    return File(mem.ToArray(), "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "data.docx");
+                    body.Append(table);
+                    mainPart.Document.Save(); 
                 }
-            }
 
+                mem.Position = 0; 
+                return File(mem.ToArray(), "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "data.docx");
+            }
+        
+            /*
             else if (exportType == "pdf")
             {
                 using (MemoryStream mem = new MemoryStream())
                 {
-                    iTextSharp.text.Document pdfDoc = new iTextSharp.text.Document();
-                    PdfWriter.GetInstance(pdfDoc, mem);
-                    pdfDoc.Open();
+                    iText.Kernel.Pdf.PdfDocument pdfDoc = new iText.Kernel.Pdf.PdfDocument(new iText.Kernel.Pdf.PdfWriter(mem));
+                    iText.Layout.Document document = new iText.Layout.Document(pdfDoc);
 
-                    PdfPTable table = new PdfPTable(8); // 8 columns for the daily registration data
-
-                    // Add column headers
+                    iText.Layout.Element.Table table = new iText.Layout.Element.Table(8);
                     table.AddCell("日期");
                     table.AddCell("體溫");
                     table.AddCell("脈搏");
@@ -463,7 +488,6 @@ namespace long_term_care.Controllers
                     table.AddCell("交通接送");
                     table.AddCell("個案編號");
 
-                    // Add data
                     foreach (var item in data)
                     {
                         table.AddCell(item.Casedate.ToString("yyyy/MM/dd"));
@@ -476,26 +500,25 @@ namespace long_term_care.Controllers
                         table.AddCell(item.CaseContId);
                     }
 
-                    pdfDoc.Add(table);
+                    document.Add(table);
 
-                    iTextSharp.text.Paragraph paragraph = new iTextSharp.text.Paragraph("\n\nAdditional Information\n");
-                    paragraph.Add(new iTextSharp.text.Chunk("姓名: " + data.First().CaseName));
-                    paragraph.Add(new iTextSharp.text.Chunk("\n出生: " + data.First().CaseBd));
-                    paragraph.Add(new iTextSharp.text.Chunk("\n性別: " + data.First().CaseGender));
-                    // pass
+                    iText.Layout.Element.Paragraph paragraph = new iText.Layout.Element.Paragraph("\n\nAdditional Information\n");
+                    paragraph.Add(new iText.Layout.Element.Text("姓名: " + data.First().CaseName));
+                    paragraph.Add(new iText.Layout.Element.Text("\n出生: " + data.First().CaseBd));
+                    paragraph.Add(new iText.Layout.Element.Text("\n性別: " + data.First().CaseGender));
 
-                    pdfDoc.Add(paragraph);
-
-                    pdfDoc.Close();
+                    document.Add(paragraph);
+                      
+                    document.Close();
 
                     return File(mem.ToArray(), "application/pdf", "data.pdf");
                 }
             }
+            */
 
-
-            return BadRequest("Invalid export type");
+            return BadRequest("錯誤格式");
         }
-        */
+        
 
 
     }

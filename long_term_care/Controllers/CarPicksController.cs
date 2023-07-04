@@ -35,7 +35,6 @@ namespace long_term_care.Controllers
             ViewBag.CarNums = new SelectList(_context.Vehicles, "CarNum", "CarNum");
             return View();
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Details(string CarType, string CarNum, DateTime CarSearch)
@@ -45,34 +44,41 @@ namespace long_term_care.Controllers
                 return Content("請填入搜索年月!");
             }
 
-            var carPicks = await (from ci in _context.CarPicks
-                                  where ci.CarType == CarType &&
-                                        ci.CarNum == CarNum &&
-                                        ci.CarSearch.Year == CarSearch.Year &&
-                                        ci.CarSearch.Month == CarSearch.Month
-                                  select new CarPickViewModel
-                                  {
-                                      CaseNo = ci.CaseNo,
-                                      CarSearch = ci.CarSearch,
-                                      CarType = ci.CarType,
-                                      CarNum = ci.CarNum,
-                                      CarCaseAdr = ci.CarCaseAdr,
-                                      CarAgencyLoc = ci.CarAgencyLoc,
-                                      CarMonth = ci.CarMonth
-                                  }).ToListAsync();
+            var query = _context.CarPicks.AsQueryable();
+            if (!string.IsNullOrEmpty(CarType))
+            {
+                query = query.Where(ci => ci.CarType == CarType);
+            }
+            if (!string.IsNullOrEmpty(CarNum))
+            {
+                query = query.Where(ci => ci.CarNum == CarNum);
+            }
+
+            query = query.Where(ci => ci.CarSearch.Year == CarSearch.Year && ci.CarSearch.Month == CarSearch.Month);
+
+            var carPicks = await query.Select(ci => new CarPickViewModel
+            {
+                CaseNo = ci.CaseNo,
+                CarSearch = ci.CarSearch,
+                CarType = ci.CarType,
+                CarNum = ci.CarNum,
+                CarCaseAdr = ci.CarCaseAdr,
+                CarAgencyLoc = ci.CarAgencyLoc,
+                CarMonth = ci.CarMonth
+            }).ToListAsync();
 
             if (!carPicks.Any())
             {
                 return Content("查無此資料...");
             }
 
-            return View("SearchResult", carPicks); 
+            return View("SearchResult", carPicks);
         }
 
 
 
-            // GET: CarPicks/Create
-            public IActionResult Create()
+        // GET: CarPicks/Create
+        public IActionResult Create()
         {
             var carTypes = _context.Vehicles.Select(v => new SelectListItem { Value = v.CarType, Text = v.CarType }).ToList();
             var carNums = _context.Vehicles.Select(v => new SelectListItem { Value = v.CarNum, Text = v.CarNum }).ToList();
@@ -108,18 +114,7 @@ namespace long_term_care.Controllers
         public async Task<IActionResult> Create([Bind("CarId,MemSid,CaseNo,CarSearch,CarAgencyLoc,CarType,CarNum,CarMonth,CarCaseAdr,CarL,CarKm,CarPrice")] CarPick carPick)
         {
             if (ModelState.IsValid)
-            {
-                // Check if CarSearch and CarMonth are not equal
-                if (carPick.CarSearch.Year != carPick.CarMonth.Year || carPick.CarSearch.Month != carPick.CarMonth.Month)
-                {
-                    ModelState.AddModelError("CarMonth", "The CarMonth must be equal to CarSearch.");
-
-                    ViewData["CarId"] = carPick.CarId;
-                    ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid", carPick.MemSid);
-
-                    return View(carPick);
-                }
-
+            { 
                 _context.Add(carPick);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
