@@ -86,7 +86,7 @@ namespace long_term_care.Controllers
         {
             if (string.IsNullOrEmpty(CaseCardID))
             {
-                return Content("請提供個案案號...");
+                return Content("請提供個案身分證...");
             }
 
 
@@ -287,18 +287,16 @@ namespace long_term_care.Controllers
             return _context.CaseCareRecords.Any(e => e.CaseQaid == id);
         }
         [HttpPost]
-        public IActionResult ExportLatestCaseCareRecord(string exportType, string CaseNo)
+        public IActionResult ExportLatestCaseCareRecord(string exportType, string CaseIDcard)
         {
             using (var dbContext = new longtermcareContext())
             {
-                var latestRecord = dbContext.CaseCareRecords
-                    .Where(ccr => ccr.CaseNo == CaseNo)
-                    .Include(c => c.CaseNoNavigation)
-                    .OrderByDescending(ccr => ccr.CaseQaid)
-                    .Join(dbContext.CaseInfors,
-                        ccr => ccr.CaseNo,
+                var latestRecord = dbContext.CaseInfors
+                    .Where(ci => ci.CaseIdcard == CaseIDcard)
+                    .Join(dbContext.CaseCareRecords,
                         ci => ci.CaseNo,
-                        (ccr, ci) => new CareSearchResultViewModel
+                        ccr => ccr.CaseNo,
+                        (ci, ccr) => new CareSearchResultViewModel
                         {
                             CaseName = ci.CaseName,
                             CaseBd = ci.CaseBd,
@@ -328,6 +326,7 @@ namespace long_term_care.Controllers
                             MemSid = ccr.MemSid,
                             CaseQaid = ccr.CaseQaid,
                         })
+                    .OrderByDescending(ccr => ccr.CaseQaid)
                     .FirstOrDefault();
 
                 if (latestRecord == null)
@@ -410,6 +409,7 @@ namespace long_term_care.Controllers
                 return BadRequest("Invalid exportType specified.");
             }
         }
+
 
 
     }

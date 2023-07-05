@@ -56,7 +56,7 @@ namespace long_term_care.ViewModels
         
 
         public DateTime CarMonth { get; set; }
-
+        
         public string CarCaseAdr { get; set; }
 
         public double CarL { get; set; }

@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using long_term_care.Models;
 using long_term_care.ViewModels;
+using NPOI.XSSF.UserModel;
+using System.IO;
+using System.Runtime.ConstrainedExecution;
 
 namespace long_term_care.Controllers
 {
@@ -265,5 +268,114 @@ namespace long_term_care.Controllers
         {
             return _context.CaseTelRecords.Any(e => e.CaseTelQaid == id);
         }
+
+        [HttpPost]
+        public IActionResult ExportLatestCaseTelRecord(string exportType, string CaseIDcard)
+        {
+            using (var dbContext = new longtermcareContext())
+            {
+                var latestRecord = dbContext.CaseInfors
+                    .Where(ci => ci.CaseIdcard == CaseIDcard)
+                    .Join(dbContext.CaseTelRecords,
+                        ci => ci.CaseNo,
+                        ctr => ctr.CaseNo,
+                        (ci, ctr) => new TelSearchResultViewModel
+                        {
+                            CaseName = ci.CaseName,
+                            CaseGender = ci.CaseGender,
+                            CaseNo = ci.CaseIdcard,
+                            CaseBd = ci.CaseBd,
+                            CaseHealth = ci.CaseHealth,
+                            CaseIdent = ci.CaseIdent,
+                            CaseLang = ci.CaseLang,
+
+                            CaseRegTime = ctr.CaseRegTime,
+                            CaseSick = ctr.CaseSick,
+                            CaseDay = ctr.CaseDay,
+                            CaseTelTime1 = ctr.CaseTelTime1,
+                            CaseTelTime2 = ctr.CaseTelTime2,
+                            CaseAns = ctr.CaseAns,
+                            CaseExp = ctr.CaseExp,
+                            CaseHea = ctr.CaseHea,
+                            CaseLive = ctr.CaseLive,
+                            CaseFam = ctr.CaseFam,
+                            CaseMental = ctr.CaseMental,
+                            CaseCom = ctr.CaseCom,
+                            MemSid = ctr.MemSid,
+                        })
+                    .OrderByDescending(ctr => ctr.CaseTelQaid)
+                    .FirstOrDefault();
+
+                if (latestRecord == null)
+                {
+                    return NotFound("查無此資料...");
+                }
+                if (exportType == "excel")
+                {
+                    var workbook = new XSSFWorkbook();
+                    var sheet = workbook.CreateSheet("Sheet1");
+
+
+                    var headerRow = sheet.CreateRow(0);
+                    headerRow.CreateCell(0).SetCellValue("姓名");
+                    headerRow.CreateCell(1).SetCellValue("出生");
+                    headerRow.CreateCell(2).SetCellValue("性別");
+                    headerRow.CreateCell(3).SetCellValue("身分別");
+                    headerRow.CreateCell(4).SetCellValue("語言");
+                  
+                    var personalInfoRow = sheet.CreateRow(1);
+                    personalInfoRow.CreateCell(0).SetCellValue(latestRecord.CaseName);
+                    personalInfoRow.CreateCell(1).SetCellValue(latestRecord.CaseBd.ToString());
+                    personalInfoRow.CreateCell(2).SetCellValue(latestRecord.CaseGender);
+                    personalInfoRow.CreateCell(3).SetCellValue(latestRecord.CaseIdent);
+                    personalInfoRow.CreateCell(4).SetCellValue(latestRecord.CaseLang);
+                   
+                    var dailyHeaderRow4 = sheet.CreateRow(2);
+                    dailyHeaderRow4.CreateCell(0).SetCellValue("故有疾病");
+                    dailyHeaderRow4.CreateCell(1).SetCellValue(latestRecord.CaseSick);
+
+                    var dailyHeaderRow5 = sheet.CreateRow(3);
+                    dailyHeaderRow5.CreateCell(0).SetCellValue("接聽情形");
+                    dailyHeaderRow5.CreateCell(1).SetCellValue(latestRecord.CaseAns);
+                    
+                    var dailyHeaderRow6 = sheet.CreateRow(4);
+                    dailyHeaderRow6.CreateCell(0).SetCellValue("口頭表達"); 
+                    dailyHeaderRow6.CreateCell(1).SetCellValue(latestRecord.CaseExp);
+
+                    var dailyHeaderRow7 = sheet.CreateRow(5);
+                    dailyHeaderRow7.CreateCell(0).SetCellValue("健康情況"); 
+                    dailyHeaderRow7.CreateCell(1).SetCellValue(latestRecord.CaseHea); 
+                    
+                    var dailyHeaderRow8 = sheet.CreateRow(6);
+                    dailyHeaderRow8.CreateCell(0).SetCellValue("生活狀況"); 
+                    dailyHeaderRow8.CreateCell(1).SetCellValue(latestRecord.CaseLive);
+                    var dailyHeaderRow9 = sheet.CreateRow(7);
+                    dailyHeaderRow9.CreateCell(0).SetCellValue("親友互動");
+                    dailyHeaderRow9.CreateCell(1).SetCellValue(latestRecord.CaseFam);
+                    var dailyHeaderRow10 = sheet.CreateRow(8);
+                    dailyHeaderRow10.CreateCell(0).SetCellValue("精神狀況"); 
+                    dailyHeaderRow10.CreateCell(1).SetCellValue(latestRecord.CaseMental);
+                    var dailyHeaderRow11 = sheet.CreateRow(9);
+                    dailyHeaderRow11.CreateCell(0).SetCellValue("總評"); 
+                    dailyHeaderRow11.CreateCell(1).SetCellValue(latestRecord.CaseCom);
+
+                    var dailyHeaderRow12 = sheet.CreateRow(10);
+                    dailyHeaderRow12.CreateCell(0).SetCellValue("填寫志工");
+                    dailyHeaderRow12.CreateCell(1).SetCellValue(latestRecord.MemSid);
+
+
+
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        workbook.Write(memoryStream);
+                        return File(memoryStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "LatestCaseTelRecord.xlsx");
+                    }
+                }
+
+
+                return BadRequest("Invalid exportType specified.");
+            }
+        }
+
     }
 }

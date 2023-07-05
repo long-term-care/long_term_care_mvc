@@ -395,7 +395,7 @@ namespace long_term_care.Controllers
                     workbook.Write(memoryStream);
                     return File(memoryStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "data.xlsx");
                 }
-            }
+            }/*
             else if (exportType == "doc")
             {
                 MemoryStream mem = new MemoryStream();
@@ -468,7 +468,7 @@ namespace long_term_care.Controllers
 
                 mem.Position = 0; 
                 return File(mem.ToArray(), "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "data.docx");
-            }
+            }*/
         
             /*
             else if (exportType == "pdf")

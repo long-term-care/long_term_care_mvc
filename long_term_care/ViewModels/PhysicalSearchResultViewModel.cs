@@ -5,17 +5,46 @@ namespace long_term_care.ViewModels
 {
     public class PhysicalSearchResultViewModel
     {
-        [Display(Name = "受訪者 : ")]
+        [Display(Name = "姓名")]
         public string CaseName { get; set; }
 
-        [Display(Name = "性別 : ")]
+        [Display(Name = "出生")]
+        public string CaseBd { get; set; }
+        [Display(Name = "性別")]
         public string CaseGender { get; set; }
+        [Display(Name = "身分證統一編號")]
+        public string CaseNo { get; set; }//x
+
+        [Display(Name = "電話")]
+        public string CasePhn { get; set; }
+        [Display(Name = "健保")]
+        public string CaseHealth { get; set; }
+        [Display(Name = "身分別")]
+        public string CaseIdent { get; set; }
+
+        [Display(Name = "常用語言")]
+        public string CaseLang { get; set; }
+
+        [Display(Name = "婚姻狀況")]
+        public string CaseMari { get; set; }
+
+        [Display(Name = "家庭狀況")]
+        public string CaseFami { get; set; }
+
+        [Display(Name = "現住地址")]
+        public string CaseAddr { get; set; }
+
+        [Display(Name = "緊急聯絡人")]
+        public string CaseCnta { get; set; }
+
+        [Display(Name = "電話")]
+        public string CaseCntTel { get; set; }
+
+        [Display(Name = "關係")]
+        public string CaseCntRel { get; set; }
 
         [Display(Name = "年齡 : ")]
         public string CaseOld { get; set; }
-
-        [Display(Name = "婚姻 : ")]
-        public string CaseMari { get; set; }
 
         [Display(Name = "教育程度 : ")]
         public string CaseEdu { get; set; }

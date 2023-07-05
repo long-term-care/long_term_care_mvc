@@ -64,7 +64,10 @@ namespace long_term_care.Controllers
                 CarNum = ci.CarNum,
                 CarCaseAdr = ci.CarCaseAdr,
                 CarAgencyLoc = ci.CarAgencyLoc,
-                CarMonth = ci.CarMonth
+                CarMonth = ci.CarMonth, 
+                CarL = ci.CarL, 
+                CarPrice = ci.CarPrice, 
+                CarKm = ci.CarKm
             }).ToListAsync();
 
             if (!carPicks.Any())
@@ -114,7 +117,7 @@ namespace long_term_care.Controllers
         public async Task<IActionResult> Create([Bind("CarId,MemSid,CaseNo,CarSearch,CarAgencyLoc,CarType,CarNum,CarMonth,CarCaseAdr,CarL,CarKm,CarPrice")] CarPick carPick)
         {
             if (ModelState.IsValid)
-            { 
+            {
                 _context.Add(carPick);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

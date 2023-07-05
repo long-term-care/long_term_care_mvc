@@ -29,8 +29,6 @@
                 <td>
                     <div class="form-group">
                         @item.CarMonth.ToString("MM/dd")
-                        @*
-                    @Html.DisplayFor(modelItem => item.CarMonth)*@
                     </div>
                 </td>
                 <td>
@@ -211,77 +209,3 @@
             }
     </style>
 }
-
-@*
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CarSearch)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CarType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CarNum)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CarMonth)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CarCaseAdr)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CarL)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CarKm)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CarPrice)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CarSearch)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CarType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CarNum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CarMonth)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CarCaseAdr)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CarL)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CarKm)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CarPrice)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.CarId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CarId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CarId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-<div>
-    <a asp-action="Details">返回</a>
-</div>
-*@
