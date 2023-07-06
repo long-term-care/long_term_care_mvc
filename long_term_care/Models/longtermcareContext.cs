@@ -336,7 +336,6 @@ namespace long_term_care.Models
                     .HasColumnName("Case_No");
 
                 entity.Property(e => e.CaseActv)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("Case_Actv");
 
@@ -351,7 +350,6 @@ namespace long_term_care.Models
                     .HasColumnName("Case_BD");
 
                 entity.Property(e => e.CaseCntAdd)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .HasColumnName("Case_CntAdd");
 
@@ -371,27 +369,22 @@ namespace long_term_care.Models
                     .HasColumnName("Case_Cnta");
 
                 entity.Property(e => e.CaseDesc)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("Case_Desc");
 
                 entity.Property(e => e.CaseEdu)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("Case_Edu");
 
                 entity.Property(e => e.CaseFactly)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("Case_Factly");
 
                 entity.Property(e => e.CaseFami)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("Case_Fami");
 
                 entity.Property(e => e.CaseFund)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("Case_Fund");
 
@@ -401,12 +394,10 @@ namespace long_term_care.Models
                     .HasColumnName("Case_Gender");
 
                 entity.Property(e => e.CaseHealth)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("Case_Health");
 
                 entity.Property(e => e.CaseHouse)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("Case_House");
 
@@ -421,12 +412,10 @@ namespace long_term_care.Models
                     .HasColumnName("Case_Ident");
 
                 entity.Property(e => e.CaseLang)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("Case_Lang");
 
                 entity.Property(e => e.CaseMari)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("Case_Mari");
 
@@ -441,27 +430,22 @@ namespace long_term_care.Models
                     .HasColumnName("Case_Password");
 
                 entity.Property(e => e.CaseProf)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("Case_Prof");
 
                 entity.Property(e => e.CaseQues)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("Case_Ques");
 
                 entity.Property(e => e.CaseRegName)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("Case_RegName");
 
                 entity.Property(e => e.CaseRegTime)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("Case_RegTime");
 
                 entity.Property(e => e.CaseRelig)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("Case_Relig");
 
@@ -481,7 +465,6 @@ namespace long_term_care.Models
                     .HasColumnName("Case_UnitNum");
 
                 entity.Property(e => e.CaseWork)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("Case_Work");
             });

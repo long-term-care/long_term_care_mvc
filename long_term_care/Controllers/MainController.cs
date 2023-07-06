@@ -32,6 +32,52 @@ namespace long_term_care.Controllers
         }
         public IActionResult Caseinfor()
         {
+            string nextFormNumber = "";
+
+            var lastForm = _context.CaseInfors.OrderByDescending(f => f.CaseNo).FirstOrDefault();
+            if (lastForm != null)
+            {
+                int lastFormNumber;
+                if (int.TryParse(lastForm.CaseNo.Substring(1), out lastFormNumber))
+                {
+                    int nextFormNumberInt = lastFormNumber + 1;
+                    nextFormNumber = $"C{nextFormNumberInt.ToString("0000")}"; // 在流水号前添加字母前缀 "M"
+                }
+                else
+                {
+                    // 处理解析失败的情况
+                    // 可以抛出异常、使用默认值或采取其他适当的操作
+                }
+            }
+            else
+            {
+                nextFormNumber = "C0001"; // 初始流水号添加字母前缀 "M"
+            }
+
+            ViewData["CaseNo"] = nextFormNumber;
+
+            string nextFormNumber_Mem = "";
+            var lastForm_Mem = _context.MemberInformations.OrderByDescending(f => f.MemSid).FirstOrDefault();
+            if (lastForm_Mem != null)
+            {
+                int lastFormNumber_Mem;
+                if (int.TryParse(lastForm_Mem.MemSid.Substring(1), out lastFormNumber_Mem))
+                {
+                    int nextFormNumberInt_Mem = lastFormNumber_Mem + 1;
+                    nextFormNumber_Mem = $"M{nextFormNumberInt_Mem.ToString("0000")}"; // 在流水号前添加字母前缀 "M"
+                }
+                else
+                {
+                    // 处理解析失败的情况
+                    // 可以抛出异常、使用默认值或采取其他适当的操作
+                }
+            }
+            else
+            {
+                nextFormNumber_Mem = "M0001"; // 初始流水号添加字母前缀 "M"
+            }
+
+            ViewData["MemNo"] = nextFormNumber_Mem;
             return View();
         }
 

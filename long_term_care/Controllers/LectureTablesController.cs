@@ -136,21 +136,6 @@ namespace long_term_care.Controllers
             return View();
         }
 
-        [HttpPost]
-        public JsonResult check(string tableHtml)
-        {
-            // 創建一個HTML渲染器
-            var renderer = new HtmlToPdf();
-
-            // 將HTML內容轉換為PDF
-            var pdfDoc = renderer.RenderHtmlAsPdf(tableHtml);
-
-            // 儲存PDF文件到臨時目錄
-            var tempPath = Path.GetTempFileName() + ".pdf";
-            pdfDoc.SaveAs(tempPath);
-
-            // 返回PDF文件路徑
-            return Json(new { filePath = tempPath });
-        }
+        
     }
 }
