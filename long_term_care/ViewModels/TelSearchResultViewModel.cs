@@ -6,6 +6,15 @@ namespace long_term_care.ViewModels
 {
     public class TelSearchResultViewModel
     {
+        [Display(Name = "出生")]
+        public string CaseBd { get; set; }
+        [Display(Name = "健保")]
+        public string CaseHealth { get; set; }
+        [Display(Name = "身分別")]
+        public string CaseIdent { get; set; }
+
+        [Display(Name = "常用語言")]
+        public string CaseLang { get; set; }
         [Display(Name = "表單編號")]
         public string CaseTelQaid { get; set; }
 

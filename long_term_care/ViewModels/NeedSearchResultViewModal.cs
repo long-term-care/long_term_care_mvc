@@ -4,6 +4,19 @@ namespace long_term_care.ViewModels
 {
     public class NeedSearchResultViewModal
     {
+        [Display(Name = "姓名")]
+        public string CaseName { get; set; }
+
+        [Display(Name = "出生")]
+        public string CaseBd { get; set; }
+        [Display(Name = "性別")]
+        public string CaseGender { get; set; }
+        [Display(Name = "身分別")]
+        public string CaseIdent { get; set; }
+
+        [Display(Name = "常用語言")]
+        public string CaseLang { get; set; }
+
         [Display(Name = "問卷編號 : ")]
         public string CaseNeedId { get; set; }
         [Display(Name = "個案編號 : ")]

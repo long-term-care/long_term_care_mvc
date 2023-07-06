@@ -7,16 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using long_term_care.Models;
 using long_term_care.ViewModels;
-using System.Runtime.ConstrainedExecution;
 using System.Data;
 using System.IO;
 using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Wordprocessing;
 using NPOI.XSSF.UserModel;
-using OpenXmlWordprocessing = DocumentFormat.OpenXml.Wordprocessing;
-using Table = DocumentFormat.OpenXml.Wordprocessing.Table;
-using Text = DocumentFormat.OpenXml.Wordprocessing.Text;
+
+
 
 
 
@@ -94,11 +90,11 @@ namespace long_term_care.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Details(string CaseNo, DateTime Casedate)
+        public async Task<IActionResult> Details(string CaseCardID, DateTime Casedate)
         {
-            if (string.IsNullOrEmpty(CaseNo))
+            if (string.IsNullOrEmpty(CaseCardID))
             {
-                return Content("必須填入個案案號 !");
+                return Content("請填入個案身分證");
             }
             if (Casedate == DateTime.MinValue)
             {
@@ -106,7 +102,7 @@ namespace long_term_care.Controllers
             }
             var no1 = from ccr in _context.CaseDailyRegistrations
                       join ci in _context.CaseInfors on ccr.CaseNo equals ci.CaseNo
-                      where ccr.CaseNo == CaseNo &&
+                      where ci.CaseIdcard == CaseCardID &&
                             ccr.Casedate.Year == Casedate.Year &&
                             ccr.Casedate.Month == Casedate.Month
                       select new DailyResultViewModel
@@ -122,7 +118,7 @@ namespace long_term_care.Controllers
                           CaseCnta = ci.CaseCnta,
                           CaseCntTel = ci.CaseCntTel,
                           CaseCntRel = ci.CaseCntRel,
-                          CaseNo = ccr.CaseNo,
+                          CaseNo = ci.CaseNo,
                           CaseContId = ccr.CaseContId,
                           Casedate = ccr.Casedate,
                           CasePluse = ccr.CasePluse,
@@ -289,11 +285,6 @@ namespace long_term_care.Controllers
             return _context.CaseDailyRegistrations.Any(e => e.CaseContId == id);
         }
 
-
-
-
-
-
         private IEnumerable<DailyResultViewModel> GetDataForDateRange(DateTime startDate, DateTime endDate)
         {
             using (var dbContext = new longtermcareContext())
@@ -396,81 +387,6 @@ namespace long_term_care.Controllers
                     return File(memoryStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "data.xlsx");
                 }
             }
-            else if (exportType == "doc")
-            {
-                MemoryStream mem = new MemoryStream();
-
-                using (WordprocessingDocument wordDocument = WordprocessingDocument.Create(mem, WordprocessingDocumentType.Document, true))
-                {
-                    MainDocumentPart mainPart = wordDocument.AddMainDocumentPart();
-                    mainPart.Document = new Document();
-                    Body body = mainPart.Document.AppendChild(new Body());
-
-                    Table table = new Table();
-
-                    TableRow nameRow = new TableRow();
-                    nameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("姓名")))));
-                    nameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("出生")))));
-                    nameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("性別")))));
-                    nameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("身分別")))));
-                    nameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("語言")))));
-                    nameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("婚姻")))));
-                    nameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("家庭")))));
-                    nameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("聯絡人")))));
-                    nameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("關係")))));
-                    nameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("聯絡人電話")))));
-
-                    table.Append(nameRow);
-
-                    TableRow dataNameRow = new TableRow();
-                    dataNameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(data.First().CaseName)))));
-                    dataNameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(data.First().CaseBd)))));
-                    dataNameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(data.First().CaseGender)))));
-                    dataNameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(data.First().CaseIdent)))));
-                    dataNameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(data.First().CaseLang)))));
-                    dataNameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(data.First().CaseMari)))));
-                    dataNameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(data.First().CaseFami)))));
-                    dataNameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(data.First().CaseCnta)))));
-                    dataNameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(data.First().CaseCntRel)))));
-                    dataNameRow.Append(new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(data.First().CaseCntTel)))));
-                    table.Append(dataNameRow);
-
-                    TableRow headerRow = new TableRow();
-                    headerRow.Append(
-                        new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("日期")))),
-                        new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("體溫")))),
-                        new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("脈搏")))),
-                        new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("舒張壓")))),
-                        new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("收縮壓")))),
-                        new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("血壓狀態")))),
-                        new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text("交通接送"))))
-                    );
-                    table.Append(headerRow);
-
-                    foreach (var item in data.Reverse())
-                    {
-                        TableRow dataRow = new TableRow();
-                        dataRow.Append(
-                            new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(item.Casedate.ToString("yyyy/MM/dd"))))),
-                            new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(item.CaseTemp)))),
-                            new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(item.CasePluse)))),
-                            new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(item.CaseSystolic)))),
-                            new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(item.CaseDiastolic)))),
-                            new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(item.CaseBlood)))),
-                            new TableCell(new OpenXmlWordprocessing.Paragraph(new Run(new Text(item.CasePick))))
-                        );
-                        table.Append(dataRow);
-                    }
-
-                    body.Append(table);
-                    mainPart.Document.Save(); 
-                }
-
-                mem.Position = 0; 
-                return File(mem.ToArray(), "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "data.docx");
-            }
-        
-            /*
             else if (exportType == "pdf")
             {
                 using (MemoryStream mem = new MemoryStream())
@@ -478,46 +394,62 @@ namespace long_term_care.Controllers
                     iText.Kernel.Pdf.PdfDocument pdfDoc = new iText.Kernel.Pdf.PdfDocument(new iText.Kernel.Pdf.PdfWriter(mem));
                     iText.Layout.Document document = new iText.Layout.Document(pdfDoc);
 
-                    iText.Layout.Element.Table table = new iText.Layout.Element.Table(8);
-                    table.AddCell("日期");
-                    table.AddCell("體溫");
-                    table.AddCell("脈搏");
-                    table.AddCell("舒張壓");
-                    table.AddCell("收縮壓");
-                    table.AddCell("血壓狀態");
-                    table.AddCell("交通接送");
-                    table.AddCell("個案編號");
+                    // Load the NotoSansHK-Regular.otf font
+                    var fontPath = Path.Combine(Directory.GetCurrentDirectory(), "Font", "NotoSansHK-Regular.otf");
+                    var font = iText.Kernel.Font.PdfFontFactory.CreateFont(fontPath, iText.IO.Font.PdfEncodings.IDENTITY_H);
+
+                    // Set the font to the document
+                    document.SetFont(font);
+
+                    iText.Layout.Element.Paragraph paragraph = new iText.Layout.Element.Paragraph("\n\n基本資料\n").SetFont(font);
+                    paragraph.Add(new iText.Layout.Element.Text("姓名: " + data.First().CaseName).SetFont(font));
+                    paragraph.Add(new iText.Layout.Element.Text("\n出生: " + data.First().CaseBd).SetFont(font));
+                    paragraph.Add(new iText.Layout.Element.Text("\n性別: " + data.First().CaseGender).SetFont(font));
+                    paragraph.Add(new iText.Layout.Element.Text("\n身份別: " + data.First().CaseIdent).SetFont(font));
+                    paragraph.Add(new iText.Layout.Element.Text("\n語言: " + data.First().CaseLang).SetFont(font));
+                    paragraph.Add(new iText.Layout.Element.Text("\n婚姻: " + data.First().CaseMari).SetFont(font));
+                    paragraph.Add(new iText.Layout.Element.Text("\n家庭: " + data.First().CaseFami).SetFont(font));
+                    paragraph.Add(new iText.Layout.Element.Text("\n聯絡人: " + data.First().CaseCnta).SetFont(font));
+                    paragraph.Add(new iText.Layout.Element.Text("\n聯絡人關係: " + data.First().CaseCntRel).SetFont(font));
+                    paragraph.Add(new iText.Layout.Element.Text("\n聯絡人地址: " + data.First().CaseCntTel).SetFont(font));
+
+                    document.Add(paragraph);
+
+
+                    iText.Layout.Element.Table table = new iText.Layout.Element.Table(7);
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("日期").SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("體溫").SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("脈搏").SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("舒張壓").SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("收縮壓").SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("血壓狀態").SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("交通接送").SetFont(font)));
 
                     foreach (var item in data)
                     {
-                        table.AddCell(item.Casedate.ToString("yyyy/MM/dd"));
-                        table.AddCell(item.CaseTemp);
-                        table.AddCell(item.CasePluse);
-                        table.AddCell(item.CaseDiastolic);
-                        table.AddCell(item.CaseSystolic);
-                        table.AddCell(item.CaseBlood);
-                        table.AddCell(item.CasePick);
-                        table.AddCell(item.CaseContId);
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(item.Casedate.ToString("yyyy/MM/dd")).SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(item.CaseTemp).SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(item.CasePluse).SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(item.CaseDiastolic).SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(item.CaseSystolic).SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(item.CaseBlood).SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(item.CasePick).SetFont(font)));
                     }
 
                     document.Add(table);
 
-                    iText.Layout.Element.Paragraph paragraph = new iText.Layout.Element.Paragraph("\n\nAdditional Information\n");
-                    paragraph.Add(new iText.Layout.Element.Text("姓名: " + data.First().CaseName));
-                    paragraph.Add(new iText.Layout.Element.Text("\n出生: " + data.First().CaseBd));
-                    paragraph.Add(new iText.Layout.Element.Text("\n性別: " + data.First().CaseGender));
-
-                    document.Add(paragraph);
-                      
                     document.Close();
 
                     return File(mem.ToArray(), "application/pdf", "data.pdf");
                 }
             }
-            */
 
-            return BadRequest("錯誤格式");
+
+            return BadRequest("格式錯誤");
         }
+
+
+
         
 
 

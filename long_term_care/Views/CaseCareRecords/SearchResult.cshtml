@@ -269,6 +269,19 @@
     </tbody>
 </table>
 
+<form method="post" action="/CaseCareRecords/ExportLatestCaseCareRecord">
+    <div class="form-group">
+        <label for="CaseIDcard">個案身分證:</label>
+        <input type="text" class="form-control" id="CaseIDcard" name="CaseIDcard" required>
+    </div>
+    <label for="exportType">輸出格式:</label>
+    <select id="exportType" name="exportType">
+        <option value="excel">Excel</option>
+        <option value="pdf">PDF</option>
+    </select>
+    <button type="submit" class="btn btn-primary">Export</button>
+</form>
+
 <div>
     <a asp-action="Details">返回</a>
 </div>
