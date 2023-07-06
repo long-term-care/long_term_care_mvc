@@ -17,6 +17,12 @@ using NPOI.XSSF.UserModel;
 using OpenXmlWordprocessing = DocumentFormat.OpenXml.Wordprocessing;
 using Table = DocumentFormat.OpenXml.Wordprocessing.Table;
 using Text = DocumentFormat.OpenXml.Wordprocessing.Text;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+
 
 
 
@@ -289,11 +295,6 @@ namespace long_term_care.Controllers
             return _context.CaseDailyRegistrations.Any(e => e.CaseContId == id);
         }
 
-
-
-
-
-
         private IEnumerable<DailyResultViewModel> GetDataForDateRange(DateTime startDate, DateTime endDate)
         {
             using (var dbContext = new longtermcareContext())
@@ -469,8 +470,6 @@ namespace long_term_care.Controllers
                 mem.Position = 0; 
                 return File(mem.ToArray(), "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "data.docx");
             }*/
-        
-            /*
             else if (exportType == "pdf")
             {
                 using (MemoryStream mem = new MemoryStream())
@@ -478,46 +477,62 @@ namespace long_term_care.Controllers
                     iText.Kernel.Pdf.PdfDocument pdfDoc = new iText.Kernel.Pdf.PdfDocument(new iText.Kernel.Pdf.PdfWriter(mem));
                     iText.Layout.Document document = new iText.Layout.Document(pdfDoc);
 
+                    // Load the NotoSansHK-Regular.otf font
+                    var fontPath = Path.Combine(Directory.GetCurrentDirectory(), "Font", "NotoSansHK-Regular.otf");
+                    var font = iText.Kernel.Font.PdfFontFactory.CreateFont(fontPath, iText.IO.Font.PdfEncodings.IDENTITY_H);
+
+                    // Set the font to the document
+                    document.SetFont(font);
+
+                    iText.Layout.Element.Paragraph paragraph = new iText.Layout.Element.Paragraph("\n\n基本資料\n").SetFont(font);
+                    paragraph.Add(new iText.Layout.Element.Text("姓名: " + data.First().CaseName).SetFont(font));
+                    paragraph.Add(new iText.Layout.Element.Text("\n出生: " + data.First().CaseBd).SetFont(font));
+                    paragraph.Add(new iText.Layout.Element.Text("\n性別: " + data.First().CaseGender).SetFont(font));
+                    paragraph.Add(new iText.Layout.Element.Text("\n身份別: " + data.First().CaseIdent).SetFont(font));
+                    paragraph.Add(new iText.Layout.Element.Text("\n語言: " + data.First().CaseLang).SetFont(font));
+                    paragraph.Add(new iText.Layout.Element.Text("\n婚姻: " + data.First().CaseMari).SetFont(font));
+                    paragraph.Add(new iText.Layout.Element.Text("\n家庭: " + data.First().CaseFami).SetFont(font));
+                    paragraph.Add(new iText.Layout.Element.Text("\n聯絡人: " + data.First().CaseCnta).SetFont(font));
+                    paragraph.Add(new iText.Layout.Element.Text("\n聯絡人關係: " + data.First().CaseCntTel).SetFont(font));
+                    paragraph.Add(new iText.Layout.Element.Text("\n聯絡人地址: " + data.First().CaseCntTel).SetFont(font));
+
+                    document.Add(paragraph);
+
+
                     iText.Layout.Element.Table table = new iText.Layout.Element.Table(8);
-                    table.AddCell("日期");
-                    table.AddCell("體溫");
-                    table.AddCell("脈搏");
-                    table.AddCell("舒張壓");
-                    table.AddCell("收縮壓");
-                    table.AddCell("血壓狀態");
-                    table.AddCell("交通接送");
-                    table.AddCell("個案編號");
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("日期").SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("體溫").SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("脈搏").SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("舒張壓").SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("收縮壓").SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("血壓狀態").SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("交通接送").SetFont(font)));
 
                     foreach (var item in data)
                     {
-                        table.AddCell(item.Casedate.ToString("yyyy/MM/dd"));
-                        table.AddCell(item.CaseTemp);
-                        table.AddCell(item.CasePluse);
-                        table.AddCell(item.CaseDiastolic);
-                        table.AddCell(item.CaseSystolic);
-                        table.AddCell(item.CaseBlood);
-                        table.AddCell(item.CasePick);
-                        table.AddCell(item.CaseContId);
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(item.Casedate.ToString("yyyy/MM/dd")).SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(item.CaseTemp).SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(item.CasePluse).SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(item.CaseDiastolic).SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(item.CaseSystolic).SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(item.CaseBlood).SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(item.CasePick).SetFont(font)));
                     }
 
                     document.Add(table);
 
-                    iText.Layout.Element.Paragraph paragraph = new iText.Layout.Element.Paragraph("\n\nAdditional Information\n");
-                    paragraph.Add(new iText.Layout.Element.Text("姓名: " + data.First().CaseName));
-                    paragraph.Add(new iText.Layout.Element.Text("\n出生: " + data.First().CaseBd));
-                    paragraph.Add(new iText.Layout.Element.Text("\n性別: " + data.First().CaseGender));
-
-                    document.Add(paragraph);
-                      
                     document.Close();
 
                     return File(mem.ToArray(), "application/pdf", "data.pdf");
                 }
             }
-            */
 
-            return BadRequest("錯誤格式");
+
+            return BadRequest("格式錯誤");
         }
+
+
+
         
 
 
