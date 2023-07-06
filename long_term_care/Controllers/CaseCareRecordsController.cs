@@ -7,14 +7,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using long_term_care.Models;
 using long_term_care.ViewModels;
-using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Wordprocessing;
-using NPOI.XSSF.UserModel;
-using OpenXmlWordprocessing = DocumentFormat.OpenXml.Wordprocessing;
-using Table = DocumentFormat.OpenXml.Wordprocessing.Table;
-using Text = DocumentFormat.OpenXml.Wordprocessing.Text;
+using System.Data;
 using System.IO;
+using DocumentFormat.OpenXml;
+using NPOI.XSSF.UserModel;
 
 namespace long_term_care.Controllers
 {
@@ -286,6 +282,12 @@ namespace long_term_care.Controllers
         {
             return _context.CaseCareRecords.Any(e => e.CaseQaid == id);
         }
+
+        private static string NullToEmptyString(string input)
+        {
+            return input ?? string.Empty;
+        }
+
         [HttpPost]
         public IActionResult ExportLatestCaseCareRecord(string exportType, string CaseIDcard)
         {
@@ -404,9 +406,69 @@ namespace long_term_care.Controllers
                         return File(memoryStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "LatestCaseCareRecord.xlsx");
                     }
                 }
+              
+                else if (exportType == "pdf")
+                {
+                    using (MemoryStream mem = new MemoryStream())
+                    {
+                        iText.Kernel.Pdf.PdfDocument pdfDoc = new iText.Kernel.Pdf.PdfDocument(new iText.Kernel.Pdf.PdfWriter(mem));
+                        iText.Layout.Document document = new iText.Layout.Document(pdfDoc);
+
+                        // Load the NotoSansHK-Regular.otf font
+                        var fontPath = Path.Combine(Directory.GetCurrentDirectory(), "Font", "NotoSansHK-Regular.otf");
+                        var font = iText.Kernel.Font.PdfFontFactory.CreateFont(fontPath, iText.IO.Font.PdfEncodings.IDENTITY_H);
+
+                        // Set the font to the document
+                        document.SetFont(font);
+
+                        iText.Layout.Element.Paragraph paragraph = new iText.Layout.Element.Paragraph("\n\n基本資料\n").SetFont(font);
+                        paragraph.Add(new iText.Layout.Element.Text("姓名: " + latestRecord.CaseName).SetFont(font));
+                        paragraph.Add(new iText.Layout.Element.Text("\n出生: " + latestRecord.CaseBd).SetFont(font));
+                        paragraph.Add(new iText.Layout.Element.Text("\n性別: " + latestRecord.CaseGender).SetFont(font));
+                        paragraph.Add(new iText.Layout.Element.Text("\n身份別: " + latestRecord.CaseIdent).SetFont(font));
+                        paragraph.Add(new iText.Layout.Element.Text("\n語言: " + latestRecord.CaseLang).SetFont(font));
+                        paragraph.Add(new iText.Layout.Element.Text("\n婚姻: " + latestRecord.CaseMari).SetFont(font));
+                        paragraph.Add(new iText.Layout.Element.Text("\n家庭: " + latestRecord.CaseFami).SetFont(font));
+                        paragraph.Add(new iText.Layout.Element.Text("\n聯絡人: " + latestRecord.CaseCnta).SetFont(font));
+                        paragraph.Add(new iText.Layout.Element.Text("\n聯絡人關係: " + latestRecord.CaseCntRel).SetFont(font));
+                        paragraph.Add(new iText.Layout.Element.Text("\n聯絡人地址: " + latestRecord.CaseCntTel).SetFont(font));
+
+                        document.Add(paragraph);
 
 
-                return BadRequest("Invalid exportType specified.");
+                        iText.Layout.Element.Table table = new iText.Layout.Element.Table(9);
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("問題一").SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("其它").SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("問題二").SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("其它").SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("問題三").SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("其它").SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("問題四").SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("其它").SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("填寫志工").SetFont(font)));
+
+
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(NullToEmptyString(latestRecord.CaseQ1)).SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(NullToEmptyString(latestRecord.CaseQ1Other)).SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(NullToEmptyString(latestRecord.CaseQ2)).SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(NullToEmptyString(latestRecord.CaseQ2Other)).SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(NullToEmptyString(latestRecord.CaseQ3)).SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(NullToEmptyString(latestRecord.CaseQ3Other)).SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(NullToEmptyString(latestRecord.CaseQ4)).SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(NullToEmptyString(latestRecord.CaseQ4Other)).SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(NullToEmptyString(latestRecord.MemSid)).SetFont(font)));
+
+
+                        document.Add(table);
+
+                        document.Close();
+
+                        return File(mem.ToArray(), "application/pdf", "data.pdf");
+                    }
+                }
+
+
+                return BadRequest("格式錯誤");
             }
         }
 
