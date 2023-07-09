@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -182,6 +184,117 @@ namespace long_term_care.Controllers
 
             return NotFound(); // 返回404 Not Found状态码，表示未找到要删除的数据
         }
+        private IEnumerable<CaseActsignViewModel> GetDataForDateRange(string Id)
+        {
+            using (var dbContext = new longtermcareContext())
+            {
+                var data = dbContext.CaseActs
+                    .Include(t1 => t1.CaseActContents)
+            .ThenInclude(t2 => t2.CaseNoNavigation)
+            .Where(x => x.ActId == Id)
+            .SelectMany(t1 => t1.CaseActContents.DefaultIfEmpty(), (t1, t2) => new CaseActsignViewModel
+            {
+                ActId = t1.ActId,
+                ActCourse = t1.ActCourse,
+                ActDate = t1.ActDate,
+                ActLec = t1.ActLec,
+                ActLoc = t1.ActLoc,
+                ActSer = t2 != null ? t2.ActSer : string.Empty,
+                CaseNo = t2 != null && t2.CaseNoNavigation != null ? t2.CaseNoNavigation.CaseNo : string.Empty,
+                CaseName = t2 != null && t2.CaseNoNavigation != null ? t2.CaseNoNavigation.CaseName : string.Empty
 
+
+            }).ToList();
+                return data;
+            }
+        }
+
+
+        [HttpPost]
+        public IActionResult ExportData(string exportType,string Id)
+        {
+            var data = GetDataForDateRange(Id);
+
+            if (exportType == "excel")
+            {
+                var workbook = new XSSFWorkbook();
+                var sheet = workbook.CreateSheet("Sheet1");
+
+                var headerRow = sheet.CreateRow(0);
+                headerRow.CreateCell(0).SetCellValue("活動名稱");
+                headerRow.CreateCell(1).SetCellValue("活動日期");
+                headerRow.CreateCell(2).SetCellValue("講師姓名");
+                headerRow.CreateCell(4).SetCellValue("活動地點");
+
+                var personalInfoRow = sheet.CreateRow(1);
+                personalInfoRow.CreateCell(0).SetCellValue(data.First().ActCourse);
+                personalInfoRow.CreateCell(1).SetCellValue(data.First().ActDate);
+                personalInfoRow.CreateCell(2).SetCellValue(data.First().ActLec);
+                personalInfoRow.CreateCell(3).SetCellValue(data.First().ActLoc);
+
+
+                var dailyHeaderRow = sheet.CreateRow(2);
+                headerRow.CreateCell(5).SetCellValue("學員姓名");
+                headerRow.CreateCell(6).SetCellValue("服務項目");
+
+                int rowIndex = 3;
+                foreach (var item in data.Reverse())
+                {
+                    var row = sheet.CreateRow(rowIndex++);
+                    row.CreateCell(0).SetCellValue(item.CaseName);
+                    row.CreateCell(1).SetCellValue(item.ActSer);
+                }
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    workbook.Write(memoryStream);
+                    return File(memoryStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "data.xlsx");
+                }
+            }
+            else if (exportType == "pdf")
+            {
+                using (MemoryStream mem = new MemoryStream())
+                {
+                    iText.Kernel.Pdf.PdfDocument pdfDoc = new iText.Kernel.Pdf.PdfDocument(new iText.Kernel.Pdf.PdfWriter(mem));
+                    iText.Layout.Document document = new iText.Layout.Document(pdfDoc);
+
+                    // Load the NotoSansHK-Regular.otf font
+                    var fontPath = Path.Combine(Directory.GetCurrentDirectory(), "Font", "NotoSansHK-Regular.otf");
+                    var font = iText.Kernel.Font.PdfFontFactory.CreateFont(fontPath, iText.IO.Font.PdfEncodings.IDENTITY_H);
+
+                    // Set the font to the document
+                    document.SetFont(font);
+
+
+
+                    iText.Layout.Element.Table table = new iText.Layout.Element.Table(2);
+
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("活動名稱").SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("活動日期").SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("講師姓名").SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("活動地點").SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(data.First().ActCourse).SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(data.First().ActDate.ToString("yyyy/MM/dd")).SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(data.First().ActLec).SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(data.First().ActLoc).SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("學員姓名").SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("服務項目").SetFont(font)));
+                    foreach (var item in data)
+                    {
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(item.CaseName).SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(item.ActSer).SetFont(font)));
+                    }
+
+                    document.Add(table);
+
+                    document.Close();
+
+                    return File(mem.ToArray(), "application/pdf", "data.pdf");
+                }
+            }
+
+
+            return BadRequest("格式錯誤");
+        }
     }
 }

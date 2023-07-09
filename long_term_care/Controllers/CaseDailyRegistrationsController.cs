@@ -417,6 +417,7 @@ namespace long_term_care.Controllers
 
 
                     iText.Layout.Element.Table table = new iText.Layout.Element.Table(7);
+
                     table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("日期").SetFont(font)));
                     table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("體溫").SetFont(font)));
                     table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("脈搏").SetFont(font)));

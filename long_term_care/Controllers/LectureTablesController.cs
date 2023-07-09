@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using IronPdf;
 using System.IO;
+using NPOI.XSSF.UserModel;
+using iText.Layout.Properties;
 
 namespace long_term_care.Controllers
 {
@@ -135,7 +137,107 @@ namespace long_term_care.Controllers
             _context.SaveChanges();
             return View();
         }
+        [HttpPost]
+        public IActionResult ExportData(string exportType,string Id)
+        {
+            var data = _context.LectureTables.FirstOrDefault(x => x.LecId == Id);
 
-        
+            if (exportType == "excel")
+            {
+                var workbook = new XSSFWorkbook();
+                var sheet = workbook.CreateSheet("Sheet1");
+
+                var headerRow = sheet.CreateRow(0);
+                headerRow.CreateCell(0).SetCellValue("問卷編號");
+                headerRow.CreateCell(1).SetCellValue("填寫人");
+                headerRow.CreateCell(2).SetCellValue("主題");
+                headerRow.CreateCell(3).SetCellValue("活動類別");
+                headerRow.CreateCell(4).SetCellValue("活動目的");
+                headerRow.CreateCell(5).SetCellValue("活動時間");
+                headerRow.CreateCell(6).SetCellValue("活動帶領");
+                headerRow.CreateCell(7).SetCellValue("活動場地");
+                headerRow.CreateCell(8).SetCellValue("用物預備");
+                headerRow.CreateCell(9).SetCellValue("步驟");
+
+                var personalInfoRow = sheet.CreateRow(1);
+                personalInfoRow.CreateCell(0).SetCellValue(data.LecId);
+                personalInfoRow.CreateCell(1).SetCellValue(data.MemSid);
+                personalInfoRow.CreateCell(2).SetCellValue(data.LecTheme);
+                personalInfoRow.CreateCell(3).SetCellValue(data.LecClass);
+                personalInfoRow.CreateCell(4).SetCellValue(data.LecAim);
+                personalInfoRow.CreateCell(5).SetCellValue(data.LecDate);
+                personalInfoRow.CreateCell(6).SetCellValue(data.LecLeader);
+                personalInfoRow.CreateCell(7).SetCellValue(data.LecPla);
+                personalInfoRow.CreateCell(8).SetCellValue(data.LecTool);
+                personalInfoRow.CreateCell(9).SetCellValue(data.LecStep);
+
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    workbook.Write(memoryStream);
+                    return File(memoryStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "data.xlsx");
+                }
+            }
+            else if (exportType == "pdf")
+            {
+                using (MemoryStream mem = new MemoryStream())
+                {
+                    iText.Kernel.Pdf.PdfDocument pdfDoc = new iText.Kernel.Pdf.PdfDocument(new iText.Kernel.Pdf.PdfWriter(mem));
+                    iText.Layout.Document document = new iText.Layout.Document(pdfDoc);
+
+                    // Load the NotoSansHK-Regular.otf font
+                    var fontPath = Path.Combine(Directory.GetCurrentDirectory(), "Font", "NotoSansHK-Regular.otf");
+                    var font = iText.Kernel.Font.PdfFontFactory.CreateFont(fontPath, iText.IO.Font.PdfEncodings.IDENTITY_H);
+
+                    // Set the font to the document
+                    document.SetFont(font);
+                    iText.Layout.Element.Paragraph paragraph = new iText.Layout.Element.Paragraph("\n\n\n").SetFont(font);
+                    paragraph.Add(new iText.Layout.Element.Text("問卷編號: " + data.LecId).SetFont(font));
+                    paragraph.Add(new iText.Layout.Element.Text("\t填寫人: " + data.MemSid).SetFont(font));
+                    document.Add(paragraph);
+
+                    iText.Layout.Element.Table table = new iText.Layout.Element.Table(2);
+
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("主題:").SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(data.LecTheme).SetFont(font)));
+
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("活動類別").SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(data.LecClass).SetFont(font)));
+
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("活動目的").SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(data.LecAim).SetFont(font)));
+
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("活動時間").SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(data.LecDate.ToString("yyyy/MM/dd")).SetFont(font)));
+
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("活動帶領").SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(data.LecLeader).SetFont(font)));
+
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("活動場地").SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(data.LecPla).SetFont(font)));
+
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("用物預備").SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(data.LecTool).SetFont(font)));
+
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("步驟").SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(data.LecStep).SetFont(font)));
+
+                    // Set table properties to allow cell content to wrap to multiple lines
+                    table.SetWidth(UnitValue.CreatePercentValue(100));
+                    table.SetHorizontalAlignment(HorizontalAlignment.LEFT);
+
+                    document.Add(table);
+
+
+                    document.Close();
+
+                    return File(mem.ToArray(), "application/pdf", "data.pdf");
+                }
+            }
+
+
+            return BadRequest("格式錯誤");
+        }
+
     }
 }

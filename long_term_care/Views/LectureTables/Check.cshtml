@@ -64,9 +64,13 @@
     }
 
         .send button {
-            width: 300px;
-            height: 70px;
+            width: 200px;
+            height: 50px;
             font-size: 16px;
+            margin: 3%;
+        }
+        .send form {
+           
             margin: 3%;
         }
 </style>
@@ -116,56 +120,17 @@
     </div>
     <div class="send">
         <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Search", "LectureTables")'">返回</button>
-        <button type="button" id="printButton" class="btn btn-primary" onclick="generatePDF()">生成 PDF</button>
+        <form asp-action="ExportData" asp-controller="LectureTables" method="post">
+            <input type="text" name="Id" value="@Html.DisplayFor(Model => Model.LecId)" style="display:none;" />
+            <input type="text" name="exportType" value="excel" style="display:none;" />
+            <button type="submit" class="btn btn-primary">匯出excel</button>
+        </form>
+        <form asp-action="ExportData" asp-controller="LectureTables" method="post">
+            <input type="text" name="Id" value="@Html.DisplayFor(Model => Model.LecId)" style="display:none;" />
+            <input type="text" name="exportType" value="pdf" style="display:none;" />
+            <button type="submit" class="btn btn-primary">匯出PDF</button>
+        </form>
     </div>
+    
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script>
-        // 生成 PDF
-        function generatePDF() {
-            const doc = new jsPDF();
-
-            // 添加標題
-            doc.setFontSize(18);
-            doc.text('講座活動設計表', 105, 20, { align: 'center' });
-
-            // 添加問卷編號和設計人
-            doc.setFontSize(12);
-            doc.text(`問卷編號: ${@Html.DisplayFor(Model => Model.LecId)}`, 10, 40);
-            doc.text(`設計人: ${@Html.DisplayFor(Model => Model.MemSid)}`, 10, 50);
-
-            // 添加主題
-            doc.setFontSize(14);
-            doc.setFontStyle('bold');
-            doc.text(`主題: ${@Html.DisplayFor(Model => Model.LecTheme)}`, 10, 70);
-
-            // 添加表格
-            const tableData = [
-                ['活動類別', '@Html.DisplayFor(Model => Model.LecClass)'],
-                ['活動目的', '@Html.DisplayFor(Model => Model.LecAim)'],
-                ['活動時間', '@Html.DisplayFor(Model => Model.LecDate)'],
-                ['活動帶領', '@Html.DisplayFor(Model => Model.LecLeader)'],
-                ['活動場地', '@Html.DisplayFor(Model => Model.LecPla)'],
-                ['用物預備', '@Html.DisplayFor(Model => Model.LecTool)'],
-                ['步驟', '@Html.DisplayFor(Model => Model.LecStep)'],
-                // 依此類推，添加更多時間段和課程
-            ];
-
-            doc.autoTable({
-                startY: 90,
-                head: [['項目', '內容']],
-                body: tableData,
-                theme: 'plain',
-                styles: {
-                    fontSize: 12,
-                },
-            });
-
-            // 儲存或顯示 PDF
-            doc.save('lecture_design.pdf');
-            // 或者打開新的視窗顯示 PDF，需將下面這行取消註解
-            // doc.output('dataurlnewwindow');
-        }
-        }
-    </script>
 </body>
