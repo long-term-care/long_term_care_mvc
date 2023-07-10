@@ -467,6 +467,9 @@ namespace long_term_care.Models
                 entity.Property(e => e.CaseWork)
                     .HasMaxLength(50)
                     .HasColumnName("Case_Work");
+                entity.Property(e => e.CaseIcnum)
+                   .HasMaxLength(50)
+                   .HasColumnName("Case_Icnum");
             });
 
             modelBuilder.Entity<CaseNeed>(entity =>
@@ -999,6 +1002,11 @@ namespace long_term_care.Models
                     .IsRequired()
                     .HasMaxLength(30)
                     .HasColumnName("Mem_UnitName");
+
+                entity.Property(e => e.MemIcnum)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasColumnName("Mem_Icnum");
 
                 entity.Property(e => e.MemUnitNum)
                     .IsRequired()

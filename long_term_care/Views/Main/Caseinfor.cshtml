@@ -110,7 +110,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-3">
                         <label for="memeducationLevel">教育程度</label>
                         <select id="memeducationLevel">
                             <option value=""></option>
@@ -124,11 +124,15 @@
                             <option value="研究所以上">研究所以上</option>
                         </select>
                     </div>
-                    <div class="col-4">
+                    <div class="col-3">
+                        <label for="memphone">健保IC碼<span class="required">*</span></label>
+                        <input type="tel" placeholder="&nbsp;&nbsp;" id="memicnum">
+                    </div>
+                    <div class="col-3">
                         <label for="memtel">電話<span class="required">*</span></label>
                         <input type="tel" placeholder="&nbsp;&nbsp;" id="memtel" required>
                     </div>
-                    <div class="col-4">
+                    <div class="col-3">
                         <label for="memphone">手機<span class="required">*</span></label>
                         <input type="tel" placeholder="&nbsp;&nbsp;" id="memphone" required>
                     </div>
@@ -304,7 +308,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-3">
                         <label for="educationLevel">教育程度</label>
                         <select id="educationLevel" >
                             <option value=""></option>
@@ -318,11 +322,15 @@
                             <option value="研究所以上">研究所以上</option>
                         </select>
                     </div>
-                    <div class="col-4">
+                    <div class="col-3">
+                        <label for="memphone">健保IC碼</label>
+                        <input type="tel" placeholder="&nbsp;&nbsp;" id="caseicnum">
+                    </div>
+                    <div class="col-3">
                         <label for="password">密碼<span class="required">*</span></label>
                         <input type="password" placeholder="&nbsp;&nbsp;" required id="password">
                     </div>
-                    <div class="col-4">
+                    <div class="col-3">
                         <label for="passwordcheck">密碼確認<span class="required">*</span></label>
                         <input type="password" placeholder="&nbsp;&nbsp;" required id="passwordcheck">
                     </div>
@@ -521,6 +529,7 @@
             var question = document.getElementById("question").value;
             var replenish = document.getElementById("replenish").value;
             var factly = document.getElementById("factly").value;
+            var icnum = document.getElementById("caseicnum").value;
             var Name = lastname + firstname;
             var RegTime = new Date();
             var bd = year + "/" + month + "/" + day;
@@ -581,6 +590,7 @@
                     "CaseDesc": replenish,
                     "CaseRegName": Name,
                     "CaseRegTime": RegTime,
+                    "CaseIcnum": icnum
                 }
 
                 xhr.onreadystatechange = function () {
@@ -630,6 +640,7 @@
             var motivation = document.getElementById("motivation").value;
             var record = document.getElementById("record").value;
             var exp = document.getElementById("exp").value;
+            var icnum = document.getElementById("memicnum").value;
 
             var Name = lastname + firstname;
             var bd = year + "/" + month + "/" + day;
@@ -679,7 +690,8 @@
                     "MemPserv": service,
                     "MemIdent": listidentity,
                     "MemSerRec": record,
-                    "MemEdu": educationLevel
+                    "MemEdu": educationLevel,
+                    "MemIcnum": icnum
                 }
 
                 xhr.onreadystatechange = function () {

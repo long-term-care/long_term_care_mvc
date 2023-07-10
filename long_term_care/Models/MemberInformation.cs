@@ -62,7 +62,7 @@ namespace long_term_care.Models
         [Display(Name = "教育程度")]
         public string? MemEdu { get; set; }
         public string? RoleId { get; set; }
-
+        public string MemIcnum { get; set; }
         public virtual Roleset Role { get; set; }
         public virtual ICollection<CarPick> CarPicks { get; set; }
         public virtual ICollection<CaseCareRecord> CaseCareRecords { get; set; }

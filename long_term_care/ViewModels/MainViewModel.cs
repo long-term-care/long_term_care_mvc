@@ -1,4 +1,6 @@
-﻿namespace long_term_care.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace long_term_care.ViewModels
 {
     public class MainViewModel
     {
@@ -35,6 +37,7 @@
         public string CaseRegName { get; set; }
         public string CaseRegTime { get; set; }
 
+        public string CaseIcnum { get; set; }
         //-----------------------------------------------------------------------------------
 
         public string MemSid { get; set; }
@@ -58,5 +61,7 @@
         public string MemIdent { get; set; }
         public string MemSerRec { get; set; }
         public string MemEdu { get; set; }
+
+        public string MemIcnum { get; set; }
     }
 }
