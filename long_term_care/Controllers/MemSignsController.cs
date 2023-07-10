@@ -10,6 +10,9 @@ using long_term_care.ViewModels;
 using System.Runtime.ConstrainedExecution;
 using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Wordprocessing;
+using NPOI.XSSF.UserModel;
+using System.IO;
+using iText.Layout.Properties;
 
 namespace long_term_care.Controllers
 {
@@ -227,6 +230,124 @@ namespace long_term_care.Controllers
            MemRecord = x.MemRecord ?? string.Empty
        }).ToList();
             return View("SearchResult", no1);
+        }
+
+
+
+        private IEnumerable<MemSignSearchResultViewModel> GetDataForDateRange( String id,DateTime startDate, DateTime endDate)
+        {
+            using (var dbContext = new longtermcareContext())
+            {
+                
+                var no1 = _context.MemSigns
+              .Include(t1 => t1.MemS)
+              .Where(x => x.MemSid == id && x.MemSignDate >= startDate && x.MemSignDate <= endDate)
+              .OrderBy(x=>x.MemSignDate)
+              .Select(x => new MemSignSearchResultViewModel
+              {
+                  MemYM = x.MemTelTime1.HasValue ? x.MemTelTime1.Value : DateTime.Today,
+                  MemSignQaid = x.MemSignQaid,
+                  MemSid = x.MemSid,
+                  MemName = x.MemS.MemName,
+                  MemDate = x.MemSignDate,
+                  MemTelTime1 = x.MemTelTime1.HasValue ? x.MemTelTime1.Value : DateTime.Today,
+                  MemTelTime2 = x.MemTelTime2.HasValue ? x.MemTelTime2.Value : DateTime.Today,
+                  MemRecord = x.MemRecord ?? string.Empty
+              }).ToList();
+
+                return no1;
+            }
+            
+        }
+
+
+        [HttpPost]
+        public IActionResult ExportData(string exportType, String id, DateTime startDate, DateTime endDate)
+        {
+            var data = GetDataForDateRange(id,startDate, endDate);
+
+            if (exportType == "excel")
+            {
+                var workbook = new XSSFWorkbook();
+                var sheet = workbook.CreateSheet("Sheet1");
+
+                var headerRow = sheet.CreateRow(0);
+                headerRow.CreateCell(0).SetCellValue("編號");
+                headerRow.CreateCell(1).SetCellValue("姓名");
+                var personalInfoRow = sheet.CreateRow(1);
+                personalInfoRow.CreateCell(0).SetCellValue(data.First().MemSid);
+                personalInfoRow.CreateCell(1).SetCellValue(data.First().MemName);
+
+                var SigntitleRow = sheet.CreateRow(2);
+                SigntitleRow.CreateCell(0).SetCellValue("簽到日期");
+                SigntitleRow.CreateCell(1).SetCellValue("簽到時間");
+                SigntitleRow.CreateCell(2).SetCellValue("簽退時間");
+                SigntitleRow.CreateCell(3).SetCellValue("工作日誌");
+
+                int rowIndex = 3;
+                foreach (var item in data)
+                {
+                    var row = sheet.CreateRow(rowIndex++);
+                    row.CreateCell(0).SetCellValue(item.MemDate.ToString("yyyy/MM/dd"));
+                    row.CreateCell(1).SetCellValue(item.MemTelTime1.ToString("t"));
+                    row.CreateCell(2).SetCellValue(item.MemTelTime2.ToString("t"));
+                    row.CreateCell(3).SetCellValue(item.MemRecord);
+                }
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    workbook.Write(memoryStream);
+                    return File(memoryStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "data.xlsx");
+                }
+            }
+            else if (exportType == "pdf")
+            {
+                using (MemoryStream mem = new MemoryStream())
+                {
+                    iText.Kernel.Pdf.PdfDocument pdfDoc = new iText.Kernel.Pdf.PdfDocument(new iText.Kernel.Pdf.PdfWriter(mem));
+                    iText.Layout.Document document = new iText.Layout.Document(pdfDoc);
+
+                    // Load the NotoSansHK-Regular.otf font
+                    var fontPath = Path.Combine(Directory.GetCurrentDirectory(), "Font", "NotoSansHK-Regular.otf");
+                    var font = iText.Kernel.Font.PdfFontFactory.CreateFont(fontPath, iText.IO.Font.PdfEncodings.IDENTITY_H);
+
+                    // Set the font to the document
+                    document.SetFont(font);
+                    iText.Layout.Element.Paragraph paragraph = new iText.Layout.Element.Paragraph("\n\n基本資料\n").SetFont(font);
+                    paragraph.Add(new iText.Layout.Element.Text("編號: " + data.First().MemSid).SetFont(font));
+                    paragraph.Add(new iText.Layout.Element.Text("\t姓名: " + data.First().MemName).SetFont(font));
+                    document.Add(paragraph);
+
+                    iText.Layout.Element.Table table = new iText.Layout.Element.Table(4);
+                    table.SetWidth(UnitValue.CreatePercentValue(100));
+
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("簽到日期").SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("簽到時間").SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("謙退時間").SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("工作日誌").SetFont(font)));
+
+
+                    foreach (var item in data)
+                    {
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(item.MemDate.ToString("yyyy/MM/dd")).SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(item.MemTelTime1.ToString("t")).SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(item.MemTelTime2.ToString("t"))));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(item.MemRecord).SetFont(font)));
+                    }
+
+                    iText.Layout.Element.Paragraph tableParagraph = new iText.Layout.Element.Paragraph().SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
+                    tableParagraph.Add(table);
+
+                    document.Add(tableParagraph);
+
+                    document.Close();
+
+                    return File(mem.ToArray(), "application/pdf", "data.pdf");
+                }
+            }
+
+
+            return BadRequest("格式錯誤");
         }
     }
 }

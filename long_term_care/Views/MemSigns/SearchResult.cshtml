@@ -6,7 +6,6 @@
     ViewData["Title"] = "SearchResult";
     bool isAdmin = User.IsInRole("管理員");
     var date = DateTime.Today;
-
     bool isFirstIteration = true;
     DateTime? memYM = null;
     string memName = null;
@@ -136,6 +135,26 @@
         }
     </tbody>
 </table>
+<form asp-action="ExportData" asp-controller="MemSigns" method="post">
+    <label for="startDate">輸出起日:</label>
+    @foreach(var item in Model)
+    {
+       <input type="text" name="id" style="display:none;" value="@item.MemSid">
+    }
+    <input type="date" id="startDate" name="startDate" required>
+
+    <label for="endDate">輸出迄日:</label>
+    <input type="date" id="endDate" name="endDate" required>
+
+    <label for="exportType">輸出格式:</label>
+    <select id="exportType" name="exportType">
+        <option value="excel">Excel</option>
+        @*<option value="doc">Word</option>*@
+        <option value="pdf">PDF</option>
+    </select>
+
+    <button type="submit">Export</button>
+</form>
 @section topCSS {
     <style type="text/css">
         

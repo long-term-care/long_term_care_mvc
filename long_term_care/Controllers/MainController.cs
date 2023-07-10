@@ -86,7 +86,7 @@ namespace long_term_care.Controllers
         {
             if (model.type == 1)
             {
-
+                
                 var member = new MemberInformation
                 {
                     MemSid = model.MemSid,
@@ -109,7 +109,9 @@ namespace long_term_care.Controllers
                     MemTrans = model.MemTrans,
                     MemUid = model.MemUid,
                     MemUnitName = model.MemUnitName,
-                    MemUnitNum = model.MemUnitNum
+                    MemUnitNum = model.MemUnitNum,
+                    RoleId = "3",
+                    
                 };
                 _context.MemberInformations.Add(member);
                 _context.SaveChanges();
@@ -316,7 +318,7 @@ namespace long_term_care.Controllers
             ViewData["name"] = name;
             return View();
         }
-        [Authorize(Roles = "管理員")]
+        [Authorize]
         public IActionResult Memprofile()
         {
             string userName = User.Identity.Name;

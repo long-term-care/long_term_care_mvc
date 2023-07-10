@@ -1,4 +1,5 @@
-﻿using long_term_care.Models;
+﻿using iText.Layout.Properties;
+using long_term_care.Models;
 using long_term_care.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -268,14 +269,15 @@ namespace long_term_care.Controllers
 
 
                     iText.Layout.Element.Table table = new iText.Layout.Element.Table(2);
+                    table.SetWidth(UnitValue.CreatePercentValue(100));
 
                     table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("活動名稱").SetFont(font)));
-                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("活動日期").SetFont(font)));
-                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("講師姓名").SetFont(font)));
-                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("活動地點").SetFont(font)));
                     table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(data.First().ActCourse).SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("活動日期").SetFont(font)));
                     table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(data.First().ActDate.ToString("yyyy/MM/dd")).SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("講師姓名").SetFont(font)));
                     table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(data.First().ActLec).SetFont(font)));
+                    table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("活動地點").SetFont(font)));           
                     table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(data.First().ActLoc).SetFont(font)));
                     table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("學員姓名").SetFont(font)));
                     table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("服務項目").SetFont(font)));
@@ -284,8 +286,11 @@ namespace long_term_care.Controllers
                         table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(item.CaseName).SetFont(font)));
                         table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph(item.ActSer).SetFont(font)));
                     }
+                    iText.Layout.Element.Paragraph tableParagraph = new iText.Layout.Element.Paragraph().SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
+                    tableParagraph.Add(table);
 
-                    document.Add(table);
+                    document.Add(tableParagraph);
+
 
                     document.Close();
 
