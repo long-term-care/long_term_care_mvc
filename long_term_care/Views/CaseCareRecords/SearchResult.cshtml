@@ -53,125 +53,55 @@
         caseHome = item.CaseHome;
         casePhn = item.CasePhn;
         isFirstIteration = false;
-        <div class="row align-items-start box">
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseName)
-            </div>
-            <div class="col-md-2 ">
-                @caseName
-            </div>
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseBd)
-            </div>
-                <div class="col-md-2">
-                @caseBd
-                </div>
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseGender)
-            </div>
-            <div class="col-md-2">
-                @caseGender
-            </div>
-        </div>
-        <br />
-        <div class="row align-items-start box">
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseNo)
-            </div>
-            <div class="col-md-2 ">
-                @caseNo
-            </div>
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseHealth)
-            </div>
-            <div class="col-md-2">
-                @caseHealth
-            </div>
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CasePhn)
-            </div>
-            <div class="col-md-2">
-                @casePhn
-            </div>
-        </div>
-        <br />
-        
-        <div class="row align-items-start box">
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseLang)
-            </div>
-            <div class="col-md-2 ">
-                @caseLang
-            </div>
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseMari)
-            </div>
-            <div class="col-md-2">
-                @caseMari
-            </div>
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseFami)
-            </div>
-            <div class="col-md-2">
-                @caseFami
-            </div>
-            
-        </div>
-        <br />
-        <div class="row align-items-start box">
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseAddr)
-            </div>
-            <div class="col-md-10">
-                @caseAddr
-            </div>
-        </div>
-        <br />
-        <div class="row align-items-start box">
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseCnta)
-            </div>
-            <div class="col-md-2 ">
-                @caseCnta
-            </div>
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseCntTel)
-            </div>
-            <div class="col-md-2">
-                @caseCntTel
-            </div>
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseCntRel)
-            </div>
-            <div class="col-md-2">
-                @caseCntRel
-            </div>
+        <table class="table">
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseName)</td>
+                <td class="table-value">@caseName</td>
+            </tr>
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseBd)</td>
+                <td class="table-value">@caseBd</td>
+            </tr>
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseGender)</td>
+                <td class="table-value">@caseGender</td>
+            </tr>
 
-        </div>
-        <br />
-        <div class="row align-items-start box">
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseHome)
-            </div>
-            <div class="col-md-2 ">
-                @caseHome
-            </div>
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseIdent)
-            </div>
-            <div class="col-md-2">
-                @caseIdent
-            </div>
-        </div>
-        <br />
-        <div class="col-md-2">
-            <button type="button" class="btn btn-secondary">關懷訪視</button>
-        </div>
-        <br />
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseLang)</td>
+                <td class="table-value">@caseLang</td>
+            </tr>
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseMari)</td>
+                <td class="table-value">@caseMari</td>
+            </tr>
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseFami)</td>
+                <td class="table-value">@caseFami</td>
+            </tr>
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseAddr)</td>
+                <td class="table-value">@caseAddr</td>
+            </tr>
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseNo)</td>
+                <td class="table-value">@caseNo</td>
+            </tr>
 
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseCnta)</td>
+                <td class="table-value">@caseCnta</td>
+            </tr>
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseCntTel)</td>
+                <td class="table-value">@caseCntTel</td>
+            </tr>
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseCntRel)</td>
+                <td class="table-value">@caseCntRel</td>
+            </tr>
+        </table>
     }
-
-    
 }
 <table class="table table-bordered">
     <thead>
@@ -259,9 +189,9 @@
                     </div>
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.CaseQaid">Edit</a> |
+                    <a asp-action="Edit" asp-route-id="@item.CaseQaid">編輯</a> |
 
-                    <a asp-action="Delete" asp-route-id="@item.CaseQaid">Delete</a>
+                    <a asp-action="Delete" asp-route-id="@item.CaseQaid">刪除</a>
                 </td>
             </tr>
         }
@@ -289,32 +219,40 @@
 
 @section topCSS {
     <style type="text/css">
-        h1 {
-            font-size: 36px;
-            text-align: center;
-        }
-
-        h2 {
-            font-size: 20px;
-            background: #D9D9D9;
-            padding: 15px;
-            border-radius: 20px;
-        }
-
-        .box div:nth-child(odd) {
-            background-color: lightblue;
-            padding : 5px;
-            text-align : center;
-        }
-
-        .box div:nth-child(even) {
-            background-color: rgba(255, 255, 255, 0.5);
-            padding: 5px;
-            text-align: center;
-        }
-
         body {
-            background-color: #CBE9EA;
+            padding: 30px;
         }
+
+        .table-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        table.table {
+            border-collapse: collapse;
+        }
+
+            table.table td {
+                border: 2px solid #000;
+                padding: 10px;
+            }
+
+        .table-label {
+            font-weight: bold;
+            border-right: 1px solid #ccc;
+            padding-right: 10px;
+        }
+
+        .table-value {
+            margin-bottom: 10px;
+            padding-left: 10px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+       
     </style>
 }

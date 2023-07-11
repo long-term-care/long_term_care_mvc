@@ -19,17 +19,24 @@ using System.Drawing.Imaging;
 using System.IO;
 using SkiaSharp;
 using DocumentFormat.OpenXml.Spreadsheet;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace long_term_care.Controllers
 {
     public class MainController : Controller
     {
         private readonly longtermcareContext _context;
+        private HttpClient httpClient;
+
 
         public MainController(longtermcareContext context)
         {
             _context = context;
+            httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri("https://www.ris.gov.tw/rs-opendata/api/v1/datastore/ODRP049/111");
         }
+
         public IActionResult Caseinfor()
         {
             string nextFormNumber = "";
@@ -308,10 +315,29 @@ namespace long_term_care.Controllers
             return View();
         }
 
-        public IActionResult ElderRegistration()
+        public async Task<IActionResult> ElderRegistration()
         {
+            HttpResponseMessage response = await httpClient.GetAsync("");
+            if (response.IsSuccessStatusCode)
+            {
+                string responseData = await response.Content.ReadAsStringAsync();
+                dynamic data = JsonConvert.DeserializeObject(responseData);
+                dynamic cityDistricts = null;
+
+                if (data?.result?.records != null && data.result.records.Count > 0)
+                {
+                    cityDistricts = data.result.records[0];
+                }
+
+                return View(cityDistricts);
+            }
+
             return View();
         }
+
+
+
+
 
         /* [Authorize]*/
         public IActionResult MemMainpage()

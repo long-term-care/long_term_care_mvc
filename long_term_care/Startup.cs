@@ -31,7 +31,7 @@ namespace long_term_care
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            
+             services.AddMvc();
 
             services.AddDbContext<longtermcareContext>(options =>
          options.UseSqlServer(Configuration.GetConnectionString("longtermcareContext")));
@@ -63,6 +63,7 @@ namespace long_term_care
                     policy.RequireRole("志工"));
             });
         }
+
 
 
 

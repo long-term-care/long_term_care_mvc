@@ -42,7 +42,10 @@ namespace long_term_care.Controllers
             bool isExist = await _context.CaseDailyRegistrations.AnyAsync(x => x.Casedate == caseDate);
             return Json(new { exists = isExist });
         }
-
+        public IActionResult StyleCreate()
+        {
+            return View();
+        }
         public IActionResult Search()
         {
             return View();

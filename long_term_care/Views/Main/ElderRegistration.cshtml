@@ -73,9 +73,15 @@
                             <option value="其他">其他</option>
                         </select>
                     </div>
-                    <div class="col-6">
-                        <label for="address">長者居住地址<span class="required">*</span></label>
-                        <input type="tel" placeholder="&nbsp;&nbsp;" id="address" required>
+                    <div class="col-2">
+                        <label for="city">城市<span class="required">*</span></label>
+                        <select id="city" required></select>
+                    </div>
+                    <div class="col-2">
+                        <select id="township" required></select>
+                    </div>
+                    <div class="col-2">
+                        <input type="text" required>
                     </div>
                 </div>
 
@@ -254,6 +260,45 @@
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        var locationData = @Html.Raw(Json.Serialize(Model));
+
+        $(document).ready(function () {
+            var cities = Object.keys(locationData);
+
+            cities.forEach(function (city) {
+                $('#city').append(`<option value="${city}">${city}</option>`);
+            });
+
+            $('#city').change(function () {
+                var city = $(this).val();
+                var townships = Object.keys(locationData[city]);
+
+                $('#township').empty();
+                $('#street').empty();
+
+                townships.forEach(function (township) {
+                    $('#township').append(`<option value="${township}">${township}</option>`);
+                });
+            });
+
+            $('#township').change(function () {
+                var city = $('#city').val();
+                var township = $(this).val();
+                var streets = locationData[city][township].村里;
+
+                $('#street').empty();
+
+                streets.forEach(function (street) {
+                    $('#street').append(`<option value="${street}">${street}</option>`);
+                });
+            });
+        });
+
+    </script>
+
+
     <script>
         const memidcard = document.getElementById('memidcard');
 
