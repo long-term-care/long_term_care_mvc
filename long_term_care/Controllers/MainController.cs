@@ -110,7 +110,7 @@ namespace long_term_care.Controllers
                     MemUid = model.MemUid,
                     MemUnitName = model.MemUnitName,
                     MemUnitNum = model.MemUnitNum,
-                    RoleId = "3",
+                    MemIcnum = model.MemIcnum,
                     
                 };
                 _context.MemberInformations.Add(member);
@@ -151,6 +151,7 @@ namespace long_term_care.Controllers
                     CaseDesc = model.CaseDesc,
                     CaseRegName = model.CaseRegName,
                     CaseRegTime = model.CaseRegTime,
+                    CaseIcnum = model.CaseIcnum,
                 };
                 _context.CaseInfors.Add(entity);
                 _context.SaveChanges();
@@ -352,6 +353,7 @@ namespace long_term_care.Controllers
             memberInformation.MemIdent = memberInformation.MemIdent ?? "";
             memberInformation.MemSerRec = memberInformation.MemSerRec ?? "";
             memberInformation.MemEdu = memberInformation.MemEdu ?? "";
+            memberInformation.MemIcnum = memberInformation.MemIcnum ?? "";
 
             _context.Update(memberInformation);
             await _context.SaveChangesAsync();
