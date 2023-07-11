@@ -110,7 +110,6 @@ namespace long_term_care.Controllers
                     MemUid = model.MemUid,
                     MemUnitName = model.MemUnitName,
                     MemUnitNum = model.MemUnitNum,
-                    RoleId = "3",
                     MemIcnum = model.MemIcnum,
                     
                 };

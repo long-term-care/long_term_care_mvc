@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using long_term_care.Models;
 using long_term_care.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
-using IronPdf;
 using System.IO;
 using NPOI.XSSF.UserModel;
 using iText.Layout.Properties;
