@@ -40,14 +40,12 @@ input[type="text"], input[type="number"] {
 }
 
 .GiantBox {
-    margin: 20px auto;
     width: 100%;
 }
 
     .GiantBox .title .header {
         text-align: center;
         justify-content: space-around;
-        margin: 20px 0;
     }
 
 .container .row {
@@ -59,7 +57,6 @@ input[type="text"], input[type="number"] {
     padding: 10px;
     background-color: #F5F5F5;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 0px 0;
 }
 
 .transparent-input {

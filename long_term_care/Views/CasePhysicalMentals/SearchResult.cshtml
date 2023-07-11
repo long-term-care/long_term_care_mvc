@@ -1,118 +1,191 @@
 ﻿@using long_term_care.ViewModels;
-@*@model long_term_care.Models.CasePhysicalMental*@
-@*@model dynamic*@
 @model PhysicalSearchResultViewModel
-
-
-<!-- 访问其他属性 -->
 
 @{
     ViewData["Title"] = "SearchResult";
 }
 
-<h1>C 單位巷弄長照站長者身心狀況評估問卷</h1>
-<h2>
-    阿公/阿嬷(或爺爺/奶奶)您好： 為了瞭解您參加C 單位巷弄長照站的情形，聽聽您的感想與建議，以做為我們未來規劃服務的參考，請您撥一點時間，幫助我們填寫問卷。您的資料，將僅作為評估關
-    懷站服務情形之參考，請放心填答。
-</h2>
+<style>
+    /* Apple-style table */
+    .table-container {
+        border-radius: 8px;
+        background-color: #f8f8f8;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
-<div class="col-md-2">
-    <button type="button" class="btn btn-secondary">基本資料</button>
-</div>
+    .table-title {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
 
-@Html.DisplayNameFor(model => model.CaseName)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseName)</div>
-<br />
-@*@Html.DisplayNameFor(model => model.CaseOld)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseOld)</div>
-<br />*@
-@Html.DisplayNameFor(model => model.CaseGender)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseGender)</div>
-<br />
-@Html.DisplayNameFor(model => model.CaseMari)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseMari)</div>
-<br />
-@Html.DisplayNameFor(model => model.CaseEdu)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseEdu)</div>
-<br />
-@Html.DisplayNameFor(model => model.CaseLive)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseLive)</div>
-<br />
-@Html.DisplayNameFor(model => model.CaseFre)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseFre)</div>
-<br />
+    .table-button {
+        margin-bottom: 20px;
+    }
 
+    .table-label {
+        font-weight: bold;
+    }
 
-<div class="col-md-2">
-    <button type="button" class="btn btn-secondary">問卷內容</button>
-</div>
+    .table-value {
+        margin-bottom: 10px;
+    }
 
-@Html.DisplayNameFor(model => model.CaseContent1)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseContent1)</div><br/>
-@Html.DisplayNameFor(model => model.CaseContent2)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseContent2)</div><br/>
-@Html.DisplayNameFor(model => model.CaseContent3)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseContent3)</div><br/>
-@Html.DisplayNameFor(model => model.CaseContent4)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseContent4)</div><br/>
-@Html.DisplayNameFor(model => model.CaseContent5)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseContent5)</div><br/>
-@Html.DisplayNameFor(model => model.CaseContent6)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseContent6)</div><br/>
-@Html.DisplayNameFor(model => model.CaseContent7)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseContent7)</div><br/>
-@Html.DisplayNameFor(model => model.CaseContent8)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseContent8)</div><br/>
-@Html.DisplayNameFor(model => model.CaseContent9)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseContent9)</div><br/>
-@Html.DisplayNameFor(model => model.CaseContent10)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseContent10)</div><br/>
-@Html.DisplayNameFor(model => model.CaseContent11)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseContent11)</div><br/>
-@Html.DisplayNameFor(model => model.CaseContent12)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseContent12)</div><br/>
-@Html.DisplayNameFor(model => model.CaseContent13)
-<div class="custom-div">@Html.DisplayFor(modelItem => modelItem.CaseContent13)</div><br/>
+    /* Form styling */
+    .form-group {
+        margin-bottom: 15px;
+    }
 
-<form method="post" action="/CasePhysicalMentals/ExportLatestCasePhysicalMentals">
-    <div class="form-group">
-        <label for="CaseIDcard">個案身分證:</label>
-        <input type="text" class="form-control" id="CaseIDcard" name="CaseIDcard" required>
+        .form-group label {
+            font-weight: bold;
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    .select-container {
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    .btn-submit {
+        background-color: #007bff;
+        color: #fff;
+        padding: 8px 20px;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-back {
+        color: #007bff;
+        text-decoration: none;
+        margin-top: 10px;
+        display: inline-block;
+    }
+</style>
+
+<div class="table-container">
+    <h1 class="table-title">C 單位巷弄長照站長者身心狀況評估問卷</h1>
+
+    <div class="table-button col-md-2">
+        <button type="button" class="btn btn-secondary">基本資料</button>
     </div>
-    <label for="exportType">輸出格式:</label>
-    <select id="exportType" name="exportType">
-        <option value="excel">Excel</option>
-        <option value="pdf">PDF</option>
-    </select>
-    <button type="submit" class="btn btn-primary">Export</button>
-</form>
-<div>
-    <a asp-action="Details">返回</a>
+
+    <table class="table">
+        <tr>
+            <td class="table-label">@Html.DisplayNameFor(model => model.CaseName)</td>
+            <td class="table-value">@Html.DisplayFor(modelItem => modelItem.CaseName)</td>
+        </tr>
+        <tr>
+            <td class="table-label">@Html.DisplayNameFor(model => model.CaseGender)</td>
+            <td class="table-value">@Html.DisplayFor(modelItem => modelItem.CaseGender)</td>
+        </tr>
+        <tr>
+            <td class="table-label">@Html.DisplayNameFor(model => model.CaseMari)</td>
+            <td class="table-value">@Html.DisplayFor(modelItem => modelItem.CaseMari)</td>
+        </tr>
+        <tr>
+            <td class="table-label">@Html.DisplayNameFor(model => model.CaseEdu)</td>
+            <td class="table-value">@Html.DisplayFor(modelItem => modelItem.CaseEdu)</td>
+        </tr>
+        <tr>
+            <td class="table-label">@Html.DisplayNameFor(model => model.CaseLive)</td>
+            <td class="table-value">@Html.DisplayFor(modelItem => modelItem.CaseLive)</td>
+        </tr>
+        <tr>
+            <td class="table-label">@Html.DisplayNameFor(model => model.CaseFre)</td>
+            <td class="table-value">@Html.DisplayFor(modelItem => modelItem.CaseFre)</td>
+        </tr>
+    </table>
+
+    <div class="table-button col-md-2">
+        <button type="button" class="btn btn-secondary">問卷內容</button>
+    </div>
+
+    <table class="table">
+        <tr>
+            <td class="table-label">@Html.DisplayNameFor(model => model.CaseContent1)</td>
+            <td class="table-value">@Html.DisplayFor(modelItem => modelItem.CaseContent1)</td>
+        </tr>
+        <tr>
+            <td class="table-label">@Html.DisplayNameFor(model => model.CaseContent2)</td>
+            <td class="table-value">@Html.DisplayFor(modelItem => modelItem.CaseContent2)</td>
+        </tr>
+        <tr>
+            <td class="table-label">@Html.DisplayNameFor(model => model.CaseContent3)</td>
+            <td class="table-value">@Html.DisplayFor(modelItem => modelItem.CaseContent3)</td>
+        </tr>
+        <tr>
+            <td class="table-label">@Html.DisplayNameFor(model => model.CaseContent4)</td>
+            <td class="table-value">@Html.DisplayFor(modelItem => modelItem.CaseContent4)</td>
+        </tr>
+        <tr>
+            <td class="table-label">@Html.DisplayNameFor(model => model.CaseContent5)</td>
+            <td class="table-value">@Html.DisplayFor(modelItem => modelItem.CaseContent5)</td>
+        </tr>
+        <tr>
+            <td class="table-label">@Html.DisplayNameFor(model => model.CaseContent6)</td>
+            <td class="table-value">@Html.DisplayFor(modelItem => modelItem.CaseContent6)</td>
+        </tr>
+        <tr>
+            <td class="table-label">@Html.DisplayNameFor(model => model.CaseContent7)</td>
+            <td class="table-value">@Html.DisplayFor(modelItem => modelItem.CaseContent7)</td>
+        </tr>
+        <tr>
+            <td class="table-label">@Html.DisplayNameFor(model => model.CaseContent8)</td>
+            <td class="table-value">@Html.DisplayFor(modelItem => modelItem.CaseContent8)</td>
+        </tr>
+        <tr>
+            <td class="table-label">@Html.DisplayNameFor(model => model.CaseContent9)</td>
+            <td class="table-value">@Html.DisplayFor(modelItem => modelItem.CaseContent9)</td>
+        </tr>
+        <tr>
+            <td class="table-label">@Html.DisplayNameFor(model => model.CaseContent10)</td>
+            <td class="table-value">@Html.DisplayFor(modelItem => modelItem.CaseContent10)</td>
+        </tr>
+        <tr>
+            <td class="table-label">@Html.DisplayNameFor(model => model.CaseContent11)</td>
+            <td class="table-value">@Html.DisplayFor(modelItem => modelItem.CaseContent11)</td>
+        </tr>
+        <tr>
+            <td class="table-label">@Html.DisplayNameFor(model => model.CaseContent12)</td>
+            <td class="table-value">@Html.DisplayFor(modelItem => modelItem.CaseContent12)</td>
+        </tr>
+        <tr>
+            <td class="table-label">@Html.DisplayNameFor(model => model.CaseContent13)</td>
+            <td class="table-value">@Html.DisplayFor(modelItem => modelItem.CaseContent13)</td>
+        </tr>
+    </table>
+
+    <form method="post" action="/CasePhysicalMentals/ExportLatestCasePhysicalMentals">
+        <div class="form-group">
+            <label for="CaseIDcard">個案身分證:</label>
+            <input type="text" class="form-control" id="CaseIDcard" name="CaseIDcard" required>
+        </div>
+        <div class="form-group">
+            <label for="exportType">輸出格式:</label>
+            <div class="select-container">
+                <select id="exportType" name="exportType">
+                    <option value="excel">Excel</option>
+                    <option value="pdf">PDF</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-submit">輸出</button>
+        </div>
+    </form>
+
+    <div>
+        <a asp-action="Details" class="btn-back">返回</a>
+    </div>
 </div>
+
 @section topCSS {
-        <style type="text/css">
-            h1 {
-                font-size: 36px;
-                text-align: center;
-            }
 
-            h2 {
-                font-size: 20px;
-                background: #D9D9D9;
-                padding: 15px;
-                border-radius: 20px;
-            }
-
-
-
-            body {
-                background-color: #CBE9EA;
-            }
-                .custom-div{
-                        background-color: rgba(255, 255, 255, 0.8);
-                         display: inline-block;
-                         padding : 4px;
-                             border-radius: 10px;
-            }
-        </style>
 }

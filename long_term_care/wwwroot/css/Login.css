@@ -6,39 +6,12 @@
 }
 
 .container-fluid {
-    
     position: relative;
     margin: 0;
     height: 100%;
     background-size: cover;
     background-position: center;
     width: 100%;
-}
-
-.global_nav {
-    display: block;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    text-align: center;
-    height: 40px;
-    z-index: 2;
-}
-
-ul {
-    display: flex;
-}
-
-.Menu {
-    margin-top: 10px;
-    float: left;
-    position: relative;
-}
-
-ul.Menu > li {
-    list-style-type: none;
-    padding: 10px;
-    color: #FFF;
 }
 
 .content {
@@ -59,11 +32,10 @@ ul.Menu > li {
     }
 
 .LogInBox {
-    position: absolute;
+    /*position: absolute;
     width: 330.04px;
-    height: 610.44px;
-    left: 5%;
-    top: 20%;
+    height: 610.44px;*/
+    margin: 10%; /*Modify Here*/
     background: #FFA5C0;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 69px;
@@ -89,52 +61,31 @@ ul.Menu > li {
     position: relative;
     width: 200px;
     height: 50px;
-    top: 40px;
     background: #FFFFFF;
     border: 1px solid #857B7B;
     border-radius: 10px;
     margin: 10px 0;
 }
-
-        .LogIn input:not(.id) {
-            margin-bottom: 50px;
-        }
+input:not(.check):not(#password):not(#id) {
+    margin-bottom: 20%;
+}
 .check {
-    position: relative;
-    display: flex;
+    width: 100%;
     flex-wrap: wrap;
-    align-items:center;
+    align-items: center;
     justify-content: center;
 }
 
-.checktext input {
-   
-    width: 200px;
-    height: 50px;
-    top: 40px;
-    background: #FFFFFF;
-    border: 1px solid #857B7B;
-    border-radius: 10px;
-    margin: 10px 0;
-}
-.forget {
-    color: #FFFFFF;
-    position: relative;
-    width: 100%;
-    margin: 20px 0;
-    font-style: normal;
-    font-weight: 300;
-    font-size: 18px;
-    line-height: 29px;
-    text-align: center;
-    cursor: pointer;
-}
-
+    #verificationCodeImage {
+        margin-top: 70px;
+        width: 140px;
+        height: 50px;
+    }
 .line {
     position: relative;
     width: 300px;
     left: 50%;
-    margin-bottom: 20px;
+    height: 3rem;
     margin-right: -50%;
     transform: translate(-50%, -50%);
     border-bottom: 2px solid rgba(75, 73, 73, 0.4);
@@ -170,124 +121,6 @@ ul.Menu > li {
 .content .img {
     display: none;
 }
-
-.hidden {
-    display: none;
-}
-
-.translucent-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(169, 167, 167, 0.5);
-    z-index: 900;
-}
-
-.subtitle {
-    color: #857B7B;
-}
-
-.large {
-    width: 90%;
-    height: 80%;
-    border-radius: 10px;
-}
-
-hr {
-    margin-top: 0em !important;
-    margin-bottom: 1em !important;
-    border-width: 1px;
-}
-
-.title {
-    display: flex;
-    justify-content: space-between;
-}
-
-.validReadyToSubmit {
-    margin: auto;
-    text-align: center;
-}
-
-    .validReadyToSubmit button {
-        margin: 20px;
-    }
-
-.closeMessageBox:not(#close), .closeMessageBoxDone {
-    transition: all 0.3s ease-in-out;
-    font-size: 20px;
-    width: 170px;
-    height: 50px;
-    border-radius: 50px;
-    background-color: #4CAF50;
-    box-shadow: 0 20px 30px -6px rgba(64, 201, 89, 0.5);
-    outline: none;
-    cursor: pointer;
-    border: none;
-    color: white;
-}
-
-    .closeMessageBox:hover:not(#close), .closeMessageBoxDone:hover {
-        transform: translateY(3px);
-        box-shadow: none;
-    }
-
-    .closeMessageBox:active:not(#close), .closeMessageBoxDone:active {
-        opacity: 0.6;
-    }
-
-#messageBox {
-    border-radius: 10px;
-    display: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    padding: 20px;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    z-index: 999;
-}
-
-#close {
-    color: gray;
-    background-color: transparent;
-    border: none;
-    font-size: 25px;
-    position: absolute;
-    right: 2%;
-    top: 2%;
-}
-
-input {
-    position: relative;
-    height: 50px;
-    background: rgba(240, 236, 236, 0.68);
-    border: 1px solid #686868;
-    border-radius: 10px;
-    margin: 15px 0;
-}
-
-    input:focus {
-        outline: none;
-    }
-
-.message-box {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
-    text-align: center;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-    z-index: 1000;
-}
-
 @media screen and (width > 768px) {
     .global_nav {
         padding: 0 73px;
@@ -314,25 +147,13 @@ input {
 
     .check input {
         width: 150px;
-        height: 40px;
-        top: 40px;
-        margin: 20px 0;
-    }
-        
-
-    .forget {
-        margin: 20px 0;
+        height: 50px;
     }
 
     .loginBtn, .newAccount {
         font-size: 20px;
         width: 300px;
         border-radius: 11px;
-    }
-
-    .large {
-        width: 50%;
-        height: 60%;
     }
 
     .content .img {

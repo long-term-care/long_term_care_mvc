@@ -43,16 +43,16 @@ namespace long_term_care.ViewModels
         [Display(Name = "關係")]
         public string CaseCntRel { get; set; }
 
-        [Display(Name = "年齡 : ")]
+        [Display(Name = "年齡 ")]
         public string CaseOld { get; set; }
 
-        [Display(Name = "教育程度 : ")]
+        [Display(Name = "教育程度 ")]
         public string CaseEdu { get; set; }
 
-        [Display(Name = "以上居住情形:")]
+        [Display(Name = "以上居住情形")]
         public string CaseLive { get; set; }
 
-        [Display(Name = "您多久來關懷站一次: ")]
+        [Display(Name = "您多久來關懷站一次 ")]
         public string CaseFre { get; set; }
 
         [Display(Name = "一、參加C 單位巷弄長照站辦理的活動之後，精神是否較好? ")]

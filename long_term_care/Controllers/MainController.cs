@@ -307,17 +307,20 @@ namespace long_term_care.Controllers
             return View();
         }
 
-
-
-        [Authorize]
-        public IActionResult MemMainpage()
+        public IActionResult ElderRegistration()
         {
-            string userName = User.Identity.Name;
-            var MemName = _context.MemberInformations.FirstOrDefault(x => x.MemSid == userName);
-            var name = MemName.MemName;
-            ViewData["name"] = name;
             return View();
         }
+
+        /* [Authorize]*/
+        public IActionResult MemMainpage()
+         {
+            /*string userName = User.Identity.Name;
+            var MemName = _context.MemberInformations.FirstOrDefault(x => x.MemSid == userName);
+            var name = MemName.MemName;
+            ViewData["name"] = name;*/
+            return View();
+         }
         [Authorize]
         public IActionResult Memprofile()
         {

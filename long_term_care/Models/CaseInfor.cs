@@ -17,6 +17,8 @@ namespace long_term_care.Models
             CasePhysicalMentals = new HashSet<CasePhysicalMental>();
             CaseTelRecords = new HashSet<CaseTelRecord>();
         }
+        //public string City { get; set; }
+        //public string District { get; set; }
 
         public string CaseNo { get; set; }
         public string CaseUnitName { get; set; }

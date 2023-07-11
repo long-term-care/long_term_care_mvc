@@ -7,15 +7,6 @@
 }
 <body>
     <div class="container-fluid">
-        <nav class="global_nav">
-            <ul class="Menu">
-                <li>
-                <li class="bi bi-house-door-fill"></li>
-                <li>
-                    <h4>ICON HERE</h4>
-                </li>
-            </ul>
-        </nav>
         <div class="content">
             <div class="txt">
                 <div class="LogInBox">                 
@@ -24,8 +15,8 @@
                         <form method="POST" id="loginForm" action="/Main/Login">
                             <input type="text" name="id" class="id" placeholder="&nbsp;&nbsp;員工證號碼" required id="id">
                             <input type="password" name="password" placeholder="&nbsp;&nbsp;密碼" required id="password">
-                            <div class="check"> 
-                                <input type="text" name="verificationCode" placeholder="驗證碼" required="" style="top: 10px;right: 10px;">
+                            <div class="check">
+                                <input type="text" name="verificationCode" placeholder="驗證碼" id="vertify" required>
                                 <img src="@Url.Action("VerificationCodeImage", "Main")" id="verificationCodeImage" alt="Verification Code" onclick="refreshVerificationCode()" class="verification-code-image">
                             </div>
                             @if (!ViewData.ModelState.IsValid)
@@ -36,7 +27,6 @@
                             }
                             <button type="submit" name="loginBtn" class="loginBtn" id="loginbtn">登入</button>
                         </form>
-                        <div class="forget" id="renewPassword">忘記密碼？</div>
                         <div class="line"></div>
                         <form method="get" action="/Main/Caseinfor">
                             <button type="submit" name="newAccount" class="newAccount">建立新帳號</button>
@@ -47,51 +37,6 @@
             <div class="img">
                 <img src="~/image/mainpagepic.png" />
             </div>
-        </div>
-    </div>
-
-    <div id="messageBox" class="hidden">
-        <div class="container">
-            <div class="title">
-                <h3>忘記密碼？</h3>
-                <button class="closeMessageBox" id="close" type="submit">&#x2716;</button>
-            </div>
-            <div class="subtitle">
-                <div class="row">
-                    <div class="col-12">
-                        <p>請輸入你的員工證號碼和手機號碼以搜尋帳號。</p>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <form class="validContent">
-                <div class="row">
-                    <div class="col-2"></div>
-                    <div class="col-6">
-                        <input type="text" name="userNumber" placeholder="&nbsp;&nbsp;員工證號碼" required>
-                    </div>
-                    <div class="col-4"></div>
-                </div>
-                <div class="row">
-                    <div class="col-2"></div>
-                    <div class="col-6">
-                        <input type="tel" name="telephone" placeholder="&nbsp;&nbsp;手機號碼" required>
-                    </div>
-                    <div class="col-4"></div>
-                </div>
-                <div class="row">
-                    <div class="col-2"></div>
-                    <div class="col-6">
-                        <input type="text" name="validCode" placeholder="&nbsp;&nbsp;驗證碼" required>
-                    </div>
-                    <div class="col-4" id="Code"><img src="https://picsum.photos/100/80"></div>
-                </div>
-
-
-                <div class="validReadyToSubmit">
-                    <button class="closeMessageBox">驗證</button>
-                </div>
-            </form>
         </div>
     </div>
 </body>

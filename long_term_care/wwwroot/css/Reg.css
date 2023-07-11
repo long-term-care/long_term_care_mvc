@@ -1,0 +1,212 @@
+﻿body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.required {
+    color: red;
+}
+/*  
+#fullscreen-image {
+    background-color: #CBE9EA;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+}
+
+    #fullscreen-image > h2 {
+        text-align: start;
+        font-size: 50px;
+        font-weight: 300;
+        color: #fff;
+        padding: 30px 0 0 80px;
+        text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    #fullscreen-image > h4 {
+        text-align: start;
+        font-size: 28px;
+        font-weight: 100;
+        color: #afadad;
+        margin: 0;
+        padding: 5px 0 0 80px;
+    }
+    
+.section {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    height: 100%;
+}
+
+#fullscreen-image .section > button {
+    margin: 50px;
+}
+    */
+#volunteer, #elder {
+    transition: all 0.3s ease-in-out;
+}
+
+#volunteer, #elder {
+    font-size: 34px;
+    height: 170px;
+    border-radius: 50px;
+    background-color: #f6c3d2;
+    box-shadow: 0 20px 30px -6px rgba(64, 153, 201, 0.5);
+    outline: none;
+    cursor: pointer;
+    border: none;
+    color: rgb(241, 240, 240);
+}
+
+    #volunteer:hover, #elder:hover {
+        transform: translateY(3px);
+        box-shadow: none;
+    }
+
+    #volunteer:active, #elder:active {
+        opacity: 0.5;
+    }
+
+
+
+#volunteerMsgBox, #elderMsgBox {
+    padding: 20px;
+    background-color: #fff;
+}
+
+/* RegisterPage */
+
+/* volunteer */
+
+
+
+.title {
+    display: flex;
+    align-content: flex-end;
+}
+
+.knownAs {
+    width: 5.4%;
+    border-radius: 10px;
+    background-color: rgb(68, 154, 224);
+    color: #FFFFFF;
+    margin: 2px 0 0 2px;
+    text-align: center;
+}
+
+    .knownAs p {
+        font-size: 13px;
+        position: relative;
+    }
+
+hr {
+    margin-top: 0em !important;
+    margin-bottom: 1em !important;
+    border-width: 1px;
+}
+
+#close, #closeVolunteer, #closeElder {
+    color: gray;
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+    position: absolute;
+    right: 0;
+}
+
+.row {
+    margin: 13.5px 0;
+}
+
+input, select {
+    position: relative;
+    height: 35px;
+    background: rgba(240, 236, 236, 0.68);
+    border: 1px solid #686868;
+    border-radius: 10px;
+}
+
+    input:not(.boxes), select {
+        width: 100%;
+    }
+
+.box {
+    display: flex;
+}
+
+.boxL {
+    float: left;
+    width: 100%;
+}
+
+.boxR {
+    float: right;
+}
+
+    .boxR #exp {
+        width: 400px;
+        height: 85%;
+    }
+
+.boxL .boxes {
+    width: 100%;
+}
+
+.grid-container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.grid-item {
+    background-color: transparent;
+    padding: 0px;
+}
+
+.vReadyToSubmit, .eReadyToSubmit {
+    margin: auto;
+    text-align: center;
+}
+
+    .vReadyToSubmit button {
+        margin: 20px;
+    }
+
+    .eReadyToSubmit button {
+        margin: 0;
+    }
+.closeMessageBox:not(#closeVolunteer):not(#closeElder):not(#close) {
+    transition: all 0.3s ease-in-out;
+    font-size: 20px;
+    width: 170px;
+    height: 50px;
+    border-radius: 50px;
+    background-color: #4CAF50;
+    box-shadow: 0 20px 30px -6px rgba(64, 201, 89, 0.5);
+    outline: none;
+    cursor: pointer;
+    border: none;
+    color: white;
+}
+
+.closeMessageBox:hover:not(#closeVolunteer):not(#closeElder):not(#close) {
+    transform: translateY(3px);
+    box-shadow: none;
+}
+
+.closeMessageBox:active:not(#closeVolunteer):not(#closeElder):not(#close) {
+    opacity: 0.6;
+}
+
+input:focus, select:focus {
+    outline: none;
+}
+
+

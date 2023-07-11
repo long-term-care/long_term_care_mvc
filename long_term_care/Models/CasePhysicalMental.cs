@@ -15,10 +15,10 @@ namespace long_term_care.Models
         [Display(Name = "個案案號")]
         public string CaseNo { get; set; }
 
-        [Display(Name = "以上居住情形:")]
+        [Display(Name = "以上居住情形")]
         public string CaseLive { get; set; }
 
-        [Display(Name = "您多久來關懷站一次: ")]
+        [Display(Name = "您多久來關懷站一次 ")]
         public string CaseFre { get; set; }
 
         [Display(Name = "一、參加C 單位巷弄長照站辦理的活動之後，精神是否較好? ")]
