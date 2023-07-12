@@ -9,199 +9,43 @@
     <meta name="viewport" content="width=device-width" />
     <title>Search</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        body {
-            font-family: 'Georgia', serif;
-            background-color: #f3f2ef;
-            margin: 0;
-            padding: 0;
-        }
-
-        div {
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        label {
-            display: inline-block;
-            margin: 10px;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        input[type="text"] {
-            margin: 10px;
-            padding: 10px;
-            font-size: 16px;
-            border: 2px solid #ddd;
-            border-radius: 4px;
-        }
-
-        #searchResults {
-            margin-top: 20px;
-            padding: 10px;
-        }
-
-            #searchResults div {
-                margin: 10px;
-                padding: 10px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-                background-color: #f9f9f9;
-                cursor: pointer;
-                font-size: 16px;
-            }
-
-                #searchResults div:hover {
-                    background-color: #eee;
-                }
-
-        #resultList {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .result-item {
-            display: block;
-            margin: 10px;
-            padding: 10px 20px;
-            border: 1px solid #8c8c8c;
-            border-radius: 5px;
-            background: linear-gradient(#f7f7f7, #e5e5e5);
-            text-align: center;
-            font-size: 16px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: background 0.3s ease-in-out;
-        }
-
-            .result-item:hover {
-                background: linear-gradient(#e5e5e5, #f7f7f7);
-            }
-    </style>
-    </head>
-    <body>
-        <div>
+    <link rel="stylesheet" href="~/css/Search.css">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+    <div class="row">
+        <div class="col-4">
             <label for="caseName">個案姓名:</label>
-            <input type="text" id="CaseName" name="caseName" placeholder="請輸入姓名" />
-
-            <label for="caseNo">個案編號:</label>
-            <input type="text" id="CaseNo" name="caseNo" placeholder="請輸入編號" />
-
-            <label for="caseIDcard">個案身分證:</label>
-            <input type="text" id="CaseIDcard" name="caseIDcard" placeholder="請輸入身分證" />
+            <input type="text" id="CaseName" name="caseName" placeholder="請輸入搜尋姓名" />
         </div>
+        <div class="col-4">
+            <label for="caseNo">個案編號:</label>
+            <input type="text" id="CaseNo" name="caseNo" placeholder="請輸入搜尋編號" />
+        </div>
+        <div class="col-4">
+            <label for="caseIDcard">個案身分證:</label>
+            <input type="text" id="CaseIDcard" name="caseIDcard" placeholder="請輸入搜尋身分證" />
+        </div>
+    </div>
 
-        <div id="searchResults"></div>
+    <div id="searchResults"></div>
 
-        <script>
-            $("input").on("input", function () {
-                var caseNo = $("#CaseNo").val();
-                var caseName = $("#CaseName").val();
-                var caseIDcard = $("#CaseIDcard").val();
+    <script>
+        $("input").on("input", function () {
+            var caseNo = $("#CaseNo").val();
+            var caseName = $("#CaseName").val();
+            var caseIDcard = $("#CaseIDcard").val();
 
-                $.post('/CaseDailyRegistrations/GetSearchResults', { caseNo, caseName, caseIDcard }, function (data) {
-                    $("#searchResults").html(data);
-                });
+            $.post('/CaseDailyRegistrations/GetSearchResults', { caseNo, caseName, caseIDcard }, function (data) {
+                $("#searchResults").html(data);
             });
+        });
 
-            function selectPerson(caseNo, caseName, caseIDcard) {
-                $.post('/CaseDailyRegistrations/StoreInTempData', { caseNo, caseName, caseIDcard }, function () {
-                    window.location.href = '/CaseDailyRegistrations/Create';
-                });
-            }
-        </script>
-    </body>
+        function selectPerson(caseNo, caseName, caseIDcard) {
+            $.post('/CaseDailyRegistrations/StoreInTempData', { caseNo, caseName, caseIDcard }, function () {
+                window.location.href = '/CaseDailyRegistrations/Create';
+            });
+        }
+    </script>
+</body>
 </html>
-
-
-@*@model IEnumerable<long_term_care.Models.CaseDailyRegistration>
-
-    @{
-        ViewData["Title"] = "Search";
-    }
-
-    <h1>Search</h1>
-
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.CaseName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CaseIDcard)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Casedate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CaseTemp)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CasePluse)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CaseBlood)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CasePick)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CaseSystolic)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CaseDiastolic)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CaseNoNavigation)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-    @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CaseName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CaseIDcard)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Casedate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CaseTemp)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CasePluse)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CaseBlood)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CasePick)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CaseSystolic)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CaseDiastolic)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CaseNoNavigation.CaseNo)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.CaseContId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.CaseContId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.CaseContId">Delete</a>
-                </td>
-            </tr>
-    }
-        </tbody>
-    </table>
-*@

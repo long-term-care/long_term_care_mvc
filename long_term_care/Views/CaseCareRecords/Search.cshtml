@@ -9,91 +9,26 @@
     <meta name="viewport" content="width=device-width" />
     <title>Search</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        body {
-            font-family: 'Georgia', serif;
-            background-color: #f3f2ef;
-            margin: 0;
-            padding: 0;
-        }
-
-        div {
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        label {
-            display: inline-block;
-            margin: 10px;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        input[type="text"] {
-            margin: 10px;
-            padding: 10px;
-            font-size: 16px;
-            border: 2px solid #ddd;
-            border-radius: 4px;
-        }
-
-        #searchResults {
-            margin-top: 20px;
-            padding: 10px;
-        }
-
-            #searchResults div {
-                margin: 10px;
-                padding: 10px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-                background-color: #f9f9f9;
-                cursor: pointer;
-                font-size: 16px;
-            }
-
-                #searchResults div:hover {
-                    background-color: #eee;
-                }
-
-        #resultList {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .result-item {
-            display: block;
-            margin: 10px;
-            padding: 10px 20px;
-            border: 1px solid #8c8c8c;
-            border-radius: 5px;
-            background: linear-gradient(#f7f7f7, #e5e5e5);
-            text-align: center;
-            font-size: 16px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: background 0.3s ease-in-out;
-        }
-
-            .result-item:hover {
-                background: linear-gradient(#e5e5e5, #f7f7f7);
-            }
-    </style>
+    <link rel="stylesheet" href="~/css/Search.css">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
 </head>
 <body>
-    <div>
-        <label for="caseName">個案姓名:</label>
-        <input type="text" id="CaseName" name="caseName" placeholder="請輸入姓名" />
-
-        <label for="caseNo">個案編號:</label>
-        <input type="text" id="CaseNo" name="caseNo" placeholder="請輸入編號" />
-
-        <label for="caseIDcard">個案身分證:</label>
-        <input type="text" id="CaseIDcard" name="caseIDcard" placeholder="請輸入身分證" />
+    <div class="row">
+        <div class="col-4">
+            <label for="caseName">個案姓名:</label>
+            <input type="text" id="CaseName" name="caseName" placeholder="請輸入搜尋姓名" />
+        </div>
+        <div class="col-4">
+            <label for="caseNo">個案編號:</label>
+            <input type="text" id="CaseNo" name="caseNo" placeholder="請輸入搜尋編號" />
+        </div>
+        <div class="col-4">
+            <label for="caseIDcard">個案身分證:</label>
+            <input type="text" id="CaseIDcard" name="caseIDcard" placeholder="請輸入搜尋身分證" />
+        </div>
     </div>
 
     <div id="searchResults"></div>
-
     <script>
         $("input").on("input", function () {
             var caseNo = $("#CaseNo").val();
@@ -113,3 +48,8 @@
     </script>
 </body>
 </html>
+
+
+    
+
+

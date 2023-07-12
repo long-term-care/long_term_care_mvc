@@ -5,6 +5,9 @@
 
 .wrap {
     margin: 30px;
+    justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap
 }
 
 .Home {
@@ -67,6 +70,11 @@
     .wrap_Entry > button {
         margin: 55px 70px;
     }
+h4 {
+    color: white;
+    font-weight: 500;
+    letter-spacing: 3px;
+}
 
 .Edit, .View {
     transition: all 0.3s ease-in-out;
