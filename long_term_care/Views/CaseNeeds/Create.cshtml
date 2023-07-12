@@ -18,6 +18,11 @@
 <div class="container-fluid">
     <div class="insideBox">
         <h3>社區長者需求調查</h3>
+            <div style="text-align: center;">
+                <button type="button" id="smallFont" class="font-size-button">小</button>
+                <button type="button" id="normalFont" class="font-size-button">中</button>
+                <button type="button" id="largeFont" class="font-size-button">大</button>
+            </div>
         <div class="container">
             <div class="col-md-12">
                 <form asp-action="Create">
@@ -26,7 +31,7 @@
                         <!--CaseNeedId 是問卷編號 --->
                         <span class="ord">
                             <label asp-for="CaseNeedId" class="control-label" style="position: absolute; top: 0; right: 0;">問卷編號
-                                    <input asp-for="CaseNeedId" class="form-control" type="text" style="background-color: transparent; border: none; outline: none;" value="@ViewBag.CaseNeedId" readonly />
+                                    <span>@ViewBag.CaseNeedId</span>
                                 </label>
                             <span asp-validation-for="CaseNeedId" class="text-danger"></span>
                         </span>
@@ -272,6 +277,17 @@
                     }
                 });
             });
+        });
+    </script>
+    <script>
+        document.getElementById('smallFont').addEventListener('click', function () {
+            document.body.style.fontSize = '12px';
+        });
+        document.getElementById('normalFont').addEventListener('click', function () {
+            document.body.style.fontSize = '20px';
+        });
+        document.getElementById('largeFont').addEventListener('click', function () {
+            document.body.style.fontSize = '25px';
         });
     </script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>

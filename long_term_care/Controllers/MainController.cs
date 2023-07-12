@@ -21,6 +21,8 @@ using SkiaSharp;
 using DocumentFormat.OpenXml.Spreadsheet;
 using System.Net.Http;
 using Newtonsoft.Json;
+using NPOI.SS.Formula.Functions;
+using static long_term_care.Models.CaseInfor;
 
 namespace long_term_care.Controllers
 {
@@ -29,13 +31,28 @@ namespace long_term_care.Controllers
         private readonly longtermcareContext _context;
         private HttpClient httpClient;
 
-
+        /*
         public MainController(longtermcareContext context)
         {
             _context = context;
             httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri("https://www.ris.gov.tw/rs-opendata/api/v1/datastore/ODRP049/111");
         }
+        public async Task<IActionResult> ElderRegistration()
+        {
+            HttpResponseMessage response = await httpClient.GetAsync("");
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                Root apiData = JsonConvert.DeserializeObject<Root>(json);
+                return View(apiData.result);
+            }
+            else
+            {
+                return View("Error");
+            }
+        }*/
+
 
         public IActionResult Caseinfor()
         {
@@ -315,25 +332,7 @@ namespace long_term_care.Controllers
             return View();
         }
 
-        public async Task<IActionResult> ElderRegistration()
-        {
-            HttpResponseMessage response = await httpClient.GetAsync("");
-            if (response.IsSuccessStatusCode)
-            {
-                string responseData = await response.Content.ReadAsStringAsync();
-                dynamic data = JsonConvert.DeserializeObject(responseData);
-                dynamic cityDistricts = null;
-
-                if (data?.result?.records != null && data.result.records.Count > 0)
-                {
-                    cityDistricts = data.result.records[0];
-                }
-
-                return View(cityDistricts);
-            }
-
-            return View();
-        }
+       
 
 
 

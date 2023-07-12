@@ -5,8 +5,11 @@
 }
 
 <h1>C 單位巷弄長照站電話問安</h1>
-
-@*<h4>CaseTelRecord</h4>*@
+<div style="text-align: center;">
+    <button type="button" id="smallFont" class="font-size-button">小</button>
+    <button type="button" id="normalFont" class="font-size-button">中</button>
+    <button type="button" id="largeFont" class="font-size-button">大</button>
+</div>
 <hr />
 <div class="row ">
 
@@ -15,7 +18,7 @@
         <div class="row align-items-start">
             <div class="form-group col-md-4">
                 <label asp-for="CaseTelQaid" class="control-label"></label>
-                <input asp-for="CaseTelQaid" class="form-control" type="text" value="@ViewBag.CaseTelQaid" readonly />
+                <span>@ViewBag.CaseTelQaid</span>
                 <span asp-validation-for="CaseTelQaid" class="text-danger"></span>
             </div>
             <div class="form-group col-md-4">
@@ -150,7 +153,17 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
+<script>
+    document.getElementById('smallFont').addEventListener('click', function () {
+        document.body.style.fontSize = '12px';
+    });
+    document.getElementById('normalFont').addEventListener('click', function () {
+        document.body.style.fontSize = '20px';
+    });
+    document.getElementById('largeFont').addEventListener('click', function () {
+        document.body.style.fontSize = '25px';
+    });
+</script>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

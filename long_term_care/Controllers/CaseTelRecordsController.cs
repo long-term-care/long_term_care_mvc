@@ -26,7 +26,7 @@ namespace long_term_care.Controllers
         public async Task<IActionResult> Index()
         {
             var longtermcareContext = _context.CaseTelRecords.Include(c => c.CaseNoNavigation).Include(c => c.MemS);
-            return View(await longtermcareContext.ToListAsync());
+            return View();
         }
         public IActionResult Search()
         {

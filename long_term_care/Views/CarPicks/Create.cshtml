@@ -16,6 +16,11 @@
     <div class="container-fluid">
         <div class="insideBox">
             <h3>○○○C單位巷弄長照站交通接送清冊</h3>
+            <div style="text-align: center;">
+                <button type="button" id="smallFont" class="font-size-button">小</button>
+                <button type="button" id="normalFont" class="font-size-button">中</button>
+                <button type="button" id="largeFont" class="font-size-button">大</button>
+            </div>
             <div class="infoBox">
                 <form asp-action="Create">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -38,19 +43,21 @@
 
                     <div class="row">
                         <div class="col-6 form-group">
-                            <label asp-for="CarType" class="control-label">車種</label>
-                            <select asp-for="CarType" class="form-control" asp-items="ViewBag.CarTypes"></select>
+                            <label asp-for="CarType" class="control-label">車種
+                                <select asp-for="CarType" class="form-control" asp-items="ViewBag.CarTypes"></select>
+                            </label>
                             <span asp-validation-for="CarType" class="text-danger"></span>
                         </div>
                         <div class="col-6 form-group">
-                            <label asp-for="CarNum" class="control-label">車號</label>
-                            <select asp-for="CarNum" class="form-control" asp-items="ViewBag.CarNums"></select>
+                            <label asp-for="CarNum" class="control-label">車號
+                                <select asp-for="CarNum" class="form-control" asp-items="ViewBag.CarNums"></select>
+                            </label>
                             <span asp-validation-for="CarNum" class="text-danger"></span>
                         </div>
                     </div>
 
 
-                    <div class="row">
+                    <div class="row" style="margin-bottom: 2rem;">
                         <div class="col-6 form-group">
                             <label asp-for="CarSearch" class="control-label">時間&nbsp;<input asp-for="CarSearch" class="form-control transparent-input" type="text" placeholder="YYYY/MM" /></label>
                             <span asp-validation-for="CarSearch" class="text-danger"></span>
@@ -80,16 +87,16 @@
                     <!-- Example -->
                     <div class="example row">
                         <div class="col-1 ex">
-                            <h6>範例</h6>
+                            範例
                         </div>
                         <div class="col-2 ex">
-                            <h6>2023/01/01</h6>
+                            2023/01/01
                         </div>
                         <div class="col-3 ex">
-                            <h6>個案編號</h6>
+                            個案編號
                         </div>
-                        <div class="col-5 ex" style="font-size: 9px;">
-                            <h6>新北市○區○ 路○巷○弄○號○樓</h6>
+                        <div class="col-5 ex">
+                            新北市○區○ 路○巷○弄○號○樓
                         </div>
                     </div>
 
@@ -114,14 +121,15 @@
                         </div>
                     </div>
 
-                    <div class="form-group wrap">
+                    <div class="form-group wrap" style="margin-top: 2rem;">
                         <input type="submit" value="儲存" class="btn btn-primary" id="submitBtn" />
                     </div>
                 </form>
+                <div>
+                    <a asp-action="Index">返回</a>
+                </div>
             </div>
-        <div>
-            <a asp-action="Index">返回</a>
-        </div>
+        
     </div>
     
     <script>
@@ -147,6 +155,17 @@
                 });
             });
 
+    </script>
+    <script>
+        document.getElementById('smallFont').addEventListener('click', function () {
+            document.body.style.fontSize = '12px';
+        });
+        document.getElementById('normalFont').addEventListener('click', function () {
+            document.body.style.fontSize = '20px';
+        });
+        document.getElementById('largeFont').addEventListener('click', function () {
+            document.body.style.fontSize = '25px';
+        });
     </script>
 </body>
 </html>
