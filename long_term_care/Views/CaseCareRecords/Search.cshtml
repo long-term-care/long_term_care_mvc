@@ -9,10 +9,12 @@
     <meta name="viewport" content="width=device-width" />
     <title>Search</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="~/css/Search.css">
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/Search.css">
 </head>
 <body>
+    <h3>社區長者需求調查表填寫頁面</h3>
+    <h6>請至少選擇一個輸入框輸入，關聯結果將在下方搜尋框中顯示。找到長者後，請點選該選項以填寫表單。</h6>
     <div class="row">
         <div class="col-4">
             <label for="caseName">個案姓名:</label>
@@ -27,8 +29,9 @@
             <input type="text" id="CaseIDcard" name="caseIDcard" placeholder="請輸入搜尋身分證" />
         </div>
     </div>
-
-    <div id="searchResults"></div>
+    <div class="box">
+        <div id="searchResults"></div>
+    </div>
     <script>
         $("input").on("input", function () {
             var caseNo = $("#CaseNo").val();

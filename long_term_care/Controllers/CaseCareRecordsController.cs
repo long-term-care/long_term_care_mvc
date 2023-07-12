@@ -129,7 +129,7 @@ namespace long_term_care.Controllers
 
             return View("SearchResult", no2);
         }
-
+        
         // GET: CaseCareRecords/Create
         public IActionResult Create()
         {

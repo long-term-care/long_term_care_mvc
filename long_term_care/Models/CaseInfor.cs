@@ -63,32 +63,6 @@ namespace long_term_care.Models
         public virtual ICollection<CaseNeed> CaseNeeds { get; set; }
         public virtual ICollection<CasePhysicalMental> CasePhysicalMentals { get; set; }
         public virtual ICollection<CaseTelRecord> CaseTelRecords { get; set; }
-        /*public class Field
-        {
-            public string type { get; set; }
-            public string id { get; set; }
-        }
-
-        public class Record
-        {
-            public string 鄉鎮市區 { get; set; }
-            public string 村里 { get; set; }
-            public string 縣市 { get; set; }
-        }
-
-        public class Result
-        {
-            public List<Field> fields { get; set; }
-            public string sql { get; set; }
-            public List<Record> records { get; set; }
-            public string resource_id { get; set; }
-        }
-
-        public class Root
-        {
-            public string success { get; set; }
-            public Result result { get; set; }
-        }*/
-
+      
     }
 }

@@ -29,7 +29,7 @@ namespace long_term_care.Controllers
     public class MainController : Controller
     {
         private readonly longtermcareContext _context;
-        private HttpClient httpClient;
+        //private HttpClient httpClient;
 
         /*
         public MainController(longtermcareContext context)

@@ -75,3 +75,16 @@ input[type="text"] {
     .result-item:hover {
         background: linear-gradient(#e5e5e5, #f7f7f7);
     }
+
+.box {
+    border: solid #808080;
+}
+
+h3 {
+    text-align:center;
+}
+
+h6 {
+    margin: 1rem;
+    color: #636363;
+}
