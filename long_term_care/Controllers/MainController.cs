@@ -19,13 +19,19 @@ using System.Drawing.Imaging;
 using System.IO;
 using SkiaSharp;
 using DocumentFormat.OpenXml.Spreadsheet;
+using System.Net.Http;
+using Newtonsoft.Json;
+using NPOI.SS.Formula.Functions;
+using static long_term_care.Models.CaseInfor;
 
 namespace long_term_care.Controllers
 {
     public class MainController : Controller
     {
         private readonly longtermcareContext _context;
+        //private HttpClient httpClient;
 
+        /*
         public MainController(longtermcareContext context)
         {
             _context = context;
@@ -77,6 +83,26 @@ namespace long_term_care.Controllers
             return View();
         }
         public IActionResult MemAdd()
+            httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri("https://www.ris.gov.tw/rs-opendata/api/v1/datastore/ODRP049/111");
+        }
+        public async Task<IActionResult> ElderRegistration()
+        {
+            HttpResponseMessage response = await httpClient.GetAsync("");
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                Root apiData = JsonConvert.DeserializeObject<Root>(json);
+                return View(apiData.result);
+            }
+            else
+            {
+                return View("Error");
+            }
+        }*/
+
+
+        public IActionResult Caseinfor()
         {
             string nextFormNumber = "";
 
@@ -355,6 +381,11 @@ namespace long_term_care.Controllers
         }
 
        
+       
+
+
+
+
 
         /* [Authorize]*/
         public IActionResult MemMainpage()

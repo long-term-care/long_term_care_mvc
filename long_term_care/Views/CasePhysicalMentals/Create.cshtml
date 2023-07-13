@@ -7,10 +7,11 @@
 
 
 <h1>C 單位巷弄長照站長者身心狀況評估問卷</h1>
-<h2>
-    阿公/阿嬷(或爺爺/奶奶)您好： 為了瞭解您參加C 單位巷弄長照站的情形，聽聽您的感想與建議，以做為我們未來規劃服務的參考，請您撥一點時間，幫助我們填寫問卷。您的資料，將僅作為評估關
-    懷站服務情形之參考，請放心填答。
-</h2>
+<div style="text-align: center;">
+    <button type="button" id="smallFont" class="font-size-button">小</button>
+    <button type="button" id="normalFont" class="font-size-button">中</button>
+    <button type="button" id="largeFont" class="font-size-button">大</button>
+</div>
 
 <hr />
 
@@ -29,7 +30,7 @@
             <div class="row align-items-start">
                 <div class="form-group col-md-4">
                     <label asp-for="CaseQaid" class="control-label"></label>
-                    <input asp-for="CaseQaid" class="form-control" type="text" value="@ViewBag.CaseQaid" readonly />
+                    <span>@ViewBag.CaseQaid</span>
                     <span asp-validation-for="CaseQaid" class="text-danger"></span>
                 </div>
                 <div class="form-group col-md-4">
@@ -196,7 +197,17 @@
 <div>
     <a asp-action="Index">返回</a>
 </div>
-
+<script>
+    document.getElementById('smallFont').addEventListener('click', function () {
+        document.body.style.fontSize = '12px';
+    });
+    document.getElementById('normalFont').addEventListener('click', function () {
+        document.body.style.fontSize = '20px';
+    });
+    document.getElementById('largeFont').addEventListener('click', function () {
+        document.body.style.fontSize = '25px';
+    });
+</script>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

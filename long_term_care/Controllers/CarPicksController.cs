@@ -26,7 +26,7 @@ namespace long_term_care.Controllers
         public async Task<IActionResult> Index()
         {
             var longtermcareContext = _context.CarPicks.Include(c => c.MemS);
-            return View(await longtermcareContext.ToListAsync());
+            return View();
         }
 
         public IActionResult Details()

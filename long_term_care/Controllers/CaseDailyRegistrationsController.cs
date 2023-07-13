@@ -33,7 +33,7 @@ namespace long_term_care.Controllers
         public async Task<IActionResult> Index()
         {
             var longtermcareContext = _context.CaseDailyRegistrations.Include(c => c.CaseNoNavigation);
-            return View(await longtermcareContext.ToListAsync());
+            return View();
         }
 
         [HttpGet]
@@ -42,7 +42,10 @@ namespace long_term_care.Controllers
             bool isExist = await _context.CaseDailyRegistrations.AnyAsync(x => x.Casedate == caseDate);
             return Json(new { exists = isExist });
         }
-
+        public IActionResult StyleCreate()
+        {
+            return View();
+        }
         public IActionResult Search()
         {
             return View();
@@ -451,7 +454,7 @@ namespace long_term_care.Controllers
 
 
 
-        
+
 
 
     }

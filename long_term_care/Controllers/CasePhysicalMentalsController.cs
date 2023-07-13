@@ -33,7 +33,7 @@ namespace long_term_care.Controllers
         public async Task<IActionResult> Index()
         {
             var longtermcareContext = _context.CasePhysicalMentals.Include(c => c.CaseNoNavigation);
-            return View(await longtermcareContext.ToListAsync());
+            return View();
         }
 
         public IActionResult Search()

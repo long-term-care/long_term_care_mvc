@@ -17,8 +17,7 @@ namespace long_term_care.Models
             CasePhysicalMentals = new HashSet<CasePhysicalMental>();
             CaseTelRecords = new HashSet<CaseTelRecord>();
         }
-        //public string City { get; set; }
-        //public string District { get; set; }
+       
 
         public string CaseNo { get; set; }
         public string CaseUnitName { get; set; }
@@ -35,6 +34,9 @@ namespace long_term_care.Models
         public string CaseProf { get; set; }
         public string CaseEdu { get; set; }
         public string CaseAddr { get; set; }
+        public string City { get; set; }
+        public string District { get; set; }
+        public string Street { get; set; }
         public string CaseHouse { get; set; }
         public string CaseIdent { get; set; }
         public string CaseFund { get; set; }
@@ -61,5 +63,6 @@ namespace long_term_care.Models
         public virtual ICollection<CaseNeed> CaseNeeds { get; set; }
         public virtual ICollection<CasePhysicalMental> CasePhysicalMentals { get; set; }
         public virtual ICollection<CaseTelRecord> CaseTelRecords { get; set; }
+      
     }
 }

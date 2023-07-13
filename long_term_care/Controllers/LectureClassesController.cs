@@ -26,6 +26,7 @@ namespace long_term_care.Controllers
             var lectureClasses = await _context.LectureClasses.ToListAsync();
             return View(lectureClasses);
         }
+       
         public IActionResult Create()
         {
             // 從資料庫取得內容，假設存放在 dbContent 變數中

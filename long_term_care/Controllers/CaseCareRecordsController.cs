@@ -27,7 +27,7 @@ namespace long_term_care.Controllers
         public async Task<IActionResult> Index()
         {
             var longtermcareContext = _context.CaseCareRecords.Include(c => c.CaseNoNavigation).Include(c => c.MemS);
-            return View(await longtermcareContext.ToListAsync());
+            return View();/*await longtermcareContext.ToListAsync()*/
         }
 
         public IActionResult Search()
@@ -129,7 +129,7 @@ namespace long_term_care.Controllers
 
             return View("SearchResult", no2);
         }
-
+        
         // GET: CaseCareRecords/Create
         public IActionResult Create()
         {

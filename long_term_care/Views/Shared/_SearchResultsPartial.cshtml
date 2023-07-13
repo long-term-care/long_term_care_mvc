@@ -2,10 +2,16 @@
 <ul id="resultList">
     @foreach (var item in Model)
     {
-        <li class="result-item" onclick="selectPerson('@item.CaseNo', '@item.CaseName', '@item.CaseIdcard')">
-            @item.CaseNo |  @item.CaseName | @item.CaseIdcard
+        <li class="result-item" style=" margin: 0 auto; display: flex; "onclick="selectPerson('@item.CaseNo', '@item.CaseName', '@item.CaseIdcard')">
+            <div class="col-4">
+                @item.CaseNo
+            </div>
+            <div class="col-4">
+                @item.CaseName
+            </div>
+            <div class="col-4">
+                @item.CaseIdcard
+            </div>
         </li>
     }
 </ul>
-
-
