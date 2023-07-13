@@ -4,12 +4,25 @@
 
 }
 <link href="~/css/login.css" rel="stylesheet" />
-
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 <body>
     <div class="container-fluid">
         <div class="content">
-            <div class="txt">
-                <div class="LogIn">
+            <div class="txt" data-aos="fade-up" data-aos-duration="2000">
+                <h1>日間長期<br />&emsp;照護系統</h1>
+                <div class="text_container">
+                    <ul style="column-count: 2; font-size: 26px;">
+                        <li>定期電話問安</li>
+                        <li>交通接送</li>
+                        <li>講座宣導</li>
+                        <li>醫療照護</li>
+                        <li>定期健康管理</li>
+                        <li>社交活動和心理支持</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="box">
+               <div class="LogIn">
                     <form method="POST" id="loginForm" action="/Main/Login" class="form_container">
                         <div class="logo_container"></div>
                         <div class="title_container">
@@ -64,14 +77,15 @@
                     </form>
                 </div>
             </div>
-            <div class="img">
-                <img src="~/image/mainpagepic.png" />
-            </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+            integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
 </body>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
- 
-
