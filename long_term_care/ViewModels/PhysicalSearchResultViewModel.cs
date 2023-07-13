@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
 namespace long_term_care.ViewModels
@@ -9,7 +10,7 @@ namespace long_term_care.ViewModels
         public string CaseName { get; set; }
 
         [Display(Name = "出生")]
-        public string CaseBd { get; set; }
+        public DateTime CaseBd { get; set; }
         [Display(Name = "性別")]
         public string CaseGender { get; set; }
         [Display(Name = "身分證統一編號")]
@@ -44,7 +45,7 @@ namespace long_term_care.ViewModels
         public string CaseCntRel { get; set; }
 
         [Display(Name = "年齡 ")]
-        public string CaseOld { get; set; }
+        public DateTime CaseOld { get; set; }
 
         [Display(Name = "教育程度 ")]
         public string CaseEdu { get; set; }

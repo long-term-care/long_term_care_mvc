@@ -9,7 +9,7 @@ namespace long_term_care.ViewModels
         public string CaseName { get; set; }
 
         [Display(Name = "出生")]
-        public string CaseBd { get; set; }
+        public DateTime CaseBd { get; set; }
 
         [Display(Name = "性別")]
         public string CaseGender { get; set; }

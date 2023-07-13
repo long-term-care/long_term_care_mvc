@@ -28,7 +28,7 @@ namespace long_term_care.Models
         [Display(Name = "姓名")]
         public string MemName { get; set; }
         [Display(Name = "生日")]
-        public string MemBd { get; set; }
+        public DateTime MemBd { get; set; }
         [Display(Name = "身分證字號")]
         public string MemUid { get; set; }
         [Display(Name = "生日")]

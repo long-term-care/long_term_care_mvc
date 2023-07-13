@@ -28,7 +28,7 @@ namespace long_term_care.Models
         public string CasePassword { get; set; }
         public string CaseGender { get; set; }
         public string CaseRelig { get; set; }
-        public string CaseBd { get; set; }
+        public DateTime CaseBd { get; set; }
         public string CaseLang { get; set; }
         public string CaseSource { get; set; }
         public string CaseWork { get; set; }

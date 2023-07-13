@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace long_term_care.ViewModels
 {
@@ -13,7 +14,7 @@ namespace long_term_care.ViewModels
         public string CasePassword { get; set; }
         public string CaseGender { get; set; }
         public string CaseRelig { get; set; }
-        public string CaseBd { get; set; }
+        public DateTime CaseBd { get; set; }
         public string CaseLang { get; set; }
         public string CaseSource { get; set; }
         public string CaseWork { get; set; }
@@ -44,7 +45,7 @@ namespace long_term_care.ViewModels
         public string MemUnitName { get; set; }
         public string MemUnitNum { get; set; }
         public string MemName { get; set; }
-        public string MemBd { get; set; }
+        public DateTime MemBd { get; set; }
         public string MemUid { get; set; }
         public string MemPassword { get; set; }
         public string MemGender { get; set; }

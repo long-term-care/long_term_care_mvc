@@ -346,7 +346,7 @@ namespace long_term_care.Models
 
                 entity.Property(e => e.CaseBd)
                     .IsRequired()
-                    .HasMaxLength(50)
+                    .HasColumnType("date")
                     .HasColumnName("Case_BD");
 
                 entity.Property(e => e.CaseCntAdd)
@@ -927,7 +927,7 @@ namespace long_term_care.Models
 
                 entity.Property(e => e.MemBd)
                     .IsRequired()
-                    .HasMaxLength(30)
+                    .HasColumnType("date")
                     .HasColumnName("Mem_BD");
 
                 entity.Property(e => e.MemCert)

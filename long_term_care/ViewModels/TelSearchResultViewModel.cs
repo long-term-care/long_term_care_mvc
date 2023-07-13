@@ -7,7 +7,7 @@ namespace long_term_care.ViewModels
     public class TelSearchResultViewModel
     {
         [Display(Name = "出生")]
-        public string CaseBd { get; set; }
+        public DateTime CaseBd { get; set; }
         [Display(Name = "健保")]
         public string CaseHealth { get; set; }
         [Display(Name = "身分別")]

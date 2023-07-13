@@ -30,7 +30,53 @@ namespace long_term_care.Controllers
         {
             _context = context;
         }
-        public IActionResult Caseinfor()
+        public IActionResult ElderRegistration()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ElderRegistration([FromBody] MainViewModel model)
+        {
+            var entity = new CaseInfor
+            {
+                CaseNo = model.CaseNo,
+                CaseUnitName = model.CaseUnitName,
+                CaseUnitNum = model.CaseUnitNum,
+                CaseName = model.CaseName,
+                CaseIdcard = model.CaseIdcard,
+                CasePassword = PasswordHelper.ComputeSHA256Hash(model.CasePassword),
+                CaseGender = model.CaseGender,
+                CaseRelig = model.CaseRelig,
+                CaseBd = model.CaseBd,
+                CaseLang = model.CaseLang,
+                CaseSource = model.CaseSource,
+                CaseWork = model.CaseWork,
+                CaseProf = model.CaseProf,
+                CaseEdu = model.CaseEdu,
+                CaseAddr = model.CaseAddr,
+                CaseHouse = model.CaseHouse,
+                CaseIdent = model.CaseIdent,
+                CaseFund = model.CaseFund,
+                CaseHealth = model.CaseHealth,
+                CaseActv = model.CaseActv,
+                CaseFactly = model.CaseFactly,
+                CaseMari = model.CaseMari,
+                CaseCnta = model.CaseCnta,
+                CaseCntTel = model.CaseCntTel,
+                CaseCntRel = model.CaseCntRel,
+                CaseCntAdd = model.CaseCntAdd,
+                CaseFami = model.CaseFami,
+                CaseQues = model.CaseQues,
+                CaseDesc = model.CaseDesc,
+                CaseRegName = model.CaseRegName,
+                CaseRegTime = model.CaseRegTime,
+                CaseIcnum = model.CaseIcnum,
+            };
+            _context.CaseInfors.Add(entity);
+            _context.SaveChanges();
+            return View();
+        }
+        public IActionResult MemAdd()
         {
             string nextFormNumber = "";
 
@@ -82,7 +128,7 @@ namespace long_term_care.Controllers
         }
 
         [HttpPost]
-        public IActionResult Caseinfor([FromBody] MainViewModel model)
+        public IActionResult MemAdd([FromBody] MainViewModel model)
         {
             if (model.type == 1)
             {
@@ -308,10 +354,7 @@ namespace long_term_care.Controllers
             return View();
         }
 
-        public IActionResult ElderRegistration()
-        {
-            return View();
-        }
+       
 
         /* [Authorize]*/
         public IActionResult MemMainpage()

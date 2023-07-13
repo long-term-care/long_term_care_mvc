@@ -1,0 +1,272 @@
+﻿@model IEnumerable<long_term_care.Models.CaseInfor>
+
+<link href="~/css/Reg.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+<body>
+
+    <div id="volunteerMsgBox">
+        <div class="container">
+            <div class="title">
+                <h3>註冊</h3>
+                <div class="knownAs">
+                    <p>照護人員</p>
+                </div>
+                <div style="color:red; display:flex; align-items:center;">
+                    <h4>*為必填欄位</h4>
+                </div>
+            </div>
+            <hr>
+            <form class="volunteer">
+                <div class="row">
+                    <div class="col-4">
+                         <label for="memunitname">單位名稱<span class="required">*</span></label>
+                          <input type="text" placeholder="&nbsp;&nbsp;" required id="memunitname">                      
+                    </div>
+                    <div class="col-4">
+                        <label for="memunitid">單位編號<span class="required">*</span></label>
+                        <input type="text" placeholder="&nbsp;&nbsp;" required id="memunitid">
+                    </div>
+                    <div class="col-4">
+                        <label for="memid">員工證號碼<span class="required">*</span></label>
+                        <input type="text" placeholder="&nbsp;&nbsp;" required id="memid" value="@ViewBag.MemNo" readonly>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <label for="memlastname">姓氏<span class="required">*</span></label>
+                        <input type="text" placeholder="&nbsp;&nbsp;" required id="memlastname">
+                    </div>
+                    <div class="col-3">
+                        <label for="memfirstname">名字<span class="required">*</span></label>
+                        <input type="text" placeholder="&nbsp;&nbsp;" required id="memfirstname">
+                    </div>
+                    <div class="col-3">
+                        <label for="memgender">性別<span class="required">*</span></label>
+                        <select id="memgender" required>
+                            <option value=""></option>
+                            <option value="男">男</option>
+                            <option value="女">女</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <label for="memidcard">身分證<span class="required">*</span></label>
+                        <input type="text" placeholder="&nbsp;&nbsp;" required id="memidcard">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <label for="CaseBD">出生日期<span class="required">*</span></label>
+                        <input type="date" placeholder="&nbsp;&nbsp;" required id="MemBD">
+                    </div>
+                    <div class="col-3">
+                        <label for="memlistidentity">身分別<span class="required">*</span></label>
+                        <select id="memlistidentity" required>
+                            <option value=""></option>
+                            <option value="Low-income">低收入戶</option>
+                            <option value="near-poor">中低收入戶</option>
+                            <option value="normal">一般戶老人</option>
+                            <option value="solitary">獨居老人</option>
+                            <option value="handicapped">身心障礙者</option>
+                            <option value="others">其他</option>
+                        </select>
+                    </div>
+                   <div class="col-3">
+                        <label for="serviceaddress">服務據點<span class="required">*</span></label>
+                        <input type="text" placeholder="&nbsp;&nbsp;服務據點" id="serviceaddress" required>
+                    </div>
+                    <div class="col-3">
+                        <label for="IC">IC<span class="required">*</span></label>
+                        <input type="text" placeholder="&nbsp;&nbsp;健保卡號碼" id="IC" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label for="memtel">電話<span class="required">*</span></label>
+                        <input type="tel" placeholder="&nbsp;&nbsp;" id="memtel" required>
+                    </div>
+                    <div class="col-3">
+                        <label for="memphone">手機<span class="required">*</span></label>
+                        <input type="tel" placeholder="&nbsp;&nbsp;" id="memphone" required>
+                    </div>
+                    <div class="col-4">
+                        <label for="memaddress">地址<span class="required">*</span></label>
+                        <input type="text" placeholder="&nbsp;&nbsp;地址" id="memaddress" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label for="mempassword">密碼<span class="required">*</span></label>
+                        <input type="password" placeholder="&nbsp;&nbsp;" required id="mempassword">
+                    </div>
+                    <div class="col-4">
+                        <label for="mempasswordcheck">密碼確認<span class="required">*</span></label>
+                        <input type="password" placeholder="&nbsp;&nbsp;" required id="mempasswordcheck">
+                    </div>
+                    @*4*@
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label for="memeducationLevel">教育程度</label>
+                        <select id="memeducationLevel">
+                            <option value=""></option>
+                            <option value="不識字">不識字</option>
+                            <option value="自修">自修</option>
+                            <option value="國小">國小</option>
+                            <option value="國中">國中</option>
+                            <option value="高中職">高中職</option>
+                            <option value="專科">專科</option>
+                            <option value="大學">大學</option>
+                            <option value="研究所以上">研究所以上</option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <label for="expertise">專長</label>
+                        <input type="text" placeholder="&nbsp;&nbsp;" id="expertise">
+                    </div>
+                    <div class="col-4">
+                        <label for="transportation">交通工具</label>
+                        <input type="text" placeholder="&nbsp;&nbsp;交通工具"  id="transportation">
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="boxL">
+                        <div class="grid-container">
+                            <div class="grid-item">
+                                <label for="license">證照</label>
+                                <input type="text" class="boxes"  id="license">
+                            </div>
+                            <div class="grid-item">
+                                <label for="service">提供服務</label>
+                                <input type="text" class="boxes" placeholder="&nbsp;&nbsp;簡短概述"  id="service">
+                            </div>
+                            <div class="grid-item">
+                                <label for="motivation">加入動機</label>
+                                <input type="text" class="boxes" placeholder="&nbsp;&nbsp;簡短概述" required id="motivation">
+                            </div>
+                            <div class="grid-item">
+                                <label for="record">服務紀錄</label>
+                                <input type="text" class="boxes" required id="record">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxR">
+                        <label for="exp">經驗</label>
+                        <input type="text" id="exp" >
+                    </div>
+                </div>
+                <div class="vReadyToSubmit">
+                    <button class="closeMessageBox" type="submit" id="memberbtn">註冊</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        const memidcard = document.getElementById('memidcard');
+
+        function validateIDCard(event) {
+            
+        }
+
+        memberbtn.addEventListener('submit', validateIDCard);
+
+    </script>
+   
+    <script>
+        var memberbtn = document.getElementById("memberbtn")
+        memberbtn.addEventListener("click", function (event) {
+            event.preventDefault();
+            var unitname = document.getElementById("memunitname").value;
+            var unitid = document.getElementById("memunitid").value;
+            var id = document.getElementById("memid").value;
+            var lastname = document.getElementById("memlastname").value;
+            var firstname = document.getElementById("memfirstname").value;
+            var gender = document.getElementById("memgender").value;
+            var educationLevel = document.getElementById("memeducationLevel").value;
+            var MemBD = document.getElementById("MemBD").value;
+            
+            var idcard = document.getElementById("memidcard").value;
+            var password = document.getElementById("mempassword").value;
+            var passwordcheck = document.getElementById("mempasswordcheck").value;
+            var address = document.getElementById("memaddress").value;
+            var tel = document.getElementById("memtel").value;
+            var phone = document.getElementById("memphone").value;
+            var listidentity = document.getElementById("memlistidentity").value;
+            var expertise = document.getElementById("expertise").value;
+            var serviceaddress = document.getElementById("serviceaddress").value;
+            var transportation = document.getElementById("transportation").value;
+            var license = document.getElementById("license").value;
+            var service = document.getElementById("service").value;
+            var motivation = document.getElementById("motivation").value;
+            var record = document.getElementById("record").value;
+            var exp = document.getElementById("exp").value;
+            var icnum = document.getElementById("IC").value;
+
+            var Name = lastname + firstname;
+            
+            var idCardRegex = /^[A-Z]\d{9}$/;
+            if (unitname === "" || unitid === "" || id === "" || lastname === "" || firstname === "" || gender === "" || MemBD === "" || idcard === "" || password === "" || passwordcheck === "" || icnum === "") {
+                // 有必填欄位為空，彈出警示框提示使用者
+                alert("請填寫必填欄位");
+                return; // 停止後續操作
+            }
+            if (!idCardRegex.test(idcard)) {
+                alert("身分證格式不正確");
+                return; // Stop further execution
+            }
+
+            // Validate password match
+            if (password !== passwordcheck) {
+                alert("密碼與確認密碼不一致");
+                return; // Stop further execution
+            }
+           
+                
+
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/Main/Memadd", true);
+                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+                // 將selectedValue轉換為JSON格式
+                var data = {
+                    "type": 1,
+                    "MemSid": id,
+                    "MemUnitName": unitname,
+                    "MemUnitNum": unitid,
+                    "MemName": Name,
+                    "MemUid": idcard,
+                    "MemPassword": password,
+                    "MemGender": gender,
+                    "MemBd": MemBD,
+                    "MemTphone": tel,
+                    "MemMphone": phone,
+                    "MemAddress": address,
+                    "MemSite": serviceaddress,
+                    "MemProf": expertise,
+                    "MemCert": license,
+                    "MemTrans": transportation,
+                    "MemExpr": exp,
+                    "MemMovt": motivation,
+                    "MemPserv": service,
+                    "MemIdent": listidentity,
+                    "MemSerRec": record,
+                    "MemEdu": educationLevel,
+                    "MemIcnum": icnum
+                }
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                        // 請求成功，執行相應的處理邏輯
+                        alert("註冊成功");
+                        window.location.href = "/Main/MemMainpage";
+                        var response = JSON.parse(xhr.responseText);
+                        
+                    }
+
+                };
+                xhr.send(JSON.stringify(data));
+        })
+    </script>
+</body>
