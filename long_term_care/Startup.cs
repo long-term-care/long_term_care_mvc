@@ -14,7 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-
+using Microsoft.Extensions.Logging;
 
 namespace long_term_care
 {
@@ -60,6 +60,13 @@ namespace long_term_care
 
                 options.AddPolicy("志工", policy =>
                     policy.RequireRole("志工"));
+            });
+            services.AddLogging(builder =>
+            {
+                builder.AddConsole();
+                builder.AddDebug();
+                // 如果您需要將 log 記錄至檔案，您可以使用以下程式碼：
+                // builder.AddFile("path_to_your_log_file");
             });
         }
 

@@ -470,6 +470,15 @@ namespace long_term_care.Models
                 entity.Property(e => e.CaseIcnum)
                    .HasMaxLength(50)
                    .HasColumnName("Case_Icnum");
+                entity.Property(e => e.City)
+                   .HasMaxLength(50)
+                   .HasColumnName("Case_City");
+                entity.Property(e => e.District)
+                   .HasMaxLength(50)
+                   .HasColumnName("Case_District");
+                entity.Property(e => e.Street)
+                   .HasMaxLength(50)
+                   .HasColumnName("Case_Street");
             });
 
             modelBuilder.Entity<CaseNeed>(entity =>
