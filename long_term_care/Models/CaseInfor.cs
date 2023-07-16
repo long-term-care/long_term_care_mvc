@@ -56,6 +56,7 @@ namespace long_term_care.Models
 
         public string CaseIcnum { get; set; }
 
+       
 
         public virtual ICollection<CaseActContent> CaseActContents { get; set; }
         public virtual ICollection<CaseCareRecord> CaseCareRecords { get; set; }

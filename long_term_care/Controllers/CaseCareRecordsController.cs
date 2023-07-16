@@ -88,39 +88,38 @@ namespace long_term_care.Controllers
 
             var no1 = from ccr in _context.CaseCareRecords
                       join ci in _context.CaseInfors on ccr.CaseNo equals ci.CaseNo
-                      where ci.CaseIdcard == CaseCardID 
+                      where ci.CaseIdcard == CaseCardID
                       select new CareSearchResultViewModel
-                     {
-                         CaseName = ci.CaseName,
-                         CaseBd = ci.CaseBd,
-                         CaseGender = ci.CaseGender,
-                         CaseNo = ci.CaseIdcard,
-                         CasePhn = ccr.CaseTel,
-                         CaseHealth = ccr.CaseHealth,
-                         CaseIdent = ci.CaseIdent,
-                         CaseLang = ci.CaseLang,
-                         CaseMari = ci.CaseMari,
-                         CaseFami = ci.CaseFami,
-                         CaseAddr = ci.CaseAddr,
-                         CaseCnta = ci.CaseCnta,
-                         CaseCntTel = ci.CaseCntTel,
-                         CaseCntRel = ci.CaseCntRel,
+                      {
+                          CaseName = ci.CaseName,
+                          CaseGender = ci.CaseGender,
+                          CaseNo = ci.CaseIdcard,
+                          CasePhn = ccr.CaseTel,
+                          CaseHealth = ccr.CaseHealth,
+                          CaseIdent = ci.CaseIdent,
+                          CaseLang = ci.CaseLang,
+                          CaseMari = ci.CaseMari,
+                          CaseFami = ci.CaseFami,
+                          CaseAddr = ci.CaseAddr,
+                          CaseCnta = ci.CaseCnta,
+                          CaseCntTel = ci.CaseCntTel,
+                          CaseCntRel = ci.CaseCntRel,
 
-                         CaseHome = ccr.CaseHome,
-                         CaseTime1 = ccr.CaseTime1,
-                         CaseQ1 = ccr.CaseQ1,
-                         CaseQ1Other = ccr.CaseQ1Other,
-                         CaseQ2 = ccr.CaseQ2,
-                         CaseQ2Other = ccr.CaseQ2Other,
-                         CaseQ3 = ccr.CaseQ3,
-                         CaseQ3Other = ccr.CaseQ3Other,
-                         CaseQ4 = ccr.CaseQ4,
-                         CaseQ4Other = ccr.CaseQ4Other,
-                         MemSid = ccr.MemSid,
+                          CaseHome = ccr.CaseHome,
+                          CaseTime1 = ccr.CaseTime1,
+                          CaseQ1 = ccr.CaseQ1,
+                          CaseQ1Other = ccr.CaseQ1Other,
+                          CaseQ2 = ccr.CaseQ2,
+                          CaseQ2Other = ccr.CaseQ2Other,
+                          CaseQ3 = ccr.CaseQ3,
+                          CaseQ3Other = ccr.CaseQ3Other,
+                          CaseQ4 = ccr.CaseQ4,
+                          CaseQ4Other = ccr.CaseQ4Other,
+                          MemSid = ccr.MemSid,
 
-                         CaseQaid = ccr.CaseQaid,
+                          CaseQaid = ccr.CaseQaid,
 
-                     };
+                      };
             var no2 = await no1.ToListAsync();
             if (no2 == null)
             {
@@ -129,7 +128,7 @@ namespace long_term_care.Controllers
 
             return View("SearchResult", no2);
         }
-        
+
         // GET: CaseCareRecords/Create
         public IActionResult Create()
         {
@@ -171,7 +170,7 @@ namespace long_term_care.Controllers
             ViewData["CaseQaid"] = nextFormNumber;
             //ViewData["CaseNo"] = new SelectList(_context.CaseInfors, "CaseNo", "CaseNo");
             ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid");
-            return View(viewModel); 
+            return View(viewModel);
         }
 
         // POST: CaseCareRecords/Create
@@ -301,7 +300,6 @@ namespace long_term_care.Controllers
                         (ci, ccr) => new CareSearchResultViewModel
                         {
                             CaseName = ci.CaseName,
-                            CaseBd = ci.CaseBd,
                             CaseGender = ci.CaseGender,
                             CaseNo = ci.CaseIdcard,
                             CasePhn = ccr.CaseTel,
@@ -340,31 +338,29 @@ namespace long_term_care.Controllers
                     var workbook = new XSSFWorkbook();
                     var sheet = workbook.CreateSheet("Sheet1");
 
-                 
+
                     var headerRow = sheet.CreateRow(0);
                     headerRow.CreateCell(0).SetCellValue("姓名");
-                    headerRow.CreateCell(1).SetCellValue("出生");
-                    headerRow.CreateCell(2).SetCellValue("性別");
-                    headerRow.CreateCell(3).SetCellValue("身分別");
-                    headerRow.CreateCell(4).SetCellValue("語言");
-                    headerRow.CreateCell(5).SetCellValue("婚姻");
-                    headerRow.CreateCell(6).SetCellValue("家庭");
-                    headerRow.CreateCell(7).SetCellValue("聯絡人");
-                    headerRow.CreateCell(8).SetCellValue("關係");
-                    headerRow.CreateCell(9).SetCellValue("聯絡人電話");
+                    headerRow.CreateCell(1).SetCellValue("性別");
+                    headerRow.CreateCell(2).SetCellValue("身分別");
+                    headerRow.CreateCell(3).SetCellValue("語言");
+                    headerRow.CreateCell(4).SetCellValue("婚姻");
+                    headerRow.CreateCell(5).SetCellValue("家庭");
+                    headerRow.CreateCell(6).SetCellValue("聯絡人");
+                    headerRow.CreateCell(7).SetCellValue("關係");
+                    headerRow.CreateCell(8).SetCellValue("聯絡人電話");
 
 
                     var personalInfoRow = sheet.CreateRow(1);
                     personalInfoRow.CreateCell(0).SetCellValue(latestRecord.CaseName);
-                    personalInfoRow.CreateCell(1).SetCellValue(latestRecord.CaseBd.ToString());
-                    personalInfoRow.CreateCell(2).SetCellValue(latestRecord.CaseGender);
-                    personalInfoRow.CreateCell(3).SetCellValue(latestRecord.CaseIdent);
-                    personalInfoRow.CreateCell(4).SetCellValue(latestRecord.CaseLang);
-                    personalInfoRow.CreateCell(5).SetCellValue(latestRecord.CaseMari);
-                    personalInfoRow.CreateCell(6).SetCellValue(latestRecord.CaseFami);
-                    personalInfoRow.CreateCell(7).SetCellValue(latestRecord.CaseCnta);
-                    personalInfoRow.CreateCell(8).SetCellValue(latestRecord.CaseCntRel);
-                    personalInfoRow.CreateCell(9).SetCellValue(latestRecord.CaseCntTel);
+                    personalInfoRow.CreateCell(1).SetCellValue(latestRecord.CaseGender);
+                    personalInfoRow.CreateCell(2).SetCellValue(latestRecord.CaseIdent);
+                    personalInfoRow.CreateCell(3).SetCellValue(latestRecord.CaseLang);
+                    personalInfoRow.CreateCell(4).SetCellValue(latestRecord.CaseMari);
+                    personalInfoRow.CreateCell(5).SetCellValue(latestRecord.CaseFami);
+                    personalInfoRow.CreateCell(6).SetCellValue(latestRecord.CaseCnta);
+                    personalInfoRow.CreateCell(7).SetCellValue(latestRecord.CaseCntRel);
+                    personalInfoRow.CreateCell(8).SetCellValue(latestRecord.CaseCntTel);
 
                     var dailyHeaderRow2 = sheet.CreateRow(2);
 
@@ -406,7 +402,7 @@ namespace long_term_care.Controllers
                         return File(memoryStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "LatestCaseCareRecord.xlsx");
                     }
                 }
-              
+
                 else if (exportType == "pdf")
                 {
                     using (MemoryStream mem = new MemoryStream())

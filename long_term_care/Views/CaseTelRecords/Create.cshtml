@@ -11,148 +11,182 @@
     <button type="button" id="largeFont" class="font-size-button">大</button>
 </div>
 <hr />
-<div class="row ">
-
+<div class="row">
     <form asp-action="Create">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="row align-items-start">
-            <div class="form-group col-md-4">
-                <label asp-for="CaseTelQaid" class="control-label"></label>
-                <span>@ViewBag.CaseTelQaid</span>
-                <span asp-validation-for="CaseTelQaid" class="text-danger"></span>
-            </div>
-            <div class="form-group col-md-4">
-                <label asp-for="CaseNo">個案編號</label>
-                <span>@Model.CaseNo</span>
-            </div>
-            <div class="form-group col-md-4">
-                <label asp-for="CaseRegTime" class="control-label"></label>
-                <input asp-for="CaseRegTime" type="month" class="form-control" />
-                <span asp-validation-for="CaseRegTime" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group col-md-12">
-            <label asp-for="CaseSick" class="control-label"></label>
-            <input asp-for="CaseSick" class="form-control" />
-            <span asp-validation-for="CaseSick" class="text-danger"></span>
-        </div><br>
+        <table style="border-collapse: collapse; width: 100%;">
+            <tr>
+                <td style="border: 1px solid black; padding: 5px; width: 33%;">
+                    <label asp-for="CaseTelQaid" class="control-label"></label>
+                   
+                </td>
+                <td>
+                    <span>@ViewBag.CaseTelQaid</span>
+                    <span asp-validation-for="CaseTelQaid" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="CaseNo">個案編號</label>
+                </td>
+                <td style="border: 1px solid black; padding: 5px; width: 33%;">
+                    <span>@Model.CaseNo</span>
+                </td>
+               
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="CaseRegTime" class="control-label"></label>
+                </td>
+                <td style="border: 1px solid black; padding: 5px; width: 33%;">
+                    <input asp-for="CaseRegTime" type="month" class="form-control" />
+                    <span asp-validation-for="CaseRegTime" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="CaseSick" class="control-label"></label>
+                </td>
+                <td style="border: 1px solid black; padding: 5px;">
+                    <input asp-for="CaseSick" class="form-control" />
+                    <span asp-validation-for="CaseSick" class="text-danger"></span>
+                </td>
+            </tr>
+        </table>
+        <br>
         <p>
             請於 □中勾選符合今日電話問安結果最適合的描述選項。
         </p>
-
-        <div class="box">
-            <div class="row align-items-start">
-                <div class="form-group col-md-4">
-                    <label asp-for="CaseDay" class="control-label"></label>
+        <table style="border-collapse: collapse; width: 100%;">
+            <tr>
+                <td>
+                   <label asp-for="CaseDay" class="control-label"></label>
+                </td>
+                <td style="border: 1px solid black; padding: 5px;">
                     <input asp-for="CaseDay" type="text" class="form-control" />
                     <span asp-validation-for="CaseDay" class="text-danger"></span>
-                </div>
-                <div class="form-group col-md-4">
+                </td>
+            <tr/>
+            <tr>
+                <td>
                     <label asp-for="CaseTelTime1" class="control-label"></label>
+                </td>
+                <td style="border: 1px solid black; padding: 5px;">
                     <input asp-for="CaseTelTime1" type="time" class="form-control" />
                     <span asp-validation-for="CaseTelTime1" class="text-danger"></span>
-                </div>
-                <div class="form-group col-md-4">
-                    <label asp-for="CaseTelTime2" class="control-label"></label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                   <label asp-for="CaseTelTime2" class="control-label"></label>
+                </td>
+                <td style="border: 1px solid black; padding: 5px;">
                     <input asp-for="CaseTelTime2" type="time" class="form-control" />
                     <span asp-validation-for="CaseTelTime2" class="text-danger"></span>
-                </div>
-
-            </div>
-            <div class="row g-2">
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <label asp-for="CaseAns" class="control-label"></label>
-                        @Html.RadioButtonFor(model => model.CaseAns, "親自接聽")親自接聽
-                        @Html.RadioButtonFor(model => model.CaseAns, "親友接聽")親友接聽
-                        @Html.RadioButtonFor(model => model.CaseAns, "無人接聽")無人接聽
-                        @Html.RadioButtonFor(model => model.CaseAns, "電話故障")電話故障
-                    </div>
-
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="CaseAns" class="control-label"></label>
+                </td>
+                <td style="border: 1px solid black; padding: 5px;">
+                    @Html.RadioButtonFor(model => model.CaseAns, "親自接聽")親自接聽
+                    @Html.RadioButtonFor(model => model.CaseAns, "親友接聽")親友接聽
+                    @Html.RadioButtonFor(model => model.CaseAns, "無人接聽")無人接聽
+                    @Html.RadioButtonFor(model => model.CaseAns, "電話故障")電話故障
                     <span asp-validation-for="CaseAns" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <label asp-for="CaseExp" class="control-label"></label>
-                        @Html.RadioButtonFor(model => model.CaseExp, "表達清晰")表達清晰
-                        @Html.RadioButtonFor(model => model.CaseExp, "表達尚可")表達尚可
-                        @Html.RadioButtonFor(model => model.CaseExp, "口語不清")口語不清
-                        @Html.RadioButtonFor(model => model.CaseExp, "無法表達")無法表達
-                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                   <label asp-for="CaseExp" class="control-label"></label>
+                </td>
+                <td style="border: 1px solid black; padding: 5px;">
+                    @Html.RadioButtonFor(model => model.CaseExp, "表達清晰")表達清晰
+                    @Html.RadioButtonFor(model => model.CaseExp, "表達尚可")表達尚可
+                    @Html.RadioButtonFor(model => model.CaseExp, "口語不清")口語不清
+                    @Html.RadioButtonFor(model => model.CaseExp, "無法表達")無法表達
                     <span asp-validation-for="CaseExp" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <label asp-for="CaseHea" class="control-label"></label>
-                        @Html.RadioButtonFor(model => model.CaseHea, "健康良好")健康良好
-                        @Html.RadioButtonFor(model => model.CaseHea, "表達尚可")表達尚可
-                        @Html.RadioButtonFor(model => model.CaseHea, "按時用藥")按時用藥
-                        @Html.RadioButtonFor(model => model.CaseHea, "定期門診")定期門診
-                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                   <label asp-for="CaseHea" class="control-label"></label>
+                </td>
+                <td style="border: 1px solid black; padding: 5px;">
+                    @Html.RadioButtonFor(model => model.CaseHea, "健康良好")健康良好
+                    @Html.RadioButtonFor(model => model.CaseHea, "表達尚可")表達尚可
+                    @Html.RadioButtonFor(model => model.CaseHea, "按時用藥")按時用藥
+                    @Html.RadioButtonFor(model => model.CaseHea, "定期門診")定期門診
                     <span asp-validation-for="CaseHea" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <label asp-for="CaseLive" class="control-label"></label>
-                        @Html.RadioButtonFor(model => model.CaseLive, "三餐定時")三餐定時
-                        @Html.RadioButtonFor(model => model.CaseLive, "餐不定時")餐不定時
-                        @Html.RadioButtonFor(model => model.CaseLive, "餐與活動")餐與活動
-                        @Html.RadioButtonFor(model => model.CaseLive, "極少外出")極少外出
-                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                   <label asp-for="CaseLive" class="control-label"></label>
+                </td>
+                <td style="border: 1px solid black; padding: 5px;">
+                    @Html.RadioButtonFor(model => model.CaseLive, "三餐定時")三餐定時
+                    @Html.RadioButtonFor(model => model.CaseLive, "餐不定時")餐不定時
+                    @Html.RadioButtonFor(model => model.CaseLive, "餐與活動")餐與活動
+                    @Html.RadioButtonFor(model => model.CaseLive, "極少外出")極少外出
                     <span asp-validation-for="CaseLive" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <label asp-for="CaseFam" class="control-label"></label>
-                        @Html.RadioButtonFor(model => model.CaseFam, "常有互動")常有互動
-                        @Html.RadioButtonFor(model => model.CaseFam, "偶有互動")偶有互動
-                        @Html.RadioButtonFor(model => model.CaseFam, "很少互動")很少互動
-                        @Html.RadioButtonFor(model => model.CaseFam, "從不互動")從不互動
-                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                   <label asp-for="CaseFam" class="control-label"></label>
+                </td>
+                <td style="border: 1px solid black; padding: 5px;">
+                    @Html.RadioButtonFor(model => model.CaseFam, "常有互動")常有互動
+                    @Html.RadioButtonFor(model => model.CaseFam, "偶有互動")偶有互動
+                    @Html.RadioButtonFor(model => model.CaseFam, "很少互動")很少互動
+                    @Html.RadioButtonFor(model => model.CaseFam, "從不互動")從不互動
                     <span asp-validation-for="CaseFam" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <label asp-for="CaseMental" class="control-label"></label>
-                        @Html.RadioButtonFor(model => model.CaseMental, "精神愉快")精神愉快
-                        @Html.RadioButtonFor(model => model.CaseMental, "尚可")尚可
-                        @Html.RadioButtonFor(model => model.CaseMental, "精神不佳")精神不佳
-                        @Html.RadioButtonFor(model => model.CaseMental, "輕生念頭")輕生念頭
-                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                   <label asp-for="CaseMental" class="control-label"></label>
+                </td>
+                <td colspan="3" style="border: 1px solid black; padding: 5px;">
+                    @Html.RadioButtonFor(model => model.CaseMental, "精神愉快")精神愉快
+                    @Html.RadioButtonFor(model => model.CaseMental, "尚可")尚可
+                    @Html.RadioButtonFor(model => model.CaseMental, "精神不佳")精神不佳
+                    @Html.RadioButtonFor(model => model.CaseMental, "輕生念頭")輕生念頭
                     <span asp-validation-for="CaseMental" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <label asp-for="CaseCom" class="control-label"></label>
-                        @Html.RadioButtonFor(model => model.CaseCom, "好")好
-                        @Html.RadioButtonFor(model => model.CaseCom, "尚可")尚可
-                        @Html.RadioButtonFor(model => model.CaseCom, "不好")不好
-                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="CaseCom" class="control-label"></label>
+                </td>
+                <td style="border: 1px solid black; padding: 5px;">
+                    @Html.RadioButtonFor(model => model.CaseCom, "好")好
+                    @Html.RadioButtonFor(model => model.CaseCom, "尚可")尚可
+                    @Html.RadioButtonFor(model => model.CaseCom, "不好")不好
                     <span asp-validation-for="CaseCom" class="text-danger"></span>
-                </div>
-
-                <div class="form-group col-md-3">
+                </td>
+            </tr>
+            @*
+            <tr>
+                <td colspan="3" style="border: 1px solid black; padding: 5px;">
                     <label asp-for="MemSid" class="control-label"></label>
                     <select asp-for="MemSid" class="form-control" asp-items="ViewBag.MemSid"></select>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <input type="submit" value="提交" class="btn btn-primary" />
+                </td>
+            </tr>*@
+            
+        </table>
+        <br/>
+        <div class="form-group" style="text-align:center;">
+            <input type="submit" value="儲存" class="btn btn-primary" />
         </div>
     </form>
-
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">返回</a>
 </div>
+
 <script>
     document.getElementById('smallFont').addEventListener('click', function () {
         document.body.style.fontSize = '12px';
@@ -164,28 +198,26 @@
         document.body.style.fontSize = '25px';
     });
 </script>
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+    }
 
-@section topCSS {
-    <style type="text/css">
-        h1 {
-            font-size: 36px;
-            text-align: center;
-        }
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
 
-        .box {
-            padding: 10px;
-            margin: 10px;
-            border: black solid 2px;
-            border-radius: 20px;
-        }
-
-        body {
-            background-color: #CBE9EA;
-        }
-    </style>
-}
+    td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+</style>

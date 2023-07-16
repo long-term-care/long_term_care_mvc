@@ -73,33 +73,40 @@
                             <option value="其他">其他</option>
                         </select>
                     </div>
-                   
-                        @*
-                        <div class="form-group">
-                            <label for="City">地址<span class="required">*</span></label>
-                            <select class="form-control" id="City">
-                                <option value="">請選擇城市</option>
-                                @foreach (var address in Model)
-                                {
-                                    <option>@item.City</option>
-                                }
-                            </select>
-                        </div>
 
-                        <div class="form-group col-2">
-                            <select class="form-control" id="District">
-                                <option value="">請選擇鄉鎮市區</option>
-                                @foreach (var item in Model)
+                    @{
+                        ViewBag.Title = "Address Form";
+                    }
+
+                    <h2>Address Form</h2>
+
+                    <form>
+                        <div class="form-group">
+                            <label for="City">City:</label>
+                            <select class="form-control" id="City">
+                                @foreach (var city in ViewBag.CitiesAndTownships)
                                 {
-                                    <option>@item.District</option>
+                                    <option value="@city">@city</option>
                                 }
                             </select>
                         </div>
-                       
-                        <div class="form-group col-2">
-                             <input type="text" id="Street" name="street" placeholder="街道">
-                        </div>*@
-                    
+                        <div class="form-group">
+                            <label for="Township">Township:</label>
+                            <select class="form-control" id="Township">
+                                @foreach (var township in ViewBag.CitiesAndTownships)
+                                {
+                                    <option value="@township">@township</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="Street">Street:</label>
+                            <input type="text" class="form-control" id="Street" placeholder="Enter Street">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+
+
                 </div>
 
 

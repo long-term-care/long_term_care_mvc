@@ -4,11 +4,11 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<link rel="stylesheet" href="~/css/Details.css">
 
 @using (Html.BeginForm("Details", "CaseTelRecords", FormMethod.Post))
 {
-    <div class="container-fluid">
+    <div class="container">
         <div class="insideBox">
             <h3>C 單位巷弄長照站電話問安</h3>
             <h5><span>請輸入年月.個案身分證</span></h5>
@@ -23,68 +23,4 @@
             <a asp-action="Index">返回</a>
         </div>
     </div>
-}
-@section topCSS {
-    <style type="text/css">
-        body {
-            font-family: 'Hiragino Kaku Gothic Pro', 'WenQuanYi Zen Hei', '微軟正黑體', '蘋果儷中黑', Helvetica, Arial, sans-serif;
-        }
-
-        .container-fluid {
-            background-color: #CBE9EA;
-            padding: 45px;
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-        }
-
-        .insideBox {
-            border-radius: 20px;
-            background-color: #F1FFFF;
-            height: 100%;
-        }
-
-            .insideBox h3 {
-                font-size: 18px;
-                padding: 10px 30px;
-            }
-
-            .insideBox h5 {
-                font-size: 15px;
-                padding-left: 30px;
-            }
-
-        span {
-            color: #A9A5A5;
-        }
-
-        .content {
-            margin-top: 10%;
-            padding: 3%;
-            text-align: center;
-        }
-
-        input {
-            border: 1px solid #A9A5A5;
-            border-radius: 8px;
-        }
-
-            input:focus {
-                outline: none;
-            }
-
-        button {
-            border-radius: 8px;
-            background-color: #5C9DF7;
-            color: #FFFFFF;
-            border: transparent;
-        }
-
-            button:hover {
-                background-color: #7caef5;
-            }
-
-    </style>
 }
