@@ -15,6 +15,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting.Internal;
+using Microsoft.Extensions.Logging;
+
 
 namespace long_term_care
 {
@@ -33,23 +36,24 @@ namespace long_term_care
             services.AddControllersWithViews();
 
             services.AddDbContext<longtermcareContext>(options =>
-         options.UseSqlServer(Configuration.GetConnectionString("longtermcareContext")));
-         services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-         .AddCookie(options =>
-         {
-           //預設登入驗證網址為Account/Login, 若想變更才需要設定LoginPath
-           options.LoginPath = new PathString("/Main/Login");
-           options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
-           options.SlidingExpiration = true;
-           options.AccessDeniedPath = "/Main/Login";
-         });
-         services.AddSession(options =>
-          {
-                // 設定 Session 的超時時間等選項
+                options.UseSqlServer(Configuration.GetConnectionString("longtermcareContext")));
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = new PathString("/Main/Login");
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                    options.SlidingExpiration = true;
+                    options.AccessDeniedPath = "/Main/Login";
+                });
+
+            services.AddSession(options =>
+            {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
-          });
+            });
+
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("管理員", policy =>
@@ -61,14 +65,10 @@ namespace long_term_care
                 options.AddPolicy("志工", policy =>
                     policy.RequireRole("志工"));
             });
-            services.AddLogging(builder =>
-            {
-                builder.AddConsole();
-                builder.AddDebug();
-                // 如果您需要將 log 記錄至檔案，您可以使用以下程式碼：
-                // builder.AddFile("path_to_your_log_file");
-            });
+
+
         }
+
 
 
 

@@ -316,16 +316,7 @@
     </script>*@
 
 
-    <script>
-        const memidcard = document.getElementById('memidcard');
-
-        function validateIDCard(event) {
-
-        }
-
-        memberbtn.addEventListener('submit', validateIDCard);
-
-    </script>
+    
     <script>
         var sendbtn = document.getElementById("sendbtn")
         sendbtn.addEventListener("click", function (event) {
@@ -338,14 +329,11 @@
             var firstname = document.getElementById("firstname").value;
             var gender = document.getElementById("gender").value;
             var educationLevel = document.getElementById("educationLevel").value;
-            var year = document.getElementById("year").value;
-            var month = document.getElementById("month").value;
-            var day = document.getElementById("day").value;
+           
             var language = document.getElementById("language").value;
             var culture = document.getElementById("culture").value;
             var idcard = document.getElementById("idcard").value;
-            var password = document.getElementById("password").value;
-            var passwordcheck = document.getElementById("passwordcheck").value;
+
             var marital_status = document.getElementById("marital-status").value;
             var family = document.getElementById("family").value;
             var relationship = document.getElementById("relationship").value;
@@ -380,11 +368,6 @@
                 return; // Stop further execution
             }
 
-            // Validate password match
-            if (password !== passwordcheck) {
-                alert("密碼與確認密碼不一致");
-                return; // Stop further execution
-            }
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "/Main/Caseinfor", true);
             xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -397,7 +380,6 @@
                 "CaseUnitNum": unitid,
                 "CaseName": Name,
                 "CaseIdcard": idcard,
-                "CasePassword": password,
                 "CaseGender": gender,
                 "CaseRelig": culture,
                 "CaseBd": bd,

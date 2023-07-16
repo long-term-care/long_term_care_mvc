@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -33,6 +34,8 @@ namespace long_term_care.Models
 
         public virtual DbSet<Roleset> Rolesets { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
+
+        public DbSet<ChangeLog> ChangeLogs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -424,10 +427,7 @@ namespace long_term_care.Models
                     .HasMaxLength(50)
                     .HasColumnName("Case_Name");
 
-                entity.Property(e => e.CasePassword)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .HasColumnName("Case_Password");
+              
 
                 entity.Property(e => e.CaseProf)
                     .HasMaxLength(50)
@@ -1060,9 +1060,105 @@ namespace long_term_care.Models
                     .HasMaxLength(30)
                     .HasColumnName("Car_Num");
             });
+
+            modelBuilder.Entity<ChangeLog>(entity =>
+            {
+                entity.HasKey(e => e.ChangeId)
+                   .HasName("PK__ChangeLo__0E05C5974919C7A5");
+
+                entity.ToTable("ChangeLog");
+
+                entity.Property(e => e.ChangeId)
+                    .IsRequired()
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("ChangeId");
+
+                entity.Property(e => e.TableName)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasColumnName("TableName");
+
+                entity.Property(e => e.ActionType)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .HasColumnName("ActionType");
+
+                entity.Property(e => e.ActionDate)
+                    .IsRequired()
+                    .HasColumnType("datetime")
+                    .HasColumnName("ActionDate");
+
+                entity.Property(e => e.ActionBy)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasColumnName("ActionBy");
+
+                entity.Property(e => e.Details)
+                    .IsRequired()
+                    .HasMaxLength(int.MaxValue)
+                    .HasColumnName("Details");
+            });
             OnModelCreatingPartial(modelBuilder);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+        //public override int SaveChanges()
+        //{
+        //    var addedEntities = ChangeTracker.Entries()
+        //        .Where(e => e.State == EntityState.Added)
+        //        .Select(e => e.Entity);
+
+        //    var modifiedEntities = ChangeTracker.Entries()
+        //        .Where(e => e.State == EntityState.Modified)
+        //        .Select(e => e.Entity);
+
+        //    var deletedEntities = ChangeTracker.Entries()
+        //        .Where(e => e.State == EntityState.Deleted)
+        //        .Select(e => e.Entity);
+
+        //    foreach (var entity in addedEntities)
+        //    {
+        //        var log = new ChangeLog
+        //        {
+        //            TableName = entity.GetType().Name,
+        //            ActionType = "INSERT",
+        //            ActionDate = DateTime.Now,
+        //            ActionBy = "YourUserName", // 替換為實際的使用者名稱
+        //            Details = "Additional Details" // 可以根據需要添加更多詳細資訊
+        //        };
+
+        //        ChangeLogs.Add(log);
+        //    }
+
+        //    foreach (var entity in modifiedEntities)
+        //    {
+        //        var log = new ChangeLog
+        //        {
+        //            TableName = entity.GetType().Name,
+        //            ActionType = "UPDATE",
+        //            ActionDate = DateTime.Now,
+        //            ActionBy = "YourUserName", // 替換為實際的使用者名稱
+        //            Details = "Additional Details" // 可以根據需要添加更多詳細資訊
+        //        };
+
+        //        ChangeLogs.Add(log);
+        //    }
+
+        //    foreach (var entity in deletedEntities)
+        //    {
+        //        var log = new ChangeLog
+        //        {
+        //            TableName = entity.GetType().Name,
+        //            ActionType = "DELETE",
+        //            ActionDate = DateTime.Now,
+        //            ActionBy = "YourUserName", // 替換為實際的使用者名稱
+        //            Details = "Additional Details" // 可以根據需要添加更多詳細資訊
+        //        };
+
+        //        ChangeLogs.Add(log);
+        //    }
+
+        //    return base.SaveChanges();
+        //}
     }
 }
