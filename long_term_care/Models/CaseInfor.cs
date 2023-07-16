@@ -34,9 +34,7 @@ namespace long_term_care.Models
         public string CaseProf { get; set; }
         public string CaseEdu { get; set; }
         public string CaseAddr { get; set; }
-        public string City { get; set; }
-        public string District { get; set; }
-        public string Street { get; set; }
+       
         public string CaseHouse { get; set; }
         public string CaseIdent { get; set; }
         public string CaseFund { get; set; }

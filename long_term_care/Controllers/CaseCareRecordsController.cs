@@ -419,7 +419,7 @@ namespace long_term_care.Controllers
 
                         iText.Layout.Element.Paragraph paragraph = new iText.Layout.Element.Paragraph("\n\n基本資料\n").SetFont(font);
                         paragraph.Add(new iText.Layout.Element.Text("姓名: " + latestRecord.CaseName).SetFont(font));
-                        paragraph.Add(new iText.Layout.Element.Text("\n出生: " + latestRecord.CaseBd).SetFont(font));
+                        //paragraph.Add(new iText.Layout.Element.Text("\n出生: " + latestRecord.CaseBd).SetFont(font));
                         paragraph.Add(new iText.Layout.Element.Text("\n性別: " + latestRecord.CaseGender).SetFont(font));
                         paragraph.Add(new iText.Layout.Element.Text("\n身份別: " + latestRecord.CaseIdent).SetFont(font));
                         paragraph.Add(new iText.Layout.Element.Text("\n語言: " + latestRecord.CaseLang).SetFont(font));
