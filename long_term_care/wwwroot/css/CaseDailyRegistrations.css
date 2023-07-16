@@ -63,6 +63,16 @@ input[type="text"], input[type="number"] {
     background-color: transparent;
     border: none;
 }
+.NoBorder {
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+    .NoBorder:focus {
+        outline: none;
+        box-shadow: none;
+    }
 
 .group {
     text-align: center;

@@ -17,11 +17,9 @@
             <tr>
                 <td style="border: 1px solid black; padding: 5px; width: 33%;">
                     <label asp-for="CaseTelQaid" class="control-label"></label>
-                   
                 </td>
                 <td>
-                    <span>@ViewBag.CaseTelQaid</span>
-                    <span asp-validation-for="CaseTelQaid" class="text-danger"></span>
+                    <input asp-for="CaseTelQaid" class="form-control NoBorder" type="text" value="@ViewBag.CaseTelQaid" readonly />
                 </td>
             </tr>
             <tr>
@@ -29,7 +27,7 @@
                     <label asp-for="CaseNo">個案編號</label>
                 </td>
                 <td style="border: 1px solid black; padding: 5px; width: 33%;">
-                    <span>@Model.CaseNo</span>
+                    <input class="NoBorder" asp-for="CaseNo" readonly />
                 </td>
                
             </tr>
@@ -220,4 +218,15 @@
         padding: 8px;
         text-align: left;
     }
+
+    .NoBorder {
+        border: none;
+        outline: none;
+        box-shadow: none;
+    }
+
+        .NoBorder:focus {
+            outline: none;
+            box-shadow: none;
+        }
 </style>

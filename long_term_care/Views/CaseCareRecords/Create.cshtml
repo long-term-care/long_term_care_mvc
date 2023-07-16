@@ -29,6 +29,17 @@
             padding: 8px 16px;
         }
 
+        .NoBorder {
+            border: none;
+            outline: none;
+            box-shadow: none;
+        }
+
+            .NoBorder:focus {
+                outline: none;
+                box-shadow: none;
+            }
+
     </style>
 </head>
 <body>
@@ -48,12 +59,20 @@
             </td>
         </tr>
         <tr>
-            <td>問卷編號</td>
-            <td>@ViewBag.CaseQaid</td>
+            <td>
+                <label asp-for="CaseQaid" class="control-label"></label>
+            </td>
+            <td>
+                <input asp-for="CaseQaid" class="form-control NoBorder" type="text" value="@ViewBag.CaseQaid" readonly />
+            </td>
         </tr>
         <tr>
-            <td>個案編號</td>
-            <td>@Model.CaseNo</td>
+            <td>
+                <label asp-for="CaseNo" class="control-label"></label>
+            </td>
+            <td>
+                <input asp-for="CaseNo" class="form-control NoBorder" asp-items="ViewBag.CaseNo"></input>
+            </td>
         </tr>
         <tr>
             <td><label asp-for="CaseTel" class="control-label"></label></td>
