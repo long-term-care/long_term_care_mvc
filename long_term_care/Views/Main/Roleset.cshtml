@@ -51,6 +51,9 @@
                         <select id="Role" name="roleid" style="width: 100px;">
                             <option value="2">社工</option>
                             <option value="3">志工</option>
+                            <option value="4">志工簽到負責人</option>
+                            <option value="5">課表負責人</option>
+                            <option value="6">活動設計負責人</option>
                    </select>
                    <button id="fix" class="btn btn-primary" type="submit">修改</button>
                 </td>
@@ -61,10 +64,52 @@
                         <select id="Role" name="roleid" style="width: 100px;">
                             <option value="3">志工</option>
                             <option value="2">社工</option>
+                            <option value="4">志工簽到負責人</option>
+                            <option value="5">課表負責人</option>
+                            <option value="6">活動設計負責人</option>
                       </select>
                       <button id="fix" class="btn btn-primary" type="submit">修改</button>
                    </td>
                 }
+                    @if (member.RoleId == "4")
+                    {
+                    <td>
+                        <select id="Role" name="roleid" style="width: 100px;">
+                            <option value="4">志工簽到負責人</option>
+                            <option value="3">志工</option>
+                            <option value="2">社工</option>                          
+                            <option value="5">課表負責人</option>
+                            <option value="6">活動設計負責人</option>
+                        </select>
+                        <button id="fix" class="btn btn-primary" type="submit">修改</button>
+                    </td>
+                    }
+                    @if (member.RoleId == "5")
+                    {
+                    <td>
+                        <select id="Role" name="roleid" style="width: 100px;">
+                            <option value="5">課表負責人</option>
+                            <option value="3">志工</option>
+                            <option value="2">社工</option>
+                            <option value="4">志工簽到負責人</option>
+                            <option value="6">活動設計負責人</option>
+                        </select>
+                        <button id="fix" class="btn btn-primary" type="submit">修改</button>
+                    </td>
+                    }
+                    @if (member.RoleId == "6")
+                    {
+                    <td>
+                        <select id="Role" name="roleid" style="width: 100px;">
+                            <option value="6">活動設計負責人</option>
+                            <option value="3">志工</option>
+                            <option value="2">社工</option>
+                            <option value="4">志工簽到負責人</option>
+                            <option value="5">課表負責人</option>                            
+                        </select>
+                        <button id="fix" class="btn btn-primary" type="submit">修改</button>
+                    </td>
+                    }
                 @if (member.RoleId == null)
                 {
                    <td>
@@ -72,6 +117,9 @@
                             <option value="" selected disabled>尚未設定</option>
                             <option value="2">社工</option>
                             <option value="3">志工</option>
+                            <option value="4">志工簽到負責人</option>
+                            <option value="5">課表負責人</option>
+                            <option value="6">活動設計負責人</option>
                       </select>
                       <button id="fix" class="btn btn-primary" type="submit">修改</button>
                    </td>

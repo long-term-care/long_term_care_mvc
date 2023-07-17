@@ -10,10 +10,11 @@ namespace long_term_care.ViewModels
         public string CaseUnitName { get; set; }
         public string CaseUnitNum { get; set; }
         public string CaseName { get; set; }
+        [RegularExpression(@"^[A-Z]\d{9}$", ErrorMessage = "身份证号码格式不正确")]
         public string CaseIdcard { get; set; }
-        public string CasePassword { get; set; }
         public string CaseGender { get; set; }
         public string CaseRelig { get; set; }
+        [RegularExpression(@"\d{4}-\d{2}-\d{2}", ErrorMessage = "日期格式必须为yyyy-mm-dd")]
         public DateTime CaseBd { get; set; }
         public string CaseLang { get; set; }
         public string CaseSource { get; set; }
@@ -37,7 +38,7 @@ namespace long_term_care.ViewModels
         public string CaseDesc { get; set; }
         public string CaseRegName { get; set; }
         public string CaseRegTime { get; set; }
-
+        [RegularExpression(@"^[A-Z]{2}\d{10}$", ErrorMessage = "健保卡IC码格式不正确")]
         public string CaseIcnum { get; set; }
         //-----------------------------------------------------------------------------------
 

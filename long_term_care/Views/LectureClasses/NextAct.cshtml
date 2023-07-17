@@ -3,11 +3,12 @@
     ViewData["Title"] = "Act";
     var data = Model.OrderBy(x => x.Weeknum);
     DateTime currentDate = DateTime.Now;
-
+    DateTime oneWeekLater = currentDate.AddDays(7);
     // 计算当前日期所在周的星期一的日期
-    int daysToMonday = (int)currentDate.DayOfWeek - (int)DayOfWeek.Monday;
+
+    int daysToMonday = (int)oneWeekLater.DayOfWeek - (int)DayOfWeek.Monday;
     if (daysToMonday < 0) daysToMonday += 7;  // 处理星期日的特殊情况
-    DateTime mondayDate = currentDate.AddDays(-daysToMonday);
+    DateTime mondayDate = oneWeekLater.AddDays(-daysToMonday);
     DateTime tuesdayDate = mondayDate.AddDays(1);
     DateTime wednesdayDate = mondayDate.AddDays(2);
     DateTime thursdayDate = mondayDate.AddDays(3);
@@ -30,7 +31,6 @@
     }
 
     table {
-       
         width: 100%;
         height: 100%;
     }
@@ -42,9 +42,9 @@
     }
 
 
-    td:first-child {
-        width: 8%;
-    }
+        td:first-child {
+            width: 8%;
+        }
 
     .send {
         width: 100%;
@@ -125,8 +125,9 @@
     </div>
     <div class="send">
         <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Index", "LectureClasses")'">返回</button>
-        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("NextAct", "LectureClasses")'">下周課表</button>
+        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("NextAct", "LectureClasses")'">本周課表</button>
     </div>
 
 </body>
+
 

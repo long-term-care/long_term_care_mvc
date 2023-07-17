@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -23,10 +24,12 @@ namespace long_term_care.Models
         public string CaseUnitName { get; set; }
         public string CaseUnitNum { get; set; }
         public string CaseName { get; set; }
+        
         public string CaseIdcard { get; set; }
-        public string CasePassword { get; set; }
+       
         public string CaseGender { get; set; }
         public string CaseRelig { get; set; }
+        
         public DateTime CaseBd { get; set; }
         public string CaseLang { get; set; }
         public string CaseSource { get; set; }
@@ -43,6 +46,7 @@ namespace long_term_care.Models
         public string CaseFactly { get; set; }
         public string CaseMari { get; set; }
         public string CaseCnta { get; set; }
+        [RegularExpression(@"^09\d{8}$", ErrorMessage = "手机号码格式不正确")]
         public string CaseCntTel { get; set; }
         public string CaseCntRel { get; set; }
         public string CaseCntAdd { get; set; }
