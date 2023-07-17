@@ -30,15 +30,16 @@
                      <div class="form-group" style="float: right;">
                         <!--CaseNeedId 是問卷編號 --->
                         <span class="ord">
-                            <label asp-for="CaseNeedId" class="control-label" style="position: absolute; top: 0; right: 0;">問卷編號
-                                    <span>@ViewBag.CaseNeedId</span>
+                                <label asp-for="CaseNeedId" class="control-label" style="position: absolute; top: 0; right: 0;">
+                                    問卷編號:
+                                    <input asp-for="CaseNeedId" class="form-control NoBorder" type="text" value="@ViewBag.CaseNeedId" readonly />
                                 </label>
-                            <span asp-validation-for="CaseNeedId" class="text-danger"></span>
+                                <span asp-validation-for="CaseNeedId" class="text-danger"></span>
                         </span>
                     </div>
-                     <div class="form-group ElderIDInput">
-                            <label asp-for="CaseNo">個案編號:</label>
-                            <span>@Model.CaseNo</span>
+                    <div class="form-group ElderIDInput">
+                        <label asp-for="CaseNo">個案編號: </label>
+                            <input asp-for="CaseNo" class="NoBorder" readonly />
                     </div>
                     <div class="row align-items-start">
                         <div class="form-group col">
@@ -248,7 +249,7 @@
                         </div>
                     </section>
                     <div class="form-group wrap">
-                        <button class="button" type="submit" value="Create">儲存</button>
+                        <button class="button save" type="submit" value="Create">儲存</button>
                     </div>
                 </form>
             </div>
@@ -258,6 +259,38 @@
         </div>
     </div>
 </div>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .NoBorder {
+            border: none;
+            outline: none;
+            box-shadow: none;
+            background-color: transparent;
+        }
+
+            .NoBorder:focus {
+                outline: none;
+                box-shadow: none;
+            }
+             
+
+    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

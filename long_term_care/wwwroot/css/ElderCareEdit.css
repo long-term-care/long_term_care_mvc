@@ -38,11 +38,7 @@ div.ElderIDInput {
     width: 100%;
 }
 
-input[type="text"] {
-    border: 1px solid #A9A5A5;
-    border-radius: 3px;
-    height: 17px;
-}
+
 
 input {
     margin: 0 5px 2px 3px;
@@ -100,7 +96,7 @@ hr {
     margin: 0;
 }
 
-button {
+.save {
     width: 80px;
     height: 30px;
     letter-spacing: 3px;
@@ -117,7 +113,7 @@ button {
     border: transparent;
 }
 
-    button:hover {
+    .save:hover {
         background-color: #5C9DF7;
         box-shadow: 0px 15px 20px rgba(19, 62, 135, 0.5);
         transform: translateY(-7px);

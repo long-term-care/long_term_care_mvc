@@ -358,7 +358,7 @@
             'county': {
                 'label': '縣市',
                 'name': 'county',    //表單名稱
-                'value': '',          //預設值
+                'value': '新竹市',          //預設值
                 'css': '',          //樣式名稱
                 'hidden': false,       //要隱藏的縣市
                 'required': true,
@@ -367,7 +367,7 @@
             'district': {
                 'label': '鄉鎮市區',
                 'name': 'district',  //表單名稱
-                'value': '',          //預設值
+                'value': '東區',          //預設值
                 'css': '',          //樣式名稱
                 'hidden': false,       //要隱藏的鄉鎮市區
                 'required': true,
@@ -375,7 +375,7 @@
             },
             'zipcode': {
                 'name': 'zipcode', //表單名稱
-                'value': '',        //預設值
+                'value': '300',        //預設值
                 'css': '',        //樣式名稱
                 'hidden': false,     //要隱藏的鄉鎮市區
                 'type': 'text',

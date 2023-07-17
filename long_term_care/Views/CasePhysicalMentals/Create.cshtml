@@ -25,20 +25,22 @@
                 <td></td>
             </tr>
             <tr>
-                <td  colspan="2">
+                <td colspan="2">
                     <label asp-for="CaseQaid" class="control-label"></label>
                 </td>
                 <td>
-                        <span>@ViewBag.CaseQaid</span>
-                        <span asp-validation-for="CaseQaid" class="text-danger"></span>
+                    <input asp-for="CaseQaid" class="form-control NoBorder" type="text" value="@ViewBag.CaseQaid" readonly />
+                    <span asp-validation-for="CaseQaid" class="text-danger"></span>
                 </td>
+            </tr>
+
             </tr>
             <tr>
                 <td  colspan="2">
                     <label asp-for="CaseNo">個案編號</label>
                 </td>
                 <td>
-                        <span>@Model.CaseNo</span>
+                    <input class="form-control NoBorder" asp-for="CaseNo" readonly />
                 </td>
             </tr>
             <tr>
@@ -274,6 +276,19 @@
         padding: 8px;
         text-align: left;
     }
+
+    .NoBorder {
+        border: none;
+        outline: none;
+        box-shadow: none;
+    }
+
+        .NoBorder:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
+
 </style>
 <script>
     document.getElementById('smallFont').addEventListener('click', function () {

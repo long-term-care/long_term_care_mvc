@@ -1,7 +1,7 @@
 ﻿body {
-    /*background-image: url('../image/background.png');*/
+    background-image: url('../image/background.png');
     background-color: #1D1D1D;
-    /*background-size: 100% auto;*/
+    background-size: 100% auto;
 }
 @font-face {
     font-family: 'NotoSansHK-Regular';
@@ -13,18 +13,21 @@ h1 {
 }
 .txt {
     font-family: 'NotoSansHK-Regular', Arial, sans-serif;
-    color: white;
+    color: #333333;
 }
+    .txt h1, .txt li {
+        font-weight: 900;
+    }
 
-.content {
-    display: flex;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-    justify-content: space-between;
-}
+    .content {
+        display: flex;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+        justify-content: space-between;
+    }
 
     .content .txt {
         margin: 15% 0 0 7%;

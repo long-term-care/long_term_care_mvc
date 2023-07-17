@@ -13,7 +13,7 @@
             <div class="title">
                 <h3>註冊</h3>
                 <div class="knownAs">
-                    <p>長者</p>
+                    長者
                 </div>
                 <div style="color:red; display:flex; align-items:center;">
                     <h4>*為必填欄位</h4>
@@ -79,13 +79,14 @@
                         </select>
                     </div>
                     <div class="col-6">
-                        <div class="container">
-                            <div class="twzipcode"></div>
-                            <input type="text" class="address" id="address" />
-                            <textarea name="" id="textarea"></textarea>
-                        </div>
+                       @*<div id="twzipcode">
+                            <select data-role="county"></select>
+                            <select data-role="district"></select>
+                            <input type="hidden" data-role="zipcode" />
+                        </div>*@
+                        <label for="address">長者居住地址<span class="required">*</span></label>
+                        <input type="tel" placeholder="&nbsp;&nbsp;" id="address" required>
                     </div>
-
                 </div>
 
 
@@ -265,21 +266,24 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.essoduke.org/js/twzipcode/twzipcode.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
 
     <script>
-        const twzipcode = new TWzipcode(".twzipcode");
-        twzipcode.set(970);
-        var btns = document.getElementById("btn");
-        btns.addEventListener("click", foo, false);
+        $("#twzipcode").twzipcode({
+            zipcodeIntoDistrict: true, // 郵遞區號自動顯示在地區
+            css: ["city form-control", "town form-control"], // 自訂 "城市"、"地區" class 名稱
+            countyName: "city", // 自訂城市 select 標籤的 name 值
+            districtName: "town" // 自訂地區 select 標籤的 name 值
+        });
+        let twzipcode = new TWzipcode({
+            "district": {
+                onChange: function (id) {
+                    console.log(this.nth(id).get());
+                }
+            }
+        });
 
-        function foo() {
-            let county = twzipcode.get("county");
-            let get = twzipcode.get();
-            let address = document.getElementById("address");
-            document.getElementById(
-                "textarea"
-            ).value = `${get[0].zipcode} ${get[0].county}${get[0].district}${address.value}`;
-        }
+        console.log(twzipcode.get());
 
     </script>
     <script>
