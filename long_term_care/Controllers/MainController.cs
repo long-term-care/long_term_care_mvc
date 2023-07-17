@@ -29,7 +29,7 @@ namespace long_term_care.Controllers
     public class MainController : Controller
     {
         private readonly longtermcareContext _context;
-        private HttpClient httpClient;
+       // private HttpClient httpClient;
 
 
         public MainController(longtermcareContext context)
@@ -104,28 +104,29 @@ namespace long_term_care.Controllers
             _context.SaveChanges();
             return View();
         }
-        public IActionResult MemAdd() { 
+        /*public IActionResult MemAdd()
+        {
             httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("https://www.ris.gov.tw/rs-opendata/api/v1/datastore/ODRP049/111");
+            httpClient.BaseAddress = new Uri("https://www.ris.gov.tw/rs-opendata/api/v1/datastore/ODRP049/111");
             return View();
-    }
-    //public async Task<IActionResult> ElderRegistration()
-    //{
-    //    HttpResponseMessage response = await httpClient.GetAsync("");
-    //    if (response.IsSuccessStatusCode)
-    //    {
-    //        var json = await response.Content.ReadAsStringAsync();
-    //        Root apiData = JsonConvert.DeserializeObject<Root>(json);
-    //        return View(apiData.result);
-    //    }
-    //    else
-    //    {
-    //        return View("Error");
-    //    }
-    //}
+        }*/
+        //public async Task<IActionResult> ElderRegistration()
+        //{
+        //    HttpResponseMessage response = await httpClient.GetAsync("");
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        var json = await response.Content.ReadAsStringAsync();
+        //        Root apiData = JsonConvert.DeserializeObject<Root>(json);
+        //        return View(apiData.result);
+        //    }
+        //    else
+        //    {
+        //        return View("Error");
+        //    }
+        //}
 
 
-    public IActionResult Caseinfor()
+        public IActionResult Caseinfor()
         {
             string nextFormNumber = "";
 
@@ -181,7 +182,7 @@ namespace long_term_care.Controllers
         {
             if (model.type == 1)
             {
-                
+
                 var member = new MemberInformation
                 {
                     MemSid = model.MemSid,
@@ -206,7 +207,7 @@ namespace long_term_care.Controllers
                     MemUnitName = model.MemUnitName,
                     MemUnitNum = model.MemUnitNum,
                     MemIcnum = model.MemIcnum,
-                    
+
                 };
                 _context.MemberInformations.Add(member);
                 _context.SaveChanges();
@@ -337,24 +338,24 @@ namespace long_term_care.Controllers
                         if (user.RoleId == "1")
                         {
                             claims.Add(new Claim(ClaimTypes.Role, "管理員"));
-                            
+
                         }
                         else if (user.RoleId == "2")
                         {
                             claims.Add(new Claim(ClaimTypes.Role, "社工"));
-                            
+
                         }
                         else if (user.RoleId == "3")
                         {
                             claims.Add(new Claim(ClaimTypes.Role, "志工"));
                         }
 
-                        
+
 
                         var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                         var authProperties = new AuthenticationProperties()
                         {
-                            
+
                         };
 
                         await HttpContext.SignInAsync(
@@ -402,8 +403,8 @@ namespace long_term_care.Controllers
             return View();
         }
 
-       
-       
+
+
 
 
 
@@ -411,13 +412,13 @@ namespace long_term_care.Controllers
 
         /* [Authorize]*/
         public IActionResult MemMainpage()
-         {
+        {
             /*string userName = User.Identity.Name;
             var MemName = _context.MemberInformations.FirstOrDefault(x => x.MemSid == userName);
             var name = MemName.MemName;
             ViewData["name"] = name;*/
             return View();
-         }
+        }
         [Authorize]
         public IActionResult Memprofile()
         {
@@ -433,9 +434,9 @@ namespace long_term_care.Controllers
             return View(MemName);
         }
         [HttpPost]
-        public async Task<IActionResult> FixMemprofileAsync(string id,[Bind("MemSid,MemUnitName,MemUnitNum,MemName,MemBd,MemUid,MemPassword,MemGender,MemTphone,MemMphone,MemAddress,MemSite,MemProf,MemCert,MemTrans,MemExpr,MemMovt,MemPserv,MemIdent,MemSerRec,MemEdu,RoleId")] MemberInformation memberInformation)
+        public async Task<IActionResult> FixMemprofileAsync(string id, [Bind("MemSid,MemUnitName,MemUnitNum,MemName,MemBd,MemUid,MemPassword,MemGender,MemTphone,MemMphone,MemAddress,MemSite,MemProf,MemCert,MemTrans,MemExpr,MemMovt,MemPserv,MemIdent,MemSerRec,MemEdu,RoleId")] MemberInformation memberInformation)
         {
-            
+
             memberInformation.MemTphone = memberInformation.MemTphone ?? "";
             memberInformation.MemMphone = memberInformation.MemMphone ?? "";
             memberInformation.MemAddress = memberInformation.MemAddress ?? "";
@@ -477,9 +478,9 @@ namespace long_term_care.Controllers
             return View(ViewModel);
         }
         [HttpPost]
-        public IActionResult Roleset(string id,string roleid)
+        public IActionResult Roleset(string id, string roleid)
         {
-            var member = _context.MemberInformations.FirstOrDefault(x=>x.MemSid == id);
+            var member = _context.MemberInformations.FirstOrDefault(x => x.MemSid == id);
             member.RoleId = roleid;
             _context.SaveChanges();
 

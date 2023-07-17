@@ -1,7 +1,12 @@
 ﻿@model IEnumerable<long_term_care.Models.CaseInfor>
 
 <link href="~/css/Reg.css" rel="stylesheet" />
-
+<link href="~/js/Address.js" />
+<style>
+    textarea {
+	resize: none;
+}
+</style>
 <body>
     <div id="elderMsgBox" class="hidden">
         <div class="container">
@@ -73,33 +78,14 @@
                             <option value="其他">其他</option>
                         </select>
                     </div>
-                   
-                        @*
-                        <div class="form-group">
-                            <label for="City">地址<span class="required">*</span></label>
-                            <select class="form-control" id="City">
-                                <option value="">請選擇城市</option>
-                                @foreach (var address in Model)
-                                {
-                                    <option>@item.City</option>
-                                }
-                            </select>
+                    <div class="col-6">
+                        <div class="container">
+                            <div class="twzipcode"></div>
+                            <input type="text" class="address" id="address" />
+                            <textarea name="" id="textarea"></textarea>
                         </div>
+                    </div>
 
-                        <div class="form-group col-2">
-                            <select class="form-control" id="District">
-                                <option value="">請選擇鄉鎮市區</option>
-                                @foreach (var item in Model)
-                                {
-                                    <option>@item.District</option>
-                                }
-                            </select>
-                        </div>
-                       
-                        <div class="form-group col-2">
-                             <input type="text" id="Street" name="street" placeholder="街道">
-                        </div>*@
-                    
                 </div>
 
 
@@ -278,44 +264,34 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    @*<script>
-        var locationData = @Html.Raw(Json.Serialize(Model));
+    <script src="https://code.essoduke.org/js/twzipcode/twzipcode.js"></script>
 
-        $(document).ready(function () {
-            var cities = Object.keys(locationData);
+    <script>
+        const twzipcode = new TWzipcode(".twzipcode");
+        twzipcode.set(970);
+        var btns = document.getElementById("btn");
+        btns.addEventListener("click", foo, false);
 
-            cities.forEach(function (city) {
-                $('#city').append(`<option value="${city}">${city}</option>`);
-            });
+        function foo() {
+            let county = twzipcode.get("county");
+            let get = twzipcode.get();
+            let address = document.getElementById("address");
+            document.getElementById(
+                "textarea"
+            ).value = `${get[0].zipcode} ${get[0].county}${get[0].district}${address.value}`;
+        }
 
-            $('#city').change(function () {
-                var city = $(this).val();
-                var townships = Object.keys(locationData[city]);
+    </script>
+    <script>
+        const memidcard = document.getElementById('memidcard');
 
-                $('#township').empty();
-                $('#street').empty();
+        function validateIDCard(event) {
 
-                townships.forEach(function (township) {
-                    $('#township').append(`<option value="${township}">${township}</option>`);
-                });
-            });
+        }
 
-            $('#township').change(function () {
-                var city = $('#city').val();
-                var township = $(this).val();
-                var streets = locationData[city][township].村里;
+        memberbtn.addEventListener('submit', validateIDCard);
 
-                $('#street').empty();
-
-                streets.forEach(function (street) {
-                    $('#street').append(`<option value="${street}">${street}</option>`);
-                });
-            });
-        });
-
-    </script>*@
-
-
+    </script>
     
     <script>
         var sendbtn = document.getElementById("sendbtn")

@@ -1,6 +1,39 @@
 ﻿@*@model IEnumerable<long_term_care.Models.CaseTelRecord>*@
 @using long_term_care.ViewModels;
 @model IEnumerable<TelSearchResultViewModel>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: lightgray;
+    }
+
+    h2 {
+        font-size: 30px;
+        text-align: center;
+    }
+
+    .box div:nth-child(odd) {
+        background-color: lightblue;
+        padding: 5px;
+        text-align: center;
+    }
+
+    .box div:nth-child(even) {
+        background-color: rgba(255, 255, 255, 0.5);
+        padding: 5px;
+        text-align: center;
+    }
+</style>
 
 @{
     ViewData["Title"] = "SearchResult";
@@ -17,14 +50,12 @@
     string caseName = null;
     string caseGender = null;
     string caseSick = null;
-
 }
 
 @foreach (var item in Model)
 {
     if (isFirstIteration)
     {
-
         <br />
         caseRegTime = item.CaseRegTime;
         caseNo = item.CaseNo;
@@ -37,47 +68,32 @@
 
         <h2>@formattedDate 電話問安紀錄表</h2>
 
-        
-        <div class="row align-items-start box">
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseNo)
-            </div>
-            <div class="col-md-2 ">
-                @caseNo
-            </div>
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseName)
-            </div>
-            <div class="col-md-2">
-                @caseName
-            </div>
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseGender)
-            </div>
-            <div class="col-md-2">
-                @caseGender
-            </div>
-        </div>
-        <br/>
-        <div class="row align-items-start box">
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.CaseSick)
-            </div>
-            <div class="col-md-10 ">
-                @caseSick
-            </div>
-            
-        </div>
+        <table>
+            <tr>
+                <td>問卷編號</td>
+                <td>@caseNo</td>
+            </tr>
+            <tr>
+                <td>姓名</td>
+                <td>@caseName</td>
+            </tr>
+            <tr>
+                <td>性別</td>
+                <td>@caseGender</td>
+            </tr>
+            <tr>
+                <td>固有疾病</td>
+                <td colspan="5">@caseSick</td>
+            </tr>
+        </table>
+
         <br />
-
     }
-
-
 }
+
 <table class="table table-bordered">
     <thead>
         <tr>
-
             <th scope="col">時間</th>
             <th scope="col">接聽情形</th>
             <th scope="col">口頭表達</th>
@@ -88,76 +104,59 @@
             <th scope="col">總評</th>
             <th scope="col">服務人員id</th>
             <th scope="col"></th>
-
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr class="table-light">
-                <th scope="row">
-
+                <td>
                     <div class="form-group">
-
                         @Html.DisplayFor(modelItem => item.CaseDay) 日
                         @Html.DisplayFor(modelItem => item.CaseTelTime1) ~
-                        @Html.DisplayFor(modelItem => item.CaseTelTime2) 
+                        @Html.DisplayFor(modelItem => item.CaseTelTime2)
                     </div>
-                </th>
-                <td>
-
-                    <div class="form-group">
-                        @Html.DisplayFor(modelItem => item.CaseAns)
-
-                    </div>
-
-
                 </td>
                 <td>
-
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CaseAns)
+                    </div>
+                </td>
+                <td>
                     <div class="form-group">
                         @Html.DisplayFor(modelItem => item.CaseExp)
-
                     </div>
-
                 </td>
                 <td>
                     <div class="form-group">
                         @Html.DisplayFor(modelItem => item.CaseHea)
-
                     </div>
                 </td>
                 <td>
                     <div class="form-group">
                         @Html.DisplayFor(modelItem => item.CaseLive)
-
                     </div>
                 </td>
                 <td>
                     <div class="form-group">
                         @Html.DisplayFor(modelItem => item.CaseFam)
-
                     </div>
                 </td>
                 <td>
                     <div class="form-group">
                         @Html.DisplayFor(modelItem => item.CaseMental)
-
                     </div>
                 </td>
                 <td>
                     <div class="form-group">
                         @Html.DisplayFor(modelItem => item.CaseCom)
-
                     </div>
                 </td>
                 <td>
                     <div class="form-group">
                         @Html.DisplayFor(modelItem => item.MemSid)
-
                     </div>
                 </td>
-
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.CaseTelQaid">編輯</a> |
                     <a asp-action="Delete" asp-route-id="@item.CaseTelQaid">刪除</a>
@@ -166,6 +165,7 @@
         }
     </tbody>
 </table>
+
 <form method="post" action="/CaseTelRecords/ExportLatestCaseTelRecord">
     <div class="form-group">
         <label for="CaseIDcard">個案身分證:</label>
@@ -178,32 +178,3 @@
     </select>
     <button type="submit" class="btn btn-primary">輸出</button>
 </form>
-@section topCSS {
-    <style type="text/css">
-
-
-        h2 {
-            font-size: 30px;
-            text-align: center;
-        }
-
-        .box div:nth-child(odd) {
-            background-color: lightblue;
-            padding: 5px;
-            text-align: center;
-        }
-
-        .box div:nth-child(even) {
-            background-color: rgba(255, 255, 255, 0.5);
-            padding: 5px;
-            text-align: center;
-        }
-
-        body {
-            background-color: #CBE9EA;
-        }
-    </style>
-}
-@*<a asp-action="Edit" asp-route-id="@item.CaseTelQaid">Edit</a> |
-
-<a asp-action="Delete" asp-route-id="@item.CaseTelQaid">Delete</a>*@

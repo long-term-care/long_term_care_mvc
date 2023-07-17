@@ -1,217 +1,181 @@
 ﻿@model long_term_care.Models.CaseCareRecord
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
 
-@{
-    ViewData["Title"] = "Create";
-}
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
 
-<h1>C 單位巷弄長照站關懷訪視紀錄表</h1>
-<div style="text-align: center;">
-    <button type="button" id="smallFont" class="font-size-button">小</button>
-    <button type="button" id="normalFont" class="font-size-button">中</button>
-    <button type="button" id="largeFont" class="font-size-button">大</button>
-</div>
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
 
-<hr />
-<div class="row">
-    <div class="col-md-12">
-
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="row align-items-start">
-                <div class="col-md-2">
-                    <button type="button" class="btn btn-secondary">基本資料</button>
-
-                </div>
-            </div>
-            <br />
-            <div class="row align-items-start">
-                <div class="form-group col-md-4">
-
-                    <label asp-for="CaseQaid" class="control-label"></label>
-                    <span>@ViewBag.CaseQaid</span> @*asp-for="CaseQaid" class="form-control" type="text" value="" readonly />*@
-
-
-                    <span asp-validation-for="CaseQaid" class="text-danger"></span>
-                </div>
-
-                <div class="form-group col-md-4">
-                     <label asp-for="CaseNo">個案編號:</label>
-                    <span>@Model.CaseNo</span>
-                </div>
-                <div class="form-group col-md-4">
-
-                    <label asp-for="CaseTel" class="control-label"></label>
-                    <input asp-for="CaseTel" class="form-control" />
-
-                    <span asp-validation-for="CaseTel" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-12">
-                    <label asp-for="CaseHealth" class="control-label"></label>
-                    @Html.RadioButtonFor(model => model.CaseHealth, "有")有
-                    @Html.RadioButtonFor(model => model.CaseHealth, "無")無
-                </div>
-                <span asp-validation-for="CaseHealth" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="col-md-12">
-                    <label asp-for="CaseHome" class="control-label"></label>
-                    @Html.RadioButtonFor(model => model.CaseHome, "平房")平房
-                    @Html.RadioButtonFor(model => model.CaseHome, "二樓以上透天住家")二樓以上透天住家
-                    @Html.RadioButtonFor(model => model.CaseHome, "公寓")公寓
-                </div>
-                <span asp-validation-for="CaseHome" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="row align-items-start">
-                <div class="col-md-2">
-                    <button type="button" class="btn btn-secondary">關懷訪視</button>
-                </div>
-            </div>
-            <br />
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-
-                        <th scope="col">日期</th>
-                        <th scope="col">居家環境</th>
-                        <th scope="col">健康狀況</th>
-                        <th scope="col">就醫情形</th>
-                        <th scope="col">提供服務</th>
-                        <th scope="col">訪視者</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="table-light">
-                        <th scope="row">
-
-                            <div class="form-group">
-
-                                <input asp-for="CaseTime1" class="form-control" />
-                                <span asp-validation-for="CaseTime1" class="text-danger"></span>
-                            </div>
-                        </th>
-                        <td>
-
-                            <div class="form-group">
-                                @Html.DropDownList("CaseQ1", new SelectList(new[] {"整潔乾淨", "零亂", "骯髒", "其他"}))
-
-                            </div>
-                            <br />
-                            <div class="sm-2 row">
-                                <div class="form-group">
-
-                                    <input asp-for="CaseQ1Other" class="form-control" />
-                                    <span asp-validation-for="CaseQ1Other" class="text-danger"></span>
-                                </div>
-                            </div>
-
-                        </td>
-
-                        <td>
-
-                            <div class="form-group">
-                                @Html.DropDownList("CaseQ2", new SelectList(new[] {"感冒症狀", "健康",  "其他"}))
-
-                            </div>
-                            <br />
-
-                            <div class="sm-2 row">
-                                <div class="form-group">
-                                    <input asp-for="CaseQ2Other" class="form-control" />
-                                    <span asp-validation-for="CaseQ2Other" class="text-danger"></span>
-                                </div>
-                            </div>
-
-                        </td>
-
-                        <td>
-
-                            <div class="form-group">
-                                @Html.DropDownList("CaseQ3", new SelectList(new[] {"就診頻率", "診所", "就醫原因", "其他"}))
-
-                            </div>
-                            <br />
-
-                            <div class="sm-2 row">
-                                <div class="form-group">
-                                    <input asp-for="CaseQ3Other" class="form-control" />
-                                    <span asp-validation-for="CaseQ3Other" class="text-danger"></span>
-                                </div>
-                            </div>
-
-                        </td>
-
-                        <td>
-
-                            <div class="form-group">
-                                @Html.DropDownList("CaseQ4", new SelectList(new[] {"陪同聊天", "量血壓", "整理居家環境", "其他"}))
-
-                            </div>
-                            <br />
-
-                            <div class="sm-2 row">
-                                <div class="form-group">
-                                    <input asp-for="CaseQ4Other" class="form-control" />
-                                    <span asp-validation-for="CaseQ4Other" class="text-danger"></span>
-                                </div>
-                            </div>
-
-                        </td>
-
-                        <td>
-
-
-                            <div class="sm-2 row">
-                                <div class="form-group">
-                                    <select asp-for="MemSid" class="form-control" asp-items="ViewBag.MemSid"></select>
-                                </div>
-                            </div>
-
-                        </td>
-
-                    </tr>
-
-                </tbody>
-            </table>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">返回</a>
-</div>
-<script>
-    document.getElementById('smallFont').addEventListener('click', function () {
-        document.body.style.fontSize = '12px';
-    });
-    document.getElementById('normalFont').addEventListener('click', function () {
-        document.body.style.fontSize = '20px';
-    });
-    document.getElementById('largeFont').addEventListener('click', function () {
-        document.body.style.fontSize = '25px';
-    });
-</script>
-@section topCSS {
-    <style type="text/css">
         h1 {
-            font-size: 36px;
             text-align: center;
         }
 
-        .box {
-            padding: 10px;
-            margin: 10px;
-            border: black solid 2px;
-            border-radius: 20px;
+        .btn {
+            font-size: 16px;
+            padding: 8px 16px;
         }
 
-        body {
-            background-color: #CBE9EA;
-        }
     </style>
-}
+</head>
+<body>
+    <h1>C 單位巷弄長照站關懷訪視紀錄表</h1>
+
+    <div style="text-align: center;">
+        <button type="button" id="smallFont" class="font-size-button">小</button>
+        <button type="button" id="normalFont" class="font-size-button">中</button>
+        <button type="button" id="largeFont" class="font-size-button">大</button>
+    </div>
+    <br/>
+
+    <table>
+        <tr>
+            <td colspan="2">
+               基本資料
+            </td>
+        </tr>
+        <tr>
+            <td>問卷編號</td>
+            <td>@ViewBag.CaseQaid</td>
+        </tr>
+        <tr>
+            <td>個案編號</td>
+            <td>@Model.CaseNo</td>
+        </tr>
+        <tr>
+            <td><label asp-for="CaseTel" class="control-label"></label></td>
+            <td>
+                <input asp-for="CaseTel" class="form-control" />
+            </td>
+        </tr>
+        <tr>
+            <td> <label asp-for="CaseHealth" class="control-label"></label></td>
+            <td>
+                @Html.RadioButtonFor(model => model.CaseHealth, "有")有
+                @Html.RadioButtonFor(model => model.CaseHealth, "無")無
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="CaseHome" class="control-label"></label>
+            </td>
+            <td>
+                @Html.RadioButtonFor(model => model.CaseHome, "平房")平房
+                @Html.RadioButtonFor(model => model.CaseHome, "二樓以上透天住家")二樓以上透天住家
+                @Html.RadioButtonFor(model => model.CaseHome, "公寓")公寓
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr>
+            <td colspan="2">
+               關懷訪視
+            </td>
+        </tr>
+        <tr>
+            <td>
+                日期
+            </td>
+            <td>
+                <input asp-for="CaseTime1" class="form-control" />
+                <span asp-validation-for="CaseTime1" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                居家環境
+            </td>
+            <td>
+                @Html.DropDownList("CaseQ1", new SelectList(new[] {"整潔乾淨", "零亂", "骯髒", "其他"}))
+                <input type="text" name="CaseQ1Other" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                健康狀況
+            </td>
+            <td>
+                <select name="CaseQ2">
+                    <option value="感冒症狀">感冒症狀</option>
+                    <option value="健康">健康</option>
+                    <option value="其他">其他</option>
+                </select>
+                <input type="text" name="CaseQ2Other" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                就醫情形
+            </td>
+            <td>
+                <select name="CaseQ3">
+                    <option value="就診頻率">就診頻率</option>
+                    <option value="診所">診所</option>
+                    <option value="就醫原因">就醫原因</option>
+                    <option value="其他">其他</option>
+                </select>
+                <input type="text" name="CaseQ3Other" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                提供服務
+            </td>
+            <td>
+                <select name="CaseQ4">
+                    <option value="陪同聊天">陪同聊天</option>
+                    <option value="量血壓">量血壓</option>
+                    <option value="整理居家環境">整理居家環境</option>
+                    <option value="其他">其他</option>
+                </select>
+                <input type="text" name="CaseQ4Other" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                訪視者
+            </td>
+            <td>
+                <select name="MemSid">
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                </select>
+            </td>
+        </tr>
+           
+    </table>
+    <br/>
+    <div class="form-group" style="text-align:center;">
+        <input type="submit" value="儲存" class="btn btn-primary" />
+    </div>
+
+    <a asp-action="Index">返回</a>
+
+    <script>
+        document.getElementById('smallFont').addEventListener('click', function () {
+            document.body.style.fontSize = '12px';
+        });
+        document.getElementById('normalFont').addEventListener('click', function () {
+            document.body.style.fontSize = '16px';
+        });
+        document.getElementById('largeFont').addEventListener('click', function () {
+            document.body.style.fontSize = '20px';
+        });
+    </script>
+</body>
+</html>
