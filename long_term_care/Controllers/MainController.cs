@@ -349,7 +349,18 @@ namespace long_term_care.Controllers
                         {
                             claims.Add(new Claim(ClaimTypes.Role, "志工"));
                         }
-
+                        else if (user.RoleId == "4")
+                        {
+                            claims.Add(new Claim(ClaimTypes.Role, "志工簽到負責人"));
+                        }
+                        else if (user.RoleId == "5")
+                        {
+                            claims.Add(new Claim(ClaimTypes.Role, "課表負責人"));
+                        }
+                        else if (user.RoleId == "6")
+                        {
+                            claims.Add(new Claim(ClaimTypes.Role, "活動設計負責人"));
+                        }
 
 
                         var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

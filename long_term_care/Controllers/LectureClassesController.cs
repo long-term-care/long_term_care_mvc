@@ -120,6 +120,57 @@ namespace long_term_care.Controllers
             // 将课表数据传递给视图并显示
             return View(lectureClasses);
         }
+        public IActionResult NextAct()
+        {
+            // 获取本周的日期范围
+            DateTime today = DateTime.Today;
+            DateTime oneWeekLater = today.AddDays(7);
+            int diff = (7 + (oneWeekLater.DayOfWeek - DayOfWeek.Monday)) % 7;
+            DateTime startOfWeek = oneWeekLater.AddDays(-1 * diff);
+            DateTime endOfWeek = startOfWeek.AddDays(6);
+
+            // 从数据库中获取活动表和课表数据
+            List<LectureTable> activityList = _context.LectureTables.ToList();
+            List<LectureClass> lectureClasses = _context.LectureClasses.ToList();
+
+            // 遍历活动表的数据，将活动添加到本周的课表中
+            // 遍歷活動表的資料，將活動加入到本週的課表中
+            foreach (var activity in activityList)
+            {
+                if (activity.LecDate >= startOfWeek && activity.LecDate <= endOfWeek)
+                {
+                    // 檢查是否已經存在對應時段的課表項目
+                    var existingLectureClass = lectureClasses.FirstOrDefault(l => l.SchWeek == GetDayOfWeek(activity.LecDate));
+
+                    if (existingLectureClass != null)
+                    {
+                        // 更新對應時段的活動主題
+                        switch (GetTimeSlot(activity.LecDate))
+                        {
+                            case "SchA":
+                                existingLectureClass.SchA = activity.LecTheme;
+                                break;
+                            case "SchB":
+                                existingLectureClass.SchB = activity.LecTheme;
+                                break;
+                            case "SchC":
+                                existingLectureClass.SchC = activity.LecTheme;
+                                break;
+                            case "SchD":
+                                existingLectureClass.SchD = activity.LecTheme;
+                                break;
+                            case "SchE":
+                                existingLectureClass.SchE = activity.LecTheme;
+                                break;
+                        }
+
+                    }
+                }
+            }
+
+            // 将课表数据传递给视图并显示
+            return View(lectureClasses);
+        }
         public string GetDayOfWeek(DateTime date)
         {
             switch (date.DayOfWeek)

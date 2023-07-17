@@ -64,6 +64,15 @@ namespace long_term_care
 
                 options.AddPolicy("志工", policy =>
                     policy.RequireRole("志工"));
+
+                options.AddPolicy("志工簽到負責人", policy =>
+                    policy.RequireRole("志工簽到負責人"));
+
+                options.AddPolicy("課表負責人", policy =>
+                    policy.RequireRole("課表負責人"));
+
+                options.AddPolicy("活動設計負責人", policy =>
+                    policy.RequireRole("活動設計負責人"));
             });
 
 
