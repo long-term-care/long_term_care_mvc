@@ -76,15 +76,14 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
+            <div class="contxt">
             @using (Html.BeginForm("ButtonClick", "Main", FormMethod.Post))
             {
                 <div class="row1">
                     <div class="col-md-12">
                         <div class="card head">
-                            <div class="card-body">
-                                <i class="fa-solid fa-user-nurse" style="color: #ffffff;"></i>
-                                <h5>志工及照護人員</h5>
-                            </div>
+                            <i class="fa-solid fa-user-nurse" style="color: #ffffff;"></i>
+                            <h5>志工及照護人員</h5>
                         </div>
 
                         <button class="card" type="submit" name="buttonId" value="Button1" data-aos="rotate-slide-up" data-aos-duration="2000">
@@ -124,10 +123,8 @@
                 <div class="row2">
                     <div class="col-md-12">
                         <div class="card head" >
-                            <div class="card-body">
-                                <i class="fa-regular fa-heart" style="color: #FFFFFF;"></i>
-                                <h5>服務系統</h5>
-                            </div>
+                            <i class="fa-regular fa-heart" style="color: #FFFFFF;"></i>
+                            <h5>服務系統</h5>
                         </div>
 
                         <button class="card" type="submit" name="buttonId" value="Button5">
@@ -147,8 +144,8 @@
                         <button class="card" type="submit" name="buttonId" value="Button7">
                             @*CaseCareRecords / Index*@
                             <div class="card-body">
-                                <i class="fa-regular fa-house-medical-circle-check" style="color: #D04667;"></i>
-                                <h5>關懷訪視</h5>
+                                    <i class="fa-solid fa-house" style="color: #d04667;"></i>      
+                                    <h5>關懷訪視</h5>
                             </div>
                         </button>
                         <button class="card" type="submit" name="buttonId" value="Button8">
@@ -173,7 +170,7 @@
 
                 </div>
             }
-            
+            </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
