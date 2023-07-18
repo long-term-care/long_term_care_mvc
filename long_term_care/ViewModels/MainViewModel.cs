@@ -14,7 +14,7 @@ namespace long_term_care.ViewModels
         public string CaseIdcard { get; set; }
         public string CaseGender { get; set; }
         public string CaseRelig { get; set; }
-        [RegularExpression(@"\d{4}-\d{2}-\d{2}", ErrorMessage = "日期格式必须为yyyy-mm-dd")]
+       
         public DateTime CaseBd { get; set; }
         public string CaseLang { get; set; }
         public string CaseSource { get; set; }
@@ -31,6 +31,7 @@ namespace long_term_care.ViewModels
         public string CaseMari { get; set; }
         public string CaseCnta { get; set; }
         public string CaseCntTel { get; set; }
+        [RegularExpression(@"^09\d{8}$", ErrorMessage = "手机号码格式不正确")]
         public string CaseCntRel { get; set; }
         public string CaseCntAdd { get; set; }
         public string CaseFami { get; set; }
@@ -47,10 +48,12 @@ namespace long_term_care.ViewModels
         public string MemUnitNum { get; set; }
         public string MemName { get; set; }
         public DateTime MemBd { get; set; }
+        [RegularExpression(@"^[A-Z]\d{9}$", ErrorMessage = "身份证号码格式不正确")]
         public string MemUid { get; set; }
         public string MemPassword { get; set; }
         public string MemGender { get; set; }
         public string MemTphone { get; set; }
+        [RegularExpression(@"^09\d{8}$", ErrorMessage = "手机号码格式不正确")]
         public string MemMphone { get; set; }
         public string MemAddress { get; set; }
         public string MemSite { get; set; }
@@ -63,7 +66,7 @@ namespace long_term_care.ViewModels
         public string MemIdent { get; set; }
         public string MemSerRec { get; set; }
         public string MemEdu { get; set; }
-
+        [RegularExpression(@"^[A-Z]{2}\d{10}$", ErrorMessage = "健保卡IC码格式不正确")]
         public string MemIcnum { get; set; }
     }
 }

@@ -29,7 +29,7 @@ namespace long_term_care.Controllers
     public class MainController : Controller
     {
         private readonly longtermcareContext _context;
-       // private HttpClient httpClient;
+        private HttpClient httpClient;
 
 
         public MainController(longtermcareContext context)
@@ -104,12 +104,35 @@ namespace long_term_care.Controllers
             _context.SaveChanges();
             return View();
         }
-        /*public IActionResult MemAdd()
+        public IActionResult MemAdd()
         {
             httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri("https://www.ris.gov.tw/rs-opendata/api/v1/datastore/ODRP049/111");
+            string nextFormNumber_Mem = "";
+            var lastForm_Mem = _context.MemberInformations.OrderByDescending(f => f.MemSid).FirstOrDefault();
+            if (lastForm_Mem != null)
+            {
+                int lastFormNumber_Mem;
+                if (int.TryParse(lastForm_Mem.MemSid.Substring(1), out lastFormNumber_Mem))
+                {
+                    int nextFormNumberInt_Mem = lastFormNumber_Mem + 1;
+                    nextFormNumber_Mem = $"M{nextFormNumberInt_Mem:D4}"; // 添加字母前缀 "M" 并格式化流水号
+                }
+                else
+                {
+                    // 处理解析失败的情况
+                    // 可以抛出异常、使用默认值或采取其他适当的操作
+                }
+            }
+            else
+            {
+                nextFormNumber_Mem = "M0001"; // 初始流水号添加字母前缀 "M"
+            }
+
+            ViewData["MemSid"] = nextFormNumber_Mem;
+
             return View();
-        }*/
+        }
         //public async Task<IActionResult> ElderRegistration()
         //{
         //    HttpResponseMessage response = await httpClient.GetAsync("");
@@ -160,8 +183,10 @@ namespace long_term_care.Controllers
                 if (int.TryParse(lastForm_Mem.MemSid.Substring(1), out lastFormNumber_Mem))
                 {
                     int nextFormNumberInt_Mem = lastFormNumber_Mem + 1;
-                    nextFormNumber_Mem = $"M{nextFormNumberInt_Mem.ToString("0000")}"; // 在流水号前添加字母前缀 "M"
+                    nextFormNumber_Mem = string.Format("M{0:0000}", nextFormNumberInt_Mem); // 添加字母前缀 "M" 并格式化流水号
                 }
+
+
                 else
                 {
                     // 处理解析失败的情况
@@ -212,45 +237,7 @@ namespace long_term_care.Controllers
                 _context.MemberInformations.Add(member);
                 _context.SaveChanges();
             }
-            if (model.type == 2)
-            {
-                var entity = new CaseInfor
-                {
-                    CaseNo = model.CaseNo,
-                    CaseUnitName = model.CaseUnitName,
-                    CaseUnitNum = model.CaseUnitNum,
-                    CaseName = model.CaseName,
-                    CaseIdcard = model.CaseIdcard,
-                    CaseGender = model.CaseGender,
-                    CaseRelig = model.CaseRelig,
-                    CaseBd = model.CaseBd,
-                    CaseLang = model.CaseLang,
-                    CaseSource = model.CaseSource,
-                    CaseWork = model.CaseWork,
-                    CaseProf = model.CaseProf,
-                    CaseEdu = model.CaseEdu,
-                    CaseAddr = model.CaseAddr,
-                    CaseHouse = model.CaseHouse,
-                    CaseIdent = model.CaseIdent,
-                    CaseFund = model.CaseFund,
-                    CaseHealth = model.CaseHealth,
-                    CaseActv = model.CaseActv,
-                    CaseFactly = model.CaseFactly,
-                    CaseMari = model.CaseMari,
-                    CaseCnta = model.CaseCnta,
-                    CaseCntTel = model.CaseCntTel,
-                    CaseCntRel = model.CaseCntRel,
-                    CaseCntAdd = model.CaseCntAdd,
-                    CaseFami = model.CaseFami,
-                    CaseQues = model.CaseQues,
-                    CaseDesc = model.CaseDesc,
-                    CaseRegName = model.CaseRegName,
-                    CaseRegTime = model.CaseRegTime,
-                    CaseIcnum = model.CaseIcnum,
-                };
-                _context.CaseInfors.Add(entity);
-                _context.SaveChanges();
-            }
+           
             return View();
         }
         private string GenerateVerificationCode(int length = 6)
@@ -374,22 +361,7 @@ namespace long_term_care.Controllers
                             new ClaimsPrincipal(claimsIdentity),
                             authProperties
                         );
-                        bool isAdmin = User.IsInRole("管理員");
-                        bool isSocialWorker = User.IsInRole("社工");
-                        bool isVolunteer = User.IsInRole("志工");
-
-                        if (isAdmin)
-                        {
-                            // 用户具有管理员角色
-                        }
-                        else if (isSocialWorker)
-                        {
-                            // 用户具有社工角色
-                        }
-                        else if (isVolunteer)
-                        {
-                            // 用户具有志工角色
-                        }
+                      
 
                         return LocalRedirect("~/Main/MemMainpage");
                     }
