@@ -32,14 +32,14 @@ body {
     object-fit: cover;
 }
 
-row1 >  .card.head {
+.row1 >  .card.head {
     background-color: #3d81bf;
     color: #fff;
     text-align: center;
     padding: 1rem;
 }
 
-row2 >  .card.head {
+.row2 >  .card.head {
     background-color: #D04667;
     color: #fff;
     text-align: center;
@@ -67,10 +67,10 @@ row2 >  .card.head {
 
 .card-body {
     text-align: center;
-    display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
+    flex-direction:row;
 }
 
     .card-body .icon-text {
