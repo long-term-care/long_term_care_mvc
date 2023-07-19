@@ -111,8 +111,18 @@ namespace long_term_care
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+             name: "backend",
+             pattern: "backend/{controller}/{action}/{id?}",
+             defaults: new { controller = "Home", action = "Index" }
+            );
+
+             endpoints.MapControllerRoute(
+                    name: "frontend",
+                    pattern: "{controller}/{action}/{id?}",
+                    defaults: new { controller = "Home", action = "Index" }
+                );
+
+                endpoints.MapFallbackToController("Index", "Home");
             });
         }
     }
