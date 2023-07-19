@@ -90,12 +90,12 @@
 }
 
 .knownAs {
-    width: 5.4%;
-    border-radius: 10px;
+    width: 5%;
+    border-radius: 5px;
     background-color: rgb(68, 154, 224);
     color: #FFFFFF;
-    margin: 2px 0 0 2px;
     text-align: center;
+    justify-items: center;
 }
 
     .knownAs p {
@@ -137,24 +137,17 @@ input, select {
 .box {
     display: flex;
 }
-
-.boxL {
-    float: left;
-    width: 100%;
+.boxR label {
+    margin: 0 30px;
 }
-
-.boxR {
-    float: right;
+.boxR #exp {
+    width: 355px;
+    height: 85%;
+    margin: 0 30px;
 }
-
-    .boxR #exp {
-        width: 400px;
-        height: 85%;
+    .boxL .boxes {
+        width: 355px;
     }
-
-.boxL .boxes {
-    width: 100%;
-}
 
 .grid-container {
     width: 100%;
@@ -162,12 +155,11 @@ input, select {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    gap: 15px;
+    gap: 24px;
 }
 
 .grid-item {
     background-color: transparent;
-    padding: 0px;
 }
 
 .vReadyToSubmit, .eReadyToSubmit {
