@@ -12,7 +12,6 @@ using iText.Layout.Properties;
 
 namespace long_term_care.Controllers
 {
-    [Authorize]
     public class LectureTablesController : Controller
     {
         private readonly longtermcareContext _context;

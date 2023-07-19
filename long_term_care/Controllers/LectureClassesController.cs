@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace long_term_care.Controllers
 {
-    [Authorize]
+
     public class LectureClassesController : Controller
     {
         private readonly longtermcareContext _context;
