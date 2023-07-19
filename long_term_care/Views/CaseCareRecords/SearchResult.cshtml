@@ -1,0 +1,258 @@
+﻿@*@model IEnumerable<long_term_care.Models.CaseCareRecord>*@
+@using long_term_care.ViewModels;
+@model IEnumerable<CareSearchResultViewModel>
+
+@{
+    ViewData["Title"] = "SearchResult";
+}
+
+<h1>C 單位巷弄長照站關懷訪視紀錄表</h1>
+
+@{
+    bool isFirstIteration = true;
+    string caseName = null;
+    DateTime caseBd = new DateTime();
+    string caseGender = null;
+    string caseNo = null;
+    string caseHealth = null;
+    string caseIdent = null;
+    string caseLang  = null;
+    string caseMari  = null;
+    string caseFami  = null;
+    string caseAddr = null;
+    string caseCnta  = null;
+    string caseCntTel  = null;
+    string caseCntRel  = null;
+    string caseHome   = null;
+    string casePhn   = null;
+}
+@{
+    var reversedModel = Model.Reverse();
+}
+@foreach (var item in reversedModel)
+{
+    if (isFirstIteration)
+    {
+        <div class="col-md-2">
+            <button type="button" class="btn btn-secondary">基本資料</button>
+        </div>
+        <br />
+        caseName = item.CaseName;      
+        caseBd = item.CaseBd;
+        caseGender = item.CaseGender;
+        caseNo = item.CaseNo;
+        caseHealth = item.CaseHealth;
+        caseIdent = item.CaseIdent;
+        caseLang = item.CaseLang;
+        caseMari = item.CaseMari;
+        caseFami = item.CaseFami;
+        caseAddr = item.CaseAddr;
+        caseCnta = item.CaseCnta;
+        caseCntTel = item.CaseCntTel;
+        caseCntRel = item.CaseCntRel;
+        caseHome = item.CaseHome;
+        casePhn = item.CasePhn;
+        isFirstIteration = false;
+        <table class="table">
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseName)</td>
+                <td class="table-value">@caseName</td>
+            </tr>
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseBd)</td>
+                <td class="table-value">@caseBd</td>
+            </tr>
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseGender)</td>
+                <td class="table-value">@caseGender</td>
+            </tr>
+
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseLang)</td>
+                <td class="table-value">@caseLang</td>
+            </tr>
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseMari)</td>
+                <td class="table-value">@caseMari</td>
+            </tr>
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseFami)</td>
+                <td class="table-value">@caseFami</td>
+            </tr>
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseAddr)</td>
+                <td class="table-value">@caseAddr</td>
+            </tr>
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseNo)</td>
+                <td class="table-value">@caseNo</td>
+            </tr>
+
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseCnta)</td>
+                <td class="table-value">@caseCnta</td>
+            </tr>
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseCntTel)</td>
+                <td class="table-value">@caseCntTel</td>
+            </tr>
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseCntRel)</td>
+                <td class="table-value">@caseCntRel</td>
+            </tr>
+        </table>
+    }
+}
+<table class="table table-bordered">
+    <thead>
+        <tr>
+
+            <th scope="col">日期</th>
+            <th scope="col">居家環境</th>
+            <th scope="col">健康狀況</th>
+            <th scope="col">就醫情形</th>
+            <th scope="col">提供服務</th>
+            <th scope="col">訪視者</th>
+            <th scope="col">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="table-light">
+                <td scope="row">
+
+                    <div class="form-group">
+
+                        @Html.DisplayFor(modelItem => item.CaseTime1)
+                    </div>
+                </td>
+                <td>
+
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CaseQ1)
+
+                    </div>
+                    <br />
+                    <div class="sm-2 row">
+                        <div class="form-group">
+                            @Html.DisplayFor(modelItem => item.CaseQ1Other)
+                        </div>
+                    </div>
+
+                </td>
+                <td>
+
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CaseQ2)
+
+                    </div>
+                    <br />
+                    <div class="sm-2 row">
+                        <div class="form-group">
+                            @Html.DisplayFor(modelItem => item.CaseQ2Other)
+                        </div>
+                    </div>
+
+                </td>
+                <td>
+
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CaseQ3)
+
+                    </div>
+                    <br />
+                    <div class="sm-2 row">
+                        <div class="form-group">
+                            @Html.DisplayFor(modelItem => item.CaseQ3Other)
+                        </div>
+                    </div>
+
+                </td>
+                <td>
+
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CaseQ4)
+
+                    </div>
+                    <br />
+                    <div class="sm-2 row">
+                        <div class="form-group">
+                            @Html.DisplayFor(modelItem => item.CaseQ4Other)
+                        </div>
+                    </div>
+
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.MemSid)
+                    </div>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CaseQaid">編輯</a> |
+
+                    <a asp-action="Delete" asp-route-id="@item.CaseQaid">刪除</a>
+                </td>
+            </tr>
+        }
+        
+    </tbody>
+</table>
+
+<form method="post" action="/CaseCareRecords/ExportLatestCaseCareRecord">
+    <div class="form-group">
+        <label for="CaseIDcard">個案身分證:</label>
+        <input type="text" class="form-control" id="CaseIDcard" name="CaseIDcard" required>
+    </div>
+    <label for="exportType">輸出格式:</label>
+    <select id="exportType" name="exportType">
+        <option value="excel">Excel</option>
+        <option value="pdf">PDF</option>
+    </select>
+    <button type="submit" class="btn btn-primary">輸出</button>
+</form>
+
+<div>
+    <a asp-action="Details">返回</a>
+</div>
+
+
+@section topCSS {
+    <style type="text/css">
+        body {
+            padding: 30px;
+        }
+
+        .table-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        table.table {
+            border-collapse: collapse;
+        }
+
+            table.table td {
+                border: 2px solid #000;
+                padding: 10px;
+            }
+
+        .table-label {
+            font-weight: bold;
+            border-right: 1px solid #ccc;
+            padding-right: 10px;
+        }
+
+        .table-value {
+            margin-bottom: 10px;
+            padding-left: 10px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+       
+    </style>
+}

@@ -1,0 +1,242 @@
+﻿@using long_term_care.ViewModels;
+@model List<CaseActsignViewModel>
+@{
+    ViewData["Title"] = "Check";
+    var data = Model.FirstOrDefault();
+
+}
+
+
+<style>
+    .container {
+        background-color: #CBE9EA;
+        display: flex;
+        flex-wrap: wrap;
+        margin: auto;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .title {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+        .title input {
+            background-color: rgb(255, 255, 255);
+            width: 500px;
+        }
+
+    .signbody {
+        position: relative;
+        width: 100%;
+        height: 1000px;
+        background-color: #F1FFFF;
+        border-radius: 20px;
+    }
+
+    .singbodytitle {
+        width: 100%;
+        background-color: #F1FFFF;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 20px;
+        padding: 50px;
+    }
+
+        .singbodytitle input {
+            width: 200px;
+            background-color: #fdfdfd00;
+            border: none;
+        }
+
+    .day {
+        width: 30%;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #FFCBBB;
+        border-radius: 20px;
+    }
+
+    .teacher {
+        width: 30%;
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #FFCBBB;
+        border-radius: 20px;
+    }
+
+    .place {
+        width: 30%;
+        padding: 10px;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        background-color: #FFCBBB;
+        border-radius: 20px;
+    }
+
+    .content {
+        width: 100%;
+        background-color: #F1FFFF;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        border-radius: 20px;
+    }
+
+    .id {
+        width: 25%;
+        height: 50px;
+        margin: 2%;
+        background-color: #FFCBBB;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .name {
+        width: 25%;
+        height: 50px;
+        margin: 2%;
+        background-color: #FFF0EB;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .tool {
+        width: 25%;
+        height: 50px;
+        margin: 2%;
+        background-color: #FFF0EB;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .btn {
+        height: 50px;
+    }
+
+    .send {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+        .send button {
+            color: #000;
+            background-color: #FBD4DF;
+            width: 300px;
+            height: 70px;
+            font-size: 16px;
+            margin: 3%;
+        }
+
+    .totol {
+        width: 100%;
+        border-top: #000 solid 5px;
+        position: absolute;
+        bottom: 0px;
+        display: flex;
+        justify-content: center;
+        font-size: large;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="title">
+             <h1>活動名稱:@data.ActCourse</h1>           
+        </div> 
+        <div class="signbody">          
+                <div class="singbodytitle">
+                    <div class="day">
+                        <h3>活動日期:</h3>
+                        <h4>@data.ActDate.Date<h3>
+                    </div>
+                    <div class="teacher">
+                        <h2>講師姓名:</h2>
+                    <h3>@data.ActLec</h3>
+                    </div>
+                    <div class="place">
+                        <h2>活動地點:</h2>
+                    <h3>@data.ActLoc</h3>
+                    </div>
+                </div>
+            
+            <div class="content">
+                <div class="id">
+                    <p>學員編號</p>
+                </div>
+                <div class="name">
+                    <p>學員姓名</p>
+                </div>
+                <div class="tool">
+                    <p>服務項目</p>
+                </div>
+            </div>
+            @foreach (var item in Model)
+            {
+                @if (item.CaseNo == "")
+                {
+                    // 如果 CaseNo 为空，不显示任何内容
+                }
+                else
+                {
+                    <div class="content">
+                        <div class="id">
+                            <p>@item.CaseNo</p>
+                        </div>
+                        <div class="name">
+                            <p>@item.CaseName</p>
+                        </div>
+                        <div class="tool">
+                            <p>@item.ActSer</p>
+                        </div>
+                       
+                    </div>
+                }
+
+
+            }
+            
+            <div class="totol">
+                <p>統計：健康促進：__人次/ 人數，共餐服務：__人次/ 人數。 預防延緩： __人次/ 人數，各項總計：__人次/ 人數。</p>
+            </div>
+        </div>
+        <div class="send">
+            <form method="get" action="/CaseActsign/Index">
+                <button type="submit" class="btn btn-dark">返回上一頁</button>
+            </form>
+            <form asp-action="ExportData" asp-controller="CaseActsign" method="post">
+                <input type="text" name="Id" value="@data.ActId" style="display:none;" />
+                <input type="text" name="exportType" value="excel" style="display:none;" />
+                <button type="submit" class="btn btn-dark">匯出excel</button>
+            </form>
+            <form asp-action="ExportData" asp-controller="CaseActsign" method="post">
+                <input type="text" name="Id" value="@data.ActId" style="display:none;" />
+                <input type="text" name="exportType" value="pdf" style="display:none;" />
+                <button type="submit" class="btn btn-dark">匯出PDF</button>
+            </form>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+            crossorigin="anonymous"></script>
+</body>
+

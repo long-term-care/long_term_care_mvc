@@ -1,0 +1,173 @@
+﻿@using Microsoft.AspNetCore.Html;
+@using long_term_care.ViewModels;
+@model IEnumerable<MemSignSearchResultViewModel>
+
+@{
+    ViewData["Title"] = "SearchResult";
+    bool isAdmin = User.IsInRole("管理員");
+    var date = DateTime.Today;
+    bool isFirstIteration = true;
+    DateTime? memYM = null;
+    string memName = null;
+   
+}
+
+@foreach (var item in Model)
+{
+    if (isFirstIteration)
+    {
+        
+        <br />
+        memYM = item.MemYM;
+        memName = item.MemName;
+        string formattedDate = memYM?.ToString("yyyy/MM");
+        isFirstIteration = false;
+
+        <h2>@formattedDate (志工) / (臨時人力)出勤紀錄表</h2>
+        <div>姓名： @memName</div>
+        
+    }
+
+
+}
+<table class="table table-bordered">
+    <thead>
+        <tr>
+
+            <th scope="col">月/日</th>
+            <th scope="col">簽到時間</th>
+            <th scope="col">簽退時間</th>
+            <th scope="col">工作日誌</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="table-light">
+                <th scope="row">
+
+                    <div class="form-group">
+
+                        @Html.DisplayFor(modelItem => item.MemDate)
+                    </div>
+                </th>
+                <td>     
+                    @if (isAdmin)
+                    {
+                        @if (item.MemTelTime1.ToString() == date.ToString())
+                        {
+                            <form action="/Memsigns/Checksign" method="post">
+                                <div class="form-group">
+                                    <input type="text" style="display:none;" name="Name" value="@item.MemSid">
+                                    <input type="date" style="display:none;" name="CheckDate" value="@item.MemDate.ToString("yyyy-MM-dd")">
+                                    <input type="text" style="display:none;"name="Qid" value="@item.MemSignQaid">
+                                    <input type="time" id="sign" name="time">
+                                    <button id="singbtn" type="submit">補簽</button>
+                                </div>
+                            </form>                           
+                        }
+                        else
+                        {
+                            <div class="form-group">
+                                @item.MemTelTime1
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        @if (item.MemTelTime1.ToString() == date.ToString())
+                        {
+                            <h1 style="color:red;">未簽到</h1>
+                        }
+                        else
+                        {
+                            <div class="form-group">
+                                @item.MemTelTime1
+                            </div>
+                        }
+                        
+                    }
+
+                </td>
+                <td>
+                    @if (isAdmin)
+                    {
+                        @if (item.MemTelTime2.ToString() == date.ToString())
+                        {
+                            <form action="/Memsigns/Checksignout" method="post">
+                                <div class="form-group">
+                                    <input type="text" style="display:none;" name="Name" value="@item.MemSid">
+                                    <input type="date" style="display:none;" name="CheckDate" value="@item.MemDate.ToString("yyyy-MM-dd")">
+                                    <input type="text" style="display:none;" name="Qid" value="@item.MemSignQaid">
+                                    <input type="time" id="sign" name="time">
+                                    <button id="singbtn" type="submit">補簽</button>
+                                </div>
+                            </form>
+                        }
+                        else
+                        {
+                            <div class="form-group">
+                                @item.MemTelTime2
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        @if (item.MemTelTime2.ToString() == date.ToString())
+                        {
+                            <h1 style="color:red;">未簽退</h1>
+                        }
+                        else
+                        {
+                            <div class="form-group">
+                                @item.MemTelTime2
+                            </div>
+                        }
+                    }         
+                </td>
+                <td>
+                    <div class="form-group">
+                        @item.MemRecord
+                    </div>                   
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<form asp-action="ExportData" asp-controller="MemSigns" method="post">
+    <label for="startDate">輸出起日:</label>
+    @foreach(var item in Model)
+    {
+       <input type="text" name="id" style="display:none;" value="@item.MemSid">
+    }
+    <input type="date" id="startDate" name="startDate" required>
+
+    <label for="endDate">輸出迄日:</label>
+    <input type="date" id="endDate" name="endDate" required>
+
+    <label for="exportType">輸出格式:</label>
+    <select id="exportType" name="exportType">
+        <option value="excel">Excel</option>
+        @*<option value="doc">Word</option>*@
+        <option value="pdf">PDF</option>
+    </select>
+
+    <button type="submit">Export</button>
+</form>
+@section topCSS {
+    <style type="text/css">
+        
+
+        h2 {
+            font-size: 30px;
+            text-align: center;
+        }
+
+        
+
+        body {
+            background-color: #CBE9EA;
+        }
+    </style>
+}

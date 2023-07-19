@@ -1,0 +1,143 @@
+﻿@using long_term_care.ViewModels;
+@model RolesetViewModel;
+@{
+    ViewData["Title"] = "Roleset";
+}
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+</style>
+<h1>權限變更</h1>
+
+<div>
+    <table>
+        <tr>
+            <th>編號</th>
+            <th>姓名</th>
+            <th>職位</th>
+        </tr>
+        @foreach(var member in Model.Members)
+        {
+            <form method="post" action="/Main/Roleset">
+            <tr>
+                <td>
+                    <input type="text" name="id" value="@member.MemSid" style="display:none;">
+                    @member.MemSid
+                </td>
+                <td>
+                    @member.MemName
+                </td>
+                @if (member.RoleId == "2")
+                {
+                <td>
+                        <select id="Role" name="roleid" style="width: 100px;">
+                            <option value="2">社工</option>
+                            <option value="3">志工</option>
+                            <option value="4">志工簽到負責人</option>
+                            <option value="5">課表負責人</option>
+                            <option value="6">活動設計負責人</option>
+                   </select>
+                   <button id="fix" class="btn btn-primary" type="submit">修改</button>
+                </td>
+                }
+                @if (member.RoleId == "3")
+                {
+                   <td>
+                        <select id="Role" name="roleid" style="width: 100px;">
+                            <option value="3">志工</option>
+                            <option value="2">社工</option>
+                            <option value="4">志工簽到負責人</option>
+                            <option value="5">課表負責人</option>
+                            <option value="6">活動設計負責人</option>
+                      </select>
+                      <button id="fix" class="btn btn-primary" type="submit">修改</button>
+                   </td>
+                }
+                    @if (member.RoleId == "4")
+                    {
+                    <td>
+                        <select id="Role" name="roleid" style="width: 100px;">
+                            <option value="4">志工簽到負責人</option>
+                            <option value="3">志工</option>
+                            <option value="2">社工</option>                          
+                            <option value="5">課表負責人</option>
+                            <option value="6">活動設計負責人</option>
+                        </select>
+                        <button id="fix" class="btn btn-primary" type="submit">修改</button>
+                    </td>
+                    }
+                    @if (member.RoleId == "5")
+                    {
+                    <td>
+                        <select id="Role" name="roleid" style="width: 100px;">
+                            <option value="5">課表負責人</option>
+                            <option value="3">志工</option>
+                            <option value="2">社工</option>
+                            <option value="4">志工簽到負責人</option>
+                            <option value="6">活動設計負責人</option>
+                        </select>
+                        <button id="fix" class="btn btn-primary" type="submit">修改</button>
+                    </td>
+                    }
+                    @if (member.RoleId == "6")
+                    {
+                    <td>
+                        <select id="Role" name="roleid" style="width: 100px;">
+                            <option value="6">活動設計負責人</option>
+                            <option value="3">志工</option>
+                            <option value="2">社工</option>
+                            <option value="4">志工簽到負責人</option>
+                            <option value="5">課表負責人</option>                            
+                        </select>
+                        <button id="fix" class="btn btn-primary" type="submit">修改</button>
+                    </td>
+                    }
+                @if (member.RoleId == null)
+                {
+                   <td>
+                        <select id="Role" name="roleid" style="width: 100px;">
+                            <option value="" selected disabled>尚未設定</option>
+                            <option value="2">社工</option>
+                            <option value="3">志工</option>
+                            <option value="4">志工簽到負責人</option>
+                            <option value="5">課表負責人</option>
+                            <option value="6">活動設計負責人</option>
+                      </select>
+                      <button id="fix" class="btn btn-primary" type="submit">修改</button>
+                   </td>
+                }
+            </tr>
+            </form>
+           
+        }
+    </table>
+</div>
+<a asp-action="MemMainpage"><input type="submit" value="回首頁" class="btn btn-primary" /></a>
+<script>
+    // 檢查 TempData 是否存在成功訊息
+    var successMessage = "@TempData["SuccessMessage"]";
+    if (successMessage) {
+        alert(successMessage); // 彈出訊息框顯示成功訊息
+    }
+</script>
+
+
+

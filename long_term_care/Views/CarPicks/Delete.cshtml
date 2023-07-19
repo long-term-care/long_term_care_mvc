@@ -1,0 +1,78 @@
+﻿@model long_term_care.Models.CarPick
+
+@{
+    ViewData["Title"] = "刪除";
+}
+
+<h1>刪除</h1>
+
+<h3>資料刪除後無法復原,確定要刪除嗎?</h3>
+<div>
+    <h4>CarPick</h4>
+    <hr />
+    <dl class="row">
+         <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CarSearch)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CarSearch)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CarType)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CarType)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CarNum)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CarNum)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CarMonth)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CarMonth)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CarCaseAdr)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CarCaseAdr)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CarAgencyLoc)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CarAgencyLoc)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CarL)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CarL)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CarKm)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CarKm)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CarPrice)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CarPrice)
+        </dd>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MemS.MemSid)
+        </dd class>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="CarId" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">返回</a>
+    </form>
+</div>

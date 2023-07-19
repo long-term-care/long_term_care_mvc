@@ -1,0 +1,175 @@
+﻿@using static long_term_care.Models.CarPick;
+@model long_term_care.Models.CarPick
+@{
+    ViewData["Title"] = "Create";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/CarPicks.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="insideBox">
+            <h3>○○○C單位巷弄長照站交通接送清冊</h3>
+            <div style="text-align: center;">
+                <button type="button" id="smallFont" class="font-size-button">小</button>
+                <button type="button" id="normalFont" class="font-size-button">中</button>
+                <button type="button" id="largeFont" class="font-size-button">大</button>
+            </div>
+            <div class="infoBox">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group ord" style="position: absolute; top: 0; right: 0;">
+                        <label asp-for="CarId" class="control-label" style="margin-top:2%;">表單編號&nbsp;</label>
+                        <input asp-for="CarId" class="form-control" type="text" style="background-color: transparent; border: none; outline: none;" value="@ViewBag.CarId" readonly />
+                        <span asp-validation-for="CarId" class="text-danger"></span>
+                    </div>
+                    <div class="row" style="justify-content: space-between;">
+                        <div class="form-group col-3">
+                            <label asp-for="MemSid" class="control-label">志工編號&nbsp;<input asp-for="MemSid" class="form-control" type="text" /></label>
+                            <span asp-validation-for="MemSid" class="text-danger"></span>
+                        </div>
+                        <div class="col-6 form-group">
+                            <label asp-for="CarAgencyLoc" class="control-label">單位地址&nbsp;<input asp-for="CarAgencyLoc" class="form-control" type="text" id="address" style="width: 300px;" /></label>
+                            <span asp-validation-for="CarAgencyLoc" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 form-group">
+                            <label asp-for="CarType" class="control-label">車種
+                                <select asp-for="CarType" class="form-control" asp-items="ViewBag.CarTypes"></select>
+                            </label>
+                            <span asp-validation-for="CarType" class="text-danger"></span>
+                        </div>
+                        <div class="col-6 form-group">
+                            <label asp-for="CarNum" class="control-label">車號
+                                <select asp-for="CarNum" class="form-control" asp-items="ViewBag.CarNums"></select>
+                            </label>
+                            <span asp-validation-for="CarNum" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="row" style="margin-bottom: 2rem;">
+                        <div class="col-6 form-group">
+                            <label asp-for="CarSearch" class="control-label">時間&nbsp;<input asp-for="CarSearch" class="form-control transparent-input" type="text" placeholder="YYYY/MM" /></label>
+                            <span asp-validation-for="CarSearch" class="text-danger"></span>
+                        </div>
+                        <div class="col-2 form-group">
+                            <input asp-for="CarL" class="form-control transparent-input" placeholder="公升" />
+                            <span asp-validation-for="CarL" class="text-danger"></span>
+                        </div>
+                        <div class="col-2 form-group">
+                            <input asp-for="CarKm" class="form-control transparent-input" placeholder="公里" />
+                            <span asp-validation-for="CarKm" class="text-danger"></span>
+                        </div>
+                        <div class="col-2 form-group">
+                            <input asp-for="CarPrice" class="form-control transparent-input" placeholder="金額" />
+                            <span asp-validation-for="CarPrice" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <!-- Header -->
+                    <div class="row header hd">
+                        <div class="col-1 hd">項次</div>
+                        <div class="col-2 hd">日期</div>
+                        <div class="col-3 hd">長者編號</div>
+                        <div class="col-5 hd">住家</div>
+                    </div>
+
+                    <!-- Example -->
+                    <div class="example row">
+                        <div class="col-1 ex">
+                            範例
+                        </div>
+                        <div class="col-2 ex">
+                            2023/01/01
+                        </div>
+                        <div class="col-3 ex">
+                            個案編號
+                        </div>
+                        <div class="col-5 ex">
+                            新北市○區○ 路○巷○弄○號○樓
+                        </div>
+                    </div>
+
+                    <!-- Each data row -->
+                    <div class="container">
+                        <div class="row columns">
+                            <div class="col-1 cnt circle">
+                                <div id="nums"></div>
+                            </div>
+                            <div class="col-2 form-group">
+                                <input asp-for="CarMonth" class="form-control transparent-input" type="date" style="width:90%;" />
+                                <span asp-validation-for="CarMonth" class="text-danger"></span>
+                            </div>
+                            <div class="col-3 form-group">
+                                <input asp-for="CaseNo" class="form-control transparent-input" type="text" style="width:90%;" />
+                                <span asp-validation-for="CaseNo" class="text-danger"></span>
+                            </div>
+                            <div class="col-6 form-group">
+                                <input asp-for="CarCaseAdr" class="form-control transparent-input" type="text" style="width:100%;" />
+                                <span asp-validation-for="CarCaseAdr" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group wrap" style="margin-top: 2rem;">
+                        <input type="submit" value="儲存" class="btn btn-primary" id="submitBtn" />
+                    </div>
+                </form>
+                <div>
+                    <a asp-action="Index">返回</a>
+                </div>
+            </div>
+        
+    </div>
+    
+    <script>
+          
+    </script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                document.querySelector('input[name="CarMonth"]').addEventListener('change', function () {
+                    const carMonthInput = this;
+                    const carMonthDate = new Date(carMonthInput.value);
+                    const carSearchInput = document.querySelector('input[name="CarSearch"]');
+                    const carSearchValue = carSearchInput.value;
+
+                    const [carSearchYear, carSearchMonth] = carSearchValue.split('/').map(Number);
+
+                    if (carMonthDate.getFullYear() !== carSearchYear || (carMonthDate.getMonth() + 1) !== carSearchMonth) {
+                        alert('月份不相符');
+                        carMonthInput.value = ''; 
+                    }
+                });
+            });
+
+    </script>
+    <script>
+        document.getElementById('smallFont').addEventListener('click', function () {
+            document.body.style.fontSize = '12px';
+        });
+        document.getElementById('normalFont').addEventListener('click', function () {
+            document.body.style.fontSize = '20px';
+        });
+        document.getElementById('largeFont').addEventListener('click', function () {
+            document.body.style.fontSize = '25px';
+        });
+    </script>
+</body>
+</html>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

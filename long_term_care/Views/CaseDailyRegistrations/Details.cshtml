@@ -1,0 +1,28 @@
+﻿@model long_term_care.Models.CaseDailyRegistration
+
+@{
+    ViewData["Title"] = "Details";
+}
+<link rel="stylesheet" href="~/css/Details.css">
+
+@using (Html.BeginForm("Details", "CaseDailyRegistrations", FormMethod.Post))
+{
+    <div class="container">
+        <div class="insideBox">
+            <h3>C單位巷弄長照站-每日登記表</h3>
+            <h5><span>請輸入個案身分證</span></h5>
+            <div class="content">
+                @Html.TextBox("CaseCardID", null, new { placeholder = "個案身分證" })
+                <h5><span>請選擇搜尋月份</span></h5>
+                <div class="content">
+                    <input type="month" name="Casedate" id="Casedate" placeholder=" 年 月">
+                    <button type="submit">查詢</button>
+                </div>
+            </div>
+        </div>
+        <div>
+            <a asp-action="Index">返回</a>
+        </div>
+    </div>
+}
+

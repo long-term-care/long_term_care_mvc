@@ -1,0 +1,26 @@
+﻿@model long_term_care.Models.CaseTelRecord
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<link rel="stylesheet" href="~/css/Details.css">
+
+@using (Html.BeginForm("Details", "CaseTelRecords", FormMethod.Post))
+{
+    <div class="container">
+        <div class="insideBox">
+            <h3>C 單位巷弄長照站電話問安</h3>
+            <h5><span>請輸入年月.個案身分證</span></h5>
+            <div class="content">
+                <input type="month" name="CaseYM" id="CaseYM" placeholder="年月">
+                @Html.TextBox("CaseCardID", null, new { placeholder = "個案身分證" })
+
+                <button type="submit">查詢</button>
+            </div>
+        </div>
+        <div>
+            <a asp-action="Index">返回</a>
+        </div>
+    </div>
+}

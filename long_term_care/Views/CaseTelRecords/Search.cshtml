@@ -1,0 +1,59 @@
+﻿@model IEnumerable<long_term_care.Models.CaseInfor>
+@{
+    Layout = null;
+}
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Search</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="~/css/Search.css">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+    <h3>社區長者需求調查表填寫頁面</h3>
+    <h6>請至少選擇一個輸入框輸入，關聯結果將在下方搜尋框中顯示。找到長者後，請點選該選項以填寫表單。</h6>
+    <div class="row">
+        <div class="col-4">
+            <label for="caseName">個案姓名:</label>
+            <input type="text" id="CaseName" name="caseName" placeholder="請輸入搜尋姓名" />
+        </div>
+        <div class="col-4">
+            <label for="caseNo">個案編號:</label>
+            <input type="text" id="CaseNo" name="caseNo" placeholder="請輸入搜尋編號" />
+        </div>
+        <div class="col-4">
+            <label for="caseIDcard">個案身分證:</label>
+            <input type="text" id="CaseIDcard" name="caseIDcard" placeholder="請輸入搜尋身分證" />
+        </div>
+    </div>
+
+    <div class="box">
+        <div id="searchResults"></div>
+    </div>
+
+
+    <script>
+        $("input").on("input", function () {
+            var caseNo = $("#CaseNo").val();
+            var caseName = $("#CaseName").val();
+            var caseIDcard = $("#CaseIDcard").val();
+
+            $.post('/CaseTelRecords/GetSearchResults', { caseNo, caseName, caseIDcard }, function (data) {
+                $("#searchResults").html(data);
+            });
+        });
+
+        function selectPerson(caseNo, caseName, caseIDcard) {
+            $.post('/CaseTelRecords/StoreInTempData', { caseNo, caseName, caseIDcard }, function () {
+                window.location.href = '/CaseTelRecords/Create';
+            });
+        }
+    </script>
+
+</body>
+</html>
+
+

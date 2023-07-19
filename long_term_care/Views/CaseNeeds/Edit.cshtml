@@ -1,0 +1,129 @@
+﻿@model long_term_care.Models.CaseNeed
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>編輯</h1>
+
+<h4>長者需求</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CaseNeedId" />
+            <div class="form-group">
+                <label asp-for="CaseNo" class="control-label"></label>
+                <select asp-for="CaseNo" class="form-control" asp-items="ViewBag.CaseNo"></select>
+                <span asp-validation-for="CaseNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseRead" class="control-label"></label>
+                <input asp-for="CaseRead" class="form-control" />
+                <span asp-validation-for="CaseRead" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseFami" class="control-label"></label>
+                <input asp-for="CaseFami" class="form-control" />
+                <span asp-validation-for="CaseFami" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseCons" class="control-label"></label>
+                <input asp-for="CaseCons" class="form-control" />
+                <span asp-validation-for="CaseCons" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseSpeak" class="control-label"></label>
+                <input asp-for="CaseSpeak" class="form-control" />
+                <span asp-validation-for="CaseSpeak" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseAct" class="control-label"></label>
+                <input asp-for="CaseAct" class="form-control" />
+                <span asp-validation-for="CaseAct" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseMed" class="control-label"></label>
+                <input asp-for="CaseMed" class="form-control" />
+                <span asp-validation-for="CaseMed" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseSee" class="control-label"></label>
+                <input asp-for="CaseSee" class="form-control" />
+                <span asp-validation-for="CaseSee" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseHear" class="control-label"></label>
+                <input asp-for="CaseHear" class="form-control" />
+                <span asp-validation-for="CaseHear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseEat" class="control-label"></label>
+                <input asp-for="CaseEat" class="form-control" />
+                <span asp-validation-for="CaseEat" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseCare" class="control-label"></label>
+                <input asp-for="CaseCare" class="form-control" />
+                <span asp-validation-for="CaseCare" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseView1" class="control-label"></label>
+                <input asp-for="CaseView1" class="form-control" />
+                <span asp-validation-for="CaseView1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseView2" class="control-label"></label>
+                <input asp-for="CaseView2" class="form-control" />
+                <span asp-validation-for="CaseView2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseView3" class="control-label"></label>
+                <input asp-for="CaseView3" class="form-control" />
+                <span asp-validation-for="CaseView3" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseView4" class="control-label"></label>
+                <input asp-for="CaseView4" class="form-control" />
+                <span asp-validation-for="CaseView4" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseView5" class="control-label"></label>
+                <input asp-for="CaseView5" class="form-control" />
+                <span asp-validation-for="CaseView5" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseView6" class="control-label"></label>
+                <input asp-for="CaseView6" class="form-control" />
+                <span asp-validation-for="CaseView6" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseView7" class="control-label"></label>
+                <input asp-for="CaseView7" class="form-control" />
+                <span asp-validation-for="CaseView7" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseView8" class="control-label"></label>
+                <input asp-for="CaseView8" class="form-control" />
+                <span asp-validation-for="CaseView8" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseView9" class="control-label"></label>
+                <input asp-for="CaseView9" class="form-control" />
+                <span asp-validation-for="CaseView9" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">返回</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

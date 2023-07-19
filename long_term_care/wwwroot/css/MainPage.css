@@ -1,0 +1,116 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f0f0;
+}
+@font-face {
+    font-family: 'NotoSansHK-Regular';
+    src: url('/font/NotoSansHK-Regular.ttf') format('truetype');
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+.navbar {
+    background-color: #fff;
+}
+
+.navbar-brand {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.nav-link {
+    color: #333;
+}
+
+.carousel-item img {
+    height: 500px;
+    object-fit: cover;
+}
+
+.row1 .head {
+    background-color: #3d81bf;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 1rem;
+}
+
+.row2 .head {
+    background-color: #D04667;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 1rem;
+}
+
+.head h5, .head i {
+    margin-top: 0.5rem;
+    font-size: 1.8rem;
+}
+
+.card {
+    background-color: #fff;
+    border: none;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease, all 0.3s ease-in-out;
+    align-items: center;
+    width: 98%;
+    justify-content: center;
+    margin: 1rem;
+}
+    
+    .card:hover:not(.head) {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+        transform: scale(1.02);
+    }
+
+.card-body {
+    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    flex-direction:row;
+    display:flex;
+}
+
+    .card-body .icon-text {
+        display: flex;
+        align-items: center;
+    }
+
+    .card-body i {
+        font-size: 2rem;
+        margin-right: 0.5rem;
+    }
+
+    .card-body h5 {
+        margin: 0;
+        font-size: 1.3rem;
+        font-weight: bold;
+    }
+
+
+.row1,
+.row2 {
+    align-items: center;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.contxt {
+    justify-content: center;
+}
+form {
+    margin-top: 3%;
+}
+
+
+

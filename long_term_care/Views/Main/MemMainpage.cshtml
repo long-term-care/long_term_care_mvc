@@ -1,0 +1,219 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@{
+    ViewData["Title"] = "MemMainpage";
+    bool isAdmin = User.IsInRole("管理員");
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" type='text/css'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.js"></script>
+<link href="~/css/MainPage.css" rel="stylesheet" />
+
+<body>
+    <div class="global">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#"></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                
+                                <a class="nav-link" href="/Main/Memprofile">個人資料</a>
+                            </li>
+                            @if (isAdmin)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/Main/Roleset">權限設定</a>
+                                </li>
+                            }
+                            <li class="nav-item">
+                               
+                                <a class="nav-link" href="/Main/MemAdd">志工註冊</a>
+                            </li>
+                            <li class="nav-item">
+                               
+                                <a class="nav-link" href="/Main/ElderRegistration">長者註冊</a>
+                            </li>
+                            <li class="nav-item">
+                                @*<form action="/Main/Logout" method="post">
+                                <button type="submit" name="logout">登出</button>
+                                </form>*@
+                                <a class="nav-link" href="#" onclick="logout()">登出</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div id="carouselExampleIndicators" class="carousel slide" data-aos="zoom-in-up" data-aos-duration="2000" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img class="d-block w-100 m1" src="../image/volunteer.jpg" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="../image/care.jpg" class="d-block w-100 m2" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="../image/elder.jpg" class="d-block w-100 m3" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            <div class="contxt">
+            @using (Html.BeginForm("ButtonClick", "Main", FormMethod.Post))
+            {
+                <div class="row1">
+                    <div class="col-md-12">
+                        <div class="card head">
+                            <i class="fa-solid fa-user-nurse" style="color: #ffffff;"></i>
+                            <h5>志工及照護人員</h5>
+                        </div>
+
+                        <button class="card" type="submit" name="buttonId" value="Button1" data-aos="rotate-slide-up" data-aos-duration="2000">
+                            @*MemSigns / Index*@
+                            <div class="card-body">
+                                    <i class="fa-solid fa-user-nurse" style="color: #3D81BF;"></i>
+                                    <h5>出勤簽到</h5>
+                            </div>
+                        </button>
+                        <button class="card" type="submit" name="buttonId" value="Button2">
+                            <div class="card-body">
+                                <i class="fa-regular fa-comments" style="color: #3D81BF;"></i>
+                                <h5>講座設計</h5>
+                            </div>
+                        </button>
+                        <button class="card" type="submit" name="buttonId" value="Button3">
+                            <div class="card-body">
+                                <i class="fa-solid fa-calendar-days" style="color: #3D81BF;"></i>
+                                <h5>課表管理</h5>
+                            </div>
+                        </button>
+                        <button class="card" type="submit" name="buttonId" value="Button4">
+                            <div class="card-body">
+                                <i class="fa-solid fa-signature" style="color: #3D81BF;"></i>
+                                <h5>長者活動簽到記錄</h5>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            }
+            <!-- Blue area -->
+           
+
+            <!-- Blue area -->
+            @using (Html.BeginForm("ButtonClick", "Main", FormMethod.Post))
+            {
+                <div class="row2">
+                    <div class="col-md-12">
+                        <div class="card head" >
+                            <i class="fa-regular fa-heart" style="color: #FFFFFF;"></i>
+                            <h5>服務系統</h5>
+                        </div>
+
+                        <button class="card" type="submit" name="buttonId" value="Button5">
+                            @* CasePhysicalMentals / Index*@
+                            <div class="card-body">
+                                <i class="fa-solid fa-heart-pulse" style="color: #D04667;"></i>
+                                <h5>身心評估問卷</h5>
+                            </div>
+                        </button>
+                        <button class="card" type="submit" name="buttonId" value="Button6">
+                            @*CaseTelRecords / Index*@
+                            <div class="card-body">
+                                <i class="fa-solid fa-phone" style="color: #D04667;"></i>
+                                <h5>電話問安</h5>
+                            </div>
+                        </button>
+                        <button class="card" type="submit" name="buttonId" value="Button7">
+                            @*CaseCareRecords / Index*@
+                            <div class="card-body">
+                                    <i class="fa-solid fa-house" style="color: #d04667;"></i>      
+                                    <h5>關懷訪視</h5>
+                            </div>
+                        </button>
+                        <button class="card" type="submit" name="buttonId" value="Button8">
+                            <div class="card-body">
+                                <i class="fa-solid fa-bus" style="color: #D04667;"></i>
+                                <h5>交通接送</h5>
+                            </div>
+                        </button>
+                        <button class="card" type="submit" name="buttonId" value="Button9">
+                            <div class="card-body">
+                                <i class="fa-sharp fa-solid fa-clipboard-user" style="color: #D04667;"></i>
+                                <h5>每日登記</h5>
+                            </div>
+                        </button>
+                        <button class="card" type="submit" name="buttonId" value="Button10">
+                            <div class="card-body">
+                                <i class="fa-solid fa-person-cane" style="color: #D04667;"></i>
+                                <h5>長者需求調查</h5>
+                            </div>
+                        </button>
+                    </div>
+
+                </div>
+            }
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function () {
+            var previousScroll = 0;
+
+            $(window).scroll(function () {
+                var currentScroll = $(this).scrollTop();
+                if (currentScroll > previousScroll) {
+                    $("nav").addClass('hidden');
+                } else {
+                    $("nav").removeClass('hidden');
+                }
+                previousScroll = currentScroll;
+            });
+        });
+    </script>
+    <script>
+        AOS.init({
+            duration: 1200,
+        });
+    </script>
+   
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+    <script>
+        function logout() {
+            var form = document.createElement('form');
+            form.action = '/Main/Logout';
+            form.method = 'post';
+
+            var csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = 'csrf_token'; // Replace with your CSRF token field name
+            csrfInput.value = 'your_csrf_token'; // Replace with your actual CSRF token
+
+            form.appendChild(csrfInput);
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
+</body>
+
+

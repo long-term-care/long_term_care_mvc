@@ -1,0 +1,24 @@
+﻿@model long_term_care.Models.CaseNeed
+
+@{
+    ViewData["Title"] = "Details";
+}
+<link rel="stylesheet" href="~/css/Details.css">
+
+@using (Html.BeginForm("Details", "CaseNeeds", FormMethod.Post))
+{
+    <div class="container">
+        <div class="insideBox">
+            <h3>社區長者需求調查</h3>
+            <h5><span>請輸入個案身分證</span></h5>
+            <div class="content">
+                @Html.TextBox("CaseCardID", null, new { placeholder = "個案身分證" })
+                <button type="submit">查詢</button>
+            </div>
+        </div>
+        <div>
+            <a asp-action="Index">返回</a>
+        </div>
+    </div>
+}
+

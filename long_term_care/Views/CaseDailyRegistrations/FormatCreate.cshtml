@@ -1,0 +1,65 @@
+﻿@model IEnumerable<long_term_care.Models.LectureClass>
+
+@{
+    ViewData["Title"] = "FormatCreate";
+}
+
+<h1>FormatCreate</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SchA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SchB)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SchC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SchD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SchE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Weeknum)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SchA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SchB)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SchC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SchD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SchE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Weeknum)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.SchWeek">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.SchWeek">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.SchWeek">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

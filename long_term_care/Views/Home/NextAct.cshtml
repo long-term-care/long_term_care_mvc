@@ -1,0 +1,135 @@
+﻿@model IEnumerable<long_term_care.Models.LectureClass>
+@{
+    ViewData["Title"] = "Act";
+    var data = Model.OrderBy(x => x.Weeknum);
+    DateTime currentDate = DateTime.Now;
+    DateTime oneWeekLater = currentDate.AddDays(7);
+    // 计算当前日期所在周的星期一的日期
+
+    int daysToMonday = (int)oneWeekLater.DayOfWeek - (int)DayOfWeek.Monday;
+    if (daysToMonday < 0) daysToMonday += 7;  // 处理星期日的特殊情况
+    DateTime mondayDate = oneWeekLater.AddDays(-daysToMonday);
+    DateTime tuesdayDate = mondayDate.AddDays(1);
+    DateTime wednesdayDate = mondayDate.AddDays(2);
+    DateTime thursdayDate = mondayDate.AddDays(3);
+    DateTime fridayDate = mondayDate.AddDays(4);
+}
+
+
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font-size: 20px;
+    }
+
+    #table-container {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    table {
+        width: 100%;
+        height: 100%;
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+        td:first-child {
+            width: 8%;
+        }
+
+    .send {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .send button {
+            width: 300px;
+            height: 70px;
+            font-size: 16px;
+            margin: 3%;
+        }
+</style>
+
+<body>
+    <div id="table-container">
+        <table class="table table-info table-striped">
+            <tr class="table-light">
+                <th>時間</th>
+                <th>星期一 (@mondayDate.ToString("MM/dd"))</th>
+                <th>星期二 (@tuesdayDate.ToString("MM/dd")) </th>
+                <th>星期三 (@wednesdayDate.ToString("MM/dd")) </th>
+                <th>星期四 (@thursdayDate.ToString("MM/dd")) </th>
+                <th>星期五 (@fridayDate.ToString("MM/dd"))</th>
+            </tr>
+            <tr>
+                <td>7:30 - 8:30</td>
+                @foreach (var item in data)
+                {
+                    <td>@item.SchA</td>
+                }
+            </tr>
+            <tr>
+                <td>8:30 - 9:00</td>
+                @foreach (var item in data)
+                {
+                    <td>@item.SchB</td>
+                }
+            </tr>
+            <tr>
+                <td>9:00 - 9:30</td>
+                @foreach (var item in data)
+                {
+                    <td>@item.SchC</td>
+                }
+            </tr>
+            <tr>
+                <td>9:30 - 12:00</td>
+                @foreach (var item in data)
+                {
+                    <td>@item.SchD</td>
+                }
+            </tr>
+            <tr>
+                <td>12:00 - 12:10</td>
+                <td colspan="5">餐前準備 (洗手準備用餐、午間新聞)</td>
+
+            </tr>
+            <tr>
+                <td>12:10 - 13:00</td>
+                <td colspan="5">午餐</td>
+
+            </tr>
+            <tr>
+                <td>13:00 - 16:00</td>
+                @foreach (var item in data)
+                {
+                    <td>@item.SchE</td>
+                }
+            </tr>
+            <tr>
+                <td>16:10 -</td>
+                <td colspan="5">準備回家</td>
+            </tr>
+            <!-- 依此類推，添加更多時間段和課程 -->
+        </table>
+    </div>
+    <div class="send">
+        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Act", "Home")'">當周課表</button>
+    </div>
+
+</body>
+
+
+

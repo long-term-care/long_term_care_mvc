@@ -1,0 +1,341 @@
+﻿@*@model IEnumerable<long_term_care.Models.CaseDailyRegistration>*@
+@using long_term_care.ViewModels;
+@*@model IEnumerable<DailyResultViewModel>*@
+@model IEnumerable<long_term_care.ViewModels.DailyResultViewModel>
+
+
+@{
+    ViewData["Title"] = "SearchResult";
+}
+<style>
+    body {
+        padding: 30px;
+    }
+    .table-title {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    table.table {
+        border-collapse: collapse;
+    }
+
+        table.table td {
+            border: 2px solid #000;
+            padding: 10px;
+        }
+
+    .table-label {
+        font-weight: bold;
+        border-right: 1px solid #ccc;
+        padding-right: 10px;
+    }
+
+    .table-value {
+        margin-bottom: 10px;
+        padding-left: 10px;
+    }
+    .box {
+        display: table-row;
+    }
+
+        .box > div:not(.form-group) {
+        display: table-cell;
+        padding: 5px;
+        vertical-align: top;
+        border: 2px solid #000;
+    }
+
+    h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .container {
+        border-radius: 8px;
+        background-color: #f8f8f8;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .back-link {
+        margin-top: 20px;
+    }
+
+    .pagination {
+        margin-top: 20px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+    }
+
+        .pagination a {
+            color: #333;
+            background-color: #f2f2f2;
+            border: none;
+            padding: 6px 12px;
+            margin-right: 4px;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+            .pagination a.active {
+                background-color: #333;
+                color: #fff;
+            }
+
+            .pagination a:hover {
+                background-color: #ddd;
+            }
+
+    a {
+        color: #5C9DF7;
+        text-decoration: none;
+        font-size: 16px transition: color 0.3s ease;
+    }
+
+        a:hover {
+            color: #7caef5;
+        }
+</style>
+<h1 class="table-title">每日登記表結果</h1>
+
+@{
+    bool isFirstIteration = true;
+    string caseName = null;
+    DateTime caseBd = new DateTime();
+    string caseGender = null;
+    string caseNo = null;
+    string caseIdent = null;
+    string caseLang = null;
+    string caseMari = null;
+    string caseFami = null;
+    string caseAddr = null;
+    string caseCnta = null;
+    string caseCntTel = null;
+    string caseCntRel = null;
+}
+
+
+
+@foreach (var item in Model.Reverse())
+{
+    if (isFirstIteration)
+    {
+        <div class="col-md-2">
+            <button type="button" class="btn btn-secondary">基本資料</button>
+        </div>
+        <br />
+        caseName = item.CaseName;
+        caseBd = item.CaseBd;
+        caseGender = item.CaseGender;
+        caseNo = item.CaseNo;
+        caseIdent = item.CaseIdent;
+        caseLang = item.CaseLang;
+        caseMari = item.CaseMari;
+        caseFami = item.CaseFami;
+        caseAddr = item.CaseAddr;
+        caseCnta = item.CaseCnta;
+        caseCntTel = item.CaseCntTel;
+        caseCntRel = item.CaseCntRel;
+        isFirstIteration = false;
+
+        <table class="table">
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseName)</td>
+                <td class="table-value">@caseName</td>
+            </tr>
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseBd)</td>
+                <td class="table-value">@caseBd</td>
+            </tr>
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseGender)</td>
+                <td class="table-value">@caseGender</td>
+            </tr>
+      
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseLang)</td>
+                <td class="table-value">@caseLang</td>
+            </tr>
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseMari)</td>
+                <td class="table-value">@caseMari</td>
+            </tr>
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseFami)</td>
+                <td class="table-value">@caseFami</td>
+            </tr>
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseAddr)</td>
+                <td class="table-value">@caseAddr</td>
+            </tr>
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseNo)</td>
+                <td class="table-value">@caseNo</td>
+            </tr>
+        
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseCnta)</td>
+                <td class="table-value">@caseCnta</td>
+            </tr>
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseCntTel)</td>
+                <td class="table-value">@caseCntTel</td>
+            </tr>
+            <tr>
+                <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseCntRel)</td>
+                <td class="table-value">@caseCntRel</td>
+            </tr>
+        </table>
+    }
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">日期</th>
+            <th scope="col">體溫</th>
+            <th scope="col">脈搏</th>
+            <th scope="col">舒張壓</th>
+            <th scope="col">收縮壓</th>
+            <th scope="col">血壓狀態</th>
+            <th scope="col">交通接送</th>
+            <th scope="col">操作</th>
+        </tr>
+    </thead>
+    <tbody id="pagination-table-body">
+        @foreach (var item in Model.Reverse())
+        {
+            <tr class="table-light">
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.Casedate)
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CaseTemp)
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CasePluse)
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CaseSystolic)
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CaseDiastolic)
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CaseBlood)
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => item.CasePick)
+                    </div>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CaseContId">編輯</a> |
+                    <a asp-action="Delete" asp-route-id="@item.CaseContId">刪除</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="pagination"></div>
+
+<form asp-action="ExportData" asp-controller="CaseDailyRegistrations" method="post">
+    <label for="startDate">輸出起日:</label>
+    <input type="date" id="startDate" name="startDate" required>
+
+    <label for="endDate">輸出迄日:</label>
+    <input type="date" id="endDate" name="endDate" required>
+
+    <label for="exportType">輸出格式:</label>
+    <select id="exportType" name="exportType">
+        <option value="excel">Excel</option>
+        @*<option value="doc">Word</option>*@
+        <option value="pdf">PDF</option>
+    </select>
+
+    <button type="submit">輸出</button>
+</form>
+
+<div>
+    <a asp-action="Details">返回</a>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var pageSize = 5; // Rows per page
+        var tableBody = $('#pagination-table-body');
+        var pagination = $('.pagination');
+
+        tableBody.find('tr').hide();
+        tableBody.find('tr').slice(0, pageSize).show();
+
+        var totalRows = tableBody.find('tr').length;
+        var totalPages = Math.ceil(totalRows / pageSize);
+
+        var currentPage = 1;
+        var maxVisiblePages = 5; 
+
+        function updatePagination() {
+            pagination.empty();
+
+            var startPage = Math.max(currentPage - Math.floor(maxVisiblePages / 2), 1);
+            var endPage = Math.min(startPage + maxVisiblePages - 1, totalPages);
+
+            if (currentPage > 1) {
+                var prevLink = $('<a href="#" class="pagination-link">&laquo;</a>');
+                prevLink.data('page', currentPage - 1);
+                pagination.append(prevLink);
+            }
+
+            for (var i = startPage; i <= endPage; i++) {
+                var pageLink = $('<a href="#" class="pagination-link">' + i + '</a>');
+                pageLink.data('page', i);
+                if (i === currentPage) {
+                    pageLink.addClass('active');
+                }
+                pagination.append(pageLink);
+            }
+
+            if (currentPage < totalPages) {
+                var nextLink = $('<a href="#" class="pagination-link">&raquo;</a>');
+                nextLink.data('page', currentPage + 1);
+                pagination.append(nextLink);
+            }
+        }
+
+        updatePagination();
+
+        pagination.on('click', '.pagination-link', function (e) {
+            e.preventDefault();
+            var page = parseInt($(this).data('page'));
+            currentPage = page;
+
+            tableBody.find('tr').hide();
+
+            var startIndex = (currentPage - 1) * pageSize;
+            var endIndex = startIndex + pageSize;
+            tableBody.find('tr').slice(startIndex, endIndex).show();
+
+            updatePagination();
+        });
+    });
+</script>

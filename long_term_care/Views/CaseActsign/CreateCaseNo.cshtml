@@ -1,0 +1,405 @@
+﻿@using long_term_care.ViewModels;
+@model List<CaseActsignViewModel>
+@{
+    ViewData["Title"] = "Check";
+    var data = Model.FirstOrDefault();
+
+}
+
+<style>
+    .container {
+        background-color: #CBE9EA;
+        display: flex;
+        flex-wrap: wrap;
+        margin: auto;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .title {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+        .title input {
+            background-color: rgb(255, 255, 255);
+            width: 500px;
+        }
+
+    .signbody {
+        width: 100%;
+        height: 1000px;
+        background-color: #F1FFFF;
+        border-radius: 20px;
+    }
+
+    .singbodytitle {
+        width: 100%;
+        background-color: #F1FFFF;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 20px;
+        padding: 50px;
+    }
+
+        .singbodytitle input {
+            width: 200px;
+            background-color: #fdfdfd00;
+            border: none;
+        }
+
+    .day {
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        border: solid 2px red;
+        background-color: #FFCBBB;
+        border-radius: 20px;
+    }
+
+    .teacher {
+        padding: 10px;
+        display: flex;
+        border: solid 2px red;
+        background-color: #FFCBBB;
+        border-radius: 20px;
+    }
+
+    .place {
+        padding: 10px;
+        display: flex;
+        border: solid 2px red;
+        background-color: #FFCBBB;
+        border-radius: 20px;
+    }
+
+    .content {
+        width: 100%;
+        background-color: #F1FFFF;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        border-radius: 20px;
+    }
+
+        .content input {
+            background-color: #fbf9f900;
+            border: none;
+            border-bottom: solid 2px black;
+        }
+
+    .id {
+        width: 25%;
+        height: 50px;
+        margin: 2%;
+        background-color: #FFCBBB;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .name {
+        width: 25%;
+        height: 50px;
+        margin: 2%;
+        background-color: #FFF0EB;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .tool {
+        width: 25%;
+        height: 50px;
+        margin: 2%;
+        background-color: #FFF0EB;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .btn {
+        height: 50px;
+    }
+
+    .send {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .send button {
+            color: #000;
+            background-color: #FBD4DF;
+            width: 300px;
+            height: 70px;
+            font-size: 16px;
+            margin: 3%;
+        }
+</style>
+
+<body>
+
+    <div class="container" id="container">
+        <div class="title">
+            <input type="text" style= "display: none;" id="actid" value="@data.ActId">
+            <h1>活動名稱: @data.ActCourse</h1>       
+        </div>
+        <div class="signbody">
+
+            <div class="singbodytitle">
+                <div class="day">
+                    <h3>活動日期:</h3>
+                    <h4>@data.ActDate<h4>
+                </div>
+                <div class="teacher">
+                    <h2>講師姓名:</h2>
+                    <h3>@data.ActLec</h3>
+                </div>
+                <div class="place">
+                    <h2>活動地點:</h2>
+                    <h3>@data.ActLoc</h3>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="id">
+                    <p>學員編號</p>
+                </div>
+                <div class="tool">
+                    <p>服務項目</p>
+                </div>
+            </div>
+                <div class="content">
+                    <div class="id">
+                        <label for="CaseNo"></label>
+                        <select id="CaseNo" name="CaseNo" class="form-control">
+                            <option value=""></option>
+                            @foreach (var item in ViewBag.CaseNoList)
+                            {
+                                <option value="@item.Value">@item.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="tool">
+                        <input type="checkbox" name="option1" value="" id="tool1">健康促進<br>
+                        <input type="checkbox" name="option2" value="" id="tool2"> 共餐服務<br>
+                        <input type="checkbox" name="option3" value="" id="tool3"> 預防延緩<br>
+                    </div>
+                    <div class="btn">
+                        <button type="button" class="btn btn-secondary" id="caseadd">新增</button>
+                    </div>
+                </div>
+
+                <div id="caseNoadd">
+                @foreach (var item in Model)
+                {
+                    @if (item.CaseNo == "")
+                    {
+                        // 如果 CaseNo 为空，不显示任何内容
+                    }
+                    else
+                    {
+                        <div class="content">
+                            <div class="id">
+                                <p>@item.CaseNo</p>
+                            </div>
+                            <div class="tool">
+                                <p>@item.ActSer</p>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-secondary" onclick="deleteItem(this)" data-actid="@item.ActId" data-caseno="@item.CaseNo">刪除</button>
+                            </div>
+                        </div>
+                    }
+                
+
+                }
+                </div>
+         </div>
+
+     
+        <div class="send">
+        <form action="/CaseActsign/Index" method="get">
+                <button type="submit" class="btn btn-dark">儲存</button>
+            </form>
+        </div>
+    </div>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+                crossorigin="anonymous">
+        </script>
+        <script>
+            var caseaddbtn = document.getElementById("caseadd");
+            caseaddbtn.addEventListener("click", function () {
+                var CaseNo = document.getElementById("CaseNo").value;
+                var actId = document.getElementById("actid").value;
+                var tool1Checkbox = document.getElementById("tool1");
+                var tool2Checkbox = document.getElementById("tool2");
+                var tool3Checkbox = document.getElementById("tool3");
+
+                var tool1Checked = tool1Checkbox.checked;
+                var tool2Checked = tool2Checkbox.checked;
+                var tool3Checked = tool3Checkbox.checked;
+
+                var tool1, tool2, tool3;
+
+                if (tool1Checked) {
+                    tool1 = "健康促進";
+                }
+
+                if (tool2Checked) {
+                    tool2 = "共餐服務";
+                }
+
+                if (tool3Checked) {
+                    tool3 = "預防延緩";
+                }
+
+                var toolText = [tool1, tool2, tool3].join(" ");
+
+
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/CaseActsign/CreateCaseNo", true);
+                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+                // 將selectedValue轉換為JSON格式
+                var data = {
+                    type: 2,
+                    ActId: actId,
+                    CaseNo: CaseNo,
+                    ActSer: toolText
+                }
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) { // 请求完成
+                    if (xhr.status === 200) { // 请求成功
+                        var newDiv = document.createElement("div");
+                        newDiv.className = "content";
+
+                        var idDiv = document.createElement("div");
+                        idDiv.className = "id";
+                        var idP = document.createElement("p");
+                        idP.textContent = CaseNo;
+                        idDiv.appendChild(idP);
+
+                        var toolDiv = document.createElement("div");
+                        toolDiv.className = "tool";
+                        var toolP = document.createElement("p");
+                        toolP.textContent = toolText;
+                        toolDiv.appendChild(toolP);
+
+                        var btnDiv = document.createElement("div");
+                        btnDiv.className = "btn";
+                        var deleteBtn = document.createElement("button");
+                        deleteBtn.type = "button";
+                        deleteBtn.className = "btn btn-secondary";
+                        deleteBtn.textContent = "刪除";
+                        btnDiv.appendChild(deleteBtn);
+
+                        newDiv.appendChild(idDiv);
+                        newDiv.appendChild(toolDiv);
+                        newDiv.appendChild(btnDiv);
+                        var container = document.getElementById("caseNoadd");
+                        container.appendChild(newDiv);
+                        var response = JSON.parse(xhr.responseText);
+                        // 执行成功后的操作，例如删除元素
+                       
+                    } else {
+                        // 处理请求失败的情况
+                        console.log('请求失败');
+                    }
+                }
+            };
+           
+
+            xhr.send(JSON.stringify(data));
+            
+                
+
+                // 添加删除按钮的点击事件监听器
+                deleteBtn.addEventListener("click", function () {
+                var confirmDelete = confirm("确定要删除该记录吗？");
+                if(confirmDelete)
+                {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "/CaseActsign/DeleteCaseNo", true);
+                    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+                    // 将selectedValue转换为JSON格式
+                    var data = {
+                        ActId: actId,
+                        CaseNo: CaseNo
+                    }
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === XMLHttpRequest.DONE) {
+                            if (xhr.status === 200) {
+                                // 请求成功，执行相应的处理逻辑
+                                var response = JSON.parse(xhr.responseText);
+                                // 从视图中删除对应的元素
+
+                            } else {
+                                // 请求失败，执行相应的错误处理逻辑
+                                console.log('请求失败');
+                            }
+                        }
+                    };
+                    xhr.send(JSON.stringify(data));
+                    container.removeChild(newDiv);
+                }
+                
+            });
+            });
+
+        function deleteItem(button) {          
+            var div = button.closest(".content");
+            // 确认删除逻辑，可以使用 JavaScript 的确认框或其他方式
+            var confirmDelete = confirm("确定要删除该记录吗？");
+            
+            if (confirmDelete) {
+                var actId = button.getAttribute("data-actid");
+                var caseNo = button.getAttribute("data-caseno");
+                // 发送异步请求到服务器删除数据
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/CaseActsign/DeleteCaseNo", true);
+                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+                var data = {
+                    ActId: actId,
+                    CaseNo: caseNo
+                };
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            // 请求成功，执行相应的处理逻辑
+                            var response = JSON.parse(xhr.responseText);
+                            // 从视图中删除对应的元素
+                            button.parentNode.parentNode.remove();
+                        } else {
+                            // 请求失败，执行相应的错误处理逻辑
+                            console.log('请求失败');
+                        }
+                    }
+                };
+
+                xhr.send(JSON.stringify(data));
+                div.parentNode.removeChild(div);
+            }
+        }
+
+        </script>
+
+
+</body>
+
+
+

@@ -1,0 +1,150 @@
+﻿@using long_term_care.Controllers;
+@model long_term_care.Models.MemberInformation;
+
+@{
+    ViewData["Title"] = "Sign";
+}
+<style>
+    h1 {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+    }
+
+    .sign {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        font-size: 1.8em;
+    }
+
+    .signcontent {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 60%;
+        height: 80%;
+        padding: 20px;
+        background-color: #CBE9EA;
+    }
+
+        .signcontent p {
+            margin: 10px;
+            font-size: 1.2em;
+        }
+
+        .signcontent select,
+        .signcontent input[type="text"] {
+            font-size: 1.2em;
+        }
+
+        .signcontent button {
+            margin-left: 10px;
+            font-size: 0.8em;
+        }
+
+    .send {
+        margin-top: 20px;
+    }
+
+        .send button {
+            margin-right: 10px;
+            padding: 12px 24px;
+            font-size: 1.4em;
+        }
+    .work{
+        display:flex;
+        align-content:center;
+    }
+    .work textarea {
+        resize: none;
+    }
+</style>
+
+
+<div class="sign">
+    <h1>志工簽到</h1>
+    <div class="signcontent">
+        <input type="text" value="@ViewBag.MemSignQaid" style="display:none" id="id" />
+        <div class="Member">
+            <p>
+                編號: @Html.DisplayFor(model => model.MemSid)<span>  </span> 姓名: @Html.DisplayFor(model => model.MemName)
+            </p>
+        </div>
+        <div class="signtime">
+            <p>
+                簽退時間:
+                <input type="text" id="time">
+            </p>
+        </div>
+        <div class="work">
+            <p>工作日誌:</p> <textarea rows="4" cols="30" id="work"></textarea>
+        </div>
+        <div class="send">
+            <button type="button" class="btn btn-primary" id="sign">簽退</button>
+            <button type="button" class="btn btn-primary" id="back" onclick="location.href='@Url.Action("Index", "LectureClasses")'">返回</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    var sign = document.getElementById("sign");
+    sign.addEventListener("click", function () {
+        var id = document.getElementById("id").value;
+        var timeInput = document.getElementById("time");
+        var work = document.getElementById("work").value;
+        var currentTime = new Date();
+        var signshow = new Date();
+        var taipeiOffset = 8 * 60; // 台北时区偏移量为 UTC+8
+        currentTime.setMinutes(currentTime.getMinutes() + taipeiOffset);
+
+
+        var options = {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        };
+        var formattedTime = signshow.toLocaleString(undefined, options);
+        timeInput.value = formattedTime;
+
+
+        var showtime = "簽退成功，簽退時間為" + timeInput.value
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/MemSigns/Signout", true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+        // 將selectedValue轉換為JSON格式
+        var data = {
+            MemSignQaid: id,
+            MemTelTime2: currentTime,
+            MemRecord:work,
+        }
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                // 請求成功，執行相應的處理邏輯
+                alert(showtime);
+                window.location.href = "/MemSigns/Index";
+                var response = JSON.parse(xhr.responseText);
+
+            }
+
+        };
+        xhr.send(JSON.stringify(data));
+
+
+    });
+
+
+</script>
+
+

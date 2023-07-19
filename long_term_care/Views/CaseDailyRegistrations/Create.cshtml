@@ -1,0 +1,194 @@
+﻿@model long_term_care.Models.CaseDailyRegistration
+
+@{
+    Layout = null;
+}
+@{
+    ViewData["Title"] = "Create";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/CaseDailyRegistrations.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="insideBox">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <h3>(單位名稱)   C單位巷弄長照站-每日登記表</h3>
+                <div>
+                    <button type="button" id="smallFont" class="font-size-button">小</button>
+                    <button type="button" id="normalFont" class="font-size-button">中</button>
+                    <button type="button" id="largeFont" class="font-size-button">大</button>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col" style="text-align:end; margin-top: 7px;">
+                            <label asp-for="CaseContId" class="control-label">問卷編號: </label>
+                        </div>
+                        <div class="col" style="text-align:start;">
+                            <input asp-for="CaseContId" class="form-control NoBorder" style="background-color: transparent; border: none; outline: none;" value="@ViewBag.CaseContId" readonly />
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label asp-for="CaseNo">個案編號:</label>
+                    <input class="NoBorder" asp-for="CaseNo" readonly />
+                </div>
+                <div class="GiantBox container">
+                    <div class="title">
+                        <div class="row header">
+                            <div class="col-3">日期</div>
+                            <div class="col-2">體溫</div>
+                            <div class="col-2">脈搏</div>
+                            <div class="col-2">接送需求</div>
+                            <div class="col-1">收縮壓</div>
+                            <div class="col-1">舒張壓</div>
+                            <div class="col-1">血壓狀態</div>
+                        </div>
+                    </div>
+
+                    <div class="container" id="dataContainer">
+                        <!-- Each data rows-->
+                        <div class="row tBody">
+                            <div class="form-group col-3">
+                                <div class="group">
+                                    <label asp-for="Casedate" class="control-label"> <input asp-for="Casedate" class="form-control transparent-input" type="date" placeholder="YYYY/MM/DD" id="Casedate" name="Casedate" /></label>
+                                    <span asp-validation-for="Casedate" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group col-2">
+                                <div class="group">
+                                    <label asp-for="CaseTemp" class="control-label"> <input asp-for="CaseTemp" class="form-control transparent-input" type="text" /></label>
+                                    <span asp-validation-for="CaseTemp" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group col-2">
+                                <div class="group">
+                                    <label asp-for="CasePluse" class="control-label"> <input asp-for="CasePluse" class="form-control transparent-input" type="text" /></label>
+                                    <span asp-validation-for="CasePluse" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group col-2">
+                                <fieldset>
+                                    <label asp-for="CasePick" class="control-label"><input type="radio" asp-for="CasePick" value="無" class="transparent-input" />無</label>
+                                    <label asp-for="CasePick" class="control-label"><input type="radio" asp-for="CasePick" value="上午" class="transparent-input" />上午</label>
+                                    <label asp-for="CasePick" class="control-label"><input type="radio" asp-for="CasePick" value="下午" class="transparent-input" />下午</label>
+                                    <span asp-validation-for="CasePick" class="text-danger"></span>
+                                </fieldset>
+                            </div>
+                            <div class="form-group col-1">
+                                <div class="group">
+                                    <label asp-for="CaseSystolic" class="control-label">
+                                        <input asp-for="CaseSystolic" class="form-control transparent-input" type="number" data-case-systolic="@Model?.CaseSystolic" />
+                                    </label>
+                                    <span asp-validation-for="CaseSystolic" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group col-1">
+                                <div class="group">
+                                    <label asp-for="CaseDiastolic" class="control-label">
+                                        <input asp-for="CaseDiastolic" class="form-control transparent-input" type="number" data-case-diastolic="@Model?.CaseDiastolic" />
+                                    </label>
+                                    <span asp-validation-for="CaseDiastolic" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group col-1">
+                                <div class="group">
+                                    <label asp-for="CaseBlood" class="control-label">
+                                        <span asp-validation-for="CaseBlood" class="text-danger" id="caseBloodDisplay"></span>
+                                    </label>
+                                    <input type="hidden" asp-for="CaseBlood" id="caseBloodInput" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group wrap">
+                        <button class="button" type="submit" value="Submit">儲存</button>
+                    </div>
+            </form>
+        </div>
+        <div>
+            <a asp-action="Index">返回</a>
+        </div>
+    </div>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+
+        var caseSystolicInput = document.querySelector('input[name="CaseSystolic"]');
+        var caseDiastolicInput = document.querySelector('input[name="CaseDiastolic"]');
+        var caseBloodDisplay = document.getElementById("caseBloodDisplay");
+        var caseBloodInput = document.getElementById("caseBloodInput");
+
+        function updateBloodPressureStatus() {
+            var caseSystolic = parseInt(caseSystolicInput.value) || 0;
+            var caseDiastolic = parseInt(caseDiastolicInput.value) || 0;
+            var displayValue = "";
+
+            if (caseSystolic === 0 && caseDiastolic === 0) {
+            } else if (caseSystolic >= 180 || caseDiastolic >= 120) {
+                displayValue = "高血壓3級";
+            } else if ((caseSystolic >= 140 && caseSystolic < 180) || (caseDiastolic >= 90 && caseDiastolic < 120)) {
+                displayValue = "高血壓2級";
+            } else if ((caseSystolic >= 130 && caseSystolic < 140) || (caseDiastolic >= 80 && caseDiastolic < 90)) {
+                displayValue = "高血壓1級";
+            } else if (caseSystolic >= 120 && caseSystolic < 130 && caseDiastolic >= 60 && caseDiastolic < 80) {
+                displayValue = "微高";
+            } else if (caseSystolic >= 90 && caseSystolic < 120 && caseDiastolic >= 60 && caseDiastolic < 80) {
+                displayValue = "正常";
+            } else if (caseSystolic < 90 || caseDiastolic < 60) {
+                displayValue = "低血壓";
+            }
+
+            caseBloodDisplay.textContent = displayValue;
+            caseBloodInput.value = displayValue;
+        }
+
+        caseSystolicInput.addEventListener("input", updateBloodPressureStatus);
+        caseDiastolicInput.addEventListener("input", updateBloodPressureStatus);
+
+        updateBloodPressureStatus();
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#Casedate").change(function () {
+                var selectedDate = $(this).val();
+                $.get('/CaseDailyRegistrations/IsDateExist', { caseDate: selectedDate }, function (response) {
+                    if (response.exists) {
+                        alert("此日期資料已存在，請重新輸入!");
+                        $("#Casedate").val('');
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        document.getElementById('smallFont').addEventListener('click', function () {
+            document.body.style.fontSize = '12px';
+        });
+        document.getElementById('normalFont').addEventListener('click', function () {
+            document.body.style.fontSize = '20px';
+        });
+        document.getElementById('largeFont').addEventListener('click', function () {
+            document.body.style.fontSize = '30px';
+        });
+    </script>
+</body>
+
+
