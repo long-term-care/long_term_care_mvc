@@ -1,7 +1,12 @@
-﻿@model long_term_care.Models.LectureClass
+﻿@model IEnumerable<long_term_care.Models.LectureClass>
 
 @{
     ViewData["Title"] = "Create";
+    var dataweek1 = Model.FirstOrDefault(x => x.Weeknum == 1);
+    var dataweek2 = Model.FirstOrDefault(x => x.Weeknum == 2);
+    var dataweek3 = Model.FirstOrDefault(x => x.Weeknum == 3);
+    var dataweek4 = Model.FirstOrDefault(x => x.Weeknum == 4);
+    var dataweek5 = Model.FirstOrDefault(x => x.Weeknum == 5);
 }
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -110,7 +115,7 @@
     <div class="row">
         <div>星期一</div>
         <div>
-            <select>
+            <select id="week1">
                 <option value="課程開始時間">課程開始時間</option>
                 <option value="SchA">7:30 - 8:30</option>
                 <option value="SchB">8:30 - 9:00</option>
@@ -132,7 +137,7 @@
     <div class="row">
         <div>星期二</div>
         <div>
-            <select>
+            <select id="week2">
                 <option value="課程開始時間">課程開始時間</option>
                 <option value="SchA">7:30 - 8:30</option>
                 <option value="SchB">8:30 - 9:00</option>
@@ -157,7 +162,7 @@
     <div class="row">
         <div>星期三</div>
         <div>
-            <select>
+            <select id="week3">
                 <option value="課程開始時間">課程開始時間</option>
                 <option value="SchA">7:30 - 8:30</option>
                 <option value="SchB">8:30 - 9:00</option>
@@ -182,7 +187,7 @@
     <div class="row">
         <div>星期四</div>
         <div>
-            <select>
+            <select id="week4">
                 <option value="課程開始時間">課程開始時間</option>
                 <option value="SchA">7:30 - 8:30</option>
                 <option value="SchB">8:30 - 9:00</option>
@@ -208,7 +213,7 @@
     <div class="row">
         <div>星期五</div>
         <div>
-            <select>
+            <select id="week5">
                 <option value="課程開始時間">課程開始時間</option>
                 <option value="SchA">7:30 - 8:30</option>
                 <option value="SchB">8:30 - 9:00</option>
@@ -232,3 +237,15 @@
         </div>
     </div>
 </div>
+<script>
+ let week1 = document.getElementById("week1");
+    week1.addEventListener('change', function () {
+        let week1value = this.value; // 获取选中的值
+
+        if (sweek1value === '課程開始時間') {
+            btnFlip.textContent = '空堂'; // 课程时间为空，设置按钮文本为“空堂”
+        } else {
+            btnFlip.textContent = '衝堂'; // 课程时间不为空，设置按钮文本为“衝堂”
+        }
+    });
+</script>

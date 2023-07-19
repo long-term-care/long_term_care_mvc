@@ -18,6 +18,10 @@
     select.town.form-control {
         margin: 0 5px;
     }
+
+    .address{
+        display:flex;
+    }
 </style>
 <body>
 
@@ -107,11 +111,15 @@
                     </div>
                     <div class="col-4">
                         <label for="memaddress">地址<span class="required">*</span></label>
-                        <form action="">
-                            <div id="twzipcode_a">
+
+                        <div class="address">
+                            <div id="twzipcode" class="col-4">
                             </div>
-                            <input type="text" placeholder="&nbsp;&nbsp;地址" id="memaddress" required>
-                        </form>
+                            <div class="col-8">
+                                <input type="text" placeholder="&nbsp;&nbsp;" id="familyaddress">
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
                 <div class="row">
@@ -184,16 +192,12 @@
 
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        const memidcard = document.getElementById('memidcard');
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.essoduke.org/js/twzipcode/twzipcode.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
 
-        function validateIDCard(event) {
-            
-        }
-
-        memberbtn.addEventListener('submit', validateIDCard);
-
-    </script>
     <script>
         $("#twzipcode").twzipcode({
             zipcodeIntoDistrict: true,
