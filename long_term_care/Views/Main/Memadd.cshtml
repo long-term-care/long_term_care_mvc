@@ -2,6 +2,23 @@
 
 <link href="~/css/Reg.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+<style>
+    textarea {
+        resize: none;
+    }
+
+    div#twzipcode {
+        display: flex;
+    }
+
+    select.city.form-control, select.town.form-control {
+        width: 120px;
+    }
+
+    select.town.form-control {
+        margin: 0 5px;
+    }
+</style>
 <body>
 
     <div id="volunteerMsgBox">
@@ -90,7 +107,11 @@
                     </div>
                     <div class="col-4">
                         <label for="memaddress">地址<span class="required">*</span></label>
-                        <input type="text" placeholder="&nbsp;&nbsp;地址" id="memaddress" required>
+                        <form action="">
+                            <div id="twzipcode_a">
+                            </div>
+                            <input type="text" placeholder="&nbsp;&nbsp;地址" id="memaddress" required>
+                        </form>
                     </div>
                 </div>
                 <div class="row">
@@ -173,7 +194,14 @@
         memberbtn.addEventListener('submit', validateIDCard);
 
     </script>
-   
+    <script>
+        $("#twzipcode").twzipcode({
+            zipcodeIntoDistrict: true,
+            css: ["city form-control", "town form-control"],
+            countyName: "city",
+            districtName: "town"
+        });
+    </script>
     <script>
         var memberbtn = document.getElementById("memberbtn")
         memberbtn.addEventListener("click", function (event) {
