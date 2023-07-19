@@ -3,117 +3,232 @@
 @{
     ViewData["Title"] = "Create";
 }
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <style>
-    .fix {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        font-size: 1.8em;
-    }
-
-    .fixcontent {
+    #container {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 60%;
-        height: 80%;
-        padding: 20px;
-        background-color: #CBE9EA;
-    }
-
-        .fixcontent p {
-            margin: 10px;
-            font-size: 1.2em;
-        }
-
-        .fixcontent select,
-        .fixcontent input[type="text"] {
-            font-size: 1.2em;
-        }
-
-    .send {
+        width: 100%;
         margin-top: 20px;
     }
 
-        .send button {
-            margin-right: 10px;
-            padding: 12px 24px;
-            font-size: 1.4em;
+    .row {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        box-shadow: 0px 1px 0px #ccc, 0px -1px 0px #ccc, 1px 0px 0px #ccc, -1px 0px 0px #ccc;
+        margin-bottom: 10px;
+    }
+
+        .row > div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
         }
+
+    .btn-flip {
+        width: 60px;
+        height: 30px;
+        background-color: #f5f5f5;
+        color: #000;
+        border: none;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+        .btn-flip:hover {
+            background-color: #ddd;
+        }
+
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+    }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+    input:checked + .slider {
+        background-color: #2196F3;
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+
+    .slider.round {
+        border-radius: 34px;
+    }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
 </style>
-
-
-
-<div class="fix">
-    <div class="fixcontent">
-        <div class="chooseweek">
-            <p>
-                選擇星期:
-                <select id="week">
-                    <option value="星期一">星期一</option>
-                    <option value="星期二">星期二</option>
-                    <option value="星期三">星期三</option>
-                    <option value="星期四">星期四</option>
-                    <option value="星期五">星期五</option>
-                </select>
-            </p>
+<div id="container">
+    <div class="row">
+        <div>星期一</div>
+        <div>
+            <select>
+                <option value="課程開始時間">課程開始時間</option>
+                <option value="SchA">7:30 - 8:30</option>
+                <option value="SchB">8:30 - 9:00</option>
+                <option value="SchC">9:00 - 9:30</option>
+                <option value="SchD">9:30 - 12:00</option>
+                <option value="SchE">13:00 - 16:00</option>
+            </select>
         </div>
-        <div class="choosclass">
-            <p>
-                選擇時段:
-                <select id="time">
-                    <option value="SchA">7:30-8:30</option>
-                    <option value="SchB">8:30 - 9:00</option>
-                    <option value="SchC">9:00 - 9:30</option>
-                    <option value="SchD">9:30 - 12:00</option>
-                    <option value="SchE">13:00 - 16:00</option>
-                </select>
-            </p>
+        <div>
+            <input type="text" placeholder="課程">
         </div>
-        <div class="content"id="content">
-            <p>修改內容:<input type="text" id="subject"></p>
+        <div>
+            <input type="button" class="btn btn-secondary" value="修改課程">
         </div>
-        <div class="send">
-            <button type="button" class="btn btn-primary" id="fix">修改</button>
-            <button type="button" class="btn btn-primary" id="back" onclick="location.href='@Url.Action("Index", "LectureClasses")'">返回</button>
+        <div>
+            <button class="btn-flip">空堂</button>
+        </div>
+    </div>
+    <div class="row">
+        <div>星期二</div>
+        <div>
+            <select>
+                <option value="課程開始時間">課程開始時間</option>
+                <option value="SchA">7:30 - 8:30</option>
+                <option value="SchB">8:30 - 9:00</option>
+                <option value="SchC">9:00 - 9:30</option>
+                <option value="SchD">9:30 - 12:00</option>
+                <option value="SchE">13:00 - 16:00</option>
+            </select>
+        </div>
+        <div>
+            <input type="text" placeholder="課程">
+        </div>
+        <div>
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div>
+            <button class="btn-flip">空堂</button>
+        </div>
+    </div>
+    <div class="row">
+        <div>星期三</div>
+        <div>
+            <select>
+                <option value="課程開始時間">課程開始時間</option>
+                <option value="SchA">7:30 - 8:30</option>
+                <option value="SchB">8:30 - 9:00</option>
+                <option value="SchC">9:00 - 9:30</option>
+                <option value="SchD">9:30 - 12:00</option>
+                <option value="SchE">13:00 - 16:00</option>
+            </select>
+        </div>
+        <div>
+            <input type="text" placeholder="課程">
+        </div>
+        <div>
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div>
+            <button class="btn-flip">空堂</button>
+        </div>
+    </div>
+    <div class="row">
+        <div>星期四</div>
+        <div>
+            <select>
+                <option value="課程開始時間">課程開始時間</option>
+                <option value="SchA">7:30 - 8:30</option>
+                <option value="SchB">8:30 - 9:00</option>
+                <option value="SchC">9:00 - 9:30</option>
+                <option value="SchD">9:30 - 12:00</option>
+                <option value="SchE">13:00 - 16:00</option>
+            </select>
+        </div>
+
+        <div>
+            <input type="text" placeholder="課程">
+        </div>
+        <div>
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div>
+            <button class="btn-flip">空堂</button>
+        </div>
+    </div>
+    <div class="row">
+        <div>星期五</div>
+        <div>
+            <select>
+                <option value="課程開始時間">課程開始時間</option>
+                <option value="SchA">7:30 - 8:30</option>
+                <option value="SchB">8:30 - 9:00</option>
+                <option value="SchC">9:00 - 9:30</option>
+                <option value="SchD">9:30 - 12:00</option>
+                <option value="SchE">13:00 - 16:00</option>
+            </select>
+        </div>
+
+        <div>
+            <input type="text" id="subject" placeholder="課程">
+        </div>
+        <div>
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div>
+            <button class="btn-flip">空堂</button>
         </div>
     </div>
 </div>
-
-<script>
-          
-
-            var fixbtn = document.getElementById("fix");
-                fixbtn.addEventListener("click", function () {
-                var week = document.getElementById("week").value;
-                var time = document.getElementById("time").value;
-                var subject = document.getElementById("subject").value;
-           
-                
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", "/LectureClasses/Create", true);
-                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-
-                // 將selectedValue轉換為JSON格式
-                var data = {
-                    Week : week,
-                    Time  : time,
-                    Subject : subject,
-                }
-
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                        // 請求成功，執行相應的處理邏輯
-                        alert("課表修改成功");
-                        window.location.href = "/LectureClasses/Check";
-                        var response = JSON.parse(xhr.responseText);
-                        
-                    }
-
-                };
-                xhr.send(JSON.stringify(data));               
-            })
-        </script>
-
