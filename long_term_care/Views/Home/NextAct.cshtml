@@ -1,20 +1,19 @@
-﻿
-@model IEnumerable<long_term_care.Models.LectureClass>
+﻿@model IEnumerable<long_term_care.Models.LectureClass>
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Act";
     var data = Model.OrderBy(x => x.Weeknum);
     DateTime currentDate = DateTime.Now;
-
+    DateTime oneWeekLater = currentDate.AddDays(7);
     // 计算当前日期所在周的星期一的日期
-    int daysToMonday = (int)currentDate.DayOfWeek - (int)DayOfWeek.Monday;
+
+    int daysToMonday = (int)oneWeekLater.DayOfWeek - (int)DayOfWeek.Monday;
     if (daysToMonday < 0) daysToMonday += 7;  // 处理星期日的特殊情况
-    DateTime mondayDate = currentDate.AddDays(-daysToMonday);
+    DateTime mondayDate = oneWeekLater.AddDays(-daysToMonday);
     DateTime tuesdayDate = mondayDate.AddDays(1);
     DateTime wednesdayDate = mondayDate.AddDays(2);
     DateTime thursdayDate = mondayDate.AddDays(3);
     DateTime fridayDate = mondayDate.AddDays(4);
 }
-
 
 
 <style>
@@ -127,7 +126,10 @@
         </table>
     </div>
     <div class="send">
-        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("NextAct", "Home")'">下周課表</button>
+        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Act", "Home")'">當周課表</button>
     </div>
 
 </body>
+
+
+
