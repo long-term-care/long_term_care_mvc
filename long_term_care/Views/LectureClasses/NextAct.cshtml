@@ -59,6 +59,9 @@
             font-size: 16px;
             margin: 3%;
         }
+    .act{
+        background-color: antiquewhite !important;
+    }
 </style>
 
 <body>
@@ -76,28 +79,58 @@
                 <td>7:30 - 8:30</td>
                 @foreach (var item in data)
                 {
-                    <td>@item.SchA</td>
+                    @if (ViewBag.SchA == item.Weeknum)
+                    {
+                        <td class="act">@item.SchA</td>
+                    }
+                    else
+                    {
+                        <td>@item.SchA</td>
+                    }
+
                 }
             </tr>
             <tr>
                 <td>8:30 - 9:00</td>
                 @foreach (var item in data)
                 {
-                    <td>@item.SchB</td>
+                    @if (ViewBag.SchB == item.Weeknum)
+                    {
+                        <td class="act">@item.SchB</td>
+                    }
+                    else
+                    {
+                        <td>@item.SchB</td>
+                    }
+
                 }
             </tr>
             <tr>
                 <td>9:00 - 9:30</td>
                 @foreach (var item in data)
                 {
-                    <td>@item.SchC</td>
+                    @if (ViewBag.SchC == item.Weeknum)
+                    {
+                        <td class="act">@item.SchC</td>
+                    }
+                    else
+                    {
+                        <td>@item.SchC</td>
+                    }
                 }
             </tr>
             <tr>
                 <td>9:30 - 12:00</td>
                 @foreach (var item in data)
                 {
-                    <td>@item.SchD</td>
+                    @if (ViewBag.SchD == item.Weeknum)
+                    {
+                        <td class="act">@item.SchD</td>
+                    }
+                    else
+                    {
+                        <td>@item.SchD</td>
+                    }
                 }
             </tr>
             <tr>
@@ -114,7 +147,14 @@
                 <td>13:00 - 16:00</td>
                 @foreach (var item in data)
                 {
-                    <td>@item.SchE</td>
+                    @if (ViewBag.SchE == item.Weeknum)
+                    {
+                        <td class="act">@item.SchE</td>
+                    }
+                    else
+                    {
+                        <td>@item.SchE</td>
+                    }
                 }
             </tr>
             <tr>

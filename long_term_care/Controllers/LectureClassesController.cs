@@ -98,18 +98,23 @@ namespace long_term_care.Controllers
                         {
                             case "SchA":
                                 existingLectureClass.SchA = activity.LecTheme;
+                                ViewData["SchA"] = existingLectureClass.Weeknum;
                                 break;
                             case "SchB":
                                 existingLectureClass.SchB = activity.LecTheme;
+                                ViewData["SchB"] = existingLectureClass.Weeknum;
                                 break;
                             case "SchC":
                                 existingLectureClass.SchC = activity.LecTheme;
+                                ViewData["SchC"] = existingLectureClass.Weeknum;
                                 break;
                             case "SchD":
                                 existingLectureClass.SchD = activity.LecTheme;
+                                ViewData["SchD"] = existingLectureClass.Weeknum;
                                 break;
                             case "SchE":
                                 existingLectureClass.SchE = activity.LecTheme;
+                                ViewData["SchE"] = existingLectureClass.Weeknum;
                                 break;
                         }
 
@@ -149,18 +154,23 @@ namespace long_term_care.Controllers
                         {
                             case "SchA":
                                 existingLectureClass.SchA = activity.LecTheme;
+                                ViewData["SchA"] = existingLectureClass.Weeknum;
                                 break;
                             case "SchB":
                                 existingLectureClass.SchB = activity.LecTheme;
+                                ViewData["SchB"] = existingLectureClass.Weeknum;
                                 break;
                             case "SchC":
                                 existingLectureClass.SchC = activity.LecTheme;
+                                ViewData["SchC"] = existingLectureClass.Weeknum;
                                 break;
                             case "SchD":
                                 existingLectureClass.SchD = activity.LecTheme;
+                                ViewData["SchD"] = existingLectureClass.Weeknum;
                                 break;
                             case "SchE":
                                 existingLectureClass.SchE = activity.LecTheme;
+                                ViewData["SchE"] = existingLectureClass.Weeknum;
                                 break;
                         }
 

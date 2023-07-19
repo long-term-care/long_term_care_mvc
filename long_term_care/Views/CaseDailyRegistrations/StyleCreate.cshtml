@@ -1,4 +1,4 @@
-﻿@model long_term_care.Models.CaseDailyRegistration
+﻿@model long_term_care.Models.LectureClass
 
 @{
     ViewData["Title"] = "Create";
@@ -106,99 +106,128 @@
 
 </style>
 <div id="container">
+    <div class="row">
+        <div>星期一</div>
+        <div>
+            <select>
+                <option value="課程開始時間">課程開始時間</option>
+                <option value="SchA">7:30 - 8:30</option>
+                <option value="SchB">8:30 - 9:00</option>
+                <option value="SchC">9:00 - 9:30</option>
+                <option value="SchD">9:30 - 12:00</option>
+                <option value="SchE">13:00 - 16:00</option>
+            </select>
+        </div>
+        <div>
+            <input type="text" placeholder="課程">
+        </div>
+        <div>
+            <input type="button" class="btn btn-secondary" value="修改課程">
+        </div>
+        <div>
+            <button class="btn-flip">空堂</button>
+        </div>
+    </div>
+    <div class="row">
+        <div>星期二</div>
+        <div>
+            <select>
+                <option value="課程開始時間">課程開始時間</option>
+                <option value="SchA">7:30 - 8:30</option>
+                <option value="SchB">8:30 - 9:00</option>
+                <option value="SchC">9:00 - 9:30</option>
+                <option value="SchD">9:30 - 12:00</option>
+                <option value="SchE">13:00 - 16:00</option>
+            </select>
+        </div>
+        <div>
+            <input type="text" placeholder="課程">
+        </div>
+        <div>
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div>
+            <button class="btn-flip">空堂</button>
+        </div>
+    </div>
+    <div class="row">
+        <div>星期三</div>
+        <div>
+            <select>
+                <option value="課程開始時間">課程開始時間</option>
+                <option value="SchA">7:30 - 8:30</option>
+                <option value="SchB">8:30 - 9:00</option>
+                <option value="SchC">9:00 - 9:30</option>
+                <option value="SchD">9:30 - 12:00</option>
+                <option value="SchE">13:00 - 16:00</option>
+            </select>
+        </div>
+        <div>
+            <input type="text" placeholder="課程">
+        </div>
+        <div>
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div>
+            <button class="btn-flip">空堂</button>
+        </div>
+    </div>
+    <div class="row">
+        <div>星期四</div>
+        <div>
+            <select>
+                <option value="課程開始時間">課程開始時間</option>
+                <option value="SchA">7:30 - 8:30</option>
+                <option value="SchB">8:30 - 9:00</option>
+                <option value="SchC">9:00 - 9:30</option>
+                <option value="SchD">9:30 - 12:00</option>
+                <option value="SchE">13:00 - 16:00</option>
+            </select>
+        </div>
+
+        <div>
+            <input type="text" placeholder="課程">
+        </div>
+        <div>
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div>
+            <button class="btn-flip">空堂</button>
+        </div>
+    </div>
+    <div class="row">
+        <div>星期五</div>
+        <div>
+            <select>
+                <option value="課程開始時間">課程開始時間</option>
+                <option value="SchA">7:30 - 8:30</option>
+                <option value="SchB">8:30 - 9:00</option>
+                <option value="SchC">9:00 - 9:30</option>
+                <option value="SchD">9:30 - 12:00</option>
+                <option value="SchE">13:00 - 16:00</option>
+            </select>
+        </div>
+        
+        <div>
+            <input type="text" id="subject"placeholder="課程">
+        </div>
+        <div>
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div>
+            <button class="btn-flip">空堂</button>
+        </div>
+    </div>
 </div>
-<script>
-    let days = ['星期一', '星期二', '星期三', '星期四', '星期五'];
-let startTimes = ['課程開始時間', '7:30', '8:30', '9:00', '9:30', '13:00'];
-let endTimes = ['課程結束時間','8:30', '9:00', '9:30', '12:00', '16:00'];
-    function createRow(day, startTimes, endTimes) {
-        let row = document.createElement('div');
-        row.className = 'row';
-
-        let dayDiv = document.createElement('div');
-        dayDiv.textContent = day;
-        row.appendChild(dayDiv);
-
-        let startTimeDiv = document.createElement('div');
-        let startTimeSelect = document.createElement('select');
-        startTimes.forEach(time => {
-            let option = document.createElement('option');
-            option.textContent = time;
-            option.value = time;
-            startTimeSelect.appendChild(option);
-        });
-        startTimeSelect.addEventListener('change', function () {
-            let selectedTime = this.value;
-            if (selectedTime !== '課程開始時間') {
-                let endTime = endTimes[startTimes.indexOf(selectedTime)];
-                endTimeSelect.value = endTime;
-            }
-        });
-        startTimeDiv.appendChild(startTimeSelect);
-        row.appendChild(startTimeDiv);
-
-        let separator = document.createElement('div');
-        separator.textContent = '-';
-        row.appendChild(separator);
-
-        let endTimeDiv = document.createElement('div');
-        let endTimeSelect = document.createElement('select');
-        endTimes.forEach(time => {
-            let option = document.createElement('option');
-            option.textContent = time;
-            option.value = time;
-            endTimeSelect.appendChild(option);
-        });
-        endTimeSelect.disabled = true;
-        endTimeDiv.appendChild(endTimeSelect);
-        row.appendChild(endTimeDiv);
-
-        let conflictDiv = document.createElement('div');
-        let conflictInput = document.createElement('input');
-        conflictInput.type = 'text';
-        conflictInput.placeholder = '課程';
-        conflictDiv.appendChild(conflictInput);
-        row.appendChild(conflictDiv);
-
-        let switchDiv = document.createElement('div');
-        let switchLabel = document.createElement('label');
-        switchLabel.className = 'switch';
-        let switchInput = document.createElement('input');
-        switchInput.type = 'checkbox';
-        let switchSpan = document.createElement('span');
-        switchSpan.className = 'slider round';
-        switchLabel.appendChild(switchInput);
-        switchLabel.appendChild(switchSpan);
-        switchDiv.appendChild(switchLabel);
-        row.appendChild(switchDiv);
-
-        let flipDiv = document.createElement('div');
-        let flipBtn = document.createElement('button');
-        flipBtn.className = 'btn-flip';
-        flipBtn.textContent = '空堂';
-
-        switchInput.addEventListener('change', function () {
-            if (this.checked) {
-                flipBtn.textContent = '衝堂';
-            } else {
-                flipBtn.textContent = '空堂';
-            }
-        });
-
-        flipDiv.appendChild(flipBtn);
-        row.appendChild(flipDiv);
-
-        return row;
-    }
-
-    function populateRows() {
-        let container = document.getElementById('container');
-        days.forEach(day => {
-            let row = createRow(day, startTimes, endTimes);
-            container.appendChild(row);
-        });
-    }
-
-    populateRows();
-
-</script>
