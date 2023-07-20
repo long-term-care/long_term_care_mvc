@@ -1,8 +1,8 @@
 ﻿body {
     font-family: 'Georgia', serif;
-    background-color: #f3f2ef;
     margin: 0;
     padding: 0;
+    background-color: rgb(188, 179, 160) !important;
 }
 
 div {
@@ -11,6 +11,7 @@ div {
 }
 
 label {
+    color: rgb(245, 245, 240);
     display: inline-block;
     margin: 10px;
     font-size: 18px;
@@ -77,14 +78,19 @@ input[type="text"] {
     }
 
 .box {
-    border: solid #808080;
+    border: solid rgb(93, 96, 75);
 }
 
 h3 {
-    text-align:center;
+    padding-top: 1.5%;
+    text-align: center;
+    color: rgb(245, 245, 240) !important;
+    font-weight: 700 !important;
 }
 
 h6 {
     margin: 1rem;
-    color: #636363;
+    text-align: center;
+    color: rgb(245, 245, 240) !important;
+    font-weight:500 !important;
 }

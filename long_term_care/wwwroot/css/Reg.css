@@ -78,11 +78,6 @@
     background-color: #fff;
 }
 
-/* RegisterPage */
-
-/* volunteer */
-
-
 
 .title {
     display: flex;
@@ -90,12 +85,14 @@
 }
 
 .knownAs {
-    width: 5.4%;
+    width: 7%;
     border-radius: 10px;
     background-color: rgb(68, 154, 224);
     color: #FFFFFF;
-    margin: 2px 0 0 2px;
     text-align: center;
+    margin: 10px 0 0 0;
+    padding: 2px;    
+    height: 25px;
 }
 
     .knownAs p {
@@ -214,5 +211,37 @@ input:focus, select:focus {
     outline: none;
 }
 
+button.return {
+    color: aliceblue;
+    display: flex;
+    height: 2.2em;
+    width: 100px;
+    position: absolute;
+    right: 10%;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    transition: all 0.2s linear;
+    cursor: pointer;
+    border: none;
+    background-color: lightslategrey;
+}
+    button .return > svg {
+        margin-right: 5px;
+        margin-left: 5px;
+        font-size: 20px;
+        transition: all 0.4s ease-in;
+    }
+
+    button.return:hover > svg {
+        font-size: 1.2em;
+        transform: translateX(-5px);
+    }
+
+    button.return:hover {
+        /* box-shadow: 9px 9px 33px #d1d1d1, -9px -9px 33px #ffffff;*/
+        transform: translateY(-2px);
+    }
 
 

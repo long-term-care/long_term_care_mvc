@@ -4,37 +4,82 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f0f0f0;
-}
 @font-face {
     font-family: 'NotoSansHK-Regular';
     src: url('/font/NotoSansHK-Regular.ttf') format('truetype');
 }
 
+body {
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.navbar {
+    background-color:silver;
+    box-shadow: 0px 4px 6px rgba(0, 0, 2, 1);
+}
 .container-fluid {
     padding: 0;
 }
+    .container-fluid > div {
+        justify-content: space-between;
+    }
+    .navbar-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-.navbar {
-    background-color: #fff;
+.nav-item {
+    margin-right: 10px;
 }
-
 .navbar-brand {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #333;
+    margin: 0 0 0 20px;
 }
-
 .nav-link {
-    color: #333;
+    margin: 0 0 0 5px;
 }
 
-.carousel-item img {
-    height: 500px;
-    object-fit: cover;
+
+.nav-link, .navbar-brand {
+    color: #f0f0f0;
+    font-weight: 600;
+    font-size: 20px;
 }
+
+.head h5,
+.head i {
+    margin-top: 0.5rem;
+    font-size: 1.8rem;
+}
+
+div.col-md-12 {
+    text-align: center;
+}
+
+.row1 .col-md-12,
+.row2 .col-md-12 {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.row1 {
+    padding: 1px 0 0 0;
+}
+
+.row2 {
+    padding: 1px 0 1px 0;
+}
+
+    .row1 .card,
+    .row2 .card {
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
 .row1 .head {
     background-color: #3d81bf;
@@ -50,67 +95,104 @@ body {
     padding: 1rem;
 }
 
-.head h5, .head i {
-    margin-top: 0.5rem;
-    font-size: 1.8rem;
-}
-
 .card {
-    background-color: #fff;
-    border: none;
-    border-radius: 0.25rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease, all 0.3s ease-in-out;
-    align-items: center;
-    width: 98%;
-    justify-content: center;
-    margin: 1rem;
+    margin: 7px 0;
 }
-    
+
     .card:hover:not(.head) {
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
-        transform: scale(1.02);
+        transform: scale(1.06);
+        transition: 0.5s;
     }
 
-.card-body {
-    text-align: center;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    flex-direction:row;
-    display:flex;
+.schedule {
+    padding: 15px 0 0 15px;
+    display: flex;
+    background-color: #3D81BF;
+    color: white;
+    width: 300px;
 }
 
-    .card-body .icon-text {
-        display: flex;
-        align-items: center;
+.scheduleBox {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: translate(10%, 10%);
+}
+
+    .scheduleBox .pics {
+        padding-top: 5px;
     }
 
-    .card-body i {
-        font-size: 2rem;
-        margin-right: 0.5rem;
+h5 {
+    font-size: 18px;
+}
+
+div.card.head,
+div.card-body {
+    width: 170px;
+    height: auto;
+}
+
+.row1 .card .card-body h5,
+.row2 .card .card-body h5 {
+    padding-top: 30px;
+}
+
+.row1 .card {
+    width: 274px;
+}
+
+.row2 .card {
+    width: 180px;
+}
+
+.schedule {
+    width: 700px;
+}
+
+.scheduleBox {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+}
+
+i {
+    font-size: 60px;
+}
+
+.top_bg {
+    background-image: url('../image/elder.jpg');
+    background-size: cover;
+    background-size: cover;
+    background-position: center top;
+    height: 400px;
+    position: relative;
+}
+    .top_bg::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.5);
+        z-index: 1;
     }
+.overlay {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    text-align: left;
+    padding-left: 20px;
+    width: 100%;
+}
 
-    .card-body h5 {
-        margin: 0;
-        font-size: 1.3rem;
-        font-weight: bold;
+    .overlay h1 {
+        color: white;
+        font-size: 70px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
-
-
-.row1,
-.row2 {
-    align-items: center;
-    margin: 0 auto;
-    justify-content: center;
-}
-
-.contxt {
-    justify-content: center;
-}
-form {
-    margin-top: 3%;
-}
-
-
 
