@@ -249,6 +249,10 @@
 
 
             var idCardRegex = /^[A-Z]\d{9}$/;
+            var mobileRegex = /^09\d{8}$/;
+            var icRegex = /^\d{12}$/;
+            var phoneRegex = /^0\d{9}$/;
+
             if (unitname === "" || unitid === "" || id === "" || lastname === "" || firstname === "" || gender === "" || MemBD === "" || idcard === "" || password === "" || passwordcheck === "" || icnum === "") {
                 // 有必填欄位為空，彈出警示框提示使用者
                 alert("請填寫必填欄位");
@@ -264,7 +268,20 @@
                 alert("密碼與確認密碼不一致");
                 return; // Stop further execution
             }
-           
+            if (!icRegex.test(icnum)) {
+                alert("健保IC碼格式不正確");
+                return;
+            }
+
+            // 檢查手機號碼是否符合格式
+            if (!mobileRegex.test(phone)) {
+                alert("手機號碼格式不正確");
+                return;
+            }
+            if (!phoneRegex.test(tel)) {
+                alert("市話號碼格式不正確");
+                return;
+            }
                 
 
                 var xhr = new XMLHttpRequest();
