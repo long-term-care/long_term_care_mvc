@@ -26,10 +26,10 @@ namespace long_term_care.Controllers
         }
 
         // GET: MemSigns
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var longtermcareContext = _context.MemSigns.Include(m => m.MemS);
-            return View(await longtermcareContext.ToListAsync());
+
+            return View();
         }
 
         // GET: MemSigns/Details/5

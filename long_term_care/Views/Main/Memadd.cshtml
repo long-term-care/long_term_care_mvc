@@ -1,4 +1,4 @@
-﻿@model IEnumerable<long_term_care.Models.CaseInfor>
+﻿@model IEnumerable<long_term_care.Models.MemberInformation>
 
 <link href="~/css/Reg.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -221,7 +221,16 @@
             var idcard = document.getElementById("memidcard").value;
             var password = document.getElementById("mempassword").value;
             var passwordcheck = document.getElementById("mempasswordcheck").value;
+
+            var citySelect = document.querySelector("#twzipcode select[name='city']");
+            var cityValue = citySelect.value;
+
+
+            var districtSelect = document.querySelector("#twzipcode select[name='town']");
+            var districtValue = districtSelect.value;
+
             var address = document.getElementById("memaddress").value;
+
             var tel = document.getElementById("memtel").value;
             var phone = document.getElementById("memphone").value;
             var listidentity = document.getElementById("memlistidentity").value;
@@ -236,7 +245,9 @@
             var icnum = document.getElementById("IC").value;
 
             var Name = lastname + firstname;
-            
+            var memadress = address + cityValue + districtValue;
+
+
             var idCardRegex = /^[A-Z]\d{9}$/;
             if (unitname === "" || unitid === "" || id === "" || lastname === "" || firstname === "" || gender === "" || MemBD === "" || idcard === "" || password === "" || passwordcheck === "" || icnum === "") {
                 // 有必填欄位為空，彈出警示框提示使用者
@@ -273,7 +284,7 @@
                     "MemBd": MemBD,
                     "MemTphone": tel,
                     "MemMphone": phone,
-                    "MemAddress": address,
+                    "MemAddress": memadress,
                     "MemSite": serviceaddress,
                     "MemProf": expertise,
                     "MemCert": license,

@@ -66,6 +66,9 @@ namespace long_term_care.Controllers
         [HttpPost]
         public IActionResult ElderRegistration([FromBody] MainViewModel model)
         {
+            string userName = User.Identity.Name;
+            var memdName = _context.MemberInformations.FirstOrDefault(x => x.MemSid == userName);
+
             var entity = new CaseInfor
             {
                 CaseNo = model.CaseNo,
@@ -96,7 +99,7 @@ namespace long_term_care.Controllers
                 CaseFami = model.CaseFami,
                 CaseQues = model.CaseQues,
                 CaseDesc = model.CaseDesc,
-                CaseRegName = model.CaseRegName,
+                CaseRegName = memdName.MemName,
                 CaseRegTime = model.CaseRegTime,
                 CaseIcnum = model.CaseIcnum,
             };
@@ -133,74 +136,10 @@ namespace long_term_care.Controllers
 
             return View();
         }
-        //public async Task<IActionResult> ElderRegistration()
-        //{
-        //    HttpResponseMessage response = await httpClient.GetAsync("");
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        var json = await response.Content.ReadAsStringAsync();
-        //        Root apiData = JsonConvert.DeserializeObject<Root>(json);
-        //        return View(apiData.result);
-        //    }
-        //    else
-        //    {
-        //        return View("Error");
-        //    }
-        //}
+     
 
 
-        public IActionResult Caseinfor()
-        {
-            string nextFormNumber = "";
-
-            var lastForm = _context.CaseInfors.OrderByDescending(f => f.CaseNo).FirstOrDefault();
-            if (lastForm != null)
-            {
-                int lastFormNumber;
-                if (int.TryParse(lastForm.CaseNo.Substring(1), out lastFormNumber))
-                {
-                    int nextFormNumberInt = lastFormNumber + 1;
-                    nextFormNumber = $"C{nextFormNumberInt.ToString("0000")}"; // 在流水号前添加字母前缀 "M"
-                }
-                else
-                {
-                    // 处理解析失败的情况
-                    // 可以抛出异常、使用默认值或采取其他适当的操作
-                }
-            }
-            else
-            {
-                nextFormNumber = "C0001"; // 初始流水号添加字母前缀 "M"
-            }
-
-            ViewData["CaseNo"] = nextFormNumber;
-
-            string nextFormNumber_Mem = "";
-            var lastForm_Mem = _context.MemberInformations.OrderByDescending(f => f.MemSid).FirstOrDefault();
-            if (lastForm_Mem != null)
-            {
-                int lastFormNumber_Mem;
-                if (int.TryParse(lastForm_Mem.MemSid.Substring(1), out lastFormNumber_Mem))
-                {
-                    int nextFormNumberInt_Mem = lastFormNumber_Mem + 1;
-                    nextFormNumber_Mem = string.Format("M{0:0000}", nextFormNumberInt_Mem); // 添加字母前缀 "M" 并格式化流水号
-                }
-
-
-                else
-                {
-                    // 处理解析失败的情况
-                    // 可以抛出异常、使用默认值或采取其他适当的操作
-                }
-            }
-            else
-            {
-                nextFormNumber_Mem = "M0001"; // 初始流水号添加字母前缀 "M"
-            }
-
-            ViewData["MemNo"] = nextFormNumber_Mem;
-            return View();
-        }
+        
 
         [HttpPost]
         public IActionResult MemAdd([FromBody] MainViewModel model)

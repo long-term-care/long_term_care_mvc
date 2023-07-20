@@ -22,10 +22,10 @@ namespace long_term_care.Controllers
         }
 
         // GET: LectureTables
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var longtermcareContext = _context.LectureTables.Include(l => l.MemS);
-            return View(await longtermcareContext.ToListAsync());
+
+            return View();
         }
 
         public IActionResult Create()

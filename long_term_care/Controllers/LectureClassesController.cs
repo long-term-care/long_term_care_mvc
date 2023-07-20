@@ -21,12 +21,12 @@ namespace long_term_care.Controllers
             _context = context;
         }
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var lectureClasses = await _context.LectureClasses.ToListAsync();
-            return View(lectureClasses);
+
+            return View();
         }
-       
+
         public IActionResult Create()
         {
             DateTime today = DateTime.Today;
