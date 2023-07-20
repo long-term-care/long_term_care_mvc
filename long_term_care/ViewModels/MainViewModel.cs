@@ -39,7 +39,7 @@ namespace long_term_care.ViewModels
         public string CaseDesc { get; set; }
         public string CaseRegName { get; set; }
         public string CaseRegTime { get; set; }
-        [RegularExpression(@"^[A-Z]{2}\d{10}$", ErrorMessage = "健保卡IC码格式不正确")]
+        [RegularExpression(@"\d{12}$", ErrorMessage = "健保卡IC码格式不正确")]
         public string CaseIcnum { get; set; }
         //-----------------------------------------------------------------------------------
 
@@ -66,7 +66,7 @@ namespace long_term_care.ViewModels
         public string MemIdent { get; set; }
         public string MemSerRec { get; set; }
         public string MemEdu { get; set; }
-        [RegularExpression(@"^[A-Z]{2}\d{10}$", ErrorMessage = "健保卡IC码格式不正确")]
+        [RegularExpression(@"\d{12}$", ErrorMessage = "健保卡IC码格式不正确")]
         public string MemIcnum { get; set; }
     }
 }

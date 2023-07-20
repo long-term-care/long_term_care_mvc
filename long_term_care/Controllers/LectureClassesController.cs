@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace long_term_care.Controllers
 {
-    [Authorize]
+
     public class LectureClassesController : Controller
     {
         private readonly longtermcareContext _context;
@@ -21,19 +21,65 @@ namespace long_term_care.Controllers
             _context = context;
         }
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var lectureClasses = await _context.LectureClasses.ToListAsync();
-            return View(lectureClasses);
+
+            return View();
         }
-       
+
         public IActionResult Create()
         {
-            // 從資料庫取得內容，假設存放在 dbContent 變數中
-           
+            DateTime today = DateTime.Today;
+            int diff = (7 + (today.DayOfWeek - DayOfWeek.Monday)) % 7;
+            DateTime startOfWeek = today.AddDays(-1 * diff);
+            DateTime endOfWeek = startOfWeek.AddDays(6);
 
-            // 將內容傳遞給視圖
-            return View();
+            // 从数据库中获取活动表和课表数据
+            List<LectureTable> activityList = _context.LectureTables.ToList();
+            List<LectureClass> lectureClasses = _context.LectureClasses.ToList();
+
+            // 遍历活动表的数据，将活动添加到本周的课表中
+            // 遍歷活動表的資料，將活動加入到本週的課表中
+            foreach (var activity in activityList)
+            {
+                if (activity.LecDate >= startOfWeek && activity.LecDate <= endOfWeek)
+                {
+                    // 檢查是否已經存在對應時段的課表項目
+                    var existingLectureClass = lectureClasses.FirstOrDefault(l => l.SchWeek == GetDayOfWeek(activity.LecDate));
+
+                    if (existingLectureClass != null)
+                    {
+                        // 更新對應時段的活動主題
+                        switch (GetTimeSlot(activity.LecDate))
+                        {
+                            case "SchA":
+                                existingLectureClass.SchA = activity.LecTheme;
+                                ViewData["SchA"] = existingLectureClass.Weeknum;
+                                break;
+                            case "SchB":
+                                existingLectureClass.SchB = activity.LecTheme;
+                                ViewData["SchB"] = existingLectureClass.Weeknum;
+                                break;
+                            case "SchC":
+                                existingLectureClass.SchC = activity.LecTheme;
+                                ViewData["SchC"] = existingLectureClass.Weeknum;
+                                break;
+                            case "SchD":
+                                existingLectureClass.SchD = activity.LecTheme;
+                                ViewData["SchD"] = existingLectureClass.Weeknum;
+                                break;
+                            case "SchE":
+                                existingLectureClass.SchE = activity.LecTheme;
+                                ViewData["SchE"] = existingLectureClass.Weeknum;
+                                break;
+                        }
+
+                    }
+                }
+            }
+
+            // 将课表数据传递给视图并显示
+            return View(lectureClasses);
         }
         [HttpPost]
         public IActionResult Create([FromBody] LectureClassViewModel model)

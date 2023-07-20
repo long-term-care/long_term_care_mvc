@@ -1,4 +1,4 @@
-﻿@model IEnumerable<long_term_care.Models.CaseInfor>
+﻿@model long_term_care.ViewModels.MainViewModel;
 
 <link href="~/css/Reg.css" rel="stylesheet" />
 <link href="~/js/Address.js" />
@@ -75,7 +75,7 @@
                         </select>
                     </div>
                     <div class="col-3">
-                        <label for="idcard">身分證<span class="required">*</span></label>
+                        <label for="CaseIdcard">身分證<span class="required">*</span></label>
                         <input type="text" placeholder="&nbsp;&nbsp;" required id="idcard">
                     </div>
                 </div>
@@ -128,11 +128,11 @@
                         </select>
                     </div>
                     <div class="col-3">
-                        <label for="familyphone">聯絡人電話<span class="required">*</span></label>
+                        <label for="CaseCntTel">聯絡人電話<span class="required">*</span></label>
                         <input type="tel" placeholder="&nbsp;&nbsp;" id="familyphone" required>
                     </div>
                     <div class="col-4">
-                        <label for="IC">IC<span class="required">*</span></label>
+                        <label for="CaseIcnum">IC<span class="required">*</span></label>
                         <input type="text" placeholder="&nbsp;&nbsp;健保卡號碼" id="IC" required>
                     </div>
                 </div>
@@ -294,6 +294,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
     <script>
+        $(document).ready(function () {
+            $("#twzipcode select[name='city']").val('');
+            $("#twzipcode select[name='town']").val('');
+        });
+        $(document).ready(function () {
+            $("#twzipcode_a select[name='city']").val('');
+            $("#twzipcode_a select[name='town']").val('');
+        });
+
             $("#twzipcode").twzipcode({
                 zipcodeIntoDistrict: true, 
                 css: ["city form-control", "town form-control"],
@@ -307,21 +316,12 @@
                 districtName: "town" 
             });
     </script>
-    <script>
-        const memidcard = document.getElementById('memidcard');
-
-        function validateIDCard(event) {
-
-        }
-
-        memberbtn.addEventListener('submit', validateIDCard);
-
-    </script>
     
     <script>
         var sendbtn = document.getElementById("sendbtn")
         sendbtn.addEventListener("click", function (event) {
             event.preventDefault();
+
             var unitname = document.getElementById("unitname").value;
             var unitid = document.getElementById("unitid").value;
             var id = document.getElementById("id").value;
@@ -335,12 +335,29 @@
             var culture = document.getElementById("culture").value;
             var idcard = document.getElementById("idcard").value;
 
+            var citySelect = document.querySelector("#twzipcode_a select[name='city']");
+            var cityValue = citySelect.value;
+
+            
+            var districtSelect = document.querySelector("#twzipcode_a select[name='town']");
+            var districtValue = districtSelect.value;
+
+            var address = document.getElementById("address").value;
+
             var marital_status = document.getElementById("marital-status").value;
             var family = document.getElementById("family").value;
             var relationship = document.getElementById("relationship").value;
             var familyphone = document.getElementById("familyphone").value;
-            var address = document.getElementById("address").value;
+
+            var familycitySelect = document.querySelector("#twzipcode select[name='city']");
+            var familycityValue = citySelect.value;
+
+
+            var familydistrictSelect = document.querySelector("#twzipcode select[name='town']");
+            var familydistrictValue = districtSelect.value;
+
             var familyaddress = document.getElementById("familyaddress").value;
+
             var family_status = document.getElementById("family-status").value;
             var listidentity = document.getElementById("listidentity").value;
             var listeconomy = document.getElementById("listeconomy").value;
@@ -353,13 +370,21 @@
             var replenish = document.getElementById("replenish").value;
             var factly = document.getElementById("factly").value;
             var Name = lastname + firstname;
+            var caseic = document.getElementById("IC").value;
+
+            var Caseaddress = cityValue + districtValue + address;
+            var familysaddress = familycityValue + familydistrictValue + familyaddress;
+
             var RegTime = new Date();
             var bd = document.getElementById("CaseBD").value;
 
 
 
             var idCardRegex = /^[A-Z]\d{9}$/;
-            if (unitname === "" || unitid === "" || id === "" || lastname === "" || firstname === "" || gender === "" || CaseBD === "" || idcard === "" || password === "" || passwordcheck === "") {
+            var mobileRegex = /^09\d{8}$/;
+            var icRegex = /^\d{12}$/;
+
+            if (unitname === "" || unitid === "" || id === "" || lastname === "" || firstname === "" || gender === "" || CaseBD === "" || idcard === "" ) {
                 // 有必填欄位為空，彈出警示框提示使用者
                 alert("請填寫必填欄位");
                 return; // 停止後續操作
@@ -368,9 +393,20 @@
                 alert("身分證格式不正確");
                 return; // Stop further execution
             }
+            if (!icRegex.test(caseic)) {
+                alert("健保IC碼格式不正確");
+                return;
+            }
+
+            // 檢查手機號碼是否符合格式
+            if (!mobileRegex.test(familyphone)) {
+                alert("手機號碼格式不正確");
+                return;
+            }
+
 
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/Main/Caseinfor", true);
+            xhr.open("POST", "/Main/ElderRegistration", true);
             xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
             // 將selectedValue轉換為JSON格式
@@ -389,7 +425,7 @@
                 "CaseWork": work,
                 "CaseProf": interest,
                 "CaseEdu": educationLevel,
-                "CaseAddr": address,
+                "CaseAddr": Caseaddress,
                 "CaseHouse": house_condition,
                 "CaseIdent": listidentity,
                 "CaseFund": listeconomy,
@@ -400,19 +436,19 @@
                 "CaseCnta": family,
                 "CaseCntTel": familyphone,
                 "CaseCntRel": relationship,
-                "CaseCntAdd": familyaddress,
+                "CaseCntAdd": familysaddress,
                 "CaseFami": family_status,
                 "CaseQues": question,
                 "CaseDesc": replenish,
-                "CaseRegName": Name,
                 "CaseRegTime": RegTime,
+                "CaseIcnum": caseic
             }
 
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                     // 請求成功，執行相應的處理邏輯
                     alert("註冊成功");
-                    window.location.href = "/Main/Login";
+                    window.location.href = "/Main/MemMainpage";
                     var response = JSON.parse(xhr.responseText);
 
 

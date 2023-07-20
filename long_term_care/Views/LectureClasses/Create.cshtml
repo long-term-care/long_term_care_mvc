@@ -1,7 +1,12 @@
-﻿@model long_term_care.Models.LectureClass
+﻿@model IEnumerable<long_term_care.Models.LectureClass>
 
 @{
     ViewData["Title"] = "Create";
+    var dataweek1 = Model.FirstOrDefault(x => x.Weeknum == 1);
+    var dataweek2 = Model.FirstOrDefault(x => x.Weeknum == 2);
+    var dataweek3 = Model.FirstOrDefault(x => x.Weeknum == 3);
+    var dataweek4 = Model.FirstOrDefault(x => x.Weeknum == 4);
+    var dataweek5 = Model.FirstOrDefault(x => x.Weeknum == 5);
 }
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -105,12 +110,25 @@
             border-radius: 50%;
         }
 
+    .send {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .send button {
+            width: 300px;
+            height: 70px;
+            font-size: 16px;
+            margin: 3%;
+        }
 </style>
 <div id="container">
     <div class="row">
         <div>星期一</div>
         <div>
-            <select>
+            <select id="week1">
                 <option value="課程開始時間">課程開始時間</option>
                 <option value="SchA">7:30 - 8:30</option>
                 <option value="SchB">8:30 - 9:00</option>
@@ -120,19 +138,19 @@
             </select>
         </div>
         <div>
-            <input type="text" placeholder="課程">
+            <input type="text" id="subject1"  placeholder="課程">
         </div>
         <div>
-            <input type="button" class="btn btn-secondary" value="修改課程">
+            <input type="button" class="btn btn-secondary" id="week1fix" value="修改課程">
         </div>
         <div>
-            <button class="btn-flip">空堂</button>
+            <button class="btn-flip" id="class1">空堂</button>
         </div>
     </div>
     <div class="row">
         <div>星期二</div>
         <div>
-            <select>
+            <select id="week2">
                 <option value="課程開始時間">課程開始時間</option>
                 <option value="SchA">7:30 - 8:30</option>
                 <option value="SchB">8:30 - 9:00</option>
@@ -142,22 +160,19 @@
             </select>
         </div>
         <div>
-            <input type="text" placeholder="課程">
+            <input type="text" id="subject2" placeholder="課程">
         </div>
         <div>
-            <label class="switch">
-                <input type="checkbox">
-                <span class="slider round"></span>
-            </label>
+            <input type="button" class="btn btn-secondary" id="week2fix" value="修改課程">
         </div>
         <div>
-            <button class="btn-flip">空堂</button>
+            <button class="btn-flip" id="class2">空堂</button>
         </div>
     </div>
     <div class="row">
         <div>星期三</div>
         <div>
-            <select>
+            <select id="week3">
                 <option value="課程開始時間">課程開始時間</option>
                 <option value="SchA">7:30 - 8:30</option>
                 <option value="SchB">8:30 - 9:00</option>
@@ -167,22 +182,19 @@
             </select>
         </div>
         <div>
-            <input type="text" placeholder="課程">
+            <input type="text" id="subject3" placeholder="課程">
         </div>
         <div>
-            <label class="switch">
-                <input type="checkbox">
-                <span class="slider round"></span>
-            </label>
+            <input type="button" class="btn btn-secondary" id="week3fix" value="修改課程">
         </div>
         <div>
-            <button class="btn-flip">空堂</button>
+            <button class="btn-flip" id="class3">空堂</button>
         </div>
     </div>
     <div class="row">
         <div>星期四</div>
         <div>
-            <select>
+            <select id="week4">
                 <option value="課程開始時間">課程開始時間</option>
                 <option value="SchA">7:30 - 8:30</option>
                 <option value="SchB">8:30 - 9:00</option>
@@ -193,22 +205,19 @@
         </div>
 
         <div>
-            <input type="text" placeholder="課程">
+            <input type="text" id="subject4" placeholder="課程">
         </div>
         <div>
-            <label class="switch">
-                <input type="checkbox">
-                <span class="slider round"></span>
-            </label>
+            <input type="button" class="btn btn-secondary" id="week4fix" value="修改課程">
         </div>
         <div>
-            <button class="btn-flip">空堂</button>
+            <button class="btn-flip" id="class4">空堂</button>
         </div>
     </div>
     <div class="row">
         <div>星期五</div>
         <div>
-            <select>
+            <select id="week5">
                 <option value="課程開始時間">課程開始時間</option>
                 <option value="SchA">7:30 - 8:30</option>
                 <option value="SchB">8:30 - 9:00</option>
@@ -219,16 +228,551 @@
         </div>
 
         <div>
-            <input type="text" id="subject" placeholder="課程">
+            <input type="text" id="subject5" placeholder="課程">
         </div>
         <div>
-            <label class="switch">
-                <input type="checkbox">
-                <span class="slider round"></span>
-            </label>
+            <input type="button" class="btn btn-secondary" id="week5fix" value="修改課程">
         </div>
         <div>
-            <button class="btn-flip">空堂</button>
+            <button class="btn-flip" id="class5">空堂</button>
         </div>
     </div>
+    <div class="send">
+        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Index", "LectureClasses")'">返回</button>
+    </div>
 </div>
+<script>
+    // 將伺服器端變數傳遞給JavaScript變數
+    var dataweek1 = @Json.Serialize(dataweek1.Weeknum);
+    var dataweek2 = @Json.Serialize(dataweek2.Weeknum);
+    var dataweek3 = @Json.Serialize(dataweek3.Weeknum);
+    var dataweek4 = @Json.Serialize(dataweek4.Weeknum);
+    var dataweek5 = @Json.Serialize(dataweek5.Weeknum);
+
+    var SchA = @Json.Serialize(ViewBag.SchA);
+    var SchB = @Json.Serialize(ViewBag.SchB);
+    var SchC = @Json.Serialize(ViewBag.SchC);
+    var SchD = @Json.Serialize(ViewBag.SchD);
+    var SchE = @Json.Serialize(ViewBag.SchE);
+
+    var class1 = document.getElementById("class1")
+    var fixbtn1 = document.getElementById("week1fix")
+
+    var class2 = document.getElementById("class2")
+    var fixbtn2 = document.getElementById("week2fix")
+
+    var class3 = document.getElementById("class3")
+    var fixbtn3 = document.getElementById("week3fix")
+
+    var class4 = document.getElementById("class4")
+    var fixbtn4 = document.getElementById("week4fix")
+
+    var class5 = document.getElementById("class5")
+    var fixbtn5 = document.getElementById("week5fix")
+
+    let week1 = document.getElementById("week1");
+    week1.addEventListener('change', function () {
+        let week1value = this.value; // 获取选中的值
+
+        if (week1value === 'SchA') {
+            if (dataweek1 == SchA) {
+
+                class1.innerHTML = "衝堂"
+                class1.style.color = "red";
+                fixbtn1.disabled = true;
+            }
+            else {
+                class1.innerHTML = "空堂"
+                class1.style.color = "black";
+                fixbtn1.disabled = false;
+            }
+        }
+        if (week1value === 'SchB') {
+            if (dataweek1 == SchB) {
+
+                class1.innerHTML = "衝堂"
+                class1.style.color = "red";
+                fixbtn1.disabled = true;
+            }
+            else {
+                class1.innerHTML = "空堂"
+                class1.style.color = "black";
+                fixbtn1.disabled = false;
+            }
+        }
+        if (week1value === 'SchC') {
+            if (dataweek1 == SchC) {
+                class1.innerHTML = "衝堂"
+                class1.style.color = "red";
+                fixbtn1.disabled = true;
+            }
+            else {
+                class1.innerHTML = "空堂"
+                class1.style.color = "black";
+                fixbtn1.disabled = false;
+            }
+        }
+        if (week1value === 'SchD') {
+
+            if (dataweek1 == SchD) {
+                class1.innerHTML = "衝堂"
+                class1.style.color = "red";
+                fixbtn1.disabled = true;
+            }
+            else {
+                class1.innerHTML = "空堂"
+                class1.style.color = "black";
+                fixbtn1.disabled = false;
+            }
+        }
+        if (week1value === 'SchE') {
+            if (dataweek1 == SchE) {
+                class1.innerHTML = "衝堂"
+                class1.style.color = "red";
+                fixbtn1.disabled = true;
+            }
+            else {
+                class1.innerHTML = "空堂"
+                class1.style.color = "black";
+                fixbtn1.disabled = false;
+            }
+        }
+
+    });
+
+    let week2 = document.getElementById("week2");
+    week2.addEventListener('change', function () {
+        let week2value = this.value; // 获取选中的值
+
+        if (week2value === 'SchA') {
+            if (dataweek2 == SchA) {
+
+                class2.innerHTML = "衝堂"
+                class2.style.color = "red";
+                fixbtn2.disabled = true;
+            }
+            else {
+                class2.innerHTML = "空堂"
+                class2.style.color = "black";
+                fixbtn2.disabled = false;
+            }
+        }
+        if (week2value === 'SchB') {
+            if (dataweek2 == SchB) {
+
+                class2.innerHTML = "衝堂"
+                class2.style.color = "red";
+                fixbtn2.disabled = true;
+            }
+            else {
+                class2.innerHTML = "空堂"
+                class2.style.color = "black";
+                fixbtn2.disabled = false;
+            }
+        }
+        if (week2value === 'SchC') {
+            if (dataweek2 == SchC) {
+                class2.innerHTML = "衝堂"
+                class2.style.color = "red";
+                fixbtn2.disabled = true;
+            }
+            else {
+                class2.innerHTML = "空堂"
+                class2.style.color = "black";
+                fixbtn2.disabled = false;
+            }
+        }
+        if (week2value === 'SchD') {
+
+            if (dataweek2 == SchD) {
+                class2.innerHTML = "衝堂"
+                class2.style.color = "red";
+                fixbtn2.disabled = true;
+            }
+            else {
+                class2.innerHTML = "空堂"
+                class2.style.color = "black";
+                fixbtn2.disabled = false;
+            }
+        }
+        if (week2value === 'SchE') {
+            if (dataweek2 == SchE) {
+                class2.innerHTML = "衝堂"
+                class2.style.color = "red";
+                fixbtn2.disabled = true;
+            }
+            else {
+                class2.innerHTML = "空堂"
+                class2.style.color = "black";
+                fixbtn2.disabled = false;
+            }
+        }
+
+    });
+
+    let week3 = document.getElementById("week3");
+    week3.addEventListener('change', function () {
+        let week3value = this.value; // 获取选中的值
+
+        if (week3value === 'SchA') {
+            if (dataweek3 == SchA) {
+
+                class3.innerHTML = "衝堂"
+                class3.style.color = "red";
+                fixbtn3.disabled = true;
+            }
+            else {
+                class3.innerHTML = "空堂"
+                class3.style.color = "black";
+                fixbtn3.disabled = false;
+            }
+        }
+        if (week3value === 'SchB') {
+            if (dataweek3 == SchB) {
+
+                class3.innerHTML = "衝堂"
+                class3.style.color = "red";
+                fixbtn3.disabled = true;
+            }
+            else {
+                class3.innerHTML = "空堂"
+                class3.style.color = "black";
+                fixbtn3.disabled = false;
+            }
+        }
+        if (week3value === 'SchC') {
+            if (dataweek3 == SchC) {
+
+                class3.innerHTML = "衝堂"
+                class3.style.color = "red";
+                fixbtn3.disabled = true;
+            }
+            else {
+                class3.innerHTML = "空堂"
+                class3.style.color = "black";
+                fixbtn3.disabled = false;
+            }
+        }
+        if (week3value === 'SchD') {
+
+            if (dataweek3 == SchD) {
+
+                class3.innerHTML = "衝堂"
+                class3.style.color = "red";
+                fixbtn3.disabled = true;
+            }
+            else {
+                class3.innerHTML = "空堂"
+                class3.style.color = "black";
+                fixbtn3.disabled = false;
+            }
+        }
+        if (week3value === 'SchE') {
+            if (dataweek3 == SchE) {
+
+                class3.innerHTML = "衝堂"
+                class3.style.color = "red";
+                fixbtn3.disabled = true;
+            }
+            else {
+                class3.innerHTML = "空堂"
+                class3.style.color = "black";
+                fixbtn3.disabled = false;
+            }
+        }
+
+    });
+
+    let week4 = document.getElementById("week4");
+    week4.addEventListener('change', function () {
+        let week4value = this.value; // 获取选中的值
+
+        if (week4value === 'SchA') {
+            if (dataweek4 == SchA) {
+
+                class4.innerHTML = "衝堂"
+                class4.style.color = "red";
+                fixbtn4.disabled = true;
+            }
+            else {
+                class4.innerHTML = "空堂"
+                class4.style.color = "black";
+                fixbtn4.disabled = false;
+            }
+        }
+        if (week4value === 'SchB') {
+            if (dataweek4 == SchB) {
+
+                class4.innerHTML = "衝堂"
+                class4.style.color = "red";
+                fixbtn4.disabled = true;
+            }
+            else {
+                class4.innerHTML = "空堂"
+                class4.style.color = "black";
+                fixbtn4.disabled = false;
+            }
+        }
+        if (week4value === 'SchC') {
+            if (dataweek4 == SchC) {
+
+                class4.innerHTML = "衝堂"
+                class4.style.color = "red";
+                fixbtn4.disabled = true;
+            }
+            else {
+                class4.innerHTML = "空堂"
+                class4.style.color = "black";
+                fixbtn4.disabled = false;
+            }
+        }
+        if (week4value === 'SchD') {
+
+            if (dataweek4 == SchD) {
+
+                class4.innerHTML = "衝堂"
+                class4.style.color = "red";
+                fixbtn4.disabled = true;
+            }
+            else {
+                class4.innerHTML = "空堂"
+                class4style.color = "black";
+                fixbtn4.disabled = false;
+            }
+        }
+        if (week4value === 'SchE') {
+            if (dataweek4 == SchE) {
+
+                class4.innerHTML = "衝堂"
+                class4.style.color = "red";
+                fixbtn3.disabled = true;
+            }
+            else {
+                class4.innerHTML = "空堂"
+                class4.style.color = "black";
+                fixbtn3.disabled = false;
+            }
+        }
+    });
+
+    let week5 = document.getElementById("week5");
+    week5.addEventListener('change', function () {
+        let week5value = this.value; // 获取选中的值
+
+        if (week5value === 'SchA') {
+            if (dataweek5 == SchA) {
+
+                class5.innerHTML = "衝堂"
+                class5.style.color = "red";
+                fixbtn5.disabled = true;
+            }
+            else {
+                class5.innerHTML = "空堂"
+                class5.style.color = "black";
+                fixbtn5.disabled = false;
+            }
+        }
+        if (week5value === 'SchB') {
+            if (dataweek5 == SchB) {
+
+                class5.innerHTML = "衝堂"
+                class5.style.color = "red";
+                fixbtn5.disabled = true;
+            }
+            else {
+                class5.innerHTML = "空堂"
+                class5.style.color = "black";
+                fixbtn5.disabled = false;
+            }
+        }
+        if (week5value === 'SchC') {
+            if (dataweek5 == SchC) {
+
+                class5.innerHTML = "衝堂"
+                class5.style.color = "red";
+                fixbtn5.disabled = true;
+            }
+            else {
+                class5.innerHTML = "空堂"
+                class5.style.color = "black";
+                fixbtn5.disabled = false;
+            }
+        }
+        if (week5value === 'SchD') {
+
+            if (dataweek5 == SchD) {
+
+                class5.innerHTML = "衝堂"
+                class5.style.color = "red";
+                fixbtn5.disabled = true;
+            }
+            else {
+                class5.innerHTML = "空堂"
+                class5.style.color = "black";
+                fixbtn5.disabled = false;
+            }
+        }
+        if (week5value === 'SchE') {
+            if (dataweek5 == SchE) {
+
+                class5.innerHTML = "衝堂"
+                class5.style.color = "red";
+                fixbtn5.disabled = true;
+            }
+            else {
+                class5.innerHTML = "空堂"
+                class5.style.color = "black";
+                fixbtn5.disabled = false;
+            }
+        }
+
+    });
+</script>
+<script>
+    fixbtn1.addEventListener("click",function(){
+
+        var week1class = week1.value;
+        var subject = document.getElementById("subject1").value;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/LectureClasses/Create", true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+        // 將selectedValue轉換為JSON格式
+        var data = {
+            Week : "星期一",
+            Time : week1class,
+            Subject : subject
+        }
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                
+                // 請求成功，執行相應的處理邏輯
+                alert("課表修改成功");
+                window.location.href = "/LectureClasses/Create";
+                var response = JSON.parse(xhr.responseText);
+
+            }
+
+        };
+        xhr.send(JSON.stringify(data));
+
+    })
+
+    fixbtn2.addEventListener("click", function () {
+
+        var week2class = week2.value;
+        var subject = document.getElementById("subject2").value;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/LectureClasses/Create", true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+        // 將selectedValue轉換為JSON格式
+        var data = {
+            Week: "星期二",
+            Time: week2class,
+            Subject: subject
+        }
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                // 請求成功，執行相應的處理邏輯
+                alert("課表修改成功");
+                var response = JSON.parse(xhr.responseText);
+
+            }
+
+        };
+        xhr.send(JSON.stringify(data));
+
+    })
+
+    fixbtn3.addEventListener("click", function () {
+
+        var week3class = week3.value;
+        var subject = document.getElementById("subject3").value;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/LectureClasses/Create", true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+        // 將selectedValue轉換為JSON格式
+        var data = {
+            Week: "星期三",
+            Time: week3class,
+            Subject: subject
+        }
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                // 請求成功，執行相應的處理邏輯
+                alert("課表修改成功");
+                var response = JSON.parse(xhr.responseText);
+
+            }
+
+        };
+        xhr.send(JSON.stringify(data));
+
+    })
+
+    fixbtn4.addEventListener("click", function () {
+
+        var week4class = week4.value;
+        var subject = document.getElementById("subject4").value;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/LectureClasses/Create", true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+        // 將selectedValue轉換為JSON格式
+        var data = {
+            Week: "星期四",
+            Time: week4class,
+            Subject: subject
+        }
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                // 請求成功，執行相應的處理邏輯
+                alert("課表修改成功");
+                var response = JSON.parse(xhr.responseText);
+
+            }
+
+        };
+        xhr.send(JSON.stringify(data));
+
+    })
+
+    fixbtn5.addEventListener("click", function () {
+
+        var week5class = week5.value;
+        var subject = document.getElementById("subject5").value;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/LectureClasses/Create", true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+        // 將selectedValue轉換為JSON格式
+        var data = {
+            Week: "星期五",
+            Time: week5class,
+            Subject: subject
+        }
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                // 請求成功，執行相應的處理邏輯
+                alert("課表修改成功");
+                var response = JSON.parse(xhr.responseText);
+
+            }
+
+        };
+        xhr.send(JSON.stringify(data));
+
+    })
+</script>

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<long_term_care.Models.CaseInfor>
+﻿@model IEnumerable<long_term_care.Models.MemberInformation>
 
 <link href="~/css/Reg.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -17,6 +17,10 @@
 
     select.town.form-control {
         margin: 0 5px;
+    }
+
+    .address{
+        display:flex;
     }
 </style>
 <body>
@@ -101,21 +105,25 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-3">
                         <label for="memtel">電話<span class="required">*</span></label>
                         <input type="tel" placeholder="&nbsp;&nbsp;" id="memtel" required>
                     </div>
-                    <div class="col-4">
+                    <div class="col-3">
                         <label for="memphone">手機<span class="required">*</span></label>
                         <input type="tel" placeholder="&nbsp;&nbsp;" id="memphone" required>
                     </div>
-                    <div class="col-4">
+                    <div class="col-6">
                         <label for="memaddress">地址<span class="required">*</span></label>
-                        <form action="">
-                            <div id="twzipcode">
+
+                        <div class="address">
+                            <div id="twzipcode" class="col-4">
                             </div>
-                            <input type="text" placeholder="&nbsp;&nbsp;地址" id="memaddress" required>
-                        </form>
+                            <div class="col-8">
+                                <input type="text" placeholder="&nbsp;&nbsp;" id="familyaddress">
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
                 <div class="row">
@@ -189,19 +197,10 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.essoduke.org/js/twzipcode/twzipcode.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
 
-    <script>
-        const memidcard = document.getElementById('memidcard');
-
-        function validateIDCard(event) {
-            
-        }
-
-        memberbtn.addEventListener('submit', validateIDCard);
-
-    </script>
     <script>
         $("#twzipcode").twzipcode({
             zipcodeIntoDistrict: true,
@@ -226,7 +225,16 @@
             var idcard = document.getElementById("memidcard").value;
             var password = document.getElementById("mempassword").value;
             var passwordcheck = document.getElementById("mempasswordcheck").value;
+
+            var citySelect = document.querySelector("#twzipcode select[name='city']");
+            var cityValue = citySelect.value;
+
+
+            var districtSelect = document.querySelector("#twzipcode select[name='town']");
+            var districtValue = districtSelect.value;
+
             var address = document.getElementById("memaddress").value;
+
             var tel = document.getElementById("memtel").value;
             var phone = document.getElementById("memphone").value;
             var listidentity = document.getElementById("memlistidentity").value;
@@ -241,8 +249,14 @@
             var icnum = document.getElementById("IC").value;
 
             var Name = lastname + firstname;
-            
+            var memadress = address + cityValue + districtValue;
+
+
             var idCardRegex = /^[A-Z]\d{9}$/;
+            var mobileRegex = /^09\d{8}$/;
+            var icRegex = /^\d{12}$/;
+            var phoneRegex = /^0\d{9}$/;
+
             if (unitname === "" || unitid === "" || id === "" || lastname === "" || firstname === "" || gender === "" || MemBD === "" || idcard === "" || password === "" || passwordcheck === "" || icnum === "") {
                 // 有必填欄位為空，彈出警示框提示使用者
                 alert("請填寫必填欄位");
@@ -258,7 +272,20 @@
                 alert("密碼與確認密碼不一致");
                 return; // Stop further execution
             }
-           
+            if (!icRegex.test(icnum)) {
+                alert("健保IC碼格式不正確");
+                return;
+            }
+
+            // 檢查手機號碼是否符合格式
+            if (!mobileRegex.test(phone)) {
+                alert("手機號碼格式不正確");
+                return;
+            }
+            if (!phoneRegex.test(tel)) {
+                alert("市話號碼格式不正確");
+                return;
+            }
                 
 
                 var xhr = new XMLHttpRequest();
@@ -278,7 +305,7 @@
                     "MemBd": MemBD,
                     "MemTphone": tel,
                     "MemMphone": phone,
-                    "MemAddress": address,
+                    "MemAddress": memadress,
                     "MemSite": serviceaddress,
                     "MemProf": expertise,
                     "MemCert": license,
