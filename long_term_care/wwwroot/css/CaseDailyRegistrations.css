@@ -1,8 +1,11 @@
 ﻿body {
-    font-family: Arial, sans-serif;
     background-color: #f7f7f7;
 }
 
+@font-face {
+    font-family: 'NotoSansHK-Regular';
+    src: url('/font/NotoSansHK-Regular.ttf') format('truetype');
+}
 .container-fluid {
     background-color: #FAFAFA;
     padding: 45px;

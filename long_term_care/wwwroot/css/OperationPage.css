@@ -1,7 +1,11 @@
 ﻿body {
-    font-family: 'Hiragino Kaku Gothic Pro', 'WenQuanYi Zen Hei', '微軟正黑體', '蘋果儷中黑', Helvetica, Arial, sans-serif;
     background-color: rgb(19,6, 3);
     position: relative;
+}
+
+@font-face {
+    font-family: 'NotoSansHK-Regular';
+    src: url('/font/NotoSansHK-Regular.ttf') format('truetype');
 }
 /*
     body::before {
@@ -17,7 +21,6 @@
     }*/
 .wrap {
     margin: 30px 30px 0 30px;
-    justify-content: space-between;
     display: flex;
     flex-wrap: wrap
 }
@@ -91,6 +94,7 @@ h4 {
     color: white;
     font-weight: 500;
     letter-spacing: 3px;
+    margin: 0 20px;
 }
 
 
@@ -138,4 +142,13 @@ h4 {
     transform: translate(3px, 3px);
     transition-duration: .3s;
     box-shadow: 2px 2px 0px rgb(140, 32, 212);
+}
+
+.firefly {
+    width: 2px;
+    height: 2px;
+    background: yellow;
+    border-radius: 50%;
+    box-shadow: 0 0 0 5px rgba(154, 205, 50, 0.4);
+    overflow: hidden;
 }
