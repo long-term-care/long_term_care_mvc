@@ -132,24 +132,14 @@ namespace long_term_care.Controllers
         // GET: CaseCareRecords/Create
         public IActionResult Create()
         {
-
+            string userName = User.Identity.Name;
+            var member = _context.MemberInformations.FirstOrDefault(x => x.MemSid == userName);
             var viewModel = new CaseCareRecord();
 
             if (TempData["CaseNo"] != null)
             {
                 viewModel.CaseNo = TempData["CaseNo"].ToString();
             }
-            /*
-            if (TempData["CaseName"] != null)
-            {
-                viewModel.CaseName = TempData["CaseName"].ToString();
-            }
-
-            if (TempData["CaseIDCard"] != null)
-            {
-                viewModel.CaseIDcard = TempData["CaseIDCard"].ToString();
-            }
-            */
 
             string nextFormNumber = "";
 
@@ -168,8 +158,7 @@ namespace long_term_care.Controllers
 
 
             ViewData["CaseQaid"] = nextFormNumber;
-            //ViewData["CaseNo"] = new SelectList(_context.CaseInfors, "CaseNo", "CaseNo");
-            ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid");
+            ViewData["MemSid"] = member.MemSid;
             return View(viewModel);
         }
 
@@ -180,6 +169,8 @@ namespace long_term_care.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CaseQaid,CaseNo,CaseTel,CaseHealth,CaseHome,CaseTime1,CaseQ1,CaseQ1Other,CaseQ2,CaseQ2Other,CaseQ3,CaseQ3Other,CaseQ4,CaseQ4Other,MemSid")] CaseCareRecord caseCareRecord)
         {
+            
+
             if (ModelState.IsValid)
             {
                 _context.Add(caseCareRecord);
@@ -187,7 +178,6 @@ namespace long_term_care.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CaseNo"] = new SelectList(_context.CaseInfors, "CaseNo", "CaseNo", caseCareRecord.CaseNo);
-            ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid", caseCareRecord.MemSid);
             return View(caseCareRecord);
         }
 

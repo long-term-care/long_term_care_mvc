@@ -7,10 +7,7 @@ namespace long_term_care.Models
 {
     public partial class CaseAct
     {
-        public CaseAct()
-        {
-            CaseActContents = new HashSet<CaseActContent>();
-        }
+     
         public string ActId { get; set; }
         public DateTime ActDate { get; set; }
         public string ActLec { get; set; }
@@ -18,6 +15,5 @@ namespace long_term_care.Models
         public string ActLoc { get; set; }
        
 
-        public virtual ICollection<CaseActContent> CaseActContents { get; set; }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using iText.Layout.Properties;
 using long_term_care.Models;
 using long_term_care.ViewModels;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -30,20 +29,20 @@ namespace long_term_care.Controllers
 
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                model = model.Where(m => m.ActCourse.Contains(searchTerm)).ToList();
+                model = model.Where(m => m.LecTheme.Contains(searchTerm)).ToList();
             }
 
             return View(model);
         }
-        public List<CaseAct> YourDataAccessMethod(string searchTerm)
+        public List<LectureTable> YourDataAccessMethod(string searchTerm)
         {
             var dbContext = new longtermcareContext(); // 替换为您自己的 DbContext
 
-            var model = dbContext.CaseActs.ToList(); // 获取所有表单数据
+            var model = dbContext.LectureTables.ToList(); // 获取所有表单数据
 
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                model = model.Where(m => m.ActCourse.Contains(searchTerm)).ToList(); // 使用关键字进行过滤
+                model = model.Where(m => m.LecTheme.Contains(searchTerm)).ToList(); // 使用关键字进行过滤
             }
 
             return model;
@@ -55,22 +54,22 @@ namespace long_term_care.Controllers
             {
                 return NotFound();
             }
-            var data = _context.CaseActs
-    .Include(t1 => t1.CaseActContents)
-        .ThenInclude(t2 => t2.CaseNoNavigation)
-    .Where(x => x.ActId == id)
-    .SelectMany(t1 => t1.CaseActContents.DefaultIfEmpty(), (t1, t2) => new CaseActsignViewModel
-    {
-        ActId = t1.ActId,
-        ActCourse = t1.ActCourse,
-        ActDate = t1.ActDate,
-        ActLec = t1.ActLec,
-        ActLoc = t1.ActLoc,
-        ActSer = t2 != null ? t2.ActSer : string.Empty,
-        CaseNo = t2 != null && t2.CaseNoNavigation != null ? t2.CaseNoNavigation.CaseNo : string.Empty,
-        CaseName = t2 != null && t2.CaseNoNavigation != null ? t2.CaseNoNavigation.CaseName : string.Empty
-    })
-    .ToList();
+            var data = _context.LectureTables
+            .Include(t1 => t1.CaseActContents)
+            .ThenInclude(t2 => t2.CaseNoNavigation)
+            .Where(x => x.LecId == id)
+            .SelectMany(t1 => t1.CaseActContents.DefaultIfEmpty(), (t1, t2) => new CaseActsignViewModel
+            {
+            ActId = t1.LecId,
+            ActCourse = t1.LecTheme,
+            ActDate = t1.LecDate,
+            ActLec = t1.LecLeader,
+            ActLoc = t1.LecPla,
+            ActSer = t2 != null ? t2.ActSer : string.Empty,
+            CaseNo = t2 != null && t2.CaseNoNavigation != null ? t2.CaseNoNavigation.CaseNo : string.Empty,
+            CaseName = t2 != null && t2.CaseNoNavigation != null ? t2.CaseNoNavigation.CaseName : string.Empty
+            })
+            .ToList();
 
             if (data == null)
             {
@@ -129,29 +128,26 @@ namespace long_term_care.Controllers
             {
                 return NotFound();
             }
-            var data = _context.CaseActs
+            var data = _context.LectureTables
             .Include(t1 => t1.CaseActContents)
             .ThenInclude(t2 => t2.CaseNoNavigation)
-            .Where(x => x.ActId == id)
+            .Where(x => x.LecId == id)
             .SelectMany(t1 => t1.CaseActContents.DefaultIfEmpty(), (t1, t2) => new CaseActsignViewModel
-             {
-             ActId = t1.ActId,
-             ActCourse = t1.ActCourse,
-             ActDate = t1.ActDate,
-             ActLec = t1.ActLec,
-             ActLoc = t1.ActLoc,
-             ActSer = t2 != null ? t2.ActSer : string.Empty,
-             CaseNo = t2 != null && t2.CaseNoNavigation != null ? t2.CaseNoNavigation.CaseNo : string.Empty,
-             CaseName = t2 != null && t2.CaseNoNavigation != null ? t2.CaseNoNavigation.CaseName : string.Empty
-    })
-    .ToList();
-
+            {
+            ActId = t1.LecId,
+            ActCourse = t1.LecTheme,
+            ActDate = t1.LecDate,
+            ActLec = t1.LecLeader,
+            ActLoc = t1.LecPla,
+            ActSer = t2 != null ? t2.ActSer : string.Empty,
+            CaseNo = t2 != null && t2.CaseNoNavigation != null ? t2.CaseNoNavigation.CaseNo : string.Empty,
+            CaseName = t2 != null && t2.CaseNoNavigation != null ? t2.CaseNoNavigation.CaseName : string.Empty
+            })
+            .ToList();
             if (data == null)
             {
                 return NotFound();
-            }
-
-            
+            }           
             ViewBag.CaseNoList = new SelectList(_context.CaseInfors, "CaseNo", "CaseNo");
             return View(data);
         }
@@ -162,7 +158,7 @@ namespace long_term_care.Controllers
             ViewBag.CaseNoList = new SelectList(_context.CaseInfors, "CaseNo", "CaseNo");
             var Actcase = new CaseActContent
             {
-                ActId = model.ActId,
+                LecId = model.ActId,
                 CaseNo = model.CaseNo,
                 ActSer = model.ActSer
             };
@@ -174,7 +170,7 @@ namespace long_term_care.Controllers
         [HttpPost]
         public IActionResult DeleteCaseNo([FromBody] CaseActsignViewModel model)
         {
-            var existingCase = _context.CaseActContents.FirstOrDefault(c => c.ActId == model.ActId && c.CaseNo == model.CaseNo);
+            var existingCase = _context.CaseActContents.FirstOrDefault(c => c.LecId == model.ActId && c.CaseNo == model.CaseNo);
 
             if (existingCase != null)
             {
@@ -189,23 +185,22 @@ namespace long_term_care.Controllers
         {
             using (var dbContext = new longtermcareContext())
             {
-                var data = dbContext.CaseActs
-                    .Include(t1 => t1.CaseActContents)
-            .ThenInclude(t2 => t2.CaseNoNavigation)
-            .Where(x => x.ActId == Id)
-            .SelectMany(t1 => t1.CaseActContents.DefaultIfEmpty(), (t1, t2) => new CaseActsignViewModel
-            {
-                ActId = t1.ActId,
-                ActCourse = t1.ActCourse,
-                ActDate = t1.ActDate,
-                ActLec = t1.ActLec,
-                ActLoc = t1.ActLoc,
+                var data = _context.LectureTables
+                .Include(t1 => t1.CaseActContents)
+                .ThenInclude(t2 => t2.CaseNoNavigation)
+                .Where(x => x.LecId == Id)
+                .SelectMany(t1 => t1.CaseActContents.DefaultIfEmpty(), (t1, t2) => new CaseActsignViewModel
+                {
+                ActId = t1.LecId,
+                ActCourse = t1.LecTheme,
+                ActDate = t1.LecDate,
+                ActLec = t1.LecLeader,
+                ActLoc = t1.LecPla,
                 ActSer = t2 != null ? t2.ActSer : string.Empty,
                 CaseNo = t2 != null && t2.CaseNoNavigation != null ? t2.CaseNoNavigation.CaseNo : string.Empty,
                 CaseName = t2 != null && t2.CaseNoNavigation != null ? t2.CaseNoNavigation.CaseName : string.Empty
-
-
-            }).ToList();
+                })
+                .ToList();
                 return data;
             }
         }

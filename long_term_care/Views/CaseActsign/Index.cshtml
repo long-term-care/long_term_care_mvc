@@ -1,4 +1,4 @@
-﻿@model IEnumerable<long_term_care.Models.CaseAct>
+﻿@model IEnumerable<long_term_care.Models.LectureTable>
 @{
     ViewData["Title"] = "Index";
     
@@ -120,11 +120,6 @@
         </div>
         <div class="signbody">
             <div class="singbodytitle">
-                <div class="add">
-                    <form method="get" action="/CaseActsign/Create">
-                        <button type="submit" class="btn btn-warning">新增表單</button>
-                    </form>         
-                </div>
                 <form method="get" action="/CaseActsign/Index">
                     <div class="singbodytitle">
                         <div class="search">
@@ -146,27 +141,27 @@
                 <div class="tool"></div>
             </div>
             
-            <form action="">
+           
                 @foreach(var item in Model)
                 {
                     <div class="content">
                         <div class="id">
-                            <p>@item.ActId</p>
+                            <p>@item.LecId</p>
                         </div>
                         <div class="name">
-                            <p>@item.ActCourse</p>
+                            <p>@item.LecTheme</p>
                         </div>
                         <div class="tool">
-                            <a asp-action="Check" asp-route-id="@item.ActId">
+                            <a asp-action="Check" asp-route-id="@item.LecId">
                                 <button type="button" class="btn btn-secondary">查詢</button>
                             </a>
-                            <a asp-action="CreateCaseNo" asp-route-id="@item.ActId">
+                            <a asp-action="CreateCaseNo" asp-route-id="@item.LecId">
                                 <button type="button" class="btn btn-secondary">編輯</button>
                             </a>
                         </div>
                     </div>
                 }
-            </form>
+
             
         </div>
         <div class="back">

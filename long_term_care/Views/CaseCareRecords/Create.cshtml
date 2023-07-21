@@ -51,137 +51,135 @@
         <button type="button" id="largeFont" class="font-size-button">大</button>
     </div>
     <br/>
+    <form asp-action="Create">
+        <table>
+            <tr>
+                <td colspan="2">
+                    基本資料
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="CaseQaid" class="control-label"></label>
+                </td>
+                <td>
+                    <input asp-for="CaseQaid" class="form-control NoBorder" type="text" value="@ViewBag.CaseQaid" readonly />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="CaseNo" class="control-label"></label>
+                </td>
+                <td>
+                    <input asp-for="CaseNo" class="form-control NoBorder" asp-items="ViewBag.CaseNo">
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="CaseTel" class="control-label"></label></td>
+                <td>
+                    <input asp-for="CaseTel" class="form-control" />
+                </td>
+            </tr>
+            <tr>
+                <td> <label asp-for="CaseHealth" class="control-label"></label></td>
+                <td>
+                    @Html.RadioButtonFor(model => model.CaseHealth, "有")有
+                    @Html.RadioButtonFor(model => model.CaseHealth, "無")無
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="CaseHome" class="control-label"></label>
+                </td>
+                <td>
+                    @Html.RadioButtonFor(model => model.CaseHome, "平房")平房
+                    @Html.RadioButtonFor(model => model.CaseHome, "二樓以上透天住家")二樓以上透天住家
+                    @Html.RadioButtonFor(model => model.CaseHome, "公寓")公寓
+                </td>
+            </tr>
+        </table>
 
-    <table>
-        <tr>
-            <td colspan="2">
-               基本資料
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label asp-for="CaseQaid" class="control-label"></label>
-            </td>
-            <td>
-                <input asp-for="CaseQaid" class="form-control NoBorder" type="text" value="@ViewBag.CaseQaid" readonly />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label asp-for="CaseNo" class="control-label"></label>
-            </td>
-            <td>
-                <input asp-for="CaseNo" class="form-control NoBorder" asp-items="ViewBag.CaseNo"></input>
-            </td>
-        </tr>
-        <tr>
-            <td><label asp-for="CaseTel" class="control-label"></label></td>
-            <td>
-                <input asp-for="CaseTel" class="form-control" />
-            </td>
-        </tr>
-        <tr>
-            <td> <label asp-for="CaseHealth" class="control-label"></label></td>
-            <td>
-                @Html.RadioButtonFor(model => model.CaseHealth, "有")有
-                @Html.RadioButtonFor(model => model.CaseHealth, "無")無
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label asp-for="CaseHome" class="control-label"></label>
-            </td>
-            <td>
-                @Html.RadioButtonFor(model => model.CaseHome, "平房")平房
-                @Html.RadioButtonFor(model => model.CaseHome, "二樓以上透天住家")二樓以上透天住家
-                @Html.RadioButtonFor(model => model.CaseHome, "公寓")公寓
-            </td>
-        </tr>
-    </table>
+        <table>
+            <tr>
+                <td colspan="2">
+                    關懷訪視
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    日期
+                </td>
+                <td>
+                    <input asp-for="CaseTime1" class="form-control" />
+                    <span asp-validation-for="CaseTime1" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    居家環境
+                </td>
+                <td>
+                    @Html.DropDownList("CaseQ1", new SelectList(new[] {"整潔乾淨", "零亂", "骯髒", "其他"}))
+                    <input type="text" name="CaseQ1Other" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    健康狀況
+                </td>
+                <td>
+                    <select name="CaseQ2">
+                        <option value="感冒症狀">感冒症狀</option>
+                        <option value="健康">健康</option>
+                        <option value="其他">其他</option>
+                    </select>
+                    <input type="text" name="CaseQ2Other" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    就醫情形
+                </td>
+                <td>
+                    <select name="CaseQ3">
+                        <option value="就診頻率">就診頻率</option>
+                        <option value="診所">診所</option>
+                        <option value="就醫原因">就醫原因</option>
+                        <option value="其他">其他</option>
+                    </select>
+                    <input type="text" name="CaseQ3Other" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    提供服務
+                </td>
+                <td>
+                    <select name="CaseQ4">
+                        <option value="陪同聊天">陪同聊天</option>
+                        <option value="量血壓">量血壓</option>
+                        <option value="整理居家環境">整理居家環境</option>
+                        <option value="其他">其他</option>
+                    </select>
+                    <input type="text" name="CaseQ4Other" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    訪視者
+                </td>
+                <td>
+                    <input type="text" class="form-control NoBorder" name="MemSid" value="@ViewBag.MemSid" readonly />
+                </td>
+            </tr>
 
-    <table>
-        <tr>
-            <td colspan="2">
-               關懷訪視
-            </td>
-        </tr>
-        <tr>
-            <td>
-                日期
-            </td>
-            <td>
-                <input asp-for="CaseTime1" class="form-control" />
-                <span asp-validation-for="CaseTime1" class="text-danger"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                居家環境
-            </td>
-            <td>
-                @Html.DropDownList("CaseQ1", new SelectList(new[] {"整潔乾淨", "零亂", "骯髒", "其他"}))
-                <input type="text" name="CaseQ1Other" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                健康狀況
-            </td>
-            <td>
-                <select name="CaseQ2">
-                    <option value="感冒症狀">感冒症狀</option>
-                    <option value="健康">健康</option>
-                    <option value="其他">其他</option>
-                </select>
-                <input type="text" name="CaseQ2Other" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                就醫情形
-            </td>
-            <td>
-                <select name="CaseQ3">
-                    <option value="就診頻率">就診頻率</option>
-                    <option value="診所">診所</option>
-                    <option value="就醫原因">就醫原因</option>
-                    <option value="其他">其他</option>
-                </select>
-                <input type="text" name="CaseQ3Other" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                提供服務
-            </td>
-            <td>
-                <select name="CaseQ4">
-                    <option value="陪同聊天">陪同聊天</option>
-                    <option value="量血壓">量血壓</option>
-                    <option value="整理居家環境">整理居家環境</option>
-                    <option value="其他">其他</option>
-                </select>
-                <input type="text" name="CaseQ4Other" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                訪視者
-            </td>
-            <td>
-                <select name="MemSid">
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
-                </select>
-            </td>
-        </tr>
-           
-    </table>
-    <br/>
-    <div class="form-group" style="text-align:center;">
-        <input type="submit" value="儲存" class="btn btn-primary" />
-    </div>
+        </table>
+        <br />
+        <div class="form-group" style="text-align:center;">
+            <input type="submit" value="儲存" class="btn btn-primary" />
+        </div>
+    </form>
+    
 
     <a asp-action="Index">返回</a>
 

@@ -150,14 +150,14 @@ namespace long_term_care.Models
 
             modelBuilder.Entity<CaseActContent>(entity =>
             {
-                entity.HasKey(e => new { e.ActId, e.CaseNo })
-                    .HasName("PK__Case_Act__5862BDFE9B8D3FC1");
+                entity.HasKey(e => new { e.LecId, e.CaseNo })
+                    .HasName("PK__Case_Act__5862BDFE97C3479D");
 
                 entity.ToTable("Case_Act_Content");
 
-                entity.Property(e => e.ActId)
+                entity.Property(e => e.LecId)
                     .HasMaxLength(8)
-                    .HasColumnName("Act_ID");
+                    .HasColumnName("Lec_ID");
 
                 entity.Property(e => e.CaseNo)
                     .HasMaxLength(8)
@@ -168,17 +168,17 @@ namespace long_term_care.Models
                     .HasMaxLength(50)
                     .HasColumnName("Act_Ser");
 
-                entity.HasOne(d => d.Act)
+                entity.HasOne(d => d.Table)
                     .WithMany(p => p.CaseActContents)
-                    .HasForeignKey(d => d.ActId)
+                    .HasForeignKey(d => d.LecId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Case_Act___Act_I__498EEC8D");
+                    .HasConstraintName("FK__Case_Act___Act_I__6C6E1476");
 
                 entity.HasOne(d => d.CaseNoNavigation)
                     .WithMany(p => p.CaseActContents)
                     .HasForeignKey(d => d.CaseNo)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Case_Act___Case___4A8310C6");
+                    .HasConstraintName("FK__Case_Act___Case___7849DB76");
             });
 
             modelBuilder.Entity<CaseCareRecord>(entity =>
