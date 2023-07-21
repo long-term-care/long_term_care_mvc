@@ -4,6 +4,10 @@
     height: 100%;
 }
 
+@font-face {
+    font-family: 'NotoSansHK-Regular';
+    src: url('/font/NotoSansHK-Regular.ttf') format('truetype');
+}
 .required {
     color: red;
 }
