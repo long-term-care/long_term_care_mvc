@@ -63,6 +63,7 @@
     .teacher {
         padding: 10px;
         display: flex;
+        align-content:center;
         border: solid 2px red;
         background-color: #FFCBBB;
         border-radius: 20px;
@@ -74,6 +75,7 @@
         border: solid 2px red;
         background-color: #FFCBBB;
         border-radius: 20px;
+        align-content: center;
     }
 
     .content {
@@ -156,16 +158,13 @@
 
             <div class="singbodytitle">
                 <div class="day">
-                    <h3>活動日期:</h3>
-                    <h4>@data.ActDate<h4>
+                    <h3>活動日期: <br /> @data.ActDate </h3>
                 </div>
                 <div class="teacher">
-                    <h2>講師姓名:</h2>
-                    <h3>@data.ActLec</h3>
+                    <h2>講師姓名: @data.ActLec </h2>
                 </div>
                 <div class="place">
-                    <h2>活動地點:</h2>
-                    <h3>@data.ActLoc</h3>
+                    <h2>活動地點: @data.ActLoc </h2>
                 </div>
             </div>
 

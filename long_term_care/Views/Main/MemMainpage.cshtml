@@ -20,24 +20,23 @@
                     <div id="navbarNav">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
-                                
-                                <a class="nav-link" href="/Main/Memprofile">個人資料</a>
+                                <a class="nav-link" asp-controller="Main" asp-action="Memprofile">個人資料</a>
                             </li>
                             @if (isAdmin)
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/Main/Roleset">權限設定</a>
+                                    <a class="nav-link" asp-controller="Main" asp-action="Roleset">權限設定</a>
                                 </li>
                             }
                             <li class="nav-item">
-                               
-                                <a class="nav-link" href="/Main/MemAdd">志工註冊</a>
+                                <a class="nav-link" asp-controller="Main" asp-action="MemAdd">志工註冊</a>
                             </li>
                             <li class="nav-item">
                                
-                                <a class="nav-link" href="/Main/ElderRegistration">長者註冊</a>
+                                <a class="nav-link" asp-controller="Main" asp-action="ElderRegistration">長者註冊</a>
                             </li>
                             <li class="nav-item">
+                                @*<a class="nav-link" asp-controller="Main" asp-action="Logout">登出</a>*@
                                 <a class="nav-link" href="#" onclick="logout()">登出</a>
                             </li>
                         </ul>

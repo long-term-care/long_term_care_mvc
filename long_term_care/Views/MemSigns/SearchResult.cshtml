@@ -57,7 +57,7 @@
                     {
                         @if (item.MemTelTime1.ToString() == date.ToString())
                         {
-                            <form action="/Memsigns/Checksign" method="post">
+                            <form action="@Url.Content("~/Memsigns/Checksign")" method="post">
                                 <div class="form-group">
                                     <input type="text" style="display:none;" name="Name" value="@item.MemSid">
                                     <input type="date" style="display:none;" name="CheckDate" value="@item.MemDate.ToString("yyyy-MM-dd")">
@@ -95,7 +95,7 @@
                     {
                         @if (item.MemTelTime2.ToString() == date.ToString())
                         {
-                            <form action="/Memsigns/Checksignout" method="post">
+                            <form action="@Url.Content("~/Memsigns/Checksignout")" method="post">
                                 <div class="form-group">
                                     <input type="text" style="display:none;" name="Name" value="@item.MemSid">
                                     <input type="date" style="display:none;" name="CheckDate" value="@item.MemDate.ToString("yyyy-MM-dd")">

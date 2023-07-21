@@ -5,6 +5,7 @@
 }
 <style>
     h1 {
+        padding: 20px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -26,6 +27,7 @@
         width: 60%;
         padding: 20px;
         background-color: #CBE9EA;
+        border-radius: 15px;
     }
 
         .maincontent p {
@@ -57,25 +59,32 @@
             margin-right: 10px;
             padding: 12px 24px;
             font-size: 1.4em;
+            border-radius: 15px;
         }
 </style>
+<div class="container">
+  <h1>活動設計表單</h1>
+</div>
 
-<h1>活動設計表單</h1>
 <hr />
 <div class="main">
     <div class="maincontent">
         <div class="content">
-            <p>表單編號: <input type="text" id="id" value="@ViewBag.LecId" readonly></p>
+            <p>
+                表單編號: <input type="text" id="id" value="@ViewBag.LecId" readonly style=" background: none;
+    border: none;
+    outline: none;">
+            </p>
         </div>
-        <div class="content">
-            <p>主題: <input type="text" id="name"></p>
+        <div class="content" style="text-indent: 2.5em;">
+            <p>  主題: <input type="text" id="name"></p>
         </div>
         <div class="content">
             <p>活動目的: <input type="text" id="aim"></p>
         </div>
         <div class="content">
             <p>
-                活動類別
+                活動類別:
                 <select id="type">
                     <option value="靜態活動">靜態活動</option>
                     <option value="動態活動">動態活動</option>
