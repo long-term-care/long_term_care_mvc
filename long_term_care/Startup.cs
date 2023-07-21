@@ -12,11 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Hosting.Internal;
-using Microsoft.Extensions.Logging;
+
 
 
 namespace long_term_care
@@ -34,6 +30,7 @@ namespace long_term_care
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
 
             services.AddDbContext<longtermcareContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("longtermcareContext")));
@@ -75,7 +72,6 @@ namespace long_term_care
                     policy.RequireRole("活動設計負責人"));
             });
 
-
         }
 
 
@@ -99,8 +95,9 @@ namespace long_term_care
             app.UseStaticFiles();
 
             app.UseRouting();
-            
 
+
+            app.UsePathBase("/LongCare");
 
             app.UseAuthentication(); //驗證
 

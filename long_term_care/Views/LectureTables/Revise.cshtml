@@ -74,17 +74,21 @@
 <div class="main">
     <div class="maincontent">
         <div class="content">
-            <p>表單編號: <input type="text" id="id" value="@Html.DisplayFor(Model =>Model.LecId)" readonly></p>
+            <p>
+                表單編號: <input type="text" id="id" value="@Html.DisplayFor(Model =>Model.LecId)" readonly style=" background: none;
+    border: none;
+    outline: none;">
+            </p>
         </div>
         <div class="content">
-            <p>主題: <input type="text" id="name" value="@Html.DisplayFor(Model =>Model.LecTheme)"></p>
+            <p style="text-indent: 2em;">主題: <input type="text" id="name" value="@Html.DisplayFor(Model =>Model.LecTheme)"></p>
         </div>
         <div class="content">
             <p>活動目的: <input type="text" id="aim" value="@Html.DisplayFor(Model =>Model.LecAim)"></p>
         </div>
         <div class="content">
             <p>
-                活動類別
+                活動類別:
                 <select id="type">
                     @if (Html.DisplayFor(model => model.LecClass).ToString() == "靜態活動")
                     {
