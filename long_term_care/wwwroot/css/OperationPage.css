@@ -139,3 +139,12 @@ h4 {
     transition-duration: .3s;
     box-shadow: 2px 2px 0px rgb(140, 32, 212);
 }
+
+.firefly {
+    width: 2px;
+    height: 2px;
+    background: yellow;
+    border-radius: 50%;
+    box-shadow: 0 0 0 5px rgba(154, 205, 50, 0.4);
+    overflow: hidden;
+}
