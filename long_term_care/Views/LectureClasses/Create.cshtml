@@ -983,9 +983,6 @@
 
         xhr.onreadystatechange = function () {
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                
-                // 請求成功，執行相應的處理邏輯
-                alert("課表修改成功");
                 window.location.href = "/LectureClasses/Create";
                 var response = JSON.parse(xhr.responseText);
 
@@ -993,6 +990,7 @@
 
         };
         xhr.send(JSON.stringify(data));
+        alert("課表修改成功");
 
     })
 
@@ -1015,14 +1013,13 @@
         xhr.onreadystatechange = function () {
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                 // 請求成功，執行相應的處理邏輯
-                alert("課表修改成功");
                 var response = JSON.parse(xhr.responseText);
 
             }
 
         };
         xhr.send(JSON.stringify(data));
-
+        alert("課表修改成功");
     })
 
     fixbtn3.addEventListener("click", function () {
@@ -1051,7 +1048,7 @@
 
         };
         xhr.send(JSON.stringify(data));
-
+        alert("課表修改成功");
     })
 
     fixbtn4.addEventListener("click", function () {
@@ -1080,7 +1077,7 @@
 
         };
         xhr.send(JSON.stringify(data));
-
+        alert("課表修改成功");
     })
 
     fixbtn5.addEventListener("click", function () {
@@ -1109,6 +1106,6 @@
 
         };
         xhr.send(JSON.stringify(data));
-
+        alert("課表修改成功");
     })
 </script>
