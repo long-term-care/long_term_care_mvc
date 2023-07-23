@@ -1,6 +1,5 @@
 ﻿body {
     background-color: rgb(19,6, 3);
-    position: relative;
 }
 
 @font-face {
@@ -80,15 +79,15 @@
 .wrap_Entry {
     text-align: center;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+    align-items: center;   
+    gap: 200px;
 }
 
-    .wrap_Entry > button {
-        margin: 55px 70px;
-    }
+.container {
+    display: grid;
+    place-items: center;
+    height: 90vh;
+}
 
 h4 {
     color: white;
