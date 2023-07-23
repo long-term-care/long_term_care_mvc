@@ -1,0 +1,147 @@
+﻿* {
+    margin: 0px;
+    cursor: default;
+}
+
+    *::selection {
+        background-color: transparent;
+    }
+@font-face {
+    font-family: 'NotoSansHK-Regular';
+    src: url('/font/NotoSansHK-Regular.ttf') format('truetype');
+}
+h1, h4 {
+    font-family: 'NotoSansHK-Regular', sans-serif;
+}
+body {
+    background-color: #2B2B36;
+}
+
+#box h4 {
+    display: flex; 
+    margin-bottom: 10px; 
+}
+
+#box input,
+#box select,
+#box textarea {
+    display: block; 
+    margin-bottom: 10px; 
+}
+
+.send {
+    display: block; 
+    margin-top: 10px; 
+}
+#box textarea {
+    resize: none;
+    writing-mode: vertical-rl;
+    overflow-y: auto;
+    line-height: 1.2;
+}
+.content {
+    margin: 0 10px;
+}
+#box {
+    padding: 10px;
+    color: #000;
+    font-weight: 500;
+    font-size: 20px;
+    text-align: center;
+    background-color: #FAFAFA;
+    opacity: 0.7;
+    width: 870px;
+    height: 750px;
+    display: block;
+    margin: 5% auto;
+    position: relative;
+    border-radius: 3%;
+}
+
+
+    #box::before, #box::after {
+        width: 800px;
+        height: 800px;
+        position: absolute;
+        top: 0%;
+        left: 0%;
+        opacity: 0.4;
+        filter: blur(40px);
+        content: "";
+        border-radius: 50%;
+    }
+
+    #box::before {
+        background-color: #355C7D;
+        animation: aGlow 7800ms ease infinite;
+        z-index: -1;
+    }
+
+    #box::after {
+        background-color: #6C5B7B;
+        animation: bGlow 7800ms ease infinite;
+        z-index: -2;
+    }
+
+
+@keyframes aGlow {
+    0% {
+        transform: translateX(50px) translateY(50px) scale(1.2);
+        opacity: 0.5;
+    }
+
+    25% {
+        transform: translateX(-50px) translateY(-50px) scale(0.8);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: translateX(50px) translateY(50px) scale(1.2);
+        opacity: 0.5;
+    }
+
+    75% {
+        transform: translateX(-50px) translateY(-50px) scale(0.8);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateX(50px) translateY(50px) scale(1.2);
+        opacity: 0.5;
+    }
+}
+
+@keyframes bGlow {
+    0% {
+        transform: translateX(-50px) translateY(-50px) scale(0.8);
+        opacity: 0.8;
+    }
+
+    25% {
+        transform: translateX(50px) translateY(50px) scale(1.2);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: translateX(-50px) translateY(-50px) scale(0.8);
+        opacity: 0.8;
+    }
+
+    75% {
+        transform: translateX(50px) translateY(50px) scale(1.2);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: translateX(-50px) translateY(-50px) scale(0.8);
+        opacity: 0.8;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    #box {
+        margin: 150px auto;
+    }
+}
+
+

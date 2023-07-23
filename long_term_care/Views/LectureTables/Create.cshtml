@@ -3,115 +3,36 @@
 @{
     ViewData["Title"] = "Create";
 }
-<style>
-    h1 {
-        padding: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
 
-    .main {
-        display: flex;
-        align-items: flex-start;
-        justify-content: center;
-        height: 100vh;
-        font-size: 1.8em;
-    }
-
-    .maincontent {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: start;
-        width: 60%;
-        padding: 20px;
-        background-color: #CBE9EA;
-        border-radius: 15px;
-    }
-
-        .maincontent p {
-            margin: 10px;
-            font-size: 1.2em;
-        }
-
-        .maincontent select,
-        .maincontent input[type="text"],
-        .maincontent input[type="date"] {
-            
-            font-size: 1em;
-        }
-        .maincontent textarea {
-            font-size: 1em;
-            resize: none;
-        }
-    .content{
-        display:flex;
-        justify-content:center;
-        align-items:center;
-    }
-    .send {
-        margin-top: 20px;
-        align-self: flex-end;
-    }
-
-        .send button {
-            margin-right: 10px;
-            padding: 12px 24px;
-            font-size: 1.4em;
-            border-radius: 15px;
-        }
-</style>
-<div class="container">
-  <h1>活動設計表單</h1>
-</div>
-
-<hr />
-<div class="main">
-    <div class="maincontent">
-        <div class="content">
-            <p>
-                表單編號: <input type="text" id="id" value="@ViewBag.LecId" readonly style=" background: none;
-    border: none;
-    outline: none;">
-            </p>
-        </div>
-        <div class="content" style="text-indent: 2.5em;">
-            <p>  主題: <input type="text" id="name"></p>
-        </div>
-        <div class="content">
-            <p>活動目的: <input type="text" id="aim"></p>
-        </div>
-        <div class="content">
-            <p>
-                活動類別:
-                <select id="type">
-                    <option value="靜態活動">靜態活動</option>
-                    <option value="動態活動">動態活動</option>
-                </select>
-            </p>
-        </div>
-        <div class="content">
-            <p>活動時間: <input type="date" id="time"><input type="time" id="eventTime" /></p>
-        </div>
-        <div class="content">
-            <p>活動帶領: <input type="text" id="leader"></p>
-        </div>
-        <div class="content">
-            <p>活動場地: <input type="text" id="place"></p>
-        </div>
-        <div class="content">
-            <p>用物預備: <textarea rows="4" cols="50" id="tool"></textarea>
-        </div>
-        <div class="content">
-            <p>步驟: <textarea rows="4" cols="50" id="step"></textarea>
-        </div>
+<link rel="stylesheet" href="~/css/act.css" asp-append-version="true" />
+<div id="box">
+    <h1 >活動設計表單</h1>
+    <div class="content">
+        <h4>
+            表單編號: <input type="text" id="id" value="@ViewBag.LecId" readonly style=" background: none;
+border: none;
+outline: none;">
+        </h4>
+        <h4>&emsp;&emsp;主題: <input type="text" id="name"></h4>
+        <h4>活動目的: <input type="text" id="aim"></h4>
+        <h4>
+            活動類別:
+            <select id="type">
+                <option value="靜態活動">靜態活動</option>
+                <option value="動態活動">動態活動</option>
+            </select>
+        </h4>
+        <h4>活動時間: <input type="date" id="time"><input type="time" id="eventTime" /></h4>
+        <h4>活動帶領: <input type="text" id="leader"></h4>
+        <h4>活動場地: <input type="text" id="place"></h4>
+        <h4>用物預備:</h4> <textarea rows="3" cols="80" id="tool"></textarea>
+        <h4>步驟: </h4><textarea rows="3" cols="80" id="step"></textarea>
         <div class="send">
             <button type="button" class="btn btn-primary" id="create">新增</button>
             <button type="button" class="btn btn-primary" id="back" onclick="location.href='@Url.Action("Index", "LectureTables")'">返回</button>
         </div>
     </div>
-</div>
+
 <script>
     var createbtn = document.getElementById("create");
     createbtn.addEventListener("click",function(){
