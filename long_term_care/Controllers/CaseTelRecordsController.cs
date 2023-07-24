@@ -283,7 +283,7 @@ namespace long_term_care.Controllers
                         {
                             CaseName = ci.CaseName,
                             CaseGender = ci.CaseGender,
-                            CaseNo = ci.CaseIdcard,
+                            CaseNo = ci.CaseNo,
                             CaseBd = ci.CaseBd,
                             CaseHealth = ci.CaseHealth,
                             CaseIdent = ci.CaseIdent,
