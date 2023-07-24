@@ -65,5 +65,6 @@ namespace long_term_care.ViewModels
         public string CaseSystolic { get; set; }
         [Display(Name = "舒張壓")]
         public string CaseDiastolic { get; set; }
+
     }
 }

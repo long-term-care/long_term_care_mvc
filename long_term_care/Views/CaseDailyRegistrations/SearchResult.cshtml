@@ -149,7 +149,7 @@
             </tr>
             <tr>
                 <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseBd)</td>
-                <td class="table-value">@caseBd</td>
+                <td class="table-value">@caseBd.Date</td>
             </tr>
             <tr>
                 <td class="table-label">@Html.DisplayNameFor(modelItem => modelItem.CaseGender)</td>
@@ -257,6 +257,7 @@
 <div class="pagination"></div>
 
 <form asp-action="ExportData" asp-controller="CaseDailyRegistrations" method="post">
+
     <label for="startDate">輸出起日:</label>
     <input type="date" id="startDate" name="startDate" required>
 

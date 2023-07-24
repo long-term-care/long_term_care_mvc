@@ -14,6 +14,14 @@
 <div class="row">
     <form asp-action="Create">
         <table class="container" style="margin: 0 auto; border-collapse: collapse; width: 100%;">
+            <tr style="display:none">
+                <td style="border: 1px solid black; padding: 5px; width: 33%;">
+                    <label asp-for="MemSid" class="control-label"></label>
+                </td>
+                <td>
+                    <input asp-for="MemSid" class="form-control NoBorder" type="text" value="@ViewBag.MemSid" readonly />
+                </td>
+            </tr>
             <tr>
                 <td style="border: 1px solid black; padding: 5px; width: 33%;">
                     <label asp-for="CaseTelQaid" class="control-label"></label>

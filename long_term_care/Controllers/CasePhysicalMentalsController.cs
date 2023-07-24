@@ -298,53 +298,40 @@ namespace long_term_care.Controllers
         }
 
         [HttpPost]
-        public IActionResult ExportLatestCasePhysicalMentals(string exportType, string CaseIDcard)
+        public async Task<IActionResult> ExportLatestCasePhysicalMentalsAsync(string exportType, string CaseIDcard)
         {
             using (var dbContext = new longtermcareContext())
             {
-                var latestRecord = dbContext.CaseInfors
-                    .Where(ci => ci.CaseIdcard == CaseIDcard)
-                    .Join(
-                        dbContext.CasePhysicalMentals,
-                        ci => ci.CaseNo,
-                        ccr => ccr.CaseNo,
-                        (ci, ccr) => new
-                        {
-                            CaseInfo = ci,
-                            CasePhysicalMental = ccr
-                        })
-                    .OrderByDescending(c => c.CasePhysicalMental.CaseQaid)
-                    .Select(c => new PhysicalSearchResultViewModel
-                    {
-                        CaseName = c.CaseInfo.CaseName,
-                        CaseBd = c.CaseInfo.CaseBd,
-                        CaseGender = c.CaseInfo.CaseGender,
-                        CaseNo = c.CaseInfo.CaseIdcard,
-                        CaseIdent = c.CaseInfo.CaseIdent,
-                        CaseLang = c.CaseInfo.CaseLang,
-                        CaseMari = c.CaseInfo.CaseMari,
-                        CaseFami = c.CaseInfo.CaseFami,
-                        CaseAddr = c.CaseInfo.CaseAddr,
-                        CaseCnta = c.CaseInfo.CaseCnta,
-                        CaseCntTel = c.CaseInfo.CaseCntTel,
-                        CaseCntRel = c.CaseInfo.CaseCntRel,
-                        CaseLive = c.CasePhysicalMental.CaseLive,
-                        CaseFre = c.CasePhysicalMental.CaseFre,
-                        CaseContent1 = c.CasePhysicalMental.CaseContent1,
-                        CaseContent2 = c.CasePhysicalMental.CaseContent2,
-                        CaseContent3 = c.CasePhysicalMental.CaseContent3,
-                        CaseContent4 = c.CasePhysicalMental.CaseContent4,
-                        CaseContent5 = c.CasePhysicalMental.CaseContent5,
-                        CaseContent6 = c.CasePhysicalMental.CaseContent6,
-                        CaseContent7 = c.CasePhysicalMental.CaseContent7,
-                        CaseContent8 = c.CasePhysicalMental.CaseContent8,
-                        CaseContent9 = c.CasePhysicalMental.CaseContent9,
-                        CaseContent10 = c.CasePhysicalMental.CaseContent10,
-                        CaseContent11 = c.CasePhysicalMental.CaseContent11,
-                        CaseContent12 = c.CasePhysicalMental.CaseContent12,
-                        CaseContent13 = c.CasePhysicalMental.CaseContent13
-                    })
-                    .FirstOrDefault();
+                var no = from cpm in _context.CasePhysicalMentals
+                         join ci in _context.CaseInfors on cpm.CaseNo equals ci.CaseNo
+                         where ci.CaseIdcard == CaseIDcard
+                         orderby cpm.CaseQaid
+                         select new PhysicalSearchResultViewModel
+                         {
+                             CaseName = ci.CaseName,
+                             CaseOld = ci.CaseBd,
+                             CaseGender = ci.CaseGender,
+                             CaseMari = ci.CaseMari,
+                             CaseEdu = ci.CaseEdu,
+                             CaseLive = cpm.CaseLive,
+                             CaseFre = cpm.CaseFre,
+                             CaseContent1 = cpm.CaseContent1,
+                             CaseContent2 = cpm.CaseContent2,
+                             CaseContent3 = cpm.CaseContent3,
+                             CaseContent4 = cpm.CaseContent4,
+                             CaseContent5 = cpm.CaseContent5,
+                             CaseContent6 = cpm.CaseContent6,
+                             CaseContent7 = cpm.CaseContent7,
+                             CaseContent8 = cpm.CaseContent8,
+                             CaseContent9 = cpm.CaseContent9,
+                             CaseContent10 = cpm.CaseContent10,
+                             CaseContent11 = cpm.CaseContent11,
+                             CaseContent12 = cpm.CaseContent12,
+                             CaseContent13 = cpm.CaseContent13,
+                             CaseQaid = cpm.CaseQaid,
+                         };
+                var latestRecord = await no.LastOrDefaultAsync();
+                
                 if (latestRecord == null)
                 {
                     return NotFound("查無此資料...");

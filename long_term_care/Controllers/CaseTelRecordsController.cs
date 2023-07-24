@@ -153,10 +153,10 @@ namespace long_term_care.Controllers
                 nextFormNumber = "0001";
             }
 
-
+            string userName = User.Identity.Name;
             ViewData["CaseTelQaid"] = nextFormNumber;
             ViewData["CaseNo"] = new SelectList(_context.CaseInfors, "CaseNo", "CaseNo");
-            ViewData["MemSid"] = new SelectList(_context.MemberInformations, "MemSid", "MemSid");
+            ViewData["MemSid"] = userName;
             return View(viewModel);
         }
 
