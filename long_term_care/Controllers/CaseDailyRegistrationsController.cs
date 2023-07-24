@@ -288,7 +288,7 @@ namespace long_term_care.Controllers
             return _context.CaseDailyRegistrations.Any(e => e.CaseContId == id);
         }
 
-        private IEnumerable<DailyResultViewModel> GetDataForDateRange(DateTime startDate, DateTime endDate)
+        private IEnumerable<DailyResultViewModel> GetDataForDateRange( DateTime startDate, DateTime endDate)
         {
             using (var dbContext = new longtermcareContext())
             {
