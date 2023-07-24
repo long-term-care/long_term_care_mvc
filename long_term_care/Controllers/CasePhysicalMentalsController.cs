@@ -473,15 +473,19 @@ namespace long_term_care.Controllers
 
 
                         iText.Layout.Element.Table table = new iText.Layout.Element.Table(15);
-                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("問題一").SetFont(font)));
-                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("其它").SetFont(font)));
-                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("問題二").SetFont(font)));
-                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("其它").SetFont(font)));
-                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("問題三").SetFont(font)));
-                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("其它").SetFont(font)));
-                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("問題四").SetFont(font)));
-                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("其它").SetFont(font)));
-                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("填寫志工").SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("居住情形").SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("來關懷站頻率").SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("精神是否較好").SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("定期檢測血壓、體溫、體重，是否對您有幫助").SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("經常參與的活動").SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("是否學到新東西").SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("是否有多結交了一些朋友").SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("心情是否改變").SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("場地規劃與設備提供是否滿意").SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("餐飲服務情形是否滿意").SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("是否喜歡到C單位巷弄長照站活動").SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("辦理的活動是否適合您").SetFont(font)));
+                        table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph("此活動之後，對您生活有什麼影響(改變)").SetFont(font)));
 
 
                         table.AddCell(new iText.Layout.Element.Cell().Add(new iText.Layout.Element.Paragraph((latestRecord.CaseLive)).SetFont(font)));
