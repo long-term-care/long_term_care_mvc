@@ -150,17 +150,12 @@ namespace long_term_care.Controllers
             {
                 viewModel.CaseNo = TempData["CaseNo"].ToString();
             }
-            /*
-            if (TempData["CaseName"] != null)
-            {
-                viewModel.CaseName = TempData["CaseName"].ToString();
-            }
+            // 获取当前日期并转换为字符串
+            string today = DateTime.Now.ToString("yyyy-MM-dd");
 
-            if (TempData["CaseIDCard"] != null)
-            {
-                viewModel.CaseIDcard = TempData["CaseIDCard"].ToString();
-            }
-            */
+            // 将变量传递给视图
+            ViewData["Today"] = today;
+
             string nextFormNumber = "";
 
             var lastForm = _context.CaseDailyRegistrations.OrderByDescending(f => f.CaseContId).FirstOrDefault();

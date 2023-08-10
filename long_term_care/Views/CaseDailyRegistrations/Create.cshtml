@@ -5,6 +5,7 @@
 }
 @{
     ViewData["Title"] = "Create";
+    var today = DateTime.Now;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -59,7 +60,9 @@
                         <div class="row tBody">
                             <div class="form-group col-3">
                                 <div class="group">
-                                    <label asp-for="Casedate" class="control-label"> <input asp-for="Casedate" class="form-control transparent-input" type="date" placeholder="YYYY/MM/DD" id="Casedate" name="Casedate" /></label>
+                                    <label asp-for="Casedate" class="control-label">
+                                        <input asp-for="Casedate" class="form-control transparent-input" type="date" value="@ViewData["Today"]" id="Casedate" name="Casedate" />
+                                    </label>
                                     <span asp-validation-for="Casedate" class="text-danger"></span>
                                 </div>
                             </div>

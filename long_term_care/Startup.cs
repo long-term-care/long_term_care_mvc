@@ -39,7 +39,7 @@ namespace long_term_care
                 .AddCookie(options =>
                 {
                     options.LoginPath = new PathString("/Main/Login");
-                    options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(600);
                     options.SlidingExpiration = true;
                     options.AccessDeniedPath = "/Main/Login";
                 });

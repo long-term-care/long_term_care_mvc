@@ -176,7 +176,7 @@
                     <p>服務項目</p>
                 </div>
                 <div>
-                     <button type="button" class="btn btn-secondary" id="caseadd" >功能</button>
+                     <button type="button" class="btn btn-secondary" >功能</button>
                 </div>
             </div>
                 <div class="content d-flex justify-content-center">
@@ -200,7 +200,7 @@
                     </div>
                 </div>
 
-                <div id="caseNoadd">
+            <div id="caseNoadd" class="d-flex justify-content-center">
                 @foreach (var item in Model)
                 {
                     @if (item.CaseNo == "")
@@ -285,7 +285,7 @@
                 if (xhr.readyState === XMLHttpRequest.DONE) { // 请求完成
                     if (xhr.status === 200) { // 请求成功
                         var newDiv = document.createElement("div");
-                        newDiv.className = "content";
+                        newDiv.className = "content d-flex justify-content-center";
 
                         var idDiv = document.createElement("div");
                         idDiv.className = "id";
